@@ -236,6 +236,7 @@ namespace Acoose.Centurial.Package.nl.A2A
             // relationships between persons
             var relationships = new RelationshipCollection();
 
+            // person 2 person relationships
             foreach (var pp in this.RelationsPP.NullCoalesce().Where(x => x.PersonKeyRef.NullCoalesce().Count() == 2))
             {
                 // find
@@ -245,7 +246,6 @@ namespace Acoose.Centurial.Package.nl.A2A
                 // relation
                 relationships.Create(person1, person2, pp.RelationType, eventDate);
             }
-
 
             // events
             foreach (var e in this.Events.NullCoalesce())

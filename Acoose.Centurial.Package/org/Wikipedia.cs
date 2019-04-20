@@ -21,7 +21,7 @@ namespace Acoose.Centurial.Package.org
             // return provenance
             yield return context.GetWebsite(() => new WikiEntry()
             {
-                Subject = HtmlAgilityPack.HtmlEntity.DeEntitize(subject)
+                Subject = subject.HtmlDecode()
             });
         }
     }

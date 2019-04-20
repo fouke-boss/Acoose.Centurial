@@ -83,12 +83,12 @@ namespace Acoose.Centurial.Package.nl.A2A
                 case "Echtgenoot":
                 case "Weduwnaar":
                 case "Zoon":
-                    person1.Gender = person1.Gender.Ensure(Gender.Male);
+                    person2.Gender = person2.Gender.Ensure(Gender.Male);
                     break;
                 case "Echtgenote":
                 case "Weduwe":
                 case "Dochter":
-                    person1.Gender = person1.Gender.Ensure(Gender.Female);
+                    person2.Gender = person2.Gender.Ensure(Gender.Female);
                     break;
             }
 
@@ -109,7 +109,7 @@ namespace Acoose.Centurial.Package.nl.A2A
                     // deceased
                     if (relationType == "Weduwe" || relationType == "Weduwnaar")
                     {
-                        person2.VitalStatus.Ensure(new Status<VitalStatus>() { Date = eventDate, Value = VitalStatus.Deceased });
+                        person1.VitalStatus = person1.VitalStatus.Ensure(new Status<VitalStatus>() { Date = eventDate, Value = VitalStatus.Deceased });
                     }
 
                     // done
@@ -117,7 +117,7 @@ namespace Acoose.Centurial.Package.nl.A2A
                 case "Kind":
                 case "Dochter":
                 case "Zoon":
-                    return this.Create(person1, person2, null, ParentChildDirection.Person2IsParentOfPerson1);
+                    return this.Create(person1, person2, null, ParentChildDirection.Person1IsParentOfPerson2);
                 default:
                     return null;
             }

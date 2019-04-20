@@ -80,7 +80,16 @@ namespace Acoose.Centurial.Package.nl.A2A
         {
             get
             {
-                return string.Format("{0} {1}", this.PersonNamePrefixLastName, this.PersonNameLastName).Trim();
+                // init
+                var parts = new string[]
+                {
+                    this.PersonNamePrefixLastName,
+                    this.PersonNamePatronym,
+                    this.PersonNameLastName
+                };
+
+                // done
+                return string.Join(" ", parts.Where(x => !string.IsNullOrWhiteSpace(x)).Select(x => x.Trim()));
             }
         }
         internal string Nickname

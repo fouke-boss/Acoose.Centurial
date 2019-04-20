@@ -103,7 +103,7 @@ namespace Acoose.Centurial.Package.nl.A2A
                 .Select(x => new Status<string>() { Date = eventDate, Value = x })
                 .ToArray();
             result.Occupation = this.Profession.ToArrayIfAny()
-                .Where(x => !x.Contains("zonder"))
+                .Where(x => !(x.Contains("beroep") && (x.Contains("zonder") || x.Contains("geen"))))
                 .Select(x => new Status<string>() { Date = eventDate, Value = x })
                 .ToArray();
             result.Religion = this.Religion?.PersonReligionLiteral.ToArrayIfAny()

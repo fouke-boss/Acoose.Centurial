@@ -54,6 +54,7 @@ namespace Acoose.Centurial.Package.org
                 .Select(x => (x.InnerText ?? "").Trim(' ', ';', ':', '.'))
                 .Where(x => !string.IsNullOrWhiteSpace(x))
                 .ToArray();
+            var catalog = string.Join("; ", catalogs);
 
             // parse citation
             var match = CITATION_PATTERN.Match(citation);
@@ -92,17 +93,41 @@ namespace Acoose.Centurial.Package.org
                 }
             };
 
-            // layer 2
-            yield return new None()
+            // layer 2: unspecified source, or can we do a bit more?
+            var pathParts = path.Split('>').Select(x => x.Trim()).ToArray();
+            if (pathParts.Length == 3 && catalog.ToLower().Contains("burgerlijke stand"))
             {
-                Items = new Genealogy.Extensibility.Data.References.Source[]
+                // layer 2: vital record
+                yield return new None()
                 {
-                    new Unspecified()
+                    Items = new Genealogy.Extensibility.Data.References.Source[]
                     {
-                        CreditLine = string.Join("; ", catalogs)
+                        new VitalRecord()
+                        {
+                            Jurisdiction = pathParts.First(),
+                            Title = new GenericTitle(){Value = "Burgerlijke stand", Literal=false },
+                            Items = new RecordScriptFormat[]
+                            {
+                                new RecordScriptFormat()
+                            }
+                        }
                     }
-                }
-            };
+                };
+            }
+            else
+            {
+                // layer 2: unspecified
+                yield return new None()
+                {
+                    Items = new Genealogy.Extensibility.Data.References.Source[]
+                    {
+                        new Unspecified()
+                        {
+                            CreditLine = string.Join("; ", catalogs)
+                        }
+                    }
+                };
+            }
         }
     }
 }
