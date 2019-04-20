@@ -111,7 +111,7 @@ namespace Acoose.Centurial.Package.nl.A2A
             }
 
             // match?
-            var match = pattern.Match(this.PersonAgeLiteral);
+            var match = pattern.Match(this.PersonAgeLiteral ?? "");
             if (match.Success)
             {
                 return int.Parse(match.Groups[1].Value);
