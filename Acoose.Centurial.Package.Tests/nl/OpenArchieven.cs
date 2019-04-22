@@ -19,9 +19,14 @@ namespace Acoose.Centurial.Package.Tests.nl
             var result = ScraperTest.ExecuteFromWeb<Package.nl.OpenArchieven>("https://www.openarch.nl/rhl:8b171211-c5d9-1775-ff70-7162ba387cb1");
         }
         [TestMethod]
-        public void DtbDopen()
+        public void DtbDopen1()
         {
             var result = ScraperTest.ExecuteFromWeb<Package.nl.OpenArchieven>("https://www.openarch.nl/gld:99736541-F428-4E04-ABEE-33EF1BA9C819");
+        }
+        [TestMethod]
+        public void DtbDopen2()
+        {
+            var result = ScraperTest.ExecuteFromWeb<Package.nl.OpenArchieven>("https://www.openarch.nl/elo:9f2781d8-a009-e740-859b-4d20f7a65040");
         }
         [TestMethod]
         public void DtbTrouwen()

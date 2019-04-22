@@ -18,6 +18,16 @@ namespace Acoose.Centurial.Package.nl
             get;
             private set;
         }
+        public Info[] Info
+        {
+            get;
+            private set;
+        }
+        public string ItemOfInterest
+        {
+            get;
+            private set;
+        }
 
         public override IEnumerable<Activity> GetActivities(Context context)
         {
@@ -25,7 +35,12 @@ namespace Acoose.Centurial.Package.nl
             var a2a = context.Html.OwnerDocument.GetElementbyId("a2a")?.InnerText;
             if (!string.IsNullOrWhiteSpace(a2a))
             {
+                // init
                 this.Akte = A2A.Akte.ParseXml(a2a);
+
+                // parse info
+                this.Info = this.Akte.GetInfo(out string itemOfInterest);
+                this.ItemOfInterest = itemOfInterest;
             }
 
             // done
@@ -35,7 +50,7 @@ namespace Acoose.Centurial.Package.nl
         protected override IEnumerable<Repository> GetProvenance(Context context)
         {
             // akte?
-            var akte = this.Akte?.ToReference();
+            var akte = this.Akte?.ToReference(ItemOfInterest);
             if (akte is Repository archive)
             {
                 // layer 1: database entry
@@ -56,14 +71,7 @@ namespace Acoose.Centurial.Package.nl
         protected override IEnumerable<Info> GetInfo(Context context)
         {
             // init
-            var results = this.Akte?.GetInfo();
-            if (results == null)
-            {
-                results = base.GetInfo(context).ToArray();
-            }
-
-            // done
-            return results;
+            return this.Info ?? base.GetInfo(context).ToArray();
         }
     }
 }

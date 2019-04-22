@@ -85,7 +85,7 @@ namespace Acoose.Centurial.Package.nl.A2A
             set;
         }
 
-        public References.Representation ToReference()
+        public References.Representation ToReference(string itemOfInterest)
         {
             // minimal requirements
             if (this.Source?.SourceReference == null)
@@ -98,7 +98,7 @@ namespace Acoose.Centurial.Package.nl.A2A
             var @ref = source.SourceReference;
 
             // get record
-            var record = this.GetRecord(@ref);
+            var record = this.GetRecord(@ref, itemOfInterest);
             if (record == null)
             {
                 return null;
@@ -139,10 +139,9 @@ namespace Acoose.Centurial.Package.nl.A2A
                 Items = archivedItems
             };
         }
-        private References.Record GetRecord(SourceReference @ref)
+        private References.Record GetRecord(SourceReference @ref, string itemOfInterest)
         {
             // init
-#warning v1.10: ItemOfInterest vullen vanuit personen
             var formats = new References.RecordScriptFormat[]
             {
                 new References.RecordScriptFormat()
@@ -150,7 +149,8 @@ namespace Acoose.Centurial.Package.nl.A2A
                     Label = @ref.Book,
                     Page = @ref.Folio,
                     Number = @ref.DocumentNumber,
-                    Date = this.Source.SourceDate?.ToData()
+                    Date = this.Source.SourceDate?.ToData(),
+                    ItemOfInterest = itemOfInterest
                 }
             };
 
@@ -219,8 +219,11 @@ namespace Acoose.Centurial.Package.nl.A2A
             }
         }
 
-        public Info[] GetInfo()
+        public Info[] GetInfo(out string itemOfInterest)
         {
+            // init
+            itemOfInterest = string.Empty;
+
             // find event date
             var eventDate = this.Events.NullCoalesce().FirstOrDefault()?.EventDate?.ToData();
 
@@ -261,8 +264,10 @@ namespace Acoose.Centurial.Package.nl.A2A
                 var actors = new RoleDictionary(dict);
 
                 // relationships
-                var subject = this.GetSubject(e.EventType);
-                if (string.IsNullOrEmpty(subject) || !actors.ContainsRole(subject))
+                var subject = this.GetSubject(e.EventType)
+                    .Where(x => actors.ContainsRole(x))
+                    .FirstOrDefault();
+                if (string.IsNullOrEmpty(subject))
                 {
                     // vader, moeder, relatie en ... subject
                     if (actors.ContainsRole("Vader") || actors.ContainsRole("Moeder"))
@@ -331,6 +336,49 @@ namespace Acoose.Centurial.Package.nl.A2A
                 actors["Moeder"].ForEach(x => x.Gender = x.Gender.Ensure(Gender.Female));
                 actors["Moeder van de bruid"].ForEach(x => x.Gender = x.Gender.Ensure(Gender.Female));
                 actors["Moeder van de bruidegom"].ForEach(x => x.Gender = x.Gender.Ensure(Gender.Female));
+
+                // item of interest
+                if (string.IsNullOrWhiteSpace(itemOfInterest))
+                {
+                    // init
+                    PersonInfo[] interests = null;
+
+                    // marriage or single person?
+                    if (partnerships.Length > 0)
+                    {
+                        // marriage
+                        interests = new PersonInfo[] { actors["Bruidegom"].First(), actors["Bruid"].First() };
+                    }
+                    else
+                    {
+                        // single person
+                        interests = actors[subject];
+                    }
+
+                    // create names
+                    var names = interests
+                        .Select(x => string.Format("{0} {1}", x.GivenNames.FirstOrDefault(), x.FamilyName.FirstOrDefault()).Trim())
+                        .ToArray();
+
+                    // length?
+                    switch (names.Length)
+                    {
+                        case 0:
+                        case 1:
+                            itemOfInterest = names.FirstOrDefault();
+                            break;
+                        case 2:
+                            itemOfInterest = string.Join(" en ", names);
+                            break;
+                        default:
+                            itemOfInterest = string.Join(" en ", new string[]
+                            {
+                                string.Join(", ", names.Take(names.Length - 1)),
+                                names.Last()
+                            });
+                            break;
+                    }
+                }
             }
 
             // done
@@ -340,20 +388,23 @@ namespace Acoose.Centurial.Package.nl.A2A
                 .Concat(relationships.ToArray())
                 .ToArray();
         }
-        private string GetSubject(string eventType)
+        private IEnumerable<string> GetSubject(string eventType)
         {
             switch (eventType.Split(':').Last())
             {
                 case "Doop":
-                    return "Dopeling";
+                    yield return "Dopeling";
+                    yield return "Kind";
+                    break;
                 case "Geboorte":
-                    return "Kind";
+                    yield return "Kind";
+                    break;
                 case "Overlijden":
-                    return "Overledene";
+                    yield return "Overledene";
+                    break;
                 case "Registratie":
-                    return "Geregistreerde";
-                default:
-                    return null;
+                    yield return "Geregistreerde";
+                    break;
             }
         }
 
