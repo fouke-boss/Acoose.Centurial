@@ -123,7 +123,7 @@ namespace Acoose.Centurial.Package.org
                     {
                         new Unspecified()
                         {
-                            CreditLine = string.Join("; ", catalogs)
+                            CreditLine = catalog
                         }
                     }
                 };
