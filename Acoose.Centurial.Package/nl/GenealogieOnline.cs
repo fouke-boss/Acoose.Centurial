@@ -22,11 +22,7 @@ namespace Acoose.Centurial.Package.nl
             var collectionUrl = new Uri(context.Url).AbsolutePath.Split(new char[] { '/' }, StringSplitOptions.RemoveEmptyEntries).FirstOrDefault();
 
             // collection name
-            var collectionName = context.Html.SelectSingleNode("//div[contains(@class, 'panel-body')]/a")?.InnerText;
-            if (string.IsNullOrWhiteSpace(collectionName))
-            {
-                collectionName = context.Html.SelectSingleNode("//p[starts-with(., 'De publicatie') and contains(., 'is samengesteld door')]//b")?.InnerText;
-            }
+            var collectionName = context.GetMetaTag("collection");
 
             // page title
             var pageTitle = context.GetPageTitle().Split('»').FirstOrDefault()?.Trim();
