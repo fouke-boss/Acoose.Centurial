@@ -54,6 +54,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="org\FamilySearch.cs" />
     <Compile Include="org\Wikipedia.cs" />
     <Compile Include="nl\GenealogieOnline.cs" />
     <Compile Include="nl\OpenArchieven.cs" />
@@ -69,10 +70,19 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="org\Wikipedia\Genealogy.html" />
+    <EmbeddedResource Include="org\Wikipedia\Fritz_Walter.txt" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="org\Wikipedia\Fritz_Walter.html" />
+    <EmbeddedResource Include="org\FamilySearch\Record1.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="org\FamilySearch\Record2.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="org\FamilySearch\Image1.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="org\FamilySearch\Image2.txt" />
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

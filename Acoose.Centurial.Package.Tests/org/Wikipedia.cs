@@ -16,7 +16,7 @@ namespace Acoose.Centurial.Package.Tests.org
         public void Genealogy()
         {
             // init
-            var result = ScraperTest.ExecuteFromEmbeddedResource<Package.org.Wikipedia>("https://en.wikipedia.org/wiki/Genealogy", "Wikipedia.Genealogy.html");
+            var result = ScraperTest.ExecuteFromWeb<Package.org.Wikipedia>("https://en.wikipedia.org/wiki/Genealogy");
 
             // assert
             Assert.AreEqual("Genealogy", result.Source.Provenance.OfType<Website>().Single().Items.Select(x => x.Item).OfType<WikiEntry>().Single().Subject);
@@ -25,7 +25,7 @@ namespace Acoose.Centurial.Package.Tests.org
         public void FritzWalter()
         {
             // init ([Bearbeiten] in header)
-            var result = ScraperTest.ExecuteFromEmbeddedResource<Package.org.Wikipedia>("https://de.wikipedia.org/wiki/Fritz_Walter", "Wikipedia.Fritz_Walter.html");
+            var result = ScraperTest.ExecuteFromEmbeddedResource<Package.org.Wikipedia>("https://de.wikipedia.org/wiki/Fritz_Walter", "Wikipedia.Fritz_Walter.txt");
 
             // assert
             Assert.AreEqual("Fritz Walter", result.Source.Provenance.OfType<Website>().Single().Items.Select(x => x.Item).OfType<WikiEntry>().Single().Subject);
