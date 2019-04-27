@@ -16,7 +16,10 @@ namespace Acoose.Centurial.Package.org
         {
             // init
             var subject = context.Html.SelectNodes("//h1[@id='firstHeading']")
-                .FirstOrDefault()?.InnerText;
+                .FirstOrDefault()
+                .ChildNodes
+                .OfType<HtmlAgilityPack.HtmlTextNode>()
+                .First().InnerText;
 
             // return provenance
             yield return context.GetWebsite(() => new WikiEntry()

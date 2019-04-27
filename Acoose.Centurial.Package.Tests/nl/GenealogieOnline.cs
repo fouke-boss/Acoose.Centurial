@@ -1,4 +1,5 @@
-﻿using Acoose.Genealogy.Extensibility.Web;
+﻿using Acoose.Genealogy.Extensibility.Data.References;
+using Acoose.Genealogy.Extensibility.Web;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
@@ -14,12 +15,33 @@ namespace Acoose.Centurial.Package.Tests.nl
         [TestMethod]
         public void CollectionPage()
         {
-            var result = ScraperTest.ExecuteFromWeb<Package.nl.GenealogieOnline>("https://www.genealogieonline.nl/genealogie-coret/");
+            this.Test("https://www.genealogieonline.nl/genealogie-coret/", "Genealogie Coret", "Genealogie Coret");
         }
         [TestMethod]
         public void PersonPage()
         {
-            var result = ScraperTest.ExecuteFromWeb<Package.nl.GenealogieOnline>("https://www.genealogieonline.nl/genealogie-coret/I002022.php");
+            this.Test("https://www.genealogieonline.nl/genealogie-coret/I002022.php", "Genealogie Coret", "Deloris Martha Ellis (????-)");
+        }
+
+        private void Test(string url, string collectionTitle, string pageTitle)
+        {
+            // init
+            var result = ScraperTest.ExecuteFromWeb<Package.nl.GenealogieOnline>(url);
+            var website = result.Source.Provenance
+                .OfType<Website>()
+                .Single();
+            var collection = website.Items
+                .Select(x => x.Item)
+                .OfType<OnlineCollection>()
+                .Single();
+            var webpage = collection.Items
+                .Select(x => x.Item)
+                .OfType<WebPage>()
+                .Single();
+
+            // assert
+            Assert.AreEqual(collectionTitle, collection.Title);
+            Assert.AreEqual(pageTitle, webpage.Title?.Value);
         }
     }
 }
