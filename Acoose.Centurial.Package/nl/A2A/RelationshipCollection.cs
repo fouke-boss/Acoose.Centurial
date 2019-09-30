@@ -20,7 +20,7 @@ namespace Acoose.Centurial.Package.nl.A2A
         public RelationshipInfo Create(PersonInfo person1, PersonInfo person2, bool? isPartnership, ParentChildDirection? isParentChild)
         {
             // init
-            var id = new long[] { person1.Id, person2.Id }
+            var id = new string[] { person1.Id, person2.Id }
                 .OrderBy(x => x)
                 .ToArray();
 

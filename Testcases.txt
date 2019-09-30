@@ -14,7 +14,12 @@ OpenArch.nl
 - VOC					https://www.openarch.nl/ghn:cd537c10-8f4f-4b8e-8a46-f88688648264
 - Gevangenis			https://www.openarch.nl/bhi:5fe2ca3e-996f-85b7-82a2-66339d1c8198
 
+GenealogieOnline.nl
+https://www.genealogieonline.nl/stamboom-baas-vanheeswijck/I60092.php
+
 FamilySearch.org
 - https://www.familysearch.org/ark:/61903/3:1:939N-MLFG-Y?i=27&wc=S36V-JWP%3A343597201%2C343257501&cc=2026214
 - https://www.familysearch.org/ark:/61903/3:1:S3HT-XXDT-DK?i=6&wc=3PM9-DP8%3A1063290601&cc=1469062
-- 
+
+Wikipedia.org
+https://en.wikipedia.org/wiki/Vincent_van_Gogh

@@ -151,7 +151,7 @@ namespace Acoose.Centurial.Package.org
             };
 
             // layer 2: unspecified
-            yield return new None()
+            yield return new UnknownRepository()
             {
                 Items = new Genealogy.Extensibility.Data.References.Source[]
                 {
@@ -217,7 +217,7 @@ namespace Acoose.Centurial.Package.org
             if (pathParts.Length == 3 && catalog.ToLower().Contains("burgerlijke stand"))
             {
                 // layer 2: vital record
-                yield return new None()
+                yield return new UnknownRepository()
                 {
                     Items = new Genealogy.Extensibility.Data.References.Source[]
                     {
@@ -236,7 +236,7 @@ namespace Acoose.Centurial.Package.org
             else
             {
                 // layer 2: unspecified
-                yield return new None()
+                yield return new UnknownRepository()
                 {
                     Items = new Genealogy.Extensibility.Data.References.Source[]
                     {

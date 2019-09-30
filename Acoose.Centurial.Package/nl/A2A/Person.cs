@@ -80,7 +80,7 @@ namespace Acoose.Centurial.Package.nl.A2A
         internal PersonInfo ToData(int id, Date eventDate)
         {
             // init
-            var result = new PersonInfo() { Id = id };
+            var result = new PersonInfo() { Id = id.ToString() };
 
             // name
             result.FamilyName = this.PersonName?.FamilyName.ToArrayIfAny();

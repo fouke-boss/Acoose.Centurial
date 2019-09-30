@@ -91,7 +91,7 @@ namespace Acoose.Centurial.Package.Tests.org
                 .OfType<DatabaseEntry>()
                 .Single();
             var unspecified = result.Source.Provenance
-                .OfType<None>()
+                .OfType<UnknownRepository>()
                 .Single().Items
                 .OfType<Unspecified>()
                 .Single();
