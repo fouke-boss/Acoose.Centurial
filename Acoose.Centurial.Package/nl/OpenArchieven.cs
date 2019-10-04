@@ -43,24 +43,79 @@ namespace Acoose.Centurial.Package.nl
                 this.ItemOfInterest = itemOfInterest;
             }
 
+            // prepare
+            var results = base.GetActivities(context).ToList();
+
+            // image present through proxy?
+            if (this.Akte?.Source?.AvailableScans is Scan[] scans)
+            {
+                // image path?
+                var imageScan = scans.FirstOrDefault(x => x.Uri.StartsWith("https://www.openarch.nl/proxy/"));
+
+                // any?
+                if (imageScan != null)
+                {
+                    // add download activity
+                    results.Add(new Activity.DownloadFileActivity(imageScan.Uri));
+                }
+            }
+
             // done
-            return base.GetActivities(context);
+            return results;
         }
 
-        protected override IEnumerable<Repository> GetProvenance(Context context)
+        public override Genealogy.Extensibility.Data.Source GetSource(Context context, Activity[] activities)
+        {
+            // init
+            var capture = activities
+                .OfType<Activity.ScreenCaptureActivity>()
+                .Single();
+            var images = activities
+                .OfType<Activity.DownloadFileActivity>()
+                .Where(x => x.Raw.NullCoalesce().Count() > 0)
+                .ToArray();
+
+            // done
+            return new Genealogy.Extensibility.Data.Source()
+            {
+                Provenance = this.GetProvenance(context, images).ToArray(),
+                Files = this.GetFiles(context, capture, images).ToArray(),
+                Info = this.GetInfo(context).ToArray()
+            };
+        }
+
+        protected IEnumerable<Repository> GetProvenance(Context context, Activity.DownloadFileActivity[] images)
         {
             // akte?
-            var akte = this.Akte?.ToReference(ItemOfInterest);
+            var akte = this.Akte?.ToReference(this.ItemOfInterest);
             if (akte is Repository archive)
             {
-                // layer 1: database entry
-                yield return context.GetWebsite(() => new DatabaseEntry()
+                // download activity OK?
+                if (images.Length > 0)
                 {
-                    EntryFor = context.GetPageTitle()
-                });
+                    // digital image of a record
 
-                // layer 2: record in archive
-                yield return archive;
+                    // layer 1: digital image
+                    yield return context.GetWebsite(() => new DigitalImage());
+
+                    // layer 2: record in archive
+                    yield return archive;
+                }
+                else
+                {
+                    // database entry of a record
+
+                    // layer 1: database entry
+                    yield return context.GetWebsite(() => new DatabaseEntry()
+                    {
+                        EntryFor = context.GetPageTitle()
+                    });
+
+                    // layer 2: record in archive
+                    yield return archive;
+                }
+
+
             }
             else
             {
@@ -72,6 +127,25 @@ namespace Acoose.Centurial.Package.nl
         {
             // init
             return this.Info ?? base.GetInfo(context).ToArray();
+        }
+        protected IEnumerable<Genealogy.Extensibility.Data.File> GetFiles(Context context, Activity.ScreenCaptureActivity capture, Activity.DownloadFileActivity[] images)
+        {
+            // download activity
+            if (images.Count() == 0)
+            {
+                // use screen capture
+                return new Genealogy.Extensibility.Data.File[]
+                {
+                    capture.ToData()
+                };
+            }
+            else
+            {
+                // use downlaoded image scan
+                return images
+                    .Select(x => x.ToData())
+                    .ToArray();
+            }
         }
     }
 }

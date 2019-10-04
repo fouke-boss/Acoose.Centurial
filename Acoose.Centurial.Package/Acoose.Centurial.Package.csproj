@@ -73,6 +73,7 @@
     <Compile Include="nl\A2A\RelationPP.cs" />
     <Compile Include="nl\A2A\RelationEP.cs" />
     <Compile Include="nl\A2A\RelationshipCollection.cs" />
+    <Compile Include="nl\A2A\Scan.cs" />
     <Compile Include="nl\A2A\SourceReference.cs" />
     <Compile Include="nl\A2A\Source.cs" />
     <Compile Include="nl\A2A\SourceType.cs" />

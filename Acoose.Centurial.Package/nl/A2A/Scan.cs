@@ -7,35 +7,28 @@ using System.Xml.Serialization;
 
 namespace Acoose.Centurial.Package.nl.A2A
 {
-    public class Source
+    public class Scan
     {
         [XmlElement]
-        public TransDate SourceDate
+        public string OrderSequenceNumber
         {
             get;
             set;
         }
         [XmlElement]
-        public DetailPlace SourcePlace
+        public string Uri
         {
             get;
             set;
         }
         [XmlElement]
-        public string SourceType
+        public string UriViewer
         {
             get;
             set;
         }
         [XmlElement]
-        public SourceReference SourceReference
-        {
-            get;
-            set;
-        }
-        [XmlArray("SourceAvailableScans")]
-        [XmlArrayItem("Scan")]
-        public Scan[] AvailableScans
+        public string UriPreview
         {
             get;
             set;
