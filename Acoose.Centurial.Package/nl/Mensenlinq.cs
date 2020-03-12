@@ -167,44 +167,5 @@ namespace Acoose.Centurial.Package.nl
         {
             return base.GetFiles(context, activities);
         }
-
-        //public override Genealogy.Extensibility.Data.Source GetSource(Context context, Activity[] activities)
-        //{
-        //    // init
-        //    var result = new Genealogy.Extensibility.Data.Source()
-        //    {
-        //        Provenance = new Repository[]
-        //        {
-        //            new Website()
-        //            {
-        //                Url = context.GetWebsiteUrl(),
-        //                Title = context.GetWebsiteTitle(),
-        //                Items = new OnlineItem[]
-        //                {
-        //                    new OnlineItem()
-        //                    {
-        //                        Url = context.Url,
-        //                        Accessed = Date.Today,
-        //                        Item = new WebPage()
-        //                        {
-        //                            Title = new GenericTitle() { Value = "Fiets: " + context.GetPageTitle() }
-        //                        }
-        //                    }
-        //                }
-        //            }
-        //        },
-        //        Files = activities
-        //            .OfType<Activity.FileActivity>()
-        //            .Select(x => x.ToData())
-        //            .ToArray()
-        //        ,
-        //        Info = new Info[]
-        //        { 
-        //        }
-        //    };
-
-        //    // done
-        //    return result;
-        // }
     }
 }
