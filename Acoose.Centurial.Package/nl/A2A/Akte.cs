@@ -286,16 +286,16 @@ namespace Acoose.Centurial.Package.nl.A2A
                 }
 
                 // event met enkel persoon
-                relationships.Create(actors[subject], actors["Moeder"], null, ParentChildDirection.Person2IsParentOfPerson1);
-                relationships.Create(actors[subject], actors["Vader"], null, ParentChildDirection.Person2IsParentOfPerson1);
+                relationships.Create(actors[subject], actors["Moeder"], null, ParentChild.Person2IsBiologicalParentOfPerson1);
+                relationships.Create(actors[subject], actors["Vader"], null, ParentChild.Person2IsBiologicalParentOfPerson1);
                 relationships.Create(actors[subject], actors["Relatie"], true, null);
 
                 // bruid en bruidegom
                 var partnerships = relationships.Create(actors["Bruid"], actors["Bruidegom"], true, null);
-                relationships.Create(actors["Vader van de bruid"], actors["Bruid"], null, ParentChildDirection.Person1IsParentOfPerson2);
-                relationships.Create(actors["Moeder van de bruid"], actors["Bruid"], null, ParentChildDirection.Person1IsParentOfPerson2);
-                relationships.Create(actors["Vader van de bruidegom"], actors["Bruidegom"], null, ParentChildDirection.Person1IsParentOfPerson2);
-                relationships.Create(actors["Moeder van de bruidegom"], actors["Bruidegom"], null, ParentChildDirection.Person1IsParentOfPerson2);
+                relationships.Create(actors["Vader van de bruid"], actors["Bruid"], null, ParentChild.Person1IsBiologicalParentOfPerson2);
+                relationships.Create(actors["Moeder van de bruid"], actors["Bruid"], null, ParentChild.Person1IsBiologicalParentOfPerson2);
+                relationships.Create(actors["Vader van de bruidegom"], actors["Bruidegom"], null, ParentChild.Person1IsBiologicalParentOfPerson2);
+                relationships.Create(actors["Moeder van de bruidegom"], actors["Bruidegom"], null, ParentChild.Person1IsBiologicalParentOfPerson2);
 
                 // specific dates
                 switch (e.EventType.Split(':').Last())

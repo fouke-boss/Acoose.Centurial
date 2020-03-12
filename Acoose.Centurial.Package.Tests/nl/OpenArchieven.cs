@@ -44,5 +44,11 @@ namespace Acoose.Centurial.Package.Tests.nl
         {
             var result = ScraperTest.ExecuteFromWeb<Package.nl.OpenArchieven>("https://www.openarch.nl/saa:3e264352-3071-c7e9-5b13-4ac7733a377a");
         }
+
+        [TestMethod]
+        public void Ondertrouw2()
+        {
+            var result = ScraperTest.ExecuteFromWeb<Package.nl.OpenArchieven>("https://www.openarch.nl/saa:ca594e08-23ec-b51b-37cb-efccbe49b0cc");
+        }
     }
 }

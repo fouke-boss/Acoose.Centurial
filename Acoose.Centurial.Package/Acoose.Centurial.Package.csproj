@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Acoose.Centurial.Package</RootNamespace>
     <AssemblyName>Acoose.Centurial.Package</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
     <TargetFrameworkProfile />
@@ -80,6 +80,7 @@
     <Compile Include="nl\A2A\TransDate.cs" />
     <Compile Include="nl\A2A\Utility.cs" />
     <Compile Include="nl\GenealogieOnline.cs" />
+    <Compile Include="nl\Mensenlinq.cs" />
     <Compile Include="nl\OpenArchieven.cs" />
     <Compile Include="net\Centurial.cs" />
     <Compile Include="org\FamilySearch.cs" />

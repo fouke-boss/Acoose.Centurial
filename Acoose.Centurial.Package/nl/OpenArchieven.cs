@@ -50,7 +50,7 @@ namespace Acoose.Centurial.Package.nl
             if (this.Akte?.Source?.AvailableScans is Scan[] scans)
             {
                 // image path?
-                var imageScan = scans.FirstOrDefault(x => x.Uri.StartsWith("https://www.openarch.nl/proxy/"));
+                var imageScan = scans.FirstOrDefault(x => !string.IsNullOrWhiteSpace(x.Uri) && x.Uri.StartsWith("https://www.openarch.nl/proxy/"));
 
                 // any?
                 if (imageScan != null)

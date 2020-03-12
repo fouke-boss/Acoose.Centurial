@@ -11,13 +11,13 @@ namespace Acoose.Centurial.Package.nl.A2A
     {
         private List<RelationshipInfo> _Items = new List<RelationshipInfo>();
 
-        public RelationshipInfo[] Create(PersonInfo[] role1, PersonInfo[] role2, bool? isPartnership, ParentChildDirection? isParentChild)
+        public RelationshipInfo[] Create(PersonInfo[] role1, PersonInfo[] role2, bool? isPartnership, ParentChild? isParentChild)
         {
             return role1
                 .SelectMany(p1 => role2.Select(p2 => this.Create(p1, p2, isPartnership, isParentChild)))
                 .ToArray();
         }
-        public RelationshipInfo Create(PersonInfo person1, PersonInfo person2, bool? isPartnership, ParentChildDirection? isParentChild)
+        public RelationshipInfo Create(PersonInfo person1, PersonInfo person2, bool? isPartnership, ParentChild? isParentChild)
         {
             // init
             var id = new string[] { person1.Id, person2.Id }
@@ -57,11 +57,11 @@ namespace Acoose.Centurial.Package.nl.A2A
                 {
                     switch (value)
                     {
-                        case ParentChildDirection.Person1IsParentOfPerson2:
-                            value = ParentChildDirection.Person2IsParentOfPerson1;
+                        case ParentChild.Person1IsBiologicalParentOfPerson2:
+                            value = ParentChild.Person2IsBiologicalParentOfPerson1;
                             break;
-                        case ParentChildDirection.Person2IsParentOfPerson1:
-                            value = ParentChildDirection.Person1IsParentOfPerson2;
+                        case ParentChild.Person2IsBiologicalParentOfPerson1:
+                            value = ParentChild.Person1IsBiologicalParentOfPerson2;
                             break;
                         default:
                             throw new NotSupportedException();
@@ -117,7 +117,7 @@ namespace Acoose.Centurial.Package.nl.A2A
                 case "Kind":
                 case "Dochter":
                 case "Zoon":
-                    return this.Create(person1, person2, null, ParentChildDirection.Person1IsParentOfPerson2);
+                    return this.Create(person1, person2, null, ParentChild.Person1IsBiologicalParentOfPerson2);
                 default:
                     return null;
             }
