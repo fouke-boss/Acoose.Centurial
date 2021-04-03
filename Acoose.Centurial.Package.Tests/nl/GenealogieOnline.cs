@@ -20,7 +20,7 @@ namespace Acoose.Centurial.Package.Tests.nl
         [TestMethod]
         public void PersonPage()
         {
-            this.Test("https://www.genealogieonline.nl/genealogie-coret/I002022.php", "Genealogie Coret", "Deloris Martha Ellis (????-)");
+            this.Test("https://www.genealogieonline.nl/genealogie-coret/I002022.php", "Genealogie Coret", "Deloris Martha Ellis");
         }
 
         private void Test(string url, string collectionTitle, string pageTitle)

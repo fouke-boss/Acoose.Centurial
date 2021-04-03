@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Acoose.Centurial.Package.nl.A2A
+namespace Acoose.Centurial.Package
 {
-    internal static class Utility
+    public static class Utility
     {
         public static IEnumerable<T> NullCoalesce<T>(this IEnumerable<T> values)
         {
@@ -27,39 +27,39 @@ namespace Acoose.Centurial.Package.nl.A2A
         {
             return (value == null ? null : new T[] { value.Value });
         }
-        public static void Import<T>(this T[] info, Event @event, Func<T, InfoEvent> getter, Action<T, InfoEvent> setter)
-            where T : Info
+        public static void ImportEvent<T>(this T info, string eventType, Date date, string place)
+            where T : InfoWithEvents
+        {
+            // init
+            var dates = date.ToArrayIfAny();
+            var places = place.ToArrayIfAny();
+
+            // any?
+            if (dates.Any() || places.Any())
+            {
+                // yes, create
+                var result = new EventInfo()
+                {
+                    Type = eventType,
+                    Date = dates,
+                    Place = places
+                };
+
+                // add
+                info.Events = info.Events.NullCoalesce()
+                    .Append(result)
+                    .ToArray();
+            }
+        }
+        internal static void ImportEvent<T>(this T[] info, string eventType, nl.A2A.Event @event)
+            where T : InfoWithEvents
         {
             // init
             foreach (var data in info)
             {
-                // init
-                var result = getter(data) ?? new InfoEvent();
-
-                // date
-                if (@event.EventDate?.ToData() is Date date)
-                {
-                    // init
-                    if (!result.Date.NullCoalesce().Contains(date))
-                    {
-                        result.Date = result.Date.Ensure(date);
-                    }
-                }
-
-                // place
-                if (@event.EventPlace?.ToString() is string place && !string.IsNullOrWhiteSpace(place))
-                {
-                    // init
-                    if (!result.Place.NullCoalesce().Contains(place))
-                    {
-                        result.Place = result.Place.Ensure(place);
-                    }
-                }
-
-                // done
-                setter(data, result);
+                // import
+                data.ImportEvent(eventType, @event.EventDate?.ToData(), @event.EventPlace?.ToString());
             }
-
         }
         public static T[] Ensure<T>(this IEnumerable<T> items, T value)
         {

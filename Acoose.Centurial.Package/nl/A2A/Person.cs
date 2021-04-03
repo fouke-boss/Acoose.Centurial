@@ -89,11 +89,7 @@ namespace Acoose.Centurial.Package.nl.A2A
             result.Gender = this.ConvertGender().ToArray();
 
             // birth
-            result.Birth = new InfoEvent()
-            {
-                Date = this.BirthDate?.ToData().ToArrayIfAny(),
-                Place = this.BirthPlace?.ToString().ToArrayIfAny()
-            };
+            result.ImportEvent("Birth", this.BirthDate?.ToData(), this.BirthPlace?.ToString());
 
             // statuses
             result.Age = this.Age?.ToData().ToArrayIfAny()

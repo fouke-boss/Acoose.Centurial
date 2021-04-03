@@ -25,13 +25,14 @@ namespace Acoose.Centurial.Package.Tests.nl
 
             // persoon ophalen
             var persoon = result.Source.Info.Single() as PersonInfo;
-            Assert.IsTrue(persoon.Birth != null);
-            Assert.IsTrue(persoon.Birth.Date.Length == 1);
-            Assert.IsTrue(persoon.Birth.Date.Single().ToDateString() == "1991-03-05");
-            Assert.IsTrue(persoon.Birth.Place.Single() == "Wirdum");
-            Assert.IsTrue(persoon.Death != null);
-            Assert.IsTrue(persoon.Death.Date.Length == 1);
-            Assert.IsTrue(persoon.Death.Date.Single().ToDateString() == "2011-01-13");
+            var birth = persoon.Events.SingleOrDefault(x => x.Type == "Birth");
+            var death = persoon.Events.SingleOrDefault(x => x.Type == "Death");
+            Assert.IsTrue(birth != null);
+            Assert.IsTrue(birth.Date.Length == 1);
+            Assert.IsTrue(birth.Date.Single().ToDateString() == "1991-03-05");
+            Assert.IsTrue(death != null);
+            Assert.IsTrue(death.Date.Length == 1);
+            Assert.IsTrue(death.Date.Single().ToDateString() == "2011-01-13");
         }
         [TestMethod]
         public void HennieCoenenFijen()
@@ -45,13 +46,15 @@ namespace Acoose.Centurial.Package.Tests.nl
 
             // persoon ophalen
             var persoon = result.Source.Info.Single() as PersonInfo;
-            Assert.IsTrue(persoon.Birth != null);
-            Assert.IsTrue(persoon.Birth.Date.Length == 1);
-            Assert.IsTrue(persoon.Birth.Date.Single().ToDateString() == "1923-08-01");
-            Assert.IsTrue(persoon.Birth.Place.Single() == "Amsterdam");
-            Assert.IsTrue(persoon.Death != null);
-            Assert.IsTrue(persoon.Death.Date.Length == 1);
-            Assert.IsTrue(persoon.Death.Date.Single().ToDateString() == "2020-02-21");
+            var birth = persoon.Events.SingleOrDefault(x => x.Type == "Birth");
+            var death = persoon.Events.SingleOrDefault(x => x.Type == "Death");
+            Assert.IsTrue(birth != null);
+            Assert.IsTrue(birth.Date.Length == 1);
+            Assert.IsTrue(birth.Date.Single().ToDateString() == "1923-08-01");
+            Assert.IsTrue(birth.Place.Single() == "Amsterdam");
+            Assert.IsTrue(death != null);
+            Assert.IsTrue(death.Date.Length == 1);
+            Assert.IsTrue(death.Date.Single().ToDateString() == "2020-02-21");
         }
     }
 }

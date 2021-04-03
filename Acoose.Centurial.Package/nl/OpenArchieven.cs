@@ -114,8 +114,6 @@ namespace Acoose.Centurial.Package.nl
                     // layer 2: record in archive
                     yield return archive;
                 }
-
-
             }
             else
             {

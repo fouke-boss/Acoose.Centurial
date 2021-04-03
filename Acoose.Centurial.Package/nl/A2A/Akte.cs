@@ -301,23 +301,23 @@ namespace Acoose.Centurial.Package.nl.A2A
                 switch (e.EventType.Split(':').Last())
                 {
                     case "Doop":
-                        actors[subject].Import(e, x => x.Baptism, (x, y) => x.Baptism = y);
+                        actors[subject].ImportEvent("Baptism", e);
                         break;
                     case "Geboorte":
-                        actors[subject].Import(e, x => x.Birth, (x, y) => x.Birth = y);
+                        actors[subject].ImportEvent("Birth", e);
                         break;
                     case "Huwelijk":
                     case "Trouwen":
-                        partnerships.Import(e, x => x.Marriage, (x, y) => x.Marriage = y);
+                        partnerships.ImportEvent("Marriage", e);
                         break;
                     case "Ondertrouw":
-                        partnerships.Import(e, x => x.MarriageBanns, (x, y) => x.MarriageBanns = y);
+                        partnerships.ImportEvent("Ondertrouw", e);
                         break;
                     case "Echtscheiding":
-                        partnerships.Import(e, x => x.Divorce, (x, y) => x.Divorce = y);
+                        partnerships.ImportEvent("Divorce", e);
                         break;
                     case "Overlijden":
-                        actors[subject].Import(e, x => x.Death, (x, y) => x.Death = y);
+                        actors[subject].ImportEvent("Death", e);
                         break;
                     case "Registratie":
                         if (!string.IsNullOrEmpty(eventPlace))

@@ -125,7 +125,7 @@ namespace Acoose.Centurial.Package.nl
                 .Cast<JObject>()
                 .SelectMany(x => x.Properties())
                 .ToList();
-            var title = context.GetMetaTag("og:title");
+            var title = context.Html.SelectNodes("//head/title").NullCoalesce().Select(x => x.InnerText).FirstNonEmpty().HtmlDecode();
 
             // values
             var name = script.FirstOrDefault(x => x.Name == "name")?.Value?.ToString()?.Trim();
@@ -137,31 +137,19 @@ namespace Acoose.Centurial.Package.nl
             Acoose.Genealogy.Extensibility.ParsingUtility.ParseName(name, out string lastName, out string givenNames, out string particles);
             var familyName = string.Join(" ", new string[] { particles, lastName }.Where(x => !string.IsNullOrWhiteSpace(x)));
 
-            // geboren
-            var birth = new InfoEvent();
-            if (Date.TryParse(birthDate) is Date bdate)
-            {
-                birth.Date = new Date[] { bdate };
-            }
-            if (!string.IsNullOrWhiteSpace(birthPlace))
-            {
-                birth.Place = new string[] { birthPlace };
-            }
-            // overlijden
-            var death = new InfoEvent();
-            if (Date.TryParse(deathDate) is Date ddate)
-            {
-                death.Date = new Date[] { ddate };
-            }
-
-            // done
-            yield return new PersonInfo()
+            // init
+            var result = new PersonInfo()
             {
                 FamilyName = new string[] { familyName },
                 GivenNames = new string[] { givenNames },
-                Birth = birth,
-                Death = death,
             };
+
+            // events
+            result.ImportEvent("Birth", Date.TryParse(birthDate), birthPlace);
+            result.ImportEvent("Death", Date.TryParse(deathDate), null);
+
+            // done
+            yield return result;
         }
         protected override IEnumerable<Genealogy.Extensibility.Data.File> GetFiles(Context context, Activity[] activities)
         {
