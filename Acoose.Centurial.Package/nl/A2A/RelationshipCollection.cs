@@ -109,7 +109,7 @@ namespace Acoose.Centurial.Package.nl.A2A
                     // deceased
                     if (relationType == "Weduwe" || relationType == "Weduwnaar")
                     {
-                        person1.VitalStatus = person1.VitalStatus.Ensure(new Status<VitalStatus>() { Date = eventDate, Value = VitalStatus.Deceased });
+                        person1.Status = person1.Status.Ensure(new Status<PersonStatus>() { Date = eventDate, Value = PersonStatus.Deceased });
                     }
 
                     // done

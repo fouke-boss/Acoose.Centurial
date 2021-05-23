@@ -37,18 +37,48 @@ namespace Acoose.Centurial.Package
             // any?
             if (dates.Any() || places.Any())
             {
-                // yes, create
-                var result = new EventInfo()
+                // init
+                var result = default(EventInfo);
+
+                // recurrence
+                switch (eventType)
                 {
-                    Type = eventType,
-                    Date = dates,
-                    Place = places
-                };
+                    case "Birth":
+                    case "Death":
+                    case "Cremation":
+                        result = info.Events.NullCoalesce()
+                            .Where(e => e.Type == eventType)
+                            .SingleOrDefault();
+                        break;
+                    default:
+                        result = info.Events.NullCoalesce()
+                            .Where(e => e.Type == eventType)
+                            .Where(e => (dates.Any() ? e.Date.Any(x => dates.Contains(x)) : true))
+                            .Where(e => (places.Any() ? e.Place.Any(x => places.Contains(x)) : true))
+                            .SingleOrDefault();
+                        break;
+                }
+
+                // create?
+                if (result == null)
+                {
+                    // create
+                    result = new EventInfo()
+                    {
+                        Type = eventType,
+                        Date = dates,
+                        Place = places
+                    };
+
+                    // add
+                    info.Events = info.Events.NullCoalesce()
+                        .Append(result)
+                        .ToArray();
+                }
 
                 // add
-                info.Events = info.Events.NullCoalesce()
-                    .Append(result)
-                    .ToArray();
+                result.Date.Ensure(dates);
+                result.Place.Ensure(places);
             }
         }
         internal static void ImportEvent<T>(this T[] info, string eventType, nl.A2A.Event @event)
@@ -61,20 +91,27 @@ namespace Acoose.Centurial.Package
                 data.ImportEvent(eventType, @event.EventDate?.ToData(), @event.EventPlace?.ToString());
             }
         }
-        public static T[] Ensure<T>(this IEnumerable<T> items, T value)
+        public static T[] Ensure<T>(this IEnumerable<T> items, IEnumerable<T> values)
         {
             // init
             var results = items.NullCoalesce()
                 .ToList();
 
             // add
-            if (!results.Contains(value))
+            foreach (var value in values)
             {
-                results.Add(value);
+                if (!results.Contains(value))
+                {
+                    results.Add(value);
+                }
             }
 
             // done
             return results.ToArray();
+        }
+        public static T[] Ensure<T>(this IEnumerable<T> items, T value)
+        {
+            return items.Ensure(new T[] { value });
         }
     }
 }

@@ -308,7 +308,7 @@ namespace Acoose.Centurial.Package.nl.A2A
                         break;
                     case "Huwelijk":
                     case "Trouwen":
-                        partnerships.ImportEvent("Marriage", e);
+                        partnerships.ImportEvent("CivilMarriage", e);
                         break;
                     case "Ondertrouw":
                         partnerships.ImportEvent("Ondertrouw", e);
