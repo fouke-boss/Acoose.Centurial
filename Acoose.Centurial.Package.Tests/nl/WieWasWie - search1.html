@@ -1,0 +1,996 @@
+<html lang="en">
+<head>
+    <style type="text/css">
+        @charset "UTF-8";
+
+        [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak, .ng-hide:not(.ng-hide-animate) {
+            display: none !important;
+        }
+
+        ng\:form {
+            display: block;
+        }
+
+        .ng-animate-shim {
+            visibility: hidden;
+        }
+
+        .ng-anchor {
+            position: absolute;
+        }
+    </style>
+    <meta charset="utf-8" />
+    <meta content="IE=edge" http-equiv="X-UA-Compatible" />
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+
+    <title> </title>
+    <base href="https://www.wiewaswie.nl/" />
+    <meta name="author" content="" />
+    <meta name="copyright" content="" />
+    <meta name="description" content="" />
+    <meta name="keywords" content="System.String[]" />
+    <meta name="robots" content="" />
+
+    <link href="/highresIcon.png" rel="icon" sizes="192x192" />
+    <link href="/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+
+    <link href="/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="/css/perfect-scrollbar.min.css" rel="stylesheet" />
+    <link href="/css/style.min.css" rel="stylesheet" />
+    <link href="/css/cbg.css?v2" rel="stylesheet" />
+
+
+
+
+
+    <script async="" src="https://www.google-analytics.com/analytics.js"></script>
+    <script>
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date(); a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+        ga('create', 'UA-24952765-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+
+    <script>
+        window.addEventListener("message", function (e) {
+            //console.log("Received message: ", e);
+            if (e.origin === 'https://account.cbg.nl') {
+                //console.log('message: ', e.data);
+                if (e.data.jwtToken !== null && e.data.payload !== undefined) {
+                    //console.log('cognitousername: ', e.data.payload['cognito:username']);
+                    //console.log('user: ', e.data);
+                    //console.log(SHA1.hex(e.data.jwtToken));
+                    //console.log(document.getElementById('accesstokenhash').value);
+                    // user is logged on via SSO but either not on wiewaswie (accesslevel == 0) or he is but the subscription level has changed so we need to update:
+                    if (document.getElementById("accesslevel").value != e.data.payload['wiewaswie.nl'] || document.getElementById("sub").value != e.data.payload['sub']) {
+                        document.location = 'https://account.cbg.nl/authorize?client_id=2qosgmhhvkfhbrhb4pg42kkmr3&lang=nl&redirect_uri=https://www.wiewaswie.nl/sso&response_type=code&scope=email%20profile%20openid&state=/nl/zoeken/?q=Adriaantje%20Schuurman';
+                    }
+                } else {
+                    //console.log('Niet meer ingelogd via Oauth');
+                    if (document.getElementById("accesslevel").value != "0") {
+                        document.location = '/sso?logout==localonly&redirect_uri=/nl/zoeken/?q=Adriaantje%20Schuurman';
+                    }
+                }
+            }
+        }, false);
+        document.addEventListener("visibilitychange", function () {
+            if (document.hidden) {
+                //console.log("Browser tab is hidden");
+                //                document.querySelector('body').dataset.accessLevel = 0;
+            } else {
+                //console.log("Browser tab is visible");
+                document.getElementById('frame').src += '';
+            }
+        });
+    </script>
+</head>
+<body data-culture="nl-NL" data-new-gr-c-s-check-loaded="14.1026.0" data-gr-ext-installed="" data-new-gr-c-s-loaded="14.1026.0">
+
+
+    <header>
+        <button class="btn btn-black mobile-menu">Menu</button>
+        <div class="pulldown" style="display:none;">
+            <a href="https://cbg.nl" class="a a-gold" target="_blank">CBG.nl</a>
+            <a href="https://cbgbibliotheek.nl" class="a a-orange" target="_blank">Bibliotheek</a>
+            <a href="https://cbgverzamelingen.nl" class="a a-purple" target="_blank">Verzamelingen</a>
+            <a href="https://cbgfamilienamen.nl" class="a a-red" target="_blank">Familienamen</a>
+            <a href="https://cbgfamiliewapens.nl" class="a a-blue" target="_blank">Familiewapens</a>
+            <a href="https://stamboomnederland.nl" class="a a-green" target="_blank">Stambomen</a>
+        </div>
+        <button class="btn pulldown-toggle">CBG bronnen</button>
+        <div class="navbar">
+            <div class="container">
+                <div class="navbar-header" style="float:left">
+                    <div class="navbar-brand">
+                        <a href="/">
+                            <img src="/img/logo.png" />
+                            <span class="navbar-slogan">
+                                <b>
+                                    Iedereen
+                                </b> heeft een geschiedenis
+                            </span>
+                        </a>
+                    </div>
+                </div>
+                <div class="navbar-mijncbg navbar-right">
+                    <ul class="nav navbar-nav navbar-top">
+                        <li>
+                            <a class="btn btn-corporate btn-logged-out" href="https://oauth.cbg.nl/oauth2/authorize?response_type=code&amp;scope=email+profile+openid&amp;redirect_uri=https://www.wiewaswie.nl/sso&amp;client_id=5640lkja0fbr39q5g3lj9q39lq&amp;lang=nl&amp;state=/nl/zoeken/?q=Adriaantje%20Schuurman">
+                                <span class="logged-out">Mijn CBG</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="navbar-collapse navbar-right collapse">
+                    <ul class="nav navbar-nav navbar-top">
+                        <li class="language">
+                            <a href="/nl/" class="active">NL</a>
+                            <a href="/en/" class="">EN</a>
+                        </li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-bottom">
+                        <li><a href="/nl/zoeken/" target="_self">Zoeken</a></li>
+                        <li><a href="/nl/bronnen/" target="_self">Bronnen</a></li>
+                        <li><a href="/nl/nieuws/" target="_self">Nieuws</a></li>
+                        <li><a href="/nl/help/" target="_self">Hulp nodig?</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="navbar-mobile">
+        <ul class="nav">
+            <li><a href="/nl/zoeken/" target="_self">Zoeken</a></li>
+            <li><a href="/nl/bronnen/" target="_self">Bronnen</a></li>
+            <li><a href="/nl/nieuws/" target="_self">Nieuws</a></li>
+            <li><a href="/nl/help/" target="_self">Hulp nodig?</a></li>
+        </ul>
+
+        <ul class="nav nav-white">
+            <li class="language">
+                <a href="/nl/" class="active">NL</a>
+                <a href="/en/" class="">EN</a>
+            </li>
+        </ul>
+
+        <ul class="nav nav-inline">
+            <li><a href="https://cbg.nl" class="a a-gold" target="_blank">CBG.nl</a></li>
+            <li><a href="https://cbgbibliotheek.nl" class="a a-orange" target="_blank">Bibliotheek</a></li>
+            <li><a href="https://cbgverzamelingen.nl" class="a a-purple" target="_blank">Verzamelingen</a></li>
+            <li><a href="https://cbgfamilienamen.nl" class="a a-red" target="_blank">Familienamen</a></li>
+            <li><a href="https://cbgfamiliewapens.nl" class="a a-blue" target="_blank">Familiewapens</a></li>
+            <li><a href="https://stamboomnederland.nl" class="a a-green" target="_blank">Stambomen</a></li>
+        </ul>
+    </div>
+
+
+    <div class="container search-themepage">
+        <div class="ng-scope" ng-app="WieWasWieApp" ng-controller="SearchViewModel as vm" ng-show="vm.AdvancedSearchSelectValues != null">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="flex-inline">
+                        <h2 id="page-title">Zoeken</h2>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row search-condensed" ng-show="vm.GetSearchResultsParameters.IsAdvancedSearch == false">
+                <div class="col-md-12">
+                    <!-- ngIf: vm.IsSearching == true -->
+                    <div class="col col-cyan flex-inline">
+                        <div class="input-group">
+                            <input type="text" class="form-control ng-pristine ng-untouched ng-valid ng-not-empty" placeholder="Zoek een naam..." ng-model="vm.GetSearchResultsParameters.SearchTerm" ng-keyup="$event.keyCode == 13 &amp;&amp; vm.DoSimpleSearch()" />
+                            <span class="input-group-btn">
+                                <button class="btn btn-black" type="submit" ng-click="vm.DoSimpleSearch()">Zoek <span class="glyphicon glyphicon-search"></span></button>
+                            </span>
+                        </div>
+                        <button class="btn btn-white search-toggle" type="submit" ng-click="vm.GetSearchResultsParameters.IsAdvancedSearch = true; vm.UpdateUrlSearchType()">Uitgebreid zoeken</button>
+                    </div>
+                </div>
+            </div>
+            <div class="row search-advanced ng-hide" ng-show="vm.GetSearchResultsParameters.IsAdvancedSearch == true">
+                <div class="col-md-8">
+                    <!-- ngIf: vm.IsSearching == true -->
+                    <div class="col col-cyan">
+                        <button class="btn btn-white search-toggle" type="submit" ng-click="vm.GetSearchResultsParameters.IsAdvancedSearch = false; vm.UpdateUrlSearchType()">Eenvoudig zoeken</button>
+
+                        <div class="col-md-6">
+                            <h3>Persoon 1</h3>
+                            <div class="refiner">
+                                <input type="text" class="form-control ng-pristine ng-untouched ng-valid ng-empty" placeholder="Achternaam" ng-model="vm.GetSearchResultsParameters.PersonA.Achternaam" ng-keyup="$event.keyCode == 13 &amp;&amp; vm.DoAdvancedSearch()" />
+                            </div>
+                            <div class="refiner withcheckbox">
+                                <input type="text" class="form-control ng-pristine ng-untouched ng-valid ng-empty" placeholder="Tussenvoegsel" ng-model="vm.GetSearchResultsParameters.PersonA.Tussenvoegsel" ng-keyup="$event.keyCode == 13 &amp;&amp; vm.DoAdvancedSearch()" ng-disabled="vm.GetSearchResultsParameters.PersonA.WithoutTussenvoegsel" />
+                                <input type="checkbox" id="1-zondertussenvoegsel" name="1-zondertussenvoegsel" ng-model="vm.GetSearchResultsParameters.PersonA.WithoutTussenvoegsel" ng-change="vm.GetSearchResultsParameters.PersonA.Tussenvoegsel = ''" class="ng-pristine ng-untouched ng-valid ng-empty" /><label for="1-zondertussenvoegsel" class="overlay-checkbox overlay-left zonder-tussenvoegsel-checkbox"></label>
+                            </div>
+                            <div class="refiner">
+                                <input type="text" class="form-control ng-pristine ng-untouched ng-valid ng-empty" placeholder="Voornaam" ng-model="vm.GetSearchResultsParameters.PersonA.Voornaam" ng-keyup="$event.keyCode == 13 &amp;&amp; vm.DoAdvancedSearch()" />
+                            </div>
+                            <div class="refiner">
+                                <input type="text" class="form-control ng-pristine ng-untouched ng-valid ng-empty" placeholder="Patroniem" ng-model="vm.GetSearchResultsParameters.PersonA.Patroniem" ng-keyup="$event.keyCode == 13 &amp;&amp; vm.DoAdvancedSearch()" />
+                            </div>
+                            <div class="refiner">
+                                <input type="text" class="form-control ng-pristine ng-untouched ng-valid ng-empty" placeholder="Beroep" ng-model="vm.GetSearchResultsParameters.PersonA.Beroep" ng-keyup="$event.keyCode == 13 &amp;&amp; vm.DoAdvancedSearch()" />
+                            </div>
+                            <div class="selector" select-list-directive="">
+                                <div class="input-group">
+                                    <input type="text" class="form-control-hidden ng-pristine ng-untouched ng-valid ng-empty" ng-model="vm.GetSearchResultsParameters.PersonA.Rol" />
+                                    <input type="text" class="form-control" placeholder="Rol" readonly="" ng-value="vm.GetDictionaryItem('WieWasWieSearchApi.Roles.' + vm.NormalizeName(vm.GetSearchResultsParameters.PersonA.Rol))" />
+
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-black" type="button"><span class="glyphicon glyphicon-chevron-down"></span></button>
+                                    </span>
+                                    <div class="selector-options" style="display: none;">
+                                        <ul>
+                                            <li data-value="">Alle rollen</li>
+                                            <li class="divider"></li>
+                                            <li data-value="Bruid">Bruid</li>
+                                            <li data-value="Bruidegom">Bruidegom</li>
+                                            <li data-value="Geregistreerde">Geregistreerde</li>
+                                            <li data-value="Getuige">Getuige</li>
+                                            <li data-value="Kind">Kind</li>
+                                            <li data-value="Moeder">Moeder</li>
+                                            <li data-value="Moeder van de bruid">Moeder van de bruid</li>
+                                            <li data-value="Moeder van de bruidegom">Moeder van de bruidegom</li>
+                                            <li data-value="Overledene">Overledene</li>
+                                            <li data-value="Partner">Partner</li>
+                                            <li data-value="Relatie">Relatie</li>
+                                            <li data-value="Vader">Vader</li>
+                                            <li data-value="Vader van de bruid">Vader van de bruid</li>
+                                            <li data-value="Vader van de bruidegom">Vader van de bruidegom</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="col-md-6">
+                            <h3></h3>
+                            <div class="daterange flex-inline">
+                                <span>Periode</span>
+                                <input type="number" class="form-control ng-pristine ng-untouched ng-valid ng-empty" ng-model="vm.GetSearchResultsParameters.PeriodeVan" ng-keyup="$event.keyCode == 13 &amp;&amp; vm.DoAdvancedSearch()" />
+                                <span>t/m</span>
+                                <input type="number" class="form-control ng-pristine ng-untouched ng-valid ng-empty" ng-model="vm.GetSearchResultsParameters.PeriodeTot" ng-keyup="$event.keyCode == 13 &amp;&amp; vm.DoAdvancedSearch()" />
+                            </div>
+                            <div class="selector" select-list-directive="">
+                                <div class="input-group">
+                                    <input type="text" class="form-control-hidden ng-pristine ng-untouched ng-valid ng-empty" ng-model="vm.GetSearchResultsParameters.Land" />
+                                    <input type="text" class="form-control" placeholder="Land" readonly="" ng-value="vm.GetDictionaryItem('WieWasWieSearchApi.Countries.' + vm.NormalizeName(vm.GetSearchResultsParameters.Land))" />
+
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-black" type="button"><span class="glyphicon glyphicon-chevron-down"></span></button>
+                                    </span>
+                                    <div class="selector-options" style="display: none;">
+                                        <ul>
+                                            <li data-value="">Alle landen</li>
+                                            <li class="divider"></li>
+                                            <li data-dictionary-key="WieWasWieSearchApi.Countries.Nederland" data-value="Nederland">Nederland</li>
+                                            <li data-dictionary-key="WieWasWieSearchApi.Countries.Wereld" data-value="Wereld">Wereld</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="selector ng-hide" select-list-directive="" ng-show="vm.GetSearchResultsParameters.Land.length > 0">
+                                <div class="input-group">
+                                    <input type="text" class="form-control-hidden ng-pristine ng-untouched ng-valid ng-empty" ng-model="vm.GetSearchResultsParameters.Regio" />
+                                    <input type="text" class="form-control" placeholder="Regio" readonly="" ng-value="vm.GetDictionaryItem('WieWasWieSearchApi.Regions.' + vm.NormalizeName(vm.GetSearchResultsParameters.Regio))" />
+
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-black" type="button"><span class="glyphicon glyphicon-chevron-down"></span></button>
+                                    </span>
+                                    <div class="selector-options" style="display: none;">
+                                        <ul>
+                                            <li data-value="">Alle regio's</li>
+                                            <li class="divider"></li>
+                                            <li data-dictionary-key="WieWasWieSearchApi.Regions.Drenthe" data-value="Drenthe" ng-show="vm.GetSearchResultsParameters.Land == 'Nederland'" class="ng-hide">Drenthe</li>
+                                            <li data-dictionary-key="WieWasWieSearchApi.Regions.Flevoland" data-value="Flevoland" ng-show="vm.GetSearchResultsParameters.Land == 'Nederland'" class="ng-hide">Flevoland</li>
+                                            <li data-dictionary-key="WieWasWieSearchApi.Regions.Friesland" data-value="Friesland" ng-show="vm.GetSearchResultsParameters.Land == 'Nederland'" class="ng-hide">Friesland</li>
+                                            <li data-dictionary-key="WieWasWieSearchApi.Regions.Gelderland" data-value="Gelderland" ng-show="vm.GetSearchResultsParameters.Land == 'Nederland'" class="ng-hide">Gelderland</li>
+                                            <li data-dictionary-key="WieWasWieSearchApi.Regions.Groningen" data-value="Groningen" ng-show="vm.GetSearchResultsParameters.Land == 'Nederland'" class="ng-hide">Groningen</li>
+                                            <li data-dictionary-key="WieWasWieSearchApi.Regions.Limburg" data-value="Limburg" ng-show="vm.GetSearchResultsParameters.Land == 'Nederland'" class="ng-hide">Limburg</li>
+                                            <li data-dictionary-key="WieWasWieSearchApi.Regions.Nederland" data-value="Nederland" ng-show="vm.GetSearchResultsParameters.Land == 'Nederland'" class="ng-hide">Nederland</li>
+                                            <li data-dictionary-key="WieWasWieSearchApi.Regions.Noordbrabant" data-value="Noord-Brabant" ng-show="vm.GetSearchResultsParameters.Land == 'Nederland'" class="ng-hide">Noord-Brabant</li>
+                                            <li data-dictionary-key="WieWasWieSearchApi.Regions.Noordholland" data-value="Noord-Holland" ng-show="vm.GetSearchResultsParameters.Land == 'Nederland'" class="ng-hide">Noord-Holland</li>
+                                            <li data-dictionary-key="WieWasWieSearchApi.Regions.Overijssel" data-value="Overijssel" ng-show="vm.GetSearchResultsParameters.Land == 'Nederland'" class="ng-hide">Overijssel</li>
+                                            <li data-dictionary-key="WieWasWieSearchApi.Regions.Utrecht" data-value="Utrecht" ng-show="vm.GetSearchResultsParameters.Land == 'Nederland'" class="ng-hide">Utrecht</li>
+                                            <li data-dictionary-key="WieWasWieSearchApi.Regions.Zeeland" data-value="Zeeland" ng-show="vm.GetSearchResultsParameters.Land == 'Nederland'" class="ng-hide">Zeeland</li>
+                                            <li data-dictionary-key="WieWasWieSearchApi.Regions.Zuidholland" data-value="Zuid-Holland" ng-show="vm.GetSearchResultsParameters.Land == 'Nederland'" class="ng-hide">Zuid-Holland</li>
+                                            <li data-dictionary-key="WieWasWieSearchApi.Regions.Duitsland" data-value="Duitsland" ng-show="vm.GetSearchResultsParameters.Land == 'Wereld'" class="ng-hide">Duitsland</li>
+                                            <li data-dictionary-key="WieWasWieSearchApi.Regions.Formosa" data-value="Formosa" ng-show="vm.GetSearchResultsParameters.Land == 'Wereld'" class="ng-hide">Formosa</li>
+                                            <li data-dictionary-key="WieWasWieSearchApi.Regions.NederlandseAntillen" data-value="Nederlandse Antillen" ng-show="vm.GetSearchResultsParameters.Land == 'Wereld'" class="ng-hide">Nederlandse Antillen</li>
+                                            <li data-dictionary-key="WieWasWieSearchApi.Regions.Nederlandsindi" data-value="Nederlands-Indië" ng-show="vm.GetSearchResultsParameters.Land == 'Wereld'" class="ng-hide"></li>
+                                            <li data-dictionary-key="WieWasWieSearchApi.Regions.Nieuwnederland" data-value="Nieuw-Nederland" ng-show="vm.GetSearchResultsParameters.Land == 'Wereld'" class="ng-hide">Nieuw-Nederland</li>
+                                            <li data-dictionary-key="WieWasWieSearchApi.Regions.Overzee" data-value="Overzee" ng-show="vm.GetSearchResultsParameters.Land == 'Wereld'" class="ng-hide">Overzee</li>
+                                            <li data-dictionary-key="WieWasWieSearchApi.Regions.Suriname" data-value="Suriname" ng-show="vm.GetSearchResultsParameters.Land == 'Wereld'" class="ng-hide">Suriname</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="refiner">
+                                <input type="text" class="form-control ng-pristine ng-untouched ng-valid ng-empty" placeholder="Plaats" ng-model="vm.GetSearchResultsParameters.Plaats" ng-keyup="$event.keyCode == 13 &amp;&amp; vm.DoAdvancedSearch()" />
+                            </div>
+                            <div class="selector hidden" select-list-directive="">
+                                <div class="input-group">
+                                    <input type="text" class="form-control-hidden ng-pristine ng-untouched ng-valid ng-empty" ng-model="vm.GetSearchResultsParameters.DocumentType" />
+                                    <input type="text" class="form-control" placeholder="Documenttype" readonly="" ng-value="vm.GetDictionaryItem('WieWasWieSearchApi.DocumentTypes.' + vm.NormalizeName(vm.GetSearchResultsParameters.DocumentType))" />
+
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-black" type="button"><span class="glyphicon glyphicon-chevron-down"></span></button>
+                                    </span>
+                                    <div class="selector-options" style="display: none;">
+                                        <ul>
+                                            <li data-value="">Alle documenttypen</li>
+                                            <li class="divider"></li>
+                                            <li data-value="Bevolkingsregister" data-dictionary-key="WieWasWieSearchApi.DocumentTypes.Bevolkingsregister">Bevolkingsregister</li>
+                                            <li data-value="BS Geboorte" data-dictionary-key="WieWasWieSearchApi.DocumentTypes.BsGeboorte">BS Geboorte</li>
+                                            <li data-value="BS Huwelijk" data-dictionary-key="WieWasWieSearchApi.DocumentTypes.BsHuwelijk">BS Huwelijk</li>
+                                            <li data-value="BS Overlijden" data-dictionary-key="WieWasWieSearchApi.DocumentTypes.BsOverlijden">BS Overlijden</li>
+                                            <li data-value="DTB Begraven" data-dictionary-key="WieWasWieSearchApi.DocumentTypes.DtbBegraven">DTB Begraven</li>
+                                            <li data-value="DTB Dopen" data-dictionary-key="WieWasWieSearchApi.DocumentTypes.DtbDopen">DTB Dopen</li>
+                                            <li data-value="DTB Trouwen" data-dictionary-key="WieWasWieSearchApi.DocumentTypes.DtbTrouwen">DTB Trouwen</li>
+                                            <li data-value="Memories van Successie" data-dictionary-key="WieWasWieSearchApi.DocumentTypes.MemoriesVanSuccessie">Memories van successie</li>
+                                            <li data-value="Notariële archieven" data-dictionary-key="WieWasWieSearchApi.DocumentTypes.NotarileArchieven">Notariële archieven</li>
+                                            <li data-value="other:Beroep en bedrijf" data-dictionary-key="WieWasWieSearchApi.DocumentTypes.OtherberoepEnBedrijf"></li>
+                                            <li data-value="other:Bidprentjes" data-dictionary-key="WieWasWieSearchApi.DocumentTypes.Otherbidprentjes"></li>
+                                            <li data-value="other:Collecties" data-dictionary-key="WieWasWieSearchApi.DocumentTypes.Othercollecties"></li>
+                                            <li data-value="other:Diversen" data-dictionary-key="WieWasWieSearchApi.DocumentTypes.Otherdiversen"></li>
+                                            <li data-value="other:DTB Overig" data-dictionary-key="WieWasWieSearchApi.DocumentTypes.OtherdtbOverig"></li>
+                                            <li data-value="other:Familieadvertenties" data-dictionary-key="WieWasWieSearchApi.DocumentTypes.Otherfamilieadvertenties"></li>
+                                            <li data-value="other:Financiële registraties" data-dictionary-key="WieWasWieSearchApi.DocumentTypes.OtherfinancileRegistraties"></li>
+                                            <li data-value="other:Instellingsregister" data-dictionary-key="WieWasWieSearchApi.DocumentTypes.Otherinstellingsregister"></li>
+                                            <li data-value="other:Militairen" data-dictionary-key="WieWasWieSearchApi.DocumentTypes.Othermilitairen"></li>
+                                            <li data-value="other:Onderwijs" data-dictionary-key="WieWasWieSearchApi.DocumentTypes.Otheronderwijs"></li>
+                                            <li data-value="other:Onroerend goed" data-dictionary-key="WieWasWieSearchApi.DocumentTypes.OtheronroerendGoed"></li>
+                                            <li data-value="other:Rechterlijke archieven" data-dictionary-key="WieWasWieSearchApi.DocumentTypes.OtherrechterlijkeArchieven"></li>
+                                            <li data-value="other:Sociale zorg" data-dictionary-key="WieWasWieSearchApi.DocumentTypes.OthersocialeZorg"></li>
+                                            <li data-value="other:Vestiging en vertrek" data-dictionary-key="WieWasWieSearchApi.DocumentTypes.OthervestigingEnVertrek"></li>
+                                            <li data-value="VOC Opvarenden" data-dictionary-key="WieWasWieSearchApi.DocumentTypes.VocOpvarenden">VOC opvarenden</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12 divider flex-center">
+                            <button class="btn btn-cyan" ng-click="vm.EmptySearchFields()">Wis alle velden</button>
+                            <button class="btn btn-black" ng-click="vm.DoAdvancedSearch()">Zoek</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 sidebar">
+                    <div class="col col-gold block subscriptionblock">
+                        <div class="flex-column">
+                            <h3>De voordelen van een premiumabonnement</h3>
+                            <div>
+                                <p>Bij een Premium toegang heb je de mogelijkheid om op 2 personen te zoeken. Daarnaast kun je door het gebruik van de zogenoemde <em>wildcards</em>&nbsp;[ * en ? ] verschillende schrijfwijzen van namen in één zoekopdracht meenemen, bijvoorbeeld "Graaf" en "Graeff". <br /><br /><br /></p>
+                            </div>
+                        </div>
+                        <div class="a-container">
+                            <a class="a a-call-to-action" href="https://cbg.nl/bestellen/" target="_self">
+                                Abonnement afsluiten
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ngIf: vm.SearchResult != null --><div class="row search-facets ng-scope" ng-if="vm.SearchResult != null">
+                <div class="col-md-12 divider">
+                    <h2>Verfijn resultaten</h2>
+                </div>
+                <div class="col-md-6">
+                    <div class="search-facet">
+                        <div>Collectiegebied</div>
+                        <div class="selector" select-list-directive="">
+                            <div class="input-group">
+                                <input type="text" class="form-control-hidden ng-pristine ng-untouched ng-valid ng-empty" ng-model="vm.CurrentGetSearchResultsParameters.FacetCollectieGebied" ng-change="vm.LoadPage(1)" />
+                                <input type="text" class="form-control" placeholder="" readonly="" ng-value="vm.GetDictionaryItem('WieWasWieSearchApi.CollectionRegions.' + vm.NormalizeName(vm.CurrentGetSearchResultsParameters.FacetCollectieGebied))" />
+
+                                <span class="input-group-btn">
+                                    <button class="btn btn-black" type="button"><span class="glyphicon glyphicon-chevron-down"></span></button>
+                                </span>
+                                <div class="selector-options" style="display: none;">
+
+                                    <ul>
+                                        <li data-value="" ng-show="vm.CurrentGetSearchResultsParameters.FacetCollectieGebied.length > 0" class="ng-hide">Alle collectiegebieden</li>
+                                        <li class="divider ng-hide" ng-show="vm.CurrentGetSearchResultsParameters.FacetCollectieGebied.length > 0"></li>
+                                        <!-- ngRepeat: loTerm in vm.SearchResult.Aggs.Aggregations.CollectionRegion.Items --><!-- ngIf: vm.SearchResult != null -->
+                                        <li data-value="Utrecht" ng-if="vm.SearchResult != null" ng-repeat="loTerm in vm.SearchResult.Aggs.Aggregations.CollectionRegion.Items" class="ng-scope">
+                                            <span class="facet ng-binding">Utrecht</span>
+                                            <span class="total ng-binding">(12)</span>
+                                        </li><!-- end ngIf: vm.SearchResult != null --><!-- end ngRepeat: loTerm in vm.SearchResult.Aggs.Aggregations.CollectionRegion.Items --><!-- ngIf: vm.SearchResult != null -->
+                                        <li data-value="Noord-Holland" ng-if="vm.SearchResult != null" ng-repeat="loTerm in vm.SearchResult.Aggs.Aggregations.CollectionRegion.Items" class="ng-scope">
+                                            <span class="facet ng-binding">Noord-Holland</span>
+                                            <span class="total ng-binding">(5)</span>
+                                        </li><!-- end ngIf: vm.SearchResult != null --><!-- end ngRepeat: loTerm in vm.SearchResult.Aggs.Aggregations.CollectionRegion.Items --><!-- ngIf: vm.SearchResult != null -->
+                                        <li data-value="Gelderland" ng-if="vm.SearchResult != null" ng-repeat="loTerm in vm.SearchResult.Aggs.Aggregations.CollectionRegion.Items" class="ng-scope">
+                                            <span class="facet ng-binding">Gelderland</span>
+                                            <span class="total ng-binding">(3)</span>
+                                        </li><!-- end ngIf: vm.SearchResult != null --><!-- end ngRepeat: loTerm in vm.SearchResult.Aggs.Aggregations.CollectionRegion.Items -->
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="split"></div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="search-facet">
+                        <div>Organisatie</div>
+                        <div class="selector" select-list-directive="">
+                            <div class="input-group">
+                                <input type="text" class="form-control-hidden ng-pristine ng-untouched ng-valid ng-empty" ng-model="vm.CurrentGetSearchResultsParameters.FacetOrganisatie" ng-change="vm.LoadPage(1)" />
+                                <input type="text" class="form-control" placeholder="" readonly="" ng-value="vm.CurrentGetSearchResultsParameters.FacetOrganisatie" />
+
+                                <span class="input-group-btn">
+                                    <button class="btn btn-black" type="button"><span class="glyphicon glyphicon-chevron-down"></span></button>
+                                </span>
+                                <div class="selector-options" style="display: none;">
+                                    <ul>
+                                        <li data-value="" ng-show="vm.CurrentGetSearchResultsParameters.FacetOrganisatie.length > 0" class="ng-hide">Alle organisaties</li>
+                                        <li class="divider ng-hide" ng-show="vm.CurrentGetSearchResultsParameters.FacetOrganisatie.length > 0"></li>
+                                        <!-- ngRepeat: loTerm in vm.SearchResult.Aggs.Aggregations.Organization.Items --><!-- ngIf: vm.SearchResult != null -->
+                                        <li data-value="Het Utrechts Archief" ng-if="vm.SearchResult != null" ng-repeat="loTerm in vm.SearchResult.Aggs.Aggregations.Organization.Items" class="ng-scope">
+                                            <span class="facet ng-binding">Het Utrechts Archief</span>
+                                            <span class="total ng-binding">(12)</span>
+                                        </li><!-- end ngIf: vm.SearchResult != null --><!-- end ngRepeat: loTerm in vm.SearchResult.Aggs.Aggregations.Organization.Items --><!-- ngIf: vm.SearchResult != null -->
+                                        <li data-value="Noord-Hollands Archief" ng-if="vm.SearchResult != null" ng-repeat="loTerm in vm.SearchResult.Aggs.Aggregations.Organization.Items" class="ng-scope">
+                                            <span class="facet ng-binding">Noord-Hollands Archief</span>
+                                            <span class="total ng-binding">(5)</span>
+                                        </li><!-- end ngIf: vm.SearchResult != null --><!-- end ngRepeat: loTerm in vm.SearchResult.Aggs.Aggregations.Organization.Items --><!-- ngIf: vm.SearchResult != null -->
+                                        <li data-value="Gelders Archief" ng-if="vm.SearchResult != null" ng-repeat="loTerm in vm.SearchResult.Aggs.Aggregations.Organization.Items" class="ng-scope">
+                                            <span class="facet ng-binding">Gelders Archief</span>
+                                            <span class="total ng-binding">(2)</span>
+                                        </li><!-- end ngIf: vm.SearchResult != null --><!-- end ngRepeat: loTerm in vm.SearchResult.Aggs.Aggregations.Organization.Items --><!-- ngIf: vm.SearchResult != null -->
+                                        <li data-value="Gemeentearchief Ede" ng-if="vm.SearchResult != null" ng-repeat="loTerm in vm.SearchResult.Aggs.Aggregations.Organization.Items" class="ng-scope">
+                                            <span class="facet ng-binding">Gemeentearchief Ede</span>
+                                            <span class="total ng-binding">(1)</span>
+                                        </li><!-- end ngIf: vm.SearchResult != null --><!-- end ngRepeat: loTerm in vm.SearchResult.Aggs.Aggregations.Organization.Items -->
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="split"></div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="search-facet">
+                        <div>Documenttype</div>
+                        <div class="selector" select-list-directive="">
+                            <div class="input-group">
+                                <input type="text" class="form-control-hidden ng-pristine ng-untouched ng-valid ng-empty" ng-model="vm.CurrentGetSearchResultsParameters.DocumentType" ng-change="vm.LoadPage(1)" />
+                                <input type="text" class="form-control" placeholder="" readonly="" ng-value="vm.GetDictionaryItem('WieWasWieSearchApi.DocumentTypes.' + vm.NormalizeName(vm.CurrentGetSearchResultsParameters.DocumentType))" />
+
+                                <span class="input-group-btn">
+                                    <button class="btn btn-black" type="button"><span class="glyphicon glyphicon-chevron-down"></span></button>
+                                </span>
+                                <div class="selector-options" style="display: none;">
+                                    <ul>
+                                        <li data-value="" ng-show="vm.CurrentGetSearchResultsParameters.DocumentType.length > 0" class="ng-hide">Alle documenttypen</li>
+                                        <li class="divider ng-hide" ng-show="vm.CurrentGetSearchResultsParameters.DocumentType.length > 0"></li>
+                                        <!-- ngRepeat: loTerm in vm.SearchResult.Aggs.Aggregations.Sourcetype.Items --><!-- ngIf: vm.SearchResult != null -->
+                                        <li data-value="BS Overlijden" ng-if="vm.SearchResult != null" ng-repeat="loTerm in vm.SearchResult.Aggs.Aggregations.Sourcetype.Items" class="ng-scope">
+                                            <span class="facet ng-binding">BS Overlijden</span>
+                                            <span class="total ng-binding">(10)</span>
+                                        </li><!-- end ngIf: vm.SearchResult != null --><!-- end ngRepeat: loTerm in vm.SearchResult.Aggs.Aggregations.Sourcetype.Items --><!-- ngIf: vm.SearchResult != null -->
+                                        <li data-value="BS Huwelijk" ng-if="vm.SearchResult != null" ng-repeat="loTerm in vm.SearchResult.Aggs.Aggregations.Sourcetype.Items" class="ng-scope">
+                                            <span class="facet ng-binding">BS Huwelijk</span>
+                                            <span class="total ng-binding">(7)</span>
+                                        </li><!-- end ngIf: vm.SearchResult != null --><!-- end ngRepeat: loTerm in vm.SearchResult.Aggs.Aggregations.Sourcetype.Items --><!-- ngIf: vm.SearchResult != null -->
+                                        <li data-value="DTB Dopen" ng-if="vm.SearchResult != null" ng-repeat="loTerm in vm.SearchResult.Aggs.Aggregations.Sourcetype.Items" class="ng-scope">
+                                            <span class="facet ng-binding">DTB Dopen</span>
+                                            <span class="total ng-binding">(2)</span>
+                                        </li><!-- end ngIf: vm.SearchResult != null --><!-- end ngRepeat: loTerm in vm.SearchResult.Aggs.Aggregations.Sourcetype.Items --><!-- ngIf: vm.SearchResult != null -->
+                                        <li data-value="Memories van Successie" ng-if="vm.SearchResult != null" ng-repeat="loTerm in vm.SearchResult.Aggs.Aggregations.Sourcetype.Items" class="ng-scope">
+                                            <span class="facet ng-binding">Memories van successie</span>
+                                            <span class="total ng-binding">(1)</span>
+                                        </li><!-- end ngIf: vm.SearchResult != null --><!-- end ngRepeat: loTerm in vm.SearchResult.Aggs.Aggregations.Sourcetype.Items -->
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="split"></div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="search-facet">
+                        <div>Rol</div>
+                        <div class="selector" select-list-directive="">
+                            <div class="input-group">
+                                <input type="text" class="form-control-hidden ng-pristine ng-untouched ng-valid ng-empty" ng-model="vm.CurrentGetSearchResultsParameters.FacetRol" ng-change="vm.LoadPage(1)" />
+                                <input type="text" class="form-control" placeholder="" readonly="" ng-value="vm.GetDictionaryItem('WieWasWieSearchApi.Roles.' + vm.NormalizeName(vm.CurrentGetSearchResultsParameters.FacetRol))" />
+
+                                <span class="input-group-btn">
+                                    <button class="btn btn-black" type="button"><span class="glyphicon glyphicon-chevron-down"></span></button>
+                                </span>
+                                <div class="selector-options" style="display: none;">
+                                    <ul>
+                                        <li data-value="" ng-show="vm.CurrentGetSearchResultsParameters.FacetRol.length > 0" class="ng-hide">Alle rollen</li>
+                                        <li class="divider ng-hide" ng-show="vm.CurrentGetSearchResultsParameters.FacetRol.length > 0"></li>
+                                        <!-- ngRepeat: loTerm in vm.SearchResult.Aggs.Aggregations.Role.Items --><!-- ngIf: vm.SearchResult != null -->
+                                        <li data-value="Moeder" ng-if="vm.SearchResult != null" ng-repeat="loTerm in vm.SearchResult.Aggs.Aggregations.Role.Items" class="ng-scope">
+                                            <span class="facet ng-binding">Moeder</span>
+                                            <span class="total ng-binding">(6)</span>
+                                        </li><!-- end ngIf: vm.SearchResult != null --><!-- end ngRepeat: loTerm in vm.SearchResult.Aggs.Aggregations.Role.Items --><!-- ngIf: vm.SearchResult != null -->
+                                        <li data-value="Moeder van de bruid" ng-if="vm.SearchResult != null" ng-repeat="loTerm in vm.SearchResult.Aggs.Aggregations.Role.Items" class="ng-scope">
+                                            <span class="facet ng-binding">Moeder van de bruid</span>
+                                            <span class="total ng-binding">(5)</span>
+                                        </li><!-- end ngIf: vm.SearchResult != null --><!-- end ngRepeat: loTerm in vm.SearchResult.Aggs.Aggregations.Role.Items --><!-- ngIf: vm.SearchResult != null -->
+                                        <li data-value="Overledene" ng-if="vm.SearchResult != null" ng-repeat="loTerm in vm.SearchResult.Aggs.Aggregations.Role.Items" class="ng-scope">
+                                            <span class="facet ng-binding">Overledene</span>
+                                            <span class="total ng-binding">(5)</span>
+                                        </li><!-- end ngIf: vm.SearchResult != null --><!-- end ngRepeat: loTerm in vm.SearchResult.Aggs.Aggregations.Role.Items --><!-- ngIf: vm.SearchResult != null -->
+                                        <li data-value="Moeder van de bruidegom" ng-if="vm.SearchResult != null" ng-repeat="loTerm in vm.SearchResult.Aggs.Aggregations.Role.Items" class="ng-scope">
+                                            <span class="facet ng-binding">Moeder van de bruidegom</span>
+                                            <span class="total ng-binding">(2)</span>
+                                        </li><!-- end ngIf: vm.SearchResult != null --><!-- end ngRepeat: loTerm in vm.SearchResult.Aggs.Aggregations.Role.Items --><!-- ngIf: vm.SearchResult != null -->
+                                        <li data-value="Partner" ng-if="vm.SearchResult != null" ng-repeat="loTerm in vm.SearchResult.Aggs.Aggregations.Role.Items" class="ng-scope">
+                                            <span class="facet ng-binding">Partner</span>
+                                            <span class="total ng-binding">(1)</span>
+                                        </li><!-- end ngIf: vm.SearchResult != null --><!-- end ngRepeat: loTerm in vm.SearchResult.Aggs.Aggregations.Role.Items --><!-- ngIf: vm.SearchResult != null -->
+                                        <li data-value="Weduwnaar" ng-if="vm.SearchResult != null" ng-repeat="loTerm in vm.SearchResult.Aggs.Aggregations.Role.Items" class="ng-scope">
+                                            <span class="facet ng-binding">Weduwnaar</span>
+                                            <span class="total ng-binding">(1)</span>
+                                        </li><!-- end ngIf: vm.SearchResult != null --><!-- end ngRepeat: loTerm in vm.SearchResult.Aggs.Aggregations.Role.Items -->
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="split"></div>
+                </div>
+            </div><!-- end ngIf: vm.SearchResult != null -->
+            <!-- ngIf: vm.SearchResult != null --><div class="row search-results ng-scope" ng-if="vm.SearchResult != null">
+                <div class="col-md-12 divider">
+                    <h2>
+                        <span>Documenten</span>
+                        <span class="total ng-binding">(20 Resultaten)</span>
+                    </h2>
+                </div>
+                <div ng-show="vm.SearchResult.Persons.length == 0 &amp;&amp; vm.SearchResult.Total != 0" class="ng-hide">
+                    Er zijn teveel resultaten om te tonen, verfijn alstublieft uw zoekopdracht.
+                </div>
+                <div ng-show="vm.SearchResult.Persons.length > 0">
+                    <div class="flex-table">
+                        <div class="row-header clearfix">
+                            <div class="col-md-2" ng-click="vm.SortByColumn(vm.SortColumnLastName)">Achternaam <span ng-class="{'glyphicon glyphicon-chevron-up': vm.CurrentGetSearchResultsParameters.SortColumn == vm.SortColumnLastName &amp;&amp; vm.CurrentGetSearchResultsParameters.SortDirection == vm.SortDirectionAscending, 'glyphicon glyphicon-chevron-down': vm.CurrentGetSearchResultsParameters.SortColumn == vm.SortColumnLastName &amp;&amp; vm.CurrentGetSearchResultsParameters.SortDirection == vm.SortDirectionDescending}" class="glyphicon glyphicon-chevron-up"></span></div>
+                            <div class="col-md-2" ng-click="vm.SortByColumn(vm.SortColumnFirstName)">Voornaam <span ng-class="{'glyphicon glyphicon-chevron-up': vm.CurrentGetSearchResultsParameters.SortColumn == vm.SortColumnFirstName &amp;&amp; vm.CurrentGetSearchResultsParameters.SortDirection == vm.SortDirectionAscending, 'glyphicon glyphicon-chevron-down': vm.CurrentGetSearchResultsParameters.SortColumn == vm.SortColumnFirstName &amp;&amp; vm.CurrentGetSearchResultsParameters.SortDirection == vm.SortDirectionDescending}"></span></div>
+                            <div class="col-md-2" ng-click="vm.SortByColumn(vm.SortColumnPatronym)">Patroniem <span ng-class="{'glyphicon glyphicon-chevron-up': vm.CurrentGetSearchResultsParameters.SortColumn == vm.SortColumnPatronym &amp;&amp; vm.CurrentGetSearchResultsParameters.SortDirection == vm.SortDirectionAscending, 'glyphicon glyphicon-chevron-down': vm.CurrentGetSearchResultsParameters.SortColumn == vm.SortColumnPatronym &amp;&amp; vm.CurrentGetSearchResultsParameters.SortDirection == vm.SortDirectionDescending}"></span></div>
+                            <div class="col-md-2" ng-click="vm.SortByColumn(vm.SortColumnCertificatePlace)">Plaats <span ng-class="{'glyphicon glyphicon-chevron-up': vm.CurrentGetSearchResultsParameters.SortColumn == vm.SortColumnCertificatePlace &amp;&amp; vm.CurrentGetSearchResultsParameters.SortDirection == vm.SortDirectionAscending, 'glyphicon glyphicon-chevron-down': vm.CurrentGetSearchResultsParameters.SortColumn == vm.SortColumnCertificatePlace &amp;&amp; vm.CurrentGetSearchResultsParameters.SortDirection == vm.SortDirectionDescending}"></span></div>
+                            <div class="col-md-1" ng-click="vm.SortByColumn(vm.SortColumnCertificateDate)">Datum <span ng-class="{'glyphicon glyphicon-chevron-up': vm.CurrentGetSearchResultsParameters.SortColumn == vm.SortColumnCertificateDate &amp;&amp; vm.CurrentGetSearchResultsParameters.SortDirection == vm.SortDirectionAscending, 'glyphicon glyphicon-chevron-down': vm.CurrentGetSearchResultsParameters.SortColumn == vm.SortColumnCertificateDate &amp;&amp; vm.CurrentGetSearchResultsParameters.SortDirection == vm.SortDirectionDescending}"></span></div>
+                            <div class="col-md-2" ng-click="vm.SortByColumn(vm.SortColumnDocumentType)">Documenttype <span ng-class="{'glyphicon glyphicon-chevron-up': vm.CurrentGetSearchResultsParameters.SortColumn == vm.SortColumnDocumentType &amp;&amp; vm.CurrentGetSearchResultsParameters.SortDirection == vm.SortDirectionAscending, 'glyphicon glyphicon-chevron-down': vm.CurrentGetSearchResultsParameters.SortColumn == vm.SortColumnDocumentType &amp;&amp; vm.CurrentGetSearchResultsParameters.SortDirection == vm.SortDirectionDescending}"></span></div>
+                            <div class="col-md-1">Scan</div>
+                        </div>
+                        <div class="flex-table-body">
+                            <!-- ngRepeat: loPerson in vm.SearchResult.Persons --><div class="row-toggle ng-scope" ng-repeat-start="loPerson in vm.SearchResult.Persons" ng-click="vm.VisibleSourceDocumentList[loPerson.PersonId] = !vm.VisibleSourceDocumentList[loPerson.PersonId]" search-row-toggle-directive="">
+                                <div class="col-md-2 ng-binding"><!-- ngIf: loPerson.HasTussenvoegsel -->Schuurman&nbsp;</div>
+                                <div class="col-md-2 ng-binding">Adriaantje&nbsp;</div>
+                                <div class="col-md-2 ng-binding">&nbsp;</div>
+                                <div class="col-md-2 ng-binding">Leersum&nbsp;</div>
+                                <div class="col-md-1 ng-binding">30-11-1832&nbsp;</div>
+                                <div class="col-md-2 ng-binding">BS Huwelijk&nbsp;</div>
+                                <div class="col-md-1"><!-- ngIf: loPerson.HasScan --><span class="glyphicon glyphicon-camera ng-scope" ng-if="loPerson.HasScan"></span><!-- end ngIf: loPerson.HasScan -->&nbsp;</div>
+                                <div class="mobile-row">
+                                    <div class="icon"><!-- ngIf: loPerson.HasScan --><span class="glyphicon glyphicon-camera ng-scope" ng-if="loPerson.HasScan"></span><!-- end ngIf: loPerson.HasScan --></div>
+                                    <div class="name ng-binding">Adriaantje  Schuurman <div class="small ng-binding"></div></div>
+                                    <div class="data ng-binding">BS Huwelijk, Leersum, 30-11-1832</div>
+                                </div>
+                            </div>
+                            <!-- ngIf: vm.VisibleSourceDocumentList[loPerson.PersonId] == true --><!-- end ngRepeat: loPerson in vm.SearchResult.Persons --><div class="row-toggle ng-scope" ng-repeat-start="loPerson in vm.SearchResult.Persons" ng-click="vm.VisibleSourceDocumentList[loPerson.PersonId] = !vm.VisibleSourceDocumentList[loPerson.PersonId]" search-row-toggle-directive="">
+                                <div class="col-md-2 ng-binding"><!-- ngIf: loPerson.HasTussenvoegsel -->Schuurman&nbsp;</div>
+                                <div class="col-md-2 ng-binding">Adriaantje&nbsp;</div>
+                                <div class="col-md-2 ng-binding">&nbsp;</div>
+                                <div class="col-md-2 ng-binding">Zaandam&nbsp;</div>
+                                <div class="col-md-1 ng-binding">31-08-1862&nbsp;</div>
+                                <div class="col-md-2 ng-binding">BS Huwelijk&nbsp;</div>
+                                <div class="col-md-1"><!-- ngIf: loPerson.HasScan -->&nbsp;</div>
+                                <div class="mobile-row">
+                                    <div class="icon"><!-- ngIf: loPerson.HasScan --></div>
+                                    <div class="name ng-binding">Adriaantje  Schuurman <div class="small ng-binding"></div></div>
+                                    <div class="data ng-binding">BS Huwelijk, Zaandam, 31-08-1862</div>
+                                </div>
+                            </div>
+                            <!-- ngIf: vm.VisibleSourceDocumentList[loPerson.PersonId] == true --><!-- end ngRepeat: loPerson in vm.SearchResult.Persons --><div class="row-toggle ng-scope" ng-repeat-start="loPerson in vm.SearchResult.Persons" ng-click="vm.VisibleSourceDocumentList[loPerson.PersonId] = !vm.VisibleSourceDocumentList[loPerson.PersonId]" search-row-toggle-directive="">
+                                <div class="col-md-2 ng-binding"><!-- ngIf: loPerson.HasTussenvoegsel -->Schuurman&nbsp;</div>
+                                <div class="col-md-2 ng-binding">Adriaantje&nbsp;</div>
+                                <div class="col-md-2 ng-binding">&nbsp;</div>
+                                <div class="col-md-2 ng-binding">Leersum&nbsp;</div>
+                                <div class="col-md-1 ng-binding">18-02-1901&nbsp;</div>
+                                <div class="col-md-2 ng-binding">BS Overlijden&nbsp;</div>
+                                <div class="col-md-1"><!-- ngIf: loPerson.HasScan --><span class="glyphicon glyphicon-camera ng-scope" ng-if="loPerson.HasScan"></span><!-- end ngIf: loPerson.HasScan -->&nbsp;</div>
+                                <div class="mobile-row">
+                                    <div class="icon"><!-- ngIf: loPerson.HasScan --><span class="glyphicon glyphicon-camera ng-scope" ng-if="loPerson.HasScan"></span><!-- end ngIf: loPerson.HasScan --></div>
+                                    <div class="name ng-binding">Adriaantje  Schuurman <div class="small ng-binding"></div></div>
+                                    <div class="data ng-binding">BS Overlijden, Leersum, 18-02-1901</div>
+                                </div>
+                            </div>
+                            <!-- ngIf: vm.VisibleSourceDocumentList[loPerson.PersonId] == true --><!-- end ngRepeat: loPerson in vm.SearchResult.Persons --><div class="row-toggle ng-scope" ng-repeat-start="loPerson in vm.SearchResult.Persons" ng-click="vm.VisibleSourceDocumentList[loPerson.PersonId] = !vm.VisibleSourceDocumentList[loPerson.PersonId]" search-row-toggle-directive="">
+                                <div class="col-md-2 ng-binding"><!-- ngIf: loPerson.HasTussenvoegsel -->Schuurman&nbsp;</div>
+                                <div class="col-md-2 ng-binding">Adriaantje&nbsp;</div>
+                                <div class="col-md-2 ng-binding">&nbsp;</div>
+                                <div class="col-md-2 ng-binding">Doorn&nbsp;</div>
+                                <div class="col-md-1 ng-binding">07-01-1798&nbsp;</div>
+                                <div class="col-md-2 ng-binding">DTB Dopen&nbsp;</div>
+                                <div class="col-md-1"><!-- ngIf: loPerson.HasScan --><span class="glyphicon glyphicon-camera ng-scope" ng-if="loPerson.HasScan"></span><!-- end ngIf: loPerson.HasScan -->&nbsp;</div>
+                                <div class="mobile-row">
+                                    <div class="icon"><!-- ngIf: loPerson.HasScan --><span class="glyphicon glyphicon-camera ng-scope" ng-if="loPerson.HasScan"></span><!-- end ngIf: loPerson.HasScan --></div>
+                                    <div class="name ng-binding">Adriaantje  Schuurman <div class="small ng-binding"></div></div>
+                                    <div class="data ng-binding">DTB Dopen, Doorn, 07-01-1798</div>
+                                </div>
+                            </div>
+                            <!-- ngIf: vm.VisibleSourceDocumentList[loPerson.PersonId] == true --><!-- end ngRepeat: loPerson in vm.SearchResult.Persons --><div class="row-toggle ng-scope" ng-repeat-start="loPerson in vm.SearchResult.Persons" ng-click="vm.VisibleSourceDocumentList[loPerson.PersonId] = !vm.VisibleSourceDocumentList[loPerson.PersonId]" search-row-toggle-directive="">
+                                <div class="col-md-2 ng-binding"><!-- ngIf: loPerson.HasTussenvoegsel -->Schuurman&nbsp;</div>
+                                <div class="col-md-2 ng-binding">Adriaantje&nbsp;</div>
+                                <div class="col-md-2 ng-binding">&nbsp;</div>
+                                <div class="col-md-2 ng-binding">Amsterdam&nbsp;</div>
+                                <div class="col-md-1 ng-binding">17-01-1821&nbsp;</div>
+                                <div class="col-md-2 ng-binding">BS Huwelijk&nbsp;</div>
+                                <div class="col-md-1"><!-- ngIf: loPerson.HasScan --><span class="glyphicon glyphicon-camera ng-scope" ng-if="loPerson.HasScan"></span><!-- end ngIf: loPerson.HasScan -->&nbsp;</div>
+                                <div class="mobile-row">
+                                    <div class="icon"><!-- ngIf: loPerson.HasScan --><span class="glyphicon glyphicon-camera ng-scope" ng-if="loPerson.HasScan"></span><!-- end ngIf: loPerson.HasScan --></div>
+                                    <div class="name ng-binding">Adriaantje  Schuurman <div class="small ng-binding"></div></div>
+                                    <div class="data ng-binding">BS Huwelijk, Amsterdam, 17-01-1821</div>
+                                </div>
+                            </div>
+                            <!-- ngIf: vm.VisibleSourceDocumentList[loPerson.PersonId] == true --><!-- end ngRepeat: loPerson in vm.SearchResult.Persons --><div class="row-toggle ng-scope" ng-repeat-start="loPerson in vm.SearchResult.Persons" ng-click="vm.VisibleSourceDocumentList[loPerson.PersonId] = !vm.VisibleSourceDocumentList[loPerson.PersonId]" search-row-toggle-directive="">
+                                <div class="col-md-2 ng-binding"><!-- ngIf: loPerson.HasTussenvoegsel -->SCHUURMAN&nbsp;</div>
+                                <div class="col-md-2 ng-binding">ADRIAANTJE&nbsp;</div>
+                                <div class="col-md-2 ng-binding">&nbsp;</div>
+                                <div class="col-md-2 ng-binding">Ede&nbsp;</div>
+                                <div class="col-md-1 ng-binding">27-05-1838&nbsp;</div>
+                                <div class="col-md-2 ng-binding">BS Overlijden&nbsp;</div>
+                                <div class="col-md-1"><!-- ngIf: loPerson.HasScan --><span class="glyphicon glyphicon-camera ng-scope" ng-if="loPerson.HasScan"></span><!-- end ngIf: loPerson.HasScan -->&nbsp;</div>
+                                <div class="mobile-row">
+                                    <div class="icon"><!-- ngIf: loPerson.HasScan --><span class="glyphicon glyphicon-camera ng-scope" ng-if="loPerson.HasScan"></span><!-- end ngIf: loPerson.HasScan --></div>
+                                    <div class="name ng-binding">ADRIAANTJE  SCHUURMAN <div class="small ng-binding"></div></div>
+                                    <div class="data ng-binding">BS Overlijden, Ede, 27-05-1838</div>
+                                </div>
+                            </div>
+                            <!-- ngIf: vm.VisibleSourceDocumentList[loPerson.PersonId] == true --><!-- end ngRepeat: loPerson in vm.SearchResult.Persons --><div class="row-toggle ng-scope" ng-repeat-start="loPerson in vm.SearchResult.Persons" ng-click="vm.VisibleSourceDocumentList[loPerson.PersonId] = !vm.VisibleSourceDocumentList[loPerson.PersonId]" search-row-toggle-directive="">
+                                <div class="col-md-2 ng-binding"><!-- ngIf: loPerson.HasTussenvoegsel -->Schuurman&nbsp;</div>
+                                <div class="col-md-2 ng-binding">Adriaantje&nbsp;</div>
+                                <div class="col-md-2 ng-binding">&nbsp;</div>
+                                <div class="col-md-2 ng-binding">Driebergen&nbsp;</div>
+                                <div class="col-md-1 ng-binding">22-03-1822&nbsp;</div>
+                                <div class="col-md-2 ng-binding">BS Huwelijk&nbsp;</div>
+                                <div class="col-md-1"><!-- ngIf: loPerson.HasScan --><span class="glyphicon glyphicon-camera ng-scope" ng-if="loPerson.HasScan"></span><!-- end ngIf: loPerson.HasScan -->&nbsp;</div>
+                                <div class="mobile-row">
+                                    <div class="icon"><!-- ngIf: loPerson.HasScan --><span class="glyphicon glyphicon-camera ng-scope" ng-if="loPerson.HasScan"></span><!-- end ngIf: loPerson.HasScan --></div>
+                                    <div class="name ng-binding">Adriaantje  Schuurman <div class="small ng-binding"></div></div>
+                                    <div class="data ng-binding">BS Huwelijk, Driebergen, 22-03-1822</div>
+                                </div>
+                            </div>
+                            <!-- ngIf: vm.VisibleSourceDocumentList[loPerson.PersonId] == true --><!-- end ngRepeat: loPerson in vm.SearchResult.Persons --><div class="row-toggle ng-scope" ng-repeat-start="loPerson in vm.SearchResult.Persons" ng-click="vm.VisibleSourceDocumentList[loPerson.PersonId] = !vm.VisibleSourceDocumentList[loPerson.PersonId]" search-row-toggle-directive="">
+                                <div class="col-md-2 ng-binding"><!-- ngIf: loPerson.HasTussenvoegsel -->Schuurman&nbsp;</div>
+                                <div class="col-md-2 ng-binding">Adriaantje&nbsp;</div>
+                                <div class="col-md-2 ng-binding">&nbsp;</div>
+                                <div class="col-md-2 ng-binding">Zaandijk&nbsp;</div>
+                                <div class="col-md-1 ng-binding">12-08-1860&nbsp;</div>
+                                <div class="col-md-2 ng-binding">BS Huwelijk&nbsp;</div>
+                                <div class="col-md-1"><!-- ngIf: loPerson.HasScan -->&nbsp;</div>
+                                <div class="mobile-row">
+                                    <div class="icon"><!-- ngIf: loPerson.HasScan --></div>
+                                    <div class="name ng-binding">Adriaantje  Schuurman <div class="small ng-binding"></div></div>
+                                    <div class="data ng-binding">BS Huwelijk, Zaandijk, 12-08-1860</div>
+                                </div>
+                            </div>
+                            <!-- ngIf: vm.VisibleSourceDocumentList[loPerson.PersonId] == true --><!-- end ngRepeat: loPerson in vm.SearchResult.Persons --><div class="row-toggle ng-scope" ng-repeat-start="loPerson in vm.SearchResult.Persons" ng-click="vm.VisibleSourceDocumentList[loPerson.PersonId] = !vm.VisibleSourceDocumentList[loPerson.PersonId]" search-row-toggle-directive="">
+                                <div class="col-md-2 ng-binding"><!-- ngIf: loPerson.HasTussenvoegsel -->Schuurman&nbsp;</div>
+                                <div class="col-md-2 ng-binding">Adriaantje&nbsp;</div>
+                                <div class="col-md-2 ng-binding">&nbsp;</div>
+                                <div class="col-md-2 ng-binding">Amerongen&nbsp;</div>
+                                <div class="col-md-1 ng-binding">31-05-1841&nbsp;</div>
+                                <div class="col-md-2 ng-binding">Memories van Successie&nbsp;</div>
+                                <div class="col-md-1"><!-- ngIf: loPerson.HasScan -->&nbsp;</div>
+                                <div class="mobile-row">
+                                    <div class="icon"><!-- ngIf: loPerson.HasScan --></div>
+                                    <div class="name ng-binding">Adriaantje  Schuurman <div class="small ng-binding"></div></div>
+                                    <div class="data ng-binding">Memories van Successie, Amerongen, 31-05-1841</div>
+                                </div>
+                            </div>
+                            <!-- ngIf: vm.VisibleSourceDocumentList[loPerson.PersonId] == true --><!-- end ngRepeat: loPerson in vm.SearchResult.Persons --><div class="row-toggle ng-scope" ng-repeat-start="loPerson in vm.SearchResult.Persons" ng-click="vm.VisibleSourceDocumentList[loPerson.PersonId] = !vm.VisibleSourceDocumentList[loPerson.PersonId]" search-row-toggle-directive="">
+                                <div class="col-md-2 ng-binding"><!-- ngIf: loPerson.HasTussenvoegsel -->Schuurman&nbsp;</div>
+                                <div class="col-md-2 ng-binding">Adriaantje&nbsp;</div>
+                                <div class="col-md-2 ng-binding">&nbsp;</div>
+                                <div class="col-md-2 ng-binding">Leersum&nbsp;</div>
+                                <div class="col-md-1 ng-binding">05-04-1843&nbsp;</div>
+                                <div class="col-md-2 ng-binding">BS Huwelijk&nbsp;</div>
+                                <div class="col-md-1"><!-- ngIf: loPerson.HasScan --><span class="glyphicon glyphicon-camera ng-scope" ng-if="loPerson.HasScan"></span><!-- end ngIf: loPerson.HasScan -->&nbsp;</div>
+                                <div class="mobile-row">
+                                    <div class="icon"><!-- ngIf: loPerson.HasScan --><span class="glyphicon glyphicon-camera ng-scope" ng-if="loPerson.HasScan"></span><!-- end ngIf: loPerson.HasScan --></div>
+                                    <div class="name ng-binding">Adriaantje  Schuurman <div class="small ng-binding"></div></div>
+                                    <div class="data ng-binding">BS Huwelijk, Leersum, 05-04-1843</div>
+                                </div>
+                            </div>
+                            <!-- ngIf: vm.VisibleSourceDocumentList[loPerson.PersonId] == true --><!-- end ngRepeat: loPerson in vm.SearchResult.Persons --><div class="row-toggle ng-scope" ng-repeat-start="loPerson in vm.SearchResult.Persons" ng-click="vm.VisibleSourceDocumentList[loPerson.PersonId] = !vm.VisibleSourceDocumentList[loPerson.PersonId]" search-row-toggle-directive="">
+                                <div class="col-md-2 ng-binding"><!-- ngIf: loPerson.HasTussenvoegsel -->Schuurman&nbsp;</div>
+                                <div class="col-md-2 ng-binding">Adriaantje&nbsp;</div>
+                                <div class="col-md-2 ng-binding">&nbsp;</div>
+                                <div class="col-md-2 ng-binding">Ede&nbsp;</div>
+                                <div class="col-md-1 ng-binding">29-01-1886&nbsp;</div>
+                                <div class="col-md-2 ng-binding">BS Overlijden&nbsp;</div>
+                                <div class="col-md-1"><!-- ngIf: loPerson.HasScan --><span class="glyphicon glyphicon-camera ng-scope" ng-if="loPerson.HasScan"></span><!-- end ngIf: loPerson.HasScan -->&nbsp;</div>
+                                <div class="mobile-row">
+                                    <div class="icon"><!-- ngIf: loPerson.HasScan --><span class="glyphicon glyphicon-camera ng-scope" ng-if="loPerson.HasScan"></span><!-- end ngIf: loPerson.HasScan --></div>
+                                    <div class="name ng-binding">Adriaantje  Schuurman <div class="small ng-binding"></div></div>
+                                    <div class="data ng-binding">BS Overlijden, Ede, 29-01-1886</div>
+                                </div>
+                            </div>
+                            <!-- ngIf: vm.VisibleSourceDocumentList[loPerson.PersonId] == true --><!-- end ngRepeat: loPerson in vm.SearchResult.Persons --><div class="row-toggle ng-scope" ng-repeat-start="loPerson in vm.SearchResult.Persons" ng-click="vm.VisibleSourceDocumentList[loPerson.PersonId] = !vm.VisibleSourceDocumentList[loPerson.PersonId]" search-row-toggle-directive="">
+                                <div class="col-md-2 ng-binding"><!-- ngIf: loPerson.HasTussenvoegsel -->Schuurman&nbsp;</div>
+                                <div class="col-md-2 ng-binding">Adriaantje&nbsp;</div>
+                                <div class="col-md-2 ng-binding">&nbsp;</div>
+                                <div class="col-md-2 ng-binding">Driebergen&nbsp;</div>
+                                <div class="col-md-1 ng-binding">12-10-1853&nbsp;</div>
+                                <div class="col-md-2 ng-binding">BS Overlijden&nbsp;</div>
+                                <div class="col-md-1"><!-- ngIf: loPerson.HasScan --><span class="glyphicon glyphicon-camera ng-scope" ng-if="loPerson.HasScan"></span><!-- end ngIf: loPerson.HasScan -->&nbsp;</div>
+                                <div class="mobile-row">
+                                    <div class="icon"><!-- ngIf: loPerson.HasScan --><span class="glyphicon glyphicon-camera ng-scope" ng-if="loPerson.HasScan"></span><!-- end ngIf: loPerson.HasScan --></div>
+                                    <div class="name ng-binding">Adriaantje  Schuurman <div class="small ng-binding"></div></div>
+                                    <div class="data ng-binding">BS Overlijden, Driebergen, 12-10-1853</div>
+                                </div>
+                            </div>
+                            <!-- ngIf: vm.VisibleSourceDocumentList[loPerson.PersonId] == true --><!-- end ngRepeat: loPerson in vm.SearchResult.Persons --><div class="row-toggle ng-scope selected" ng-repeat-start="loPerson in vm.SearchResult.Persons" ng-click="vm.VisibleSourceDocumentList[loPerson.PersonId] = !vm.VisibleSourceDocumentList[loPerson.PersonId]" search-row-toggle-directive="">
+                                <div class="col-md-2 ng-binding"><!-- ngIf: loPerson.HasTussenvoegsel -->Schuurman&nbsp;</div>
+                                <div class="col-md-2 ng-binding">Adriaantje&nbsp;</div>
+                                <div class="col-md-2 ng-binding">&nbsp;</div>
+                                <div class="col-md-2 ng-binding">Doorn&nbsp;</div>
+                                <div class="col-md-1 ng-binding">09-02-1800&nbsp;</div>
+                                <div class="col-md-2 ng-binding">DTB Dopen&nbsp;</div>
+                                <div class="col-md-1"><!-- ngIf: loPerson.HasScan --><span class="glyphicon glyphicon-camera ng-scope" ng-if="loPerson.HasScan"></span><!-- end ngIf: loPerson.HasScan -->&nbsp;</div>
+                                <div class="mobile-row">
+                                    <div class="icon"><!-- ngIf: loPerson.HasScan --><span class="glyphicon glyphicon-camera ng-scope" ng-if="loPerson.HasScan"></span><!-- end ngIf: loPerson.HasScan --></div>
+                                    <div class="name ng-binding">Adriaantje  Schuurman <div class="small ng-binding"></div></div>
+                                    <div class="data ng-binding">DTB Dopen, Doorn, 09-02-1800</div>
+                                </div>
+                            </div>
+                            <!-- ngIf: vm.VisibleSourceDocumentList[loPerson.PersonId] == true --><div ng-if="vm.VisibleSourceDocumentList[loPerson.PersonId] == true" ng-repeat-end="" class="ng-scope">
+                                <iframe ng-src="/nl/detail/frame/49909227" iframe-auto-height-directive="" src="/nl/detail/frame/49909227" height="794px"></iframe>
+                            </div><!-- end ngIf: vm.VisibleSourceDocumentList[loPerson.PersonId] == true --><!-- end ngRepeat: loPerson in vm.SearchResult.Persons --><div class="row-toggle ng-scope" ng-repeat-start="loPerson in vm.SearchResult.Persons" ng-click="vm.VisibleSourceDocumentList[loPerson.PersonId] = !vm.VisibleSourceDocumentList[loPerson.PersonId]" search-row-toggle-directive="">
+                                <div class="col-md-2 ng-binding"><!-- ngIf: loPerson.HasTussenvoegsel -->Schuurman&nbsp;</div>
+                                <div class="col-md-2 ng-binding">Adriaantje&nbsp;</div>
+                                <div class="col-md-2 ng-binding">&nbsp;</div>
+                                <div class="col-md-2 ng-binding">Zaandijk&nbsp;</div>
+                                <div class="col-md-1 ng-binding">27-01-1900&nbsp;</div>
+                                <div class="col-md-2 ng-binding">BS Overlijden&nbsp;</div>
+                                <div class="col-md-1"><!-- ngIf: loPerson.HasScan --><span class="glyphicon glyphicon-camera ng-scope" ng-if="loPerson.HasScan"></span><!-- end ngIf: loPerson.HasScan -->&nbsp;</div>
+                                <div class="mobile-row">
+                                    <div class="icon"><!-- ngIf: loPerson.HasScan --><span class="glyphicon glyphicon-camera ng-scope" ng-if="loPerson.HasScan"></span><!-- end ngIf: loPerson.HasScan --></div>
+                                    <div class="name ng-binding">Adriaantje  Schuurman <div class="small ng-binding"></div></div>
+                                    <div class="data ng-binding">BS Overlijden, Zaandijk, 27-01-1900</div>
+                                </div>
+                            </div>
+                            <!-- ngIf: vm.VisibleSourceDocumentList[loPerson.PersonId] == true --><!-- end ngRepeat: loPerson in vm.SearchResult.Persons --><div class="row-toggle ng-scope" ng-repeat-start="loPerson in vm.SearchResult.Persons" ng-click="vm.VisibleSourceDocumentList[loPerson.PersonId] = !vm.VisibleSourceDocumentList[loPerson.PersonId]" search-row-toggle-directive="">
+                                <div class="col-md-2 ng-binding"><!-- ngIf: loPerson.HasTussenvoegsel -->Schuurman&nbsp;</div>
+                                <div class="col-md-2 ng-binding">Adriaantje&nbsp;</div>
+                                <div class="col-md-2 ng-binding">&nbsp;</div>
+                                <div class="col-md-2 ng-binding">Zaandijk&nbsp;</div>
+                                <div class="col-md-1 ng-binding">02-02-1895&nbsp;</div>
+                                <div class="col-md-2 ng-binding">BS Overlijden&nbsp;</div>
+                                <div class="col-md-1"><!-- ngIf: loPerson.HasScan --><span class="glyphicon glyphicon-camera ng-scope" ng-if="loPerson.HasScan"></span><!-- end ngIf: loPerson.HasScan -->&nbsp;</div>
+                                <div class="mobile-row">
+                                    <div class="icon"><!-- ngIf: loPerson.HasScan --><span class="glyphicon glyphicon-camera ng-scope" ng-if="loPerson.HasScan"></span><!-- end ngIf: loPerson.HasScan --></div>
+                                    <div class="name ng-binding">Adriaantje  Schuurman <div class="small ng-binding"></div></div>
+                                    <div class="data ng-binding">BS Overlijden, Zaandijk, 02-02-1895</div>
+                                </div>
+                            </div>
+                            <!-- ngIf: vm.VisibleSourceDocumentList[loPerson.PersonId] == true --><!-- end ngRepeat: loPerson in vm.SearchResult.Persons --><div class="row-toggle ng-scope" ng-repeat-start="loPerson in vm.SearchResult.Persons" ng-click="vm.VisibleSourceDocumentList[loPerson.PersonId] = !vm.VisibleSourceDocumentList[loPerson.PersonId]" search-row-toggle-directive="">
+                                <div class="col-md-2 ng-binding"><!-- ngIf: loPerson.HasTussenvoegsel -->Schuurman&nbsp;</div>
+                                <div class="col-md-2 ng-binding">Adriaantje&nbsp;</div>
+                                <div class="col-md-2 ng-binding">&nbsp;</div>
+                                <div class="col-md-2 ng-binding">Ede&nbsp;</div>
+                                <div class="col-md-1 ng-binding">28-05-1838&nbsp;</div>
+                                <div class="col-md-2 ng-binding">BS Overlijden&nbsp;</div>
+                                <div class="col-md-1"><!-- ngIf: loPerson.HasScan --><span class="glyphicon glyphicon-camera ng-scope" ng-if="loPerson.HasScan"></span><!-- end ngIf: loPerson.HasScan -->&nbsp;</div>
+                                <div class="mobile-row">
+                                    <div class="icon"><!-- ngIf: loPerson.HasScan --><span class="glyphicon glyphicon-camera ng-scope" ng-if="loPerson.HasScan"></span><!-- end ngIf: loPerson.HasScan --></div>
+                                    <div class="name ng-binding">Adriaantje  Schuurman <div class="small ng-binding"></div></div>
+                                    <div class="data ng-binding">BS Overlijden, Ede, 28-05-1838</div>
+                                </div>
+                            </div>
+                            <!-- ngIf: vm.VisibleSourceDocumentList[loPerson.PersonId] == true --><!-- end ngRepeat: loPerson in vm.SearchResult.Persons --><div class="row-toggle ng-scope" ng-repeat-start="loPerson in vm.SearchResult.Persons" ng-click="vm.VisibleSourceDocumentList[loPerson.PersonId] = !vm.VisibleSourceDocumentList[loPerson.PersonId]" search-row-toggle-directive="">
+                                <div class="col-md-2 ng-binding"><!-- ngIf: loPerson.HasTussenvoegsel -->Schuurman&nbsp;</div>
+                                <div class="col-md-2 ng-binding">Adriaantje&nbsp;</div>
+                                <div class="col-md-2 ng-binding">&nbsp;</div>
+                                <div class="col-md-2 ng-binding">Driebergen&nbsp;</div>
+                                <div class="col-md-1 ng-binding">19-10-1840&nbsp;</div>
+                                <div class="col-md-2 ng-binding">BS Overlijden&nbsp;</div>
+                                <div class="col-md-1"><!-- ngIf: loPerson.HasScan --><span class="glyphicon glyphicon-camera ng-scope" ng-if="loPerson.HasScan"></span><!-- end ngIf: loPerson.HasScan -->&nbsp;</div>
+                                <div class="mobile-row">
+                                    <div class="icon"><!-- ngIf: loPerson.HasScan --><span class="glyphicon glyphicon-camera ng-scope" ng-if="loPerson.HasScan"></span><!-- end ngIf: loPerson.HasScan --></div>
+                                    <div class="name ng-binding">Adriaantje  Schuurman <div class="small ng-binding"></div></div>
+                                    <div class="data ng-binding">BS Overlijden, Driebergen, 19-10-1840</div>
+                                </div>
+                            </div>
+                            <!-- ngIf: vm.VisibleSourceDocumentList[loPerson.PersonId] == true --><!-- end ngRepeat: loPerson in vm.SearchResult.Persons --><div class="row-toggle ng-scope" ng-repeat-start="loPerson in vm.SearchResult.Persons" ng-click="vm.VisibleSourceDocumentList[loPerson.PersonId] = !vm.VisibleSourceDocumentList[loPerson.PersonId]" search-row-toggle-directive="">
+                                <div class="col-md-2 ng-binding"><!-- ngIf: loPerson.HasTussenvoegsel -->Schuurman&nbsp;</div>
+                                <div class="col-md-2 ng-binding">Adriaantje&nbsp;</div>
+                                <div class="col-md-2 ng-binding">&nbsp;</div>
+                                <div class="col-md-2 ng-binding">Driebergen&nbsp;</div>
+                                <div class="col-md-1 ng-binding">27-04-1870&nbsp;</div>
+                                <div class="col-md-2 ng-binding">BS Overlijden&nbsp;</div>
+                                <div class="col-md-1"><!-- ngIf: loPerson.HasScan --><span class="glyphicon glyphicon-camera ng-scope" ng-if="loPerson.HasScan"></span><!-- end ngIf: loPerson.HasScan -->&nbsp;</div>
+                                <div class="mobile-row">
+                                    <div class="icon"><!-- ngIf: loPerson.HasScan --><span class="glyphicon glyphicon-camera ng-scope" ng-if="loPerson.HasScan"></span><!-- end ngIf: loPerson.HasScan --></div>
+                                    <div class="name ng-binding">Adriaantje  Schuurman <div class="small ng-binding"></div></div>
+                                    <div class="data ng-binding">BS Overlijden, Driebergen, 27-04-1870</div>
+                                </div>
+                            </div>
+                            <!-- ngIf: vm.VisibleSourceDocumentList[loPerson.PersonId] == true --><!-- end ngRepeat: loPerson in vm.SearchResult.Persons --><div class="row-toggle ng-scope" ng-repeat-start="loPerson in vm.SearchResult.Persons" ng-click="vm.VisibleSourceDocumentList[loPerson.PersonId] = !vm.VisibleSourceDocumentList[loPerson.PersonId]" search-row-toggle-directive="">
+                                <div class="col-md-2 ng-binding"><!-- ngIf: loPerson.HasTussenvoegsel -->Schuurman&nbsp;</div>
+                                <div class="col-md-2 ng-binding">Adriaantje&nbsp;</div>
+                                <div class="col-md-2 ng-binding">&nbsp;</div>
+                                <div class="col-md-2 ng-binding">Langbroek&nbsp;</div>
+                                <div class="col-md-1 ng-binding">26-04-1827&nbsp;</div>
+                                <div class="col-md-2 ng-binding">BS Huwelijk&nbsp;</div>
+                                <div class="col-md-1"><!-- ngIf: loPerson.HasScan --><span class="glyphicon glyphicon-camera ng-scope" ng-if="loPerson.HasScan"></span><!-- end ngIf: loPerson.HasScan -->&nbsp;</div>
+                                <div class="mobile-row">
+                                    <div class="icon"><!-- ngIf: loPerson.HasScan --><span class="glyphicon glyphicon-camera ng-scope" ng-if="loPerson.HasScan"></span><!-- end ngIf: loPerson.HasScan --></div>
+                                    <div class="name ng-binding">Adriaantje  Schuurman <div class="small ng-binding"></div></div>
+                                    <div class="data ng-binding">BS Huwelijk, Langbroek, 26-04-1827</div>
+                                </div>
+                            </div>
+                            <!-- ngIf: vm.VisibleSourceDocumentList[loPerson.PersonId] == true --><!-- end ngRepeat: loPerson in vm.SearchResult.Persons --><div class="row-toggle ng-scope" ng-repeat-start="loPerson in vm.SearchResult.Persons" ng-click="vm.VisibleSourceDocumentList[loPerson.PersonId] = !vm.VisibleSourceDocumentList[loPerson.PersonId]" search-row-toggle-directive="">
+                                <div class="col-md-2 ng-binding"><!-- ngIf: loPerson.HasTussenvoegsel -->Schuurman&nbsp;</div>
+                                <div class="col-md-2 ng-binding">Adriaantje&nbsp;</div>
+                                <div class="col-md-2 ng-binding">&nbsp;</div>
+                                <div class="col-md-2 ng-binding">Driebergen&nbsp;</div>
+                                <div class="col-md-1 ng-binding">14-02-1853&nbsp;</div>
+                                <div class="col-md-2 ng-binding">BS Overlijden&nbsp;</div>
+                                <div class="col-md-1"><!-- ngIf: loPerson.HasScan --><span class="glyphicon glyphicon-camera ng-scope" ng-if="loPerson.HasScan"></span><!-- end ngIf: loPerson.HasScan -->&nbsp;</div>
+                                <div class="mobile-row">
+                                    <div class="icon"><!-- ngIf: loPerson.HasScan --><span class="glyphicon glyphicon-camera ng-scope" ng-if="loPerson.HasScan"></span><!-- end ngIf: loPerson.HasScan --></div>
+                                    <div class="name ng-binding">Adriaantje  Schuurman <div class="small ng-binding"></div></div>
+                                    <div class="data ng-binding">BS Overlijden, Driebergen, 14-02-1853</div>
+                                </div>
+                            </div>
+                            <!-- ngIf: vm.VisibleSourceDocumentList[loPerson.PersonId] == true --><!-- end ngRepeat: loPerson in vm.SearchResult.Persons -->
+                        </div>
+                    </div>
+                </div>
+            </div><!-- end ngIf: vm.SearchResult != null -->
+            <!-- ngIf: vm.SearchResult != null --><div class="row search-pagination ng-scope ng-hide" ng-if="vm.SearchResult != null" ng-show="vm.SearchResult.Persons.length > 0 &amp;&amp; vm.GetTotalPageCount() > 1">
+                <ul class="pagination">
+                    <li>
+                        <a href="#" ng-click="vm.LoadPage(vm.GetPageNumberBackward())">«</a>
+                    </li>
+                    <!-- ngIf: vm.GetSearchResultsParameters.Page > 1 -->
+                    <!-- ngIf: vm.GetSearchResultsParameters.Page > 1 -->
+                    <!-- ngRepeat: lnPage in vm.GetVisiblePaginationPageList() -->
+                    <li ng-repeat="lnPage in vm.GetVisiblePaginationPageList()" ng-class="{ 'active': lnPage == vm.GetSearchResultsParameters.Page }" class="ng-scope active">
+                        <a href="#" ng-click="vm.LoadPage(lnPage)" class="ng-binding">1</a>
+                    </li><!-- end ngRepeat: lnPage in vm.GetVisiblePaginationPageList() -->
+                    <!-- ngIf: vm.GetSearchResultsParameters.Page < vm.GetMaxPageCount() -->
+                    <!-- ngIf: vm.GetSearchResultsParameters.Page < vm.GetMaxPageCount() -->
+                    <li>
+                        <a href="#" ng-click="vm.LoadPage(vm.GetPageNumberForward())">»</a>
+                    </li>
+                </ul>
+            </div><!-- end ngIf: vm.SearchResult != null -->
+        </div>
+    </div>
+
+
+    <footer>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3">
+                    <h3>Nieuwsbrief ontvangen?</h3>
+
+
+                    <form action="/nl/zoeken/?q=Adriaantje%20Schuurman" enctype="multipart/form-data" method="post">
+                        <div class="mailchimp-subscription">
+                            <div class="input-group subscribe">
+                                <input name="__RequestVerificationToken" type="hidden" value="aTypvc8jNQqhz7X4XqGlLiA8qd6qq8lIOL6wILT_XSuzi83zFaFOrW6ptaUEU_YntOoYpSKSQh4wgslyWRkR-deCb-N4qwl7uTt_57iMAEw1" />
+                                <input class="form-control" id="EmailAddress" name="EmailAddress" placeholder="Uw e-mailadres..." type="email" value="" />
+                                <span class="input-group-btn">
+                                    <button class="btn btn-black" type="submit"><span class="glyphicon glyphicon-envelope"></span></button>
+                                </span>
+                            </div>
+                        </div>
+                        <input name="ufprt" type="hidden" value="2991F43A5310C31050783E81EAD58EAC120B8E30C266DC909A57ACDBA367E687AD0DBF5C975D97696CA89D2D23B807598721DFF0323A865A3B130347EF72032ECFBCFC748F7120C2D39A63A733E84D92A12C7C72FD7B7ED50E133969A88ADD38511A0CADBF8DC5B0D0AC206016789A4801A6C3AA008F5DA83AB967CDAAD9B58D3A5662813468C732CE1EF9C1CC49FA46A913CE137E2C4F926C813AE879DA99F57A4F0B77F429927912CC1D08C14D1A79384CD09A08E7A939431837EA3FA29DDC9414FFF89580F19932D87B2132EFC348ECE44EDD4FD2DD4E6B4E3828AA28432B367D427B364B9E2827C65882F7B7A987B7B3133BD6208496B9FDC9D4F680692A" />
+                    </form>
+
+                    <div class="strech-brand">
+                        <img src="/img/logo-alt.png" />
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <h3>Service &amp; contact</h3>
+                    <ul>
+                        <li><a href="/nl/contact/" target="_self">Contact</a></li>
+                        <li><a href="https://www.facebook.com/WieWasWie" target="_blank">Facebook</a></li>
+                        <li><a href="https://twitter.com/WieWasWie" target="_blank">Twitter</a></li>
+                    </ul>
+                    <ul>
+                        <li><a href="/nl/melding-inbreuk-materiaal/" target="_self">Melding inbreuk materiaal</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h3>Over WieWasWie</h3>
+                    <ul>
+                        <li><a href="/nl/deelnemende-instellingen/" target="_self">Deelnemende instellingen</a></li>
+                        <li><a href="/nl/over-ons/" target="_self">Over ons</a></li>
+                        <li><a href="https://cbg.nl/over-het-cbg/vriend-worden/" target="_blank">Vriend van het CBG worden</a></li>
+                        <li><a href="https://velehanden.nl/">VeleHanden</a></li>
+                    </ul>
+                    <ul>
+                        <li><a href="/nl/disclaimer/" target="_self">Disclaimer</a></li>
+                        <li><a href="https://cbg.nl/documents/178/Algemene_Voorwaarden_2020-09-15.pdf" target="_blank">Algemene voorwaarden</a></li>
+                        <li><a href="https://cbg.nl/documents/179/Privacyverklaring_2020-09-15.pdf" target="_blank">Mijn privacy</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h3>Meer CBG-websites</h3>
+                    <ul>
+                        <li><a href="https://cbg.nl" target="_blank">CBG.nl</a></li>
+                        <li><a href="https://cbgverzamelingen.nl" target="_blank">CBG Verzamelingen</a></li>
+                        <li><a href="https://cbgfamiliewapens.nl" target="_blank">CBG Familiewapens</a></li>
+                        <li><a href="https://cbgfamilienamen.nl" target="_blank">CBG Familienamen</a></li>
+                        <li><a href="https://stamboomnederland.nl" target="_blank">CBG Stambomen</a></li>
+                        <li><a href="https://cbgbibliotheek.nl" target="_blank">CBG Bibliotheek</a></li>
+                    </ul>
+                    <ul>
+                        <li><a href="https://cbg.nl/over-het-cbg/gen-magazine/" target="_blank">Gen.magazine</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <div class="scripts">
+        <script src="/scripts/UmbracoDictionary.js?637647044567376497"></script>
+        <script src="/scripts/jquery.min.js"></script>
+        <script src="/scripts/bootstrap.min.js"></script>
+        <script src="/scripts/respond.min.js"></script>
+        <script src="/scripts/perfect-scrollbar.jquery.min.js"></script>
+        <script src="/scripts/wiewaswie.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
+        <script>window.angular || document.write('<script src="js/angular.min.js">\x3C/script>')</script>
+
+        <script src="/scripts/HelperClasses/Deserializer.js"></script>
+        <script src="/scripts/ViewModels/SearchViewModel.js"></script>
+        <script src="/scripts/Services/SearchApiService.js"></script>
+        <script src="/scripts/Directives/searchRowToggleDirective.js"></script>
+        <script src="/scripts/Directives/selectListDirective.js"></script>
+        <script src="/scripts/Directives/iframeAutoHeightDirective.js"></script>
+        <script src="/scripts/Application.js"></script>
+
+
+    </div>
+
+    <div class="modal fade" id="message-modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                    <h4 class="modal-title"></h4>
+                </div>
+                <div class="modal-body">
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        $(document).ready(function () {
+            $('.btn-logged-in').click(function () {
+                $('.btn-menu').toggleClass("menu-active");
+            });
+        });
+
+    </script>
+    <input type="hidden" id="accesslevel" name="accesslevel" value="0" />
+    <input type="hidden" id="sub" name="sub" value="" />
+    <iframe id="frame" style="position: absolute; width: 1px;height: 1px; inset: -9999px; display: none;" src="https://account.cbg.nl/iframe?origin=https://www.wiewaswie.nl">
+    </iframe>
+</body>
+</html></iframe></body><grammarly-desktop-integration data-grammarly-shadow-root="true"></grammarly-desktop-integration></html>

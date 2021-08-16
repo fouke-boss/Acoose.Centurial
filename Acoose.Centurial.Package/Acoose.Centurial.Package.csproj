@@ -61,6 +61,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EventRole.cs" />
+    <Compile Include="EventType.cs" />
     <Compile Include="nl\A2A\A2AAllInOne_v_1_7.cs" />
     <Compile Include="nl\A2A\Akte.cs" />
     <Compile Include="nl\A2A\Person.cs" />
@@ -79,9 +81,12 @@
     <Compile Include="nl\A2A\SourceType.cs" />
     <Compile Include="nl\A2A\TransDate.cs" />
     <Compile Include="nl\GenealogieOnline.cs" />
+    <Compile Include="nl\WieWasWie.cs" />
     <Compile Include="nl\Mensenlinq.cs" />
     <Compile Include="nl\OpenArchieven.cs" />
     <Compile Include="net\Centurial.cs" />
+    <Compile Include="nl\WieWasWie.Event.cs" />
+    <Compile Include="nl\WieWasWie.Person.cs" />
     <Compile Include="org\FamilySearch.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="org\Wikipedia.cs" />

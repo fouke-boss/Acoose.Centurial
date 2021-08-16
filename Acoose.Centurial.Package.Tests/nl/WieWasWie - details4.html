@@ -1,0 +1,374 @@
+<html lang="en">
+<head>
+    <style type="text/css">
+        @charset "UTF-8";
+
+        [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak, .ng-hide:not(.ng-hide-animate) {
+            display: none !important;
+        }
+
+        ng\:form {
+            display: block;
+        }
+
+        .ng-animate-shim {
+            visibility: hidden;
+        }
+
+        .ng-anchor {
+            position: absolute;
+        }
+    </style>
+    <meta charset="utf-8">
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+
+    <title>  - Regionaal Historisch Centrum Limburg</title>
+    <base href="https://www.wiewaswie.nl/">
+    <meta name="author" content="">
+    <meta name="copyright" content="">
+    <meta name="description" content="">
+    <meta name="keywords" content="System.String[]">
+    <meta name="robots" content="">
+
+    <link href="/highresIcon.png" rel="icon" sizes="192x192">
+    <link href="/favicon.ico" rel="shortcut icon" type="image/x-icon">
+
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css" rel="stylesheet">
+    <link href="/css/style.min.css" rel="stylesheet">
+    <link href="/css/cbg.css?v2" rel="stylesheet">
+
+
+
+
+
+    <script async="" src="https://www.google-analytics.com/analytics.js"></script>
+    <script>
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date(); a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+        ga('create', 'UA-24952765-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+
+    <script>
+        window.addEventListener("message", function (e) {
+            //console.log("Received message: ", e);
+            if (e.origin === 'https://account.cbg.nl') {
+                //console.log('message: ', e.data);
+                if (e.data.jwtToken !== null && e.data.payload !== undefined) {
+                    //console.log('cognitousername: ', e.data.payload['cognito:username']);
+                    //console.log('user: ', e.data);
+                    //console.log(SHA1.hex(e.data.jwtToken));
+                    //console.log(document.getElementById('accesstokenhash').value);
+                    // user is logged on via SSO but either not on wiewaswie (accesslevel == 0) or he is but the subscription level has changed so we need to update:
+                    if (document.getElementById("accesslevel").value != e.data.payload['wiewaswie.nl'] || document.getElementById("sub").value != e.data.payload['sub']) {
+                        document.location = 'https://account.cbg.nl/authorize?client_id=2qosgmhhvkfhbrhb4pg42kkmr3&lang=nl&redirect_uri=https://www.wiewaswie.nl/sso&response_type=code&scope=email%20profile%20openid&state=/en/detail/?id=49955499';
+                    }
+                } else {
+                    //console.log('Niet meer ingelogd via Oauth');
+                    if (document.getElementById("accesslevel").value != "0") {
+                        document.location = '/sso?logout==localonly&redirect_uri=/en/detail/?id=49955499';
+                    }
+                }
+            }
+        }, false);
+        document.addEventListener("visibilitychange", function () {
+            if (document.hidden) {
+                //console.log("Browser tab is hidden");
+                //                document.querySelector('body').dataset.accessLevel = 0;
+            } else {
+                //console.log("Browser tab is visible");
+                document.getElementById('frame').src += '';
+            }
+        });
+    </script>
+</head>
+<body data-culture="en-US" data-new-gr-c-s-check-loaded="14.1026.0" data-gr-ext-installed="">
+
+
+    <header>
+        <button class="btn btn-black mobile-menu">Menu</button>
+        <div class="pulldown" style="display:none;">
+            <a href="https://cbg.nl" class="a a-gold" target="_blank">CBG.nl</a>
+            <a href="https://cbgbibliotheek.nl" class="a a-orange" target="_blank">Bibliotheek</a>
+            <a href="https://cbgverzamelingen.nl" class="a a-purple" target="_blank">Verzamelingen</a>
+            <a href="https://cbgfamilienamen.nl" class="a a-red" target="_blank">Familienamen</a>
+            <a href="https://cbgfamiliewapens.nl" class="a a-blue" target="_blank">Familiewapens</a>
+            <a href="https://stamboomnederland.nl" class="a a-green" target="_blank">Stambomen</a>
+        </div>
+        <button class="btn pulldown-toggle">CBG sources</button>
+        <div class="navbar">
+            <div class="container">
+                <div class="navbar-header" style="float:left">
+                    <div class="navbar-brand">
+                        <a href="/">
+                            <img src="/img/logo.png">
+                            <span class="navbar-slogan">
+                                <b>
+                                    Everyone
+                                </b> has a history
+                            </span>
+                        </a>
+                    </div>
+                </div>
+                <div class="navbar-mijncbg navbar-right">
+                    <ul class="nav navbar-nav navbar-top">
+                        <li>
+                            <a class="btn btn-corporate btn-logged-out" href="https://oauth.cbg.nl/oauth2/authorize?response_type=code&amp;scope=email+profile+openid&amp;redirect_uri=https://www.wiewaswie.nl/sso&amp;client_id=5640lkja0fbr39q5g3lj9q39lq&amp;lang=en&amp;state=/en/detail/?id=49955499">
+                                <span class="logged-out">My CBG</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="navbar-collapse navbar-right collapse">
+                    <ul class="nav navbar-nav navbar-top">
+                        <li class="language">
+                            <a href="/nl/" class="">NL</a>
+                            <a href="/en/" class="active">EN</a>
+                        </li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-bottom">
+                        <li><a href="/en/search/" target="_self">Search</a></li>
+                        <li><a href="/en/sources/" target="_self">Sources</a></li>
+                        <li><a href="/en/news/" target="_self">News</a></li>
+                        <li><a href="/en/help/" target="_self">Help</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="navbar-mobile">
+        <ul class="nav">
+            <li><a href="/en/search/" target="_self">Search</a></li>
+            <li><a href="/en/sources/" target="_self">Sources</a></li>
+            <li><a href="/en/news/" target="_self">News</a></li>
+            <li><a href="/en/help/" target="_self">Help</a></li>
+        </ul>
+
+        <ul class="nav nav-white">
+            <li class="language">
+                <a href="/nl/" class="">NL</a>
+                <a href="/en/" class="active">EN</a>
+            </li>
+        </ul>
+
+        <ul class="nav nav-inline">
+            <li><a href="https://cbg.nl" class="a a-gold" target="_blank">CBG.nl</a></li>
+            <li><a href="https://cbgbibliotheek.nl" class="a a-orange" target="_blank">Bibliotheek</a></li>
+            <li><a href="https://cbgverzamelingen.nl" class="a a-purple" target="_blank">Verzamelingen</a></li>
+            <li><a href="https://cbgfamilienamen.nl" class="a a-red" target="_blank">Familienamen</a></li>
+            <li><a href="https://cbgfamiliewapens.nl" class="a a-blue" target="_blank">Familiewapens</a></li>
+            <li><a href="https://stamboomnederland.nl" class="a a-green" target="_blank">Stambomen</a></li>
+        </ul>
+    </div>
+
+
+    <div class="container sourcedetail-themepage">
+        <div class="split"></div>
+        <div class="col-md-12">
+            <h2>BS Overlijden met Gerardus Johannes Maria Boss</h2>
+        </div>
+        <div class="split"></div>
+        <div class="col-md-9">
+            <div class="row">
+
+                <div class="col-md-5">
+                    <div class="left-column">
+                        <div class="person">
+                            <dl class="dl-horizontal">
+                                <dt>Deceased</dt>
+                                <dd><a href="/en/search/?q=Gerardus Johannes Maria Boss" target="_blank">Gerardus Johannes Maria Boss</a></dd>
+                                <dt data-dictionary="SourceDetail.BirthPlace">Place of birth</dt>
+                                <dd>Sittard</dd>
+                                <dt data-dictionary="SourceDetail.Gender">Gender</dt>
+                                <dd>Man</dd>
+
+                            </dl>
+                        </div>
+                        <div class="person">
+                            <dl class="dl-horizontal">
+                                <dt>Father</dt>
+                                <dd><a href="/en/search/?q=Jan Jacob Boss" target="_blank">Jan Jacob Boss</a></dd>
+
+                            </dl>
+                        </div>
+                        <div class="person">
+                            <dl class="dl-horizontal">
+                                <dt>Mother</dt>
+                                <dd><a href="/en/search/?q=Sibilla Maria Frankort" target="_blank">Sibilla Maria Frankort</a></dd>
+
+                            </dl>
+                        </div>
+                        <div class="gebeurtenis">
+                            <dl class="dl-horizontal">
+                                <dt data-dictionary="SourceDetail.Event">Event</dt>
+                                <dd>Overlijden</dd>
+                                <dt data-dictionary="SourceDetail.EventDate">Event date</dt>
+                                <dd>17-01-1949</dd>
+                                <dt data-dictionary="SourceDetail.EventPlace">Event place</dt>
+                                <dd>
+
+
+                                    Sittard
+                                </dd>
+                            </dl>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-7">
+                    <div class="right-column akte">
+                        <dl class="dl-horizontal">
+                            <dt data-dictionary="SourceDetail.DocumentType">Document type</dt>
+                            <dd>BS Overlijden</dd>
+                            <dt data-dictionary="SourceDetail.HeritageInstitutionName">Heritage institution</dt>
+                            <dd>Regionaal Historisch Centrum Limburg</dd>
+                            <dt data-dictionary="SourceDetail.HeritageInstitutionPlace">Institution place</dt>
+                            <dd>Maastricht</dd>
+                            <dt data-dictionary="SourceDetail.CollectionRegion">Collection region</dt>
+                            <dd>Limburg</dd>
+                            <dt data-dictionary="SourceDetail.Archive">Archive</dt>
+                            <dd>12.130</dd>
+                            <dt data-dictionary="SourceDetail.RegistrationNumber">Registration number</dt>
+                            <dd>2880</dd>
+                            <dt data-dictionary="SourceDetail.Page">Sourcenumber</dt>
+                            <dd>26</dd>
+                            <dt data-dictionary="SourceDetail.RegistrationDate">Registration date</dt>
+                            <dd>
+                                18-01-1949
+                            </dd>
+                            <dt data-dictionary="SourceDetail.CertificatePlace">Document place</dt>
+                            <dd>Sittard</dd>
+                            <dt data-dictionary="SourceDetail.Collection">Collection</dt>
+                            <dd>Burgerlijke Stand in Limburg: Sittard</dd>
+                            <dt data-dictionary="Comment">Opmerking</dt>
+                            <dd>6 weken oud</dd>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="buttons">
+                <div class="showurl">
+                    <button class="link btn btn-black"><span class="glyphicon glyphicon-link"></span> Copy URL</button>
+                    <input type="text" onclick="this.select()" value="https://www.wiewaswie.nl/en/detail/49955499">
+                </div>
+                <a href="en/detail/print/49955499" target="_blank" class="a a-black"><span class="glyphicon glyphicon-print"></span> Print</a>
+
+                <a href="http://www.archieven.nl/mi/38?mivast=38&amp;miadt=38&amp;miaet=54&amp;micode=12.130-2880&amp;minr=13898936&amp;miview=ldt" target="_blank" class="sourcedigital a a-black"><span class="glyphicon glyphicon-share"></span> Go to source</a>
+            </div>
+        </div>
+        <div class="split"></div>
+    </div>
+
+    <footer>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3">
+                    <h3>Receive newsletter?</h3>
+
+
+                    <form action="/en/detail/?id=49955499" enctype="multipart/form-data" method="post">
+                        <div class="mailchimp-subscription">
+                            <div class="input-group subscribe">
+                                <input name="__RequestVerificationToken" type="hidden" value="BKRuiRG1xvg_B8jLlZDOGignrkMPxDg65gLKl7TposKjAZhaEcFtUbcefG17UbVg05mno4C1QwNahSr3E5ItK9Yjs7JTXeXI_DRjQkVLDwI1">
+                                <input class="form-control" id="EmailAddress" name="EmailAddress" placeholder="Your e-mail address..." type="email" value="">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-black" type="submit"><span class="glyphicon glyphicon-envelope"></span></button>
+                                </span>
+                            </div>
+                        </div>
+                        <input name="ufprt" type="hidden" value="F5BC485398277D32C5E9E5583F024FB472A6F9C1A088DA625D841AAE966F7B8AE0DEE7AD77ABC0DE5076A24C10B803A6CAC514FAFA7771899EEAEC4B437398EBC576E93CBF29848B336552AAD4A1292DCE01789381D9080106EDFA74DBEB3359E8D18E1DB96F95AD96C493C98B143F564E870314E01C23B76B7EECE25AFE558DA7AD085D96C0F2BCB394705FC9FC8E6C3592EF3BFCEFEA6D831A2C3551BA98DC9C9799D9848748AAAB91F0857FD1F7605449CD50F1844CB3245E01D1A7764ADC269CA824AE46D1827A1A9B797BDC25397C61EC9C9045C5BC2CB1ABC9EAAF32EF3E89B681CFB79A8D4268962E035D4B9E3C036CD7AC9E79676E77558383C284A3">
+                    </form>
+
+                    <div class="strech-brand">
+                        <img src="/img/logo-alt.png">
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <h3>Service &amp; Contact</h3>
+                    <ul>
+                        <li><a href="/en/contact/" target="_self">Contact</a></li>
+                        <li><a href="https://www.facebook.com/WieWasWie" target="_blank">Facebook</a></li>
+                        <li><a href="https://twitter.com/WieWasWie" target="_blank">Twitter</a></li>
+                    </ul>
+                    <ul>
+                        <li><a href="/en/report-infringing-material/" target="_self">Report infringing material</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h3>About WieWasWie</h3>
+                    <ul>
+                        <li><a href="/en/about-us/" target="_self">About us</a></li>
+                        <li><a href="https://cbg.nl/over-het-cbg/vriend-worden/" target="_blank">Become a CBG-friend!</a></li>
+                        <li><a href="/en/participating-institutions/" target="_self">Participating institutions</a></li>
+                    </ul>
+                    <ul>
+                        <li><a href="https://cbg.nl/documents/178/Algemene_Voorwaarden_2020-09-15.pdf" target="_blank">Terms of Service</a></li>
+                        <li><a href="https://cbg.nl/documents/179/Privacyverklaring_2020-09-15.pdf" target="_blank">My privacy</a></li>
+                        <li><a href="/en/disclaimer/" target="_self">Disclaimer</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h3>More CBG websites</h3>
+                    <ul>
+                        <li><a href="https://cbg.nl" target="_blank">CBG.nl</a></li>
+                        <li><a href="https://cbgverzamelingen.nl" target="_blank">CBG Verzamelingen</a></li>
+                        <li><a href="https://cbgfamiliewapens.nl" target="_blank">CBG Familiewapens</a></li>
+                        <li><a href="https://cbgfamilienamen.nl" target="_blank">CBG Familienamen</a></li>
+                        <li><a href="https://stamboomnederland.nl" target="_blank">CBG Stambomen</a></li>
+                        <li><a href="https://cbgbibliotheek.nl" target="_blank">CBG Bibliotheek</a></li>
+                    </ul>
+                    <ul>
+                        <li><a href="https://cbg.nl/over-het-cbg/gen-magazine/" target="_blank">Gen.magazine</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <div class="scripts">
+        <script src="/scripts/UmbracoDictionary.js?637647272687205200"></script>
+        <script src="/scripts/jquery.min.js"></script>
+        <script src="/scripts/bootstrap.min.js"></script>
+        <script src="/scripts/respond.min.js"></script>
+        <script src="/scripts/perfect-scrollbar.jquery.min.js"></script>
+        <script src="/scripts/wiewaswie.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
+        <script>window.angular || document.write('<script src="js/angular.min.js">\x3C/script>')</script>
+
+
+    </div>
+
+    <div class="modal fade" id="message-modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                    <h4 class="modal-title"></h4>
+                </div>
+                <div class="modal-body">
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        $(document).ready(function () {
+            $('.btn-logged-in').click(function () {
+                $('.btn-menu').toggleClass("menu-active");
+            });
+        });
+
+    </script>
+    <input type="hidden" id="accesslevel" name="accesslevel" value="0">
+    <input type="hidden" id="sub" name="sub" value="">
+    <iframe id="frame" style="position: absolute; width: 1px;height: 1px; inset: -9999px; display: none;" src="https://account.cbg.nl/iframe?origin=https://www.wiewaswie.nl">
+</body>
+</html></iframe></body><grammarly-desktop-integration data-grammarly-shadow-root="true"></grammarly-desktop-integration></html>
