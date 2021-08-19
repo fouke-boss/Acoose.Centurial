@@ -1,0 +1,968 @@
+<html class="ng-scope" lang="nl" ng-app="picturaeGenealogy">
+<head>
+	<style type="text/css">
+		@charset "UTF-8";
+
+		[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak, .ng-hide:not(.ng-hide-animate) {
+			display: none !important;
+		}
+
+		ng\:form {
+			display: block;
+		}
+
+		.ng-animate-shim {
+			visibility: hidden;
+		}
+
+		.ng-anchor {
+			position: absolute;
+		}
+	</style>
+	<meta charset="utf-8">
+	<base href="https://www.allegroningers.nl/zoeken-op-naam/">
+	<meta http-equiv="content-type" content="text/html; charset=utf-8">
+	<meta name="generator" content="Joomla! - Open Source Content Management">
+	<title>Zoeken op naam</title>
+	<link href="/templates/gra-allegroningers/favicon.ico" rel="shortcut icon" type="image/vnd.microsoft.icon">
+	<link href="https://webservices.picturae.com/genealogy/dist/css/genealogy.css" rel="stylesheet" type="text/css">
+	<link href="//cdnjs.cloudflare.com/ajax/libs/ng-dialog/0.3.0/css/ngDialog.min.css" rel="stylesheet" type="text/css">
+	<link href="//cdnjs.cloudflare.com/ajax/libs/ng-dialog/0.3.0/css/ngDialog-theme-plain.min.css" rel="stylesheet" type="text/css">
+
+	<meta name="google-site-verification" content="X-a__t5OYdWv-MLBbV0iUAo2cRyEvp2OOeRTyCtZnNY">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="application-name" content="Alle Groningers">
+	<link href="https://fonts.googleapis.com/css?family=Droid+Sans:400,700|Droid+Serif:400,400i" rel="stylesheet">
+	<link rel="apple-touch-icon" href="/templates/gra-allegroningers/apple-touch-icon.png">
+	<link rel="stylesheet" href="/templates/gra-allegroningers/css/36f702704c43a59e022d9c65ffedb89f.css">
+	<script src="https://connect.facebook.net/en_US/all.js?hash=7d6590191add1c986380115165802c9b" async="" crossorigin="anonymous"></script>
+	<script id="facebook-jssdk" async="" src="//connect.facebook.net/en_US/all.js"></script>
+	<script src="//www.google-analytics.com/analytics.js"></script>
+	<script type="application/ld+json">
+		{
+			"@context": "http://schema.org",
+			"@graph":
+			[
+			{
+				"@type": "Organization",
+				"url": "https://www.allegroningers.nl/",
+				"name": "Alle Groningers",
+				"logo": "https://www.allegroningers.nl/templates/gra-allegroningers/img/gra-facebook.jpg",
+				"address": {
+				"@type": "PostalAddress",
+				"streetAddress": "Cascadeplein 4",
+				"addressLocality": "Groningen",
+				"postalCode": "9726 AD",
+				"addressCountry": "NL"
+				},
+				"contactPoint": [
+				{ "@type": "ContactPoint",
+					"telephone": "050-5992000",
+					"email": "allegroningers@groningerarchieven.nl",
+					"contactType": "customer service"
+				}
+				],
+				"sameAs": [
+				"https://nl-nl.facebook.com/groninger.archieven/",
+				"https://twitter.com/gronarch",
+				"https://www.instagram.com/groningerarchieven/",
+				"https://vimeo.com/tag:rhc+groninger+archieven",
+				"https://www.youtube.com/channel/UCf9YQwpPN6HpkAlG96yHbFQ",
+				"https://www.linkedin.com/company/555382/"
+				]
+			},
+			{
+				"@context": "http://schema.org",
+				"@type": "WebSite",
+				"name": "Alle Groningers",
+				"url": "https://www.allegroningers.nl/",
+				"potentialAction": {
+				"@type": "SearchAction",
+				"target": "https://www.allegroningers.nl/zoeken-op-naam/persons?ss=%7B%22q%22:%22{search_term_string}%22%7D",
+				"query-input": "required name=search_term_string"
+				}
+			}
+			]
+		}
+	</script>
+	<meta class="foundation-mq">
+	<style type="text/css" data-fbcssmodules="css:fb.css.base css:fb.css.dialog css:fb.css.iframewidget css:fb.css.customer_chat_plugin_iframe">
+		.fb_hidden {
+			position: absolute;
+			top: -10000px;
+			z-index: 10001
+		}
+
+		.fb_reposition {
+			overflow: hidden;
+			position: relative
+		}
+
+		.fb_invisible {
+			display: none
+		}
+
+		.fb_reset {
+			background: none;
+			border: 0;
+			border-spacing: 0;
+			color: #000;
+			cursor: auto;
+			direction: ltr;
+			font-family: "lucida grande", tahoma, verdana, arial, sans-serif;
+			font-size: 11px;
+			font-style: normal;
+			font-variant: normal;
+			font-weight: normal;
+			letter-spacing: normal;
+			line-height: 1;
+			margin: 0;
+			overflow: visible;
+			padding: 0;
+			text-align: left;
+			text-decoration: none;
+			text-indent: 0;
+			text-shadow: none;
+			text-transform: none;
+			visibility: visible;
+			white-space: normal;
+			word-spacing: normal
+		}
+
+		.fb_reset > div {
+			overflow: hidden
+		}
+
+		@keyframes fb_transform {
+			from {
+				opacity: 0;
+				transform: scale(.95)
+			}
+
+			to {
+				opacity: 1;
+				transform: scale(1)
+			}
+		}
+
+		.fb_animate {
+			animation: fb_transform .3s forwards
+		}
+
+		.fb_dialog {
+			background: rgba(82, 82, 82, .7);
+			position: absolute;
+			top: -10000px;
+			z-index: 10001
+		}
+
+		.fb_dialog_advanced {
+			border-radius: 8px;
+			padding: 10px
+		}
+
+		.fb_dialog_content {
+			background: #fff;
+			color: #373737
+		}
+
+		.fb_dialog_close_icon {
+			background: url(https://static.xx.fbcdn.net/rsrc.php/v3/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 0 transparent;
+			cursor: pointer;
+			display: block;
+			height: 15px;
+			position: absolute;
+			right: 18px;
+			top: 17px;
+			width: 15px
+		}
+
+		.fb_dialog_mobile .fb_dialog_close_icon {
+			left: 5px;
+			right: auto;
+			top: 5px
+		}
+
+		.fb_dialog_padding {
+			background-color: transparent;
+			position: absolute;
+			width: 1px;
+			z-index: -1
+		}
+
+		.fb_dialog_close_icon:hover {
+			background: url(https://static.xx.fbcdn.net/rsrc.php/v3/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 -15px transparent
+		}
+
+		.fb_dialog_close_icon:active {
+			background: url(https://static.xx.fbcdn.net/rsrc.php/v3/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 -30px transparent
+		}
+
+		.fb_dialog_iframe {
+			line-height: 0
+		}
+
+		.fb_dialog_content .dialog_title {
+			background: #6d84b4;
+			border: 1px solid #365899;
+			color: #fff;
+			font-size: 14px;
+			font-weight: bold;
+			margin: 0
+		}
+
+		.fb_dialog_content .dialog_title > span {
+			background: url(https://static.xx.fbcdn.net/rsrc.php/v3/yd/r/Cou7n-nqK52.gif) no-repeat 5px 50%;
+			float: left;
+			padding: 5px 0 7px 26px
+		}
+
+		body.fb_hidden {
+			height: 100%;
+			left: 0;
+			margin: 0;
+			overflow: visible;
+			position: absolute;
+			top: -10000px;
+			transform: none;
+			width: 100%
+		}
+
+		.fb_dialog.fb_dialog_mobile.loading {
+			background: url(https://static.xx.fbcdn.net/rsrc.php/v3/ya/r/3rhSv5V8j3o.gif) white no-repeat 50% 50%;
+			min-height: 100%;
+			min-width: 100%;
+			overflow: hidden;
+			position: absolute;
+			top: 0;
+			z-index: 10001
+		}
+
+		.fb_dialog.fb_dialog_mobile.loading.centered {
+			background: none;
+			height: auto;
+			min-height: initial;
+			min-width: initial;
+			width: auto
+		}
+
+		.fb_dialog.fb_dialog_mobile.loading.centered #fb_dialog_loader_spinner {
+			width: 100%
+		}
+
+		.fb_dialog.fb_dialog_mobile.loading.centered .fb_dialog_content {
+			background: none
+		}
+
+		.loading.centered #fb_dialog_loader_close {
+			clear: both;
+			color: #fff;
+			display: block;
+			font-size: 18px;
+			padding-top: 20px
+		}
+
+		#fb-root #fb_dialog_ipad_overlay {
+			background: rgba(0, 0, 0, .4);
+			bottom: 0;
+			left: 0;
+			min-height: 100%;
+			position: absolute;
+			right: 0;
+			top: 0;
+			width: 100%;
+			z-index: 10000
+		}
+
+		#fb-root #fb_dialog_ipad_overlay.hidden {
+			display: none
+		}
+
+		.fb_dialog.fb_dialog_mobile.loading iframe {
+			visibility: hidden
+		}
+
+		.fb_dialog_mobile .fb_dialog_iframe {
+			position: sticky;
+			top: 0
+		}
+
+		.fb_dialog_content .dialog_header {
+			background: linear-gradient(from(#738aba), to(#2c4987));
+			border-bottom: 1px solid;
+			border-color: #043b87;
+			box-shadow: white 0 1px 1px -1px inset;
+			color: #fff;
+			font: bold 14px Helvetica, sans-serif;
+			text-overflow: ellipsis;
+			text-shadow: rgba(0, 30, 84, .296875) 0 -1px 0;
+			vertical-align: middle;
+			white-space: nowrap
+		}
+
+		.fb_dialog_content .dialog_header table {
+			height: 43px;
+			width: 100%
+		}
+
+		.fb_dialog_content .dialog_header td.header_left {
+			font-size: 12px;
+			padding-left: 5px;
+			vertical-align: middle;
+			width: 60px
+		}
+
+		.fb_dialog_content .dialog_header td.header_right {
+			font-size: 12px;
+			padding-right: 5px;
+			vertical-align: middle;
+			width: 60px
+		}
+
+		.fb_dialog_content .touchable_button {
+			background: linear-gradient(from(#4267B2), to(#2a4887));
+			background-clip: padding-box;
+			border: 1px solid #29487d;
+			border-radius: 3px;
+			display: inline-block;
+			line-height: 18px;
+			margin-top: 3px;
+			max-width: 85px;
+			padding: 4px 12px;
+			position: relative
+		}
+
+		.fb_dialog_content .dialog_header .touchable_button input {
+			background: none;
+			border: none;
+			color: #fff;
+			font: bold 12px Helvetica, sans-serif;
+			margin: 2px -12px;
+			padding: 2px 6px 3px 6px;
+			text-shadow: rgba(0, 30, 84, .296875) 0 -1px 0
+		}
+
+		.fb_dialog_content .dialog_header .header_center {
+			color: #fff;
+			font-size: 16px;
+			font-weight: bold;
+			line-height: 18px;
+			text-align: center;
+			vertical-align: middle
+		}
+
+		.fb_dialog_content .dialog_content {
+			background: url(https://static.xx.fbcdn.net/rsrc.php/v3/y9/r/jKEcVPZFk-2.gif) no-repeat 50% 50%;
+			border: 1px solid #4a4a4a;
+			border-bottom: 0;
+			border-top: 0;
+			height: 150px
+		}
+
+		.fb_dialog_content .dialog_footer {
+			background: #f5f6f7;
+			border: 1px solid #4a4a4a;
+			border-top-color: #ccc;
+			height: 40px
+		}
+
+		#fb_dialog_loader_close {
+			float: left
+		}
+
+		.fb_dialog.fb_dialog_mobile .fb_dialog_close_icon {
+			visibility: hidden
+		}
+
+		#fb_dialog_loader_spinner {
+			animation: rotateSpinner 1.2s linear infinite;
+			background-color: transparent;
+			background-image: url(https://static.xx.fbcdn.net/rsrc.php/v3/yD/r/t-wz8gw1xG1.png);
+			background-position: 50% 50%;
+			background-repeat: no-repeat;
+			height: 24px;
+			width: 24px
+		}
+
+		@keyframes rotateSpinner {
+			0% {
+				transform: rotate(0deg)
+			}
+
+			100% {
+				transform: rotate(360deg)
+			}
+		}
+
+		.fb_iframe_widget {
+			display: inline-block;
+			position: relative
+		}
+
+		.fb_iframe_widget span {
+			display: inline-block;
+			position: relative;
+			text-align: justify
+		}
+
+		.fb_iframe_widget iframe {
+			position: absolute
+		}
+
+		.fb_iframe_widget_fluid_desktop, .fb_iframe_widget_fluid_desktop span, .fb_iframe_widget_fluid_desktop iframe {
+			max-width: 100%
+		}
+
+		.fb_iframe_widget_fluid_desktop iframe {
+			min-width: 220px;
+			position: relative
+		}
+
+		.fb_iframe_widget_lift {
+			z-index: 1
+		}
+
+		.fb_iframe_widget_fluid {
+			display: inline
+		}
+
+		.fb_iframe_widget_fluid span {
+			width: 100%
+		}
+
+		.fb_mpn_mobile_landing_page_slide_out {
+			animation-duration: 200ms;
+			animation-name: fb_mpn_landing_page_slide_out;
+			transition-timing-function: ease-in
+		}
+
+		.fb_mpn_mobile_landing_page_slide_out_from_left {
+			animation-duration: 200ms;
+			animation-name: fb_mpn_landing_page_slide_out_from_left;
+			transition-timing-function: ease-in
+		}
+
+		.fb_mpn_mobile_landing_page_slide_up {
+			animation-duration: 500ms;
+			animation-name: fb_mpn_landing_page_slide_up;
+			transition-timing-function: ease-in
+		}
+
+		.fb_mpn_mobile_bounce_in {
+			animation-duration: 300ms;
+			animation-name: fb_mpn_bounce_in;
+			transition-timing-function: ease-in
+		}
+
+		.fb_mpn_mobile_bounce_out {
+			animation-duration: 300ms;
+			animation-name: fb_mpn_bounce_out;
+			transition-timing-function: ease-in
+		}
+
+		.fb_mpn_mobile_bounce_out_v2 {
+			animation-duration: 300ms;
+			animation-name: fb_mpn_fade_out;
+			transition-timing-function: ease-in
+		}
+
+		.fb_customer_chat_bounce_in_v2 {
+			animation-duration: 300ms;
+			animation-name: fb_bounce_in_v2;
+			transition-timing-function: ease-in
+		}
+
+		.fb_customer_chat_bounce_in_from_left {
+			animation-duration: 300ms;
+			animation-name: fb_bounce_in_from_left;
+			transition-timing-function: ease-in
+		}
+
+		.fb_customer_chat_bounce_out_v2 {
+			animation-duration: 300ms;
+			animation-name: fb_bounce_out_v2;
+			transition-timing-function: ease-in
+		}
+
+		.fb_customer_chat_bounce_out_from_left {
+			animation-duration: 300ms;
+			animation-name: fb_bounce_out_from_left;
+			transition-timing-function: ease-in
+		}
+
+		.fb_customer_chat_bubble_animated_no_badge {
+			box-shadow: 0 3px 12px rgba(0, 0, 0, .15);
+			transition: box-shadow 150ms linear
+		}
+
+		.fb_customer_chat_bubble_animated_no_badge:hover {
+			box-shadow: 0 5px 24px rgba(0, 0, 0, .3)
+		}
+
+		.fb_customer_chat_bubble_animated_with_badge {
+			box-shadow: -5px 4px 14px rgba(0, 0, 0, .15);
+			transition: box-shadow 150ms linear
+		}
+
+		.fb_customer_chat_bubble_animated_with_badge:hover {
+			box-shadow: -5px 8px 24px rgba(0, 0, 0, .2)
+		}
+
+		.fb_invisible_flow {
+			display: inherit;
+			height: 0;
+			overflow-x: hidden;
+			width: 0
+		}
+
+		.fb_new_ui_mobile_overlay_active {
+			overflow: hidden
+		}
+
+		@keyframes fb_mpn_landing_page_slide_in {
+			0% {
+				border-radius: 50%;
+				margin: 0 24px;
+				width: 60px
+			}
+
+			40% {
+				border-radius: 18px
+			}
+
+			100% {
+				margin: 0 12px;
+				width: 100% - 24px
+			}
+		}
+
+		@keyframes fb_mpn_landing_page_slide_in_from_left {
+			0% {
+				border-radius: 50%;
+				left: 12px;
+				margin: 0 24px;
+				width: 60px
+			}
+
+			40% {
+				border-radius: 18px
+			}
+
+			100% {
+				left: 12px;
+				margin: 0 12px;
+				width: 100% - 24px
+			}
+		}
+
+		@keyframes fb_mpn_landing_page_slide_out {
+			0% {
+				margin: 0 12px;
+				width: 100% - 24px
+			}
+
+			60% {
+				border-radius: 18px
+			}
+
+			100% {
+				border-radius: 50%;
+				margin: 0 24px;
+				width: 60px
+			}
+		}
+
+		@keyframes fb_mpn_landing_page_slide_out_from_left {
+			0% {
+				left: 12px;
+				width: 100% - 24px
+			}
+
+			60% {
+				border-radius: 18px
+			}
+
+			100% {
+				border-radius: 50%;
+				left: 12px;
+				width: 60px
+			}
+		}
+
+		@keyframes fb_mpn_landing_page_slide_up {
+			0% {
+				bottom: 0;
+				opacity: 0
+			}
+
+			100% {
+				bottom: 24px;
+				opacity: 1
+			}
+		}
+
+		@keyframes fb_mpn_bounce_in {
+			0% {
+				opacity: .5;
+				top: 100%
+			}
+
+			100% {
+				opacity: 1;
+				top: 0
+			}
+		}
+
+		@keyframes fb_mpn_fade_out {
+			0% {
+				bottom: 30px;
+				opacity: 1
+			}
+
+			100% {
+				bottom: 0;
+				opacity: 0
+			}
+		}
+
+		@keyframes fb_mpn_bounce_out {
+			0% {
+				opacity: 1;
+				top: 0
+			}
+
+			100% {
+				opacity: .5;
+				top: 100%
+			}
+		}
+
+		@keyframes fb_bounce_in_v2 {
+			0% {
+				opacity: 0;
+				transform: scale(0, 0);
+				transform-origin: bottom right
+			}
+
+			50% {
+				transform: scale(1.03, 1.03);
+				transform-origin: bottom right
+			}
+
+			100% {
+				opacity: 1;
+				transform: scale(1, 1);
+				transform-origin: bottom right
+			}
+		}
+
+		@keyframes fb_bounce_in_from_left {
+			0% {
+				opacity: 0;
+				transform: scale(0, 0);
+				transform-origin: bottom left
+			}
+
+			50% {
+				transform: scale(1.03, 1.03);
+				transform-origin: bottom left
+			}
+
+			100% {
+				opacity: 1;
+				transform: scale(1, 1);
+				transform-origin: bottom left
+			}
+		}
+
+		@keyframes fb_bounce_out_v2 {
+			0% {
+				opacity: 1;
+				transform: scale(1, 1);
+				transform-origin: bottom right
+			}
+
+			100% {
+				opacity: 0;
+				transform: scale(0, 0);
+				transform-origin: bottom right
+			}
+		}
+
+		@keyframes fb_bounce_out_from_left {
+			0% {
+				opacity: 1;
+				transform: scale(1, 1);
+				transform-origin: bottom left
+			}
+
+			100% {
+				opacity: 0;
+				transform: scale(0, 0);
+				transform-origin: bottom left
+			}
+		}
+
+		@keyframes fb_bounce_out_v2_mobile_chat_started {
+			0% {
+				opacity: 1;
+				top: 0
+			}
+
+			100% {
+				opacity: 0;
+				top: 20px
+			}
+		}
+
+		@keyframes fb_customer_chat_bubble_bounce_in_animation {
+			0% {
+				bottom: 6pt;
+				opacity: 0;
+				transform: scale(0, 0);
+				transform-origin: center
+			}
+
+			70% {
+				bottom: 18pt;
+				opacity: 1;
+				transform: scale(1.2, 1.2)
+			}
+
+			100% {
+				transform: scale(1, 1)
+			}
+		}
+
+		@keyframes slideInFromBottom {
+			0% {
+				opacity: .1;
+				transform: translateY(100%)
+			}
+
+			100% {
+				opacity: 1;
+				transform: translateY(0)
+			}
+		}
+
+		@keyframes slideInFromBottomDelay {
+			0% {
+				opacity: 0;
+				transform: translateY(100%)
+			}
+
+			97% {
+				opacity: 0;
+				transform: translateY(100%)
+			}
+
+			100% {
+				opacity: 1;
+				transform: translateY(0)
+			}
+		}
+	</style>
+</head>
+<body class=" com_genealogy  " data-view="" data-db="" data-new-gr-c-s-check-loaded="14.1026.0" data-gr-ext-installed="">
+	<!--[if lt IE 9]>
+	<p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+	<![endif]-->
+
+
+	<header class="site-header">
+		<div class="row">
+			<div class="small-10 medium-3 columns">
+				<a href="/" title="home" class="brand-logo brand-logo__alleGroningers">
+					AlleGroningers
+				</a>
+			</div>
+			<div class="small-1 medium-7 columns">
+				<div class="gra-main-nav gra-main-nav--mobile-nav">
+					<ul class="nav menu">
+						<li class="item-104 current active"><a href="/zoeken-op-naam">Zoeken op naam</a></li>
+						<li class="item-219"><a href="/bladeren-door-bronnen">Bladeren door bronnen</a></li>
+						<li class="item-182"><a href="/actueel">Actueel</a></li>
+					</ul>
+
+				</div>
+				<div class="mobile-burger">
+					<div class="mobile-burger__bar1"></div>
+					<div class="mobile-burger__bar2"></div>
+					<div class="mobile-burger__bar3"></div>
+				</div>
+
+			</div>
+			<div class="small-0 medium-0 columns">
+				<a href="https://www.groningerarchieven.nl/" target="blank" title="naar groningerarchieven.nl" class="brand-logo">
+					<img src="/templates/gra-allegroningers/img/groningerArchieven.svg" class="brand-logo__image" alt="Groninger archieven">
+				</a>
+			</div>
+		</div>
+	</header>
+
+	<div class="jumbotron">
+		<div class="row">
+			<div class="small-12 columns">
+				<div class="jumbotron__inner">
+				</div>
+			</div>
+		</div>
+		<div class="random-image" style="background-image: url(/images/Sfeerbeelden/vakmensenbrouwer.jpg);">
+		</div>
+
+
+
+
+	</div>
+
+
+	<div class="row">
+		<div class="large-12">
+			<div class="breadcrumbs">
+
+			</div>
+		</div>
+	</div>
+
+	<!-- if homepage -->
+	<!-- SUB PAGE -->
+	<!-- if not homepage -->
+	<!-- content -->
+	<div class="content-container content-container--light content-container--sub-page content-container--news">
+		<div class="content-container__holder">
+			<div class="row">
+				<div class="small-12 large-12 columns">
+
+					<!--[if lte IE 9]>
+					<script src="https://webservices.picturae.com/genealogy/js/xdomain/xdomain.min.js"></script>
+					<script>
+						xdomain.slaves({
+							"https://webservices.picturae.com": "/genealogy/proxy.html"
+						});
+					</script>
+					<script>
+					(function () {
+						var baseHref = document.querySelector('head base').getAttribute('href');
+						if (!history.pushState && window.location.href.indexOf('#') === -1) {
+							window.location.replace(baseHref + '#/' + window.location.hash);
+						}
+					}());
+					</script>
+					<![endif]-->
+					<!-- uiView: --><div id="pic-genealogy" data-ui-view="" data-url="https://webservices.picturae.com/genealogy/" data-api-key="6976bb7e-0c61-4f03-bf5b-df645d5fd086" data-pagination-rows="25" data-recordsperpage="false" data-language="nl_NL" data-smoothscroll="true" data-date-format="dd-MM-yyyy" data-default-view="persons" data-facet-sort="count" data-heatmap="true" class="ng-scope"><!-- uiView: --><div id="picturae-genealogy-container" class="picturae-genealogy-container ng-scope" ui-view=""><div class="tablerecord active ng-scope"><!-- ngIf: loading && (!register || !persons) --><!-- ngIf: !loading || (register && persons) --><section class="row ng-scope" data-ng-if="!loading || (register &amp;&amp; persons)"><!-- ngIf: 'root.deed' | isState --><div class="back ng-scope" data-ng-if="'root.deed' | isState"><a tabindex="0" ng-click="$back()" href="#"><i class="pic-icon-left-open-mini"></i> <span data-translate="">Terug naar zoekresultaat</span></a></div><!-- end ngIf: 'root.deed' | isState --><header class="small-12 medium-12 columns"><h1 class="ng-binding">Overlijdensregister 1926</h1></header><div class="small-12 medium-9 columns"><!-- ngIf: register.metadata.diversen --><ul class="registration-info-list"><li class="ng-binding"><strong data-translate="">Bron:</strong> burgerlijke standregister</li><li class="ng-binding"><strong data-translate="">Soort registratie:</strong> overlijdensakte</li><!-- ngIf: deed.metadata.datum --><li ng-if="deed.metadata.datum" class="ng-binding ng-scope"><strong data-translate="">(Akte)datum:</strong> 26-07-1926</li><!-- end ngIf: deed.metadata.datum --><!-- ngIf: deed.metadata.plaats --><li ng-if="deed.metadata.plaats" class="ng-binding ng-scope"><strong data-translate="">Plaats:</strong> Groningen</li><!-- end ngIf: deed.metadata.plaats --><!-- ngIf: deed.metadata.subtype --></ul><!-- ngIf: deed.metadata.diversen --><deed data-persons="persons.person" data-deed="deed" data-selected-person-id="selectedPerson.id" class="ng-isolate-scope"><deed-bs_o data-deed="deed" data-persons="persons" data-selected-person-id="selectedPersonId" class="ng-scope ng-isolate-scope"><ol><!-- ngIf: overledene --><li class="deceased ng-scope" data-ng-if="overledene"><ol><li class="male"><!-- ngIf: hasGender(overledene) --><i data-ng-if="hasGender(overledene)" class="pic-icon-female"></i><!-- end ngIf: hasGender(overledene) --><h2 data-translate="">Overledene</h2><person-data data-person="overledene" data-template="bs_o" data-header="false" data-url="'deeds/'+deed.id+'?person='+overledene.id" class="ng-isolate-scope"><!-- ngIf: !isSpecial() --><div data-ng-if="!isSpecial()" class="ng-binding ng-scope"> <a tabindex="0" href="#" data-ng-click="simpleSearchPerson(person)" class="person ng-binding"><!-- ngIf: hasGender() && icon != 'false' --><i data-ng-if="hasGender() &amp;&amp; icon != 'false'" class="pic-icon-female"></i><!-- end ngIf: hasGender() && icon != 'false' --> Antje Jansen <!-- ngIf: person.metadata.meisjesnaam --> <!-- ngIf: person.metadata.beroep --></a><div class="person-permalink"><a tabindex="0" href="#" data-ng-click="showPermalinkBox()" class="person-permalink-button"><span class="pic-icon-link"></span></a><!-- ngIf: isPermalinkOpen --></div><!-- ngIf: person.metadata.leeftijd --><span data-ng-if="person.metadata.leeftijd" class="ng-binding ng-scope"><span data-translate="">leeftijd</span> 52 jaar<!-- ngIf: person.metadata.datum_geboorte || person.metadata.plaats_geboorte || person.metadata.datum_doop || person.metadata.plaats_doop || person.metadata.datum_overlijden || person.metadata.plaats_overlijden || person.metadata.plaats_wonen --><span ng-if="person.metadata.datum_geboorte || person.metadata.plaats_geboorte || person.metadata.datum_doop || person.metadata.plaats_doop || person.metadata.datum_overlijden || person.metadata.plaats_overlijden || person.metadata.plaats_wonen" class="ng-scope">,</span><!-- end ngIf: person.metadata.datum_geboorte || person.metadata.plaats_geboorte || person.metadata.datum_doop || person.metadata.plaats_doop || person.metadata.datum_overlijden || person.metadata.plaats_overlijden || person.metadata.plaats_wonen --></span><!-- end ngIf: person.metadata.leeftijd --> <!-- ngIf: person.metadata.subtype --> <!-- ngIf: person.metadata.datum_geboorte || person.metadata.plaats_geboorte --><span ng-if="person.metadata.datum_geboorte || person.metadata.plaats_geboorte" class="ng-scope"><span data-translate="">geboren</span><!-- ngIf: person.metadata.datum_geboorte --><!-- ngIf: person.metadata.plaats_geboorte --><span ng-if="person.metadata.plaats_geboorte" class="ng-binding ng-scope"><span></span> <span data-translate="">te</span> Vlagtwedde</span><!-- end ngIf: person.metadata.plaats_geboorte --><!-- ngIf: person.metadata.datum_doop || person.metadata.plaats_doop || person.metadata.datum_overlijden || person.metadata.plaats_overlijden || person.metadata.plaats_wonen || person.metadata.type_of --><span ng-if="person.metadata.datum_doop || person.metadata.plaats_doop || person.metadata.datum_overlijden || person.metadata.plaats_overlijden || person.metadata.plaats_wonen || person.metadata.type_of" class="ng-scope">,</span><!-- end ngIf: person.metadata.datum_doop || person.metadata.plaats_doop || person.metadata.datum_overlijden || person.metadata.plaats_overlijden || person.metadata.plaats_wonen || person.metadata.type_of --></span><!-- end ngIf: person.metadata.datum_geboorte || person.metadata.plaats_geboorte --> <!-- ngIf: person.metadata.datum_doop || person.metadata.plaats_doop --> <!-- ngIf: person.metadata.plaats_wonen --> <!-- ngIf: person.metadata.type_of --> <!-- ngIf: person.metadata.datum_overlijden || person.metadata.plaats_overlijden --><span ng-if="person.metadata.datum_overlijden || person.metadata.plaats_overlijden" class="ng-scope"><span data-translate="">overleden</span><!-- ngIf: person.metadata.datum_overlijden --><span ng-if="person.metadata.datum_overlijden" class="ng-binding ng-scope"><span></span> <span data-translate="">op</span> 23-07-1926</span><!-- end ngIf: person.metadata.datum_overlijden --><!-- ngIf: person.metadata.plaats_overlijden --><span ng-if="person.metadata.plaats_overlijden" class="ng-binding ng-scope"><span></span> <span data-translate="">te</span> Groningen.</span><!-- end ngIf: person.metadata.plaats_overlijden --></span><!-- end ngIf: person.metadata.datum_overlijden || person.metadata.plaats_overlijden --><!-- ngIf: person.metadata.diversen --><p data-ng-if="person.metadata.diversen" class="ng-scope"><strong class="diversen" data-translate="">Diversen:</strong> <span data-ng-bind-html="person.metadata.diversen | picRawHtml" class="ng-binding">wonende te Vlagtwedde</span></p><!-- end ngIf: person.metadata.diversen --></div><!-- end ngIf: !isSpecial() --><!-- ngIf: template === 'id_a' --></person-data><ol class="relations"><!-- ngRepeat: relatie in relaties --><li ng-repeat="relatie in relaties" class="relation ng-scope"><person-data data-person="relatie" data-template="bs_o" data-header="false" data-url="'deeds/'+deed.id+'?person='+relatie.id" class="ng-isolate-scope"><!-- ngIf: !isSpecial() --><div data-ng-if="!isSpecial()" class="ng-binding ng-scope">echtgenoot <a tabindex="0" href="#" data-ng-click="simpleSearchPerson(person)" class="person ng-binding"><!-- ngIf: hasGender() && icon != 'false' --> Derk Timmer <!-- ngIf: person.metadata.meisjesnaam --> <!-- ngIf: person.metadata.beroep --></a><div class="person-permalink"><a tabindex="0" href="#" data-ng-click="showPermalinkBox()" class="person-permalink-button"><span class="pic-icon-link"></span></a><!-- ngIf: isPermalinkOpen --></div><!-- ngIf: person.metadata.leeftijd --> <!-- ngIf: person.metadata.subtype --> <!-- ngIf: person.metadata.datum_geboorte || person.metadata.plaats_geboorte --> <!-- ngIf: person.metadata.datum_doop || person.metadata.plaats_doop --> <!-- ngIf: person.metadata.plaats_wonen --> <!-- ngIf: person.metadata.type_of --> <!-- ngIf: person.metadata.datum_overlijden || person.metadata.plaats_overlijden --><!-- ngIf: person.metadata.diversen --></div><!-- end ngIf: !isSpecial() --><!-- ngIf: template === 'id_a' --></person-data></li><!-- end ngRepeat: relatie in relaties --></ol></li></ol></li><!-- end ngIf: overledene --><li class="parents-bride"><a data-ng-click="simpleSearchPerson(vader, moeder)" class="record-searchplus" title="Zoeken naar alle personen met deze naam/namen"><i class="pic-icon-search-circle"></i></a><ol><!-- ngIf: vader --><li class="male ng-scope" data-ng-if="vader"><i class="pic-icon-male-1"></i><h2 data-translate="">Vader</h2><person-data data-person="vader" data-template="bs_o" data-header="false" data-icon="false" data-url="'deeds/'+deed.id+'?person='+vader.id" class="ng-isolate-scope"><!-- ngIf: !isSpecial() --><div data-ng-if="!isSpecial()" class="ng-binding ng-scope"> <a tabindex="0" href="#" data-ng-click="simpleSearchPerson(person)" class="person ng-binding"><!-- ngIf: hasGender() && icon != 'false' --> Willem Jansen <!-- ngIf: person.metadata.meisjesnaam --> <!-- ngIf: person.metadata.beroep --></a><div class="person-permalink"><a tabindex="0" href="#" data-ng-click="showPermalinkBox()" class="person-permalink-button"><span class="pic-icon-link"></span></a><!-- ngIf: isPermalinkOpen --></div><!-- ngIf: person.metadata.leeftijd --> <!-- ngIf: person.metadata.subtype --> <!-- ngIf: person.metadata.datum_geboorte || person.metadata.plaats_geboorte --> <!-- ngIf: person.metadata.datum_doop || person.metadata.plaats_doop --> <!-- ngIf: person.metadata.plaats_wonen --> <!-- ngIf: person.metadata.type_of --> <!-- ngIf: person.metadata.datum_overlijden || person.metadata.plaats_overlijden --><!-- ngIf: person.metadata.diversen --></div><!-- end ngIf: !isSpecial() --><!-- ngIf: template === 'id_a' --></person-data></li><!-- end ngIf: vader --><!-- ngIf: moeder --><li class="female ng-scope" data-ng-if="moeder"><i class="pic-icon-female-1"></i><h2 data-translate="">Moeder</h2><person-data data-person="moeder" data-template="bs_o" data-header="false" data-icon="false" data-url="'deeds/'+deed.id+'?person='+moeder.id" class="ng-isolate-scope"><!-- ngIf: !isSpecial() --><div data-ng-if="!isSpecial()" class="ng-binding ng-scope"> <a tabindex="0" href="#" data-ng-click="simpleSearchPerson(person)" class="person ng-binding"><!-- ngIf: hasGender() && icon != 'false' --> Elizabeth Meijer <!-- ngIf: person.metadata.meisjesnaam --> <!-- ngIf: person.metadata.beroep --></a><div class="person-permalink"><a tabindex="0" href="#" data-ng-click="showPermalinkBox()" class="person-permalink-button"><span class="pic-icon-link"></span></a><!-- ngIf: isPermalinkOpen --></div><!-- ngIf: person.metadata.leeftijd --> <!-- ngIf: person.metadata.subtype --> <!-- ngIf: person.metadata.datum_geboorte || person.metadata.plaats_geboorte --> <!-- ngIf: person.metadata.datum_doop || person.metadata.plaats_doop --> <!-- ngIf: person.metadata.plaats_wonen --> <!-- ngIf: person.metadata.type_of --> <!-- ngIf: person.metadata.datum_overlijden || person.metadata.plaats_overlijden --><!-- ngIf: person.metadata.diversen --></div><!-- end ngIf: !isSpecial() --><!-- ngIf: template === 'id_a' --></person-data></li><!-- end ngIf: moeder --></ol></li></ol><section class="registration person"><!-- ngRepeat: (role, people) in others --></section></deed-bs_o></deed><div class="more ng-hide" ng-hide="'root.deed' | isState" aria-hidden="true"><a tabindex="0" data-ui-sref="root.deed({ id: deed.id, person: selectedPerson.id })" href="/zoeken-op-naam/deeds/27788d0d-57dc-d1ff-a9fd-14dbe17ef93b?person=5afd6369-954b-b934-5420-47b666850cb9"><i class="pic-icon-right-open-mini"></i> <span data-translate="">Paginaweergave</span></a></div><!-- ngIf: deed.id --><mmx-report-warning data-ng-if="deed.id" data-subject="27788d0d-57dc-d1ff-a9fd-14dbe17ef93b" class="ng-scope ng-isolate-scope"><!-- ngIf: warning.showWarning --><div class="mmx-report-warning ng-scope" data-ng-if="warning.showWarning"><!-- ngIf: warning.hasReports --></div><!-- end ngIf: warning.showWarning --></mmx-report-warning><!-- end ngIf: deed.id --></div><div class="small-12 medium-3 columns"><aside class="record-scource"><header><h3 data-translate="">Bronvermelding</h3></header><div class="header"><!-- ngIf: register.metadata.naam --><span data-ng-if="register.metadata.naam" class="ng-binding ng-scope">Overlijdensregister 1926</span><!-- end ngIf: register.metadata.naam --><!-- ngIf: register.metadata.archiefnummer --><!-- ngIf: register.metadata.archiefnaam --><!-- ngIf: register.metadata.inventarisnummer --><!-- ngIf: deed.metadata.pagina --><!-- ngIf: deed.metadata.nummer --><span data-ng-if="deed.metadata.nummer" class="ng-binding ng-scope">, <span data-translate="">aktenummer</span> 839</span><!-- end ngIf: deed.metadata.nummer --></div><!-- ngIf: register.metadata.gemeente --><div data-ng-if="register.metadata.gemeente" class="ng-binding ng-scope"><span class="title" data-translate="">Gemeente</span>: Groningen</div><!-- end ngIf: register.metadata.gemeente --><!-- ngIf: register.metadata.periode --><div data-ng-if="register.metadata.periode" class="ng-binding ng-scope"><span class="title" data-translate="">Periode</span>: 1926</div><!-- end ngIf: register.metadata.periode --><!-- ngIf: register.metadata.religie --></aside><aside class="record-actions"><!-- ngIf: deed.asset && deed.asset.length --><ul data-ng-if="deed.asset &amp;&amp; deed.asset.length" class="ng-scope"><!-- ngRepeat: asset in deed.asset | startFrom:currentScan | limitTo:1 --><li class="view ng-scope" ng-repeat="asset in deed.asset | startFrom:currentScan | limitTo:1"><!-- ngIf: asset.uuid --><a data-ng-if="asset.uuid" href="#" tabindex="0" class="image ng-scope" data-ng-click="showScans(deed, null, deed.id, register.metadata, asset.dc_title, selectedPerson)"><img data-ng-src="https://images.memorix.nl/gra/thumb/250x250/e445f580-92ef-e281-272e-af088d4c96d7.jpg" alt="Overlijdensregister 1926 pagina  aktenummer 839" src="https://images.memorix.nl/gra/thumb/250x250/e445f580-92ef-e281-272e-af088d4c96d7.jpg"> <span><i class="pic-icon-eye"></i> <span data-translate="">Bekijk akte</span></span></a><!-- end ngIf: asset.uuid --><!-- ngIf: !asset.uuid --> <!-- ngIf: asset.uuid --><a data-ng-if="asset.uuid" href="https://images.memorix.nl/gra/download/fullsize/e445f580-92ef-e281-272e-af088d4c96d7.jpg" tabindex="0" class="image ng-scope" ng-href="https://images.memorix.nl/gra/download/fullsize/e445f580-92ef-e281-272e-af088d4c96d7.jpg" title="Download scan"><span><i class="pic-icon-download"></i> <span data-translate="">Download scan</span></span></a><!-- end ngIf: asset.uuid --></li><!-- end ngRepeat: asset in deed.asset | startFrom:currentScan | limitTo:1 --></ul><!-- end ngIf: deed.asset && deed.asset.length --><!-- ngIf: selectedPerson && selectedPerson.metadata.has_assets === 'register' || deed.metadata.has_assets === 'register' --><!-- ngIf: deed.asset.length > 1 --></aside><!-- ngIf: deed.id --><mmx-report-button data-ng-if="deed.id" data-subject="27788d0d-57dc-d1ff-a9fd-14dbe17ef93b" data-deed="deed" data-memorixurl="https://maior.memorix.nl/collectiebeheer/entiteit/index/entiteit/d7bc6297-bdda-4489-8772-8474e9156d1c/uuid/27788d0d-57dc-d1ff-a9fd-14dbe17ef93b" data-url="deeds/27788d0d-57dc-d1ff-a9fd-14dbe17ef93b?person=5afd6369-954b-b934-5420-47b666850cb9" class="ng-scope ng-isolate-scope"><div data-ng-show="button.showButton" aria-hidden="false" class=""><a tabindex="0" href="#" class="mmx-report-button" data-ng-click="button.showForm('error')"><i class="pic-icon-error"></i> <span data-translate="">Fout melden</span></a> <!-- ngIf: request --></div></mmx-report-button><!-- end ngIf: deed.id --><mmx-social-share data-handle="" data-url="deeds/27788d0d-57dc-d1ff-a9fd-14dbe17ef93b" data-title="Overlijdensregister 1926 " data-image="https://images.memorix.nl/gra/thumb/250x250/e445f580-92ef-e281-272e-af088d4c96d7.jpg" data-memorixentityuuid="d7bc6297-bdda-4489-8772-8474e9156d1c" data-memorixrecorduuid="27788d0d-57dc-d1ff-a9fd-14dbe17ef93b" class="ng-isolate-scope"><div class="social-media-share"><ul><!-- ngIf: socialshare.showFacebook --><li class="facebook ng-scope" data-ng-if="socialshare.showFacebook"><a data-ng-href="https://www.facebook.com/sharer/sharer.php?u=https://www.allegroningers.nl/zoeken-op-naam/deeds/27788d0d-57dc-d1ff-a9fd-14dbe17ef93b" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.allegroningers.nl/zoeken-op-naam/deeds/27788d0d-57dc-d1ff-a9fd-14dbe17ef93b"><span class="pic-hidden-linktext">Facebook</span></a></li><!-- end ngIf: socialshare.showFacebook --><!-- ngIf: socialshare.showTwitter --><li class="twitter ng-scope" data-ng-if="socialshare.showTwitter"><a tabindex="0" href="#" class="twitter-share-button" data-ng-click="socialshare.twitterShare()"><span class="pic-hidden-linktext">Twitter</span></a></li><!-- end ngIf: socialshare.showTwitter --><!-- ngIf: socialshare.showPinterest --><li class="pinterest ng-scope" data-ng-if="socialshare.showPinterest"><div pintrest="" data-href="https://www.allegroningers.nl/zoeken-op-naam/deeds/27788d0d-57dc-d1ff-a9fd-14dbe17ef93b" data-description="Overlijdensregister 1926 " data-img="https://images.memorix.nl/gra/thumb/250x250/e445f580-92ef-e281-272e-af088d4c96d7.jpg" data-pin-do="buttonPin" data-pin-config="beside"><a href="//www.pinterest.com/pin/create/button/?url=https%3A%2F%2Fwww.allegroningers.nl%2Fzoeken-op-naam%2Fdeeds%2F27788d0d-57dc-d1ff-a9fd-14dbe17ef93b&amp;media=https%3A%2F%2Fimages.memorix.nl%2Fgra%2Fthumb%2F250x250%2Fe445f580-92ef-e281-272e-af088d4c96d7.jpg&amp;description=Overlijdensregister%201926%20" pindo="buttonPin" pinconfig="beside"></a></div></li><!-- end ngIf: socialshare.showPinterest --><!-- ngIf: socialshare.showMailto --><li class="mailto ng-scope" data-ng-if="socialshare.showMailto"><a tabindex="0" ng-href="mailto:?subject=Overlijdensregister%201926%20&amp;body=Overlijdensregister%201926%20%20%0Ahttps%3A%2F%2Fwww.allegroningers.nl%2Fzoeken-op-naam%2Fdeeds%2F27788d0d-57dc-d1ff-a9fd-14dbe17ef93b" href="mailto:?subject=Overlijdensregister%201926%20&amp;body=Overlijdensregister%201926%20%20%0Ahttps%3A%2F%2Fwww.allegroningers.nl%2Fzoeken-op-naam%2Fdeeds%2F27788d0d-57dc-d1ff-a9fd-14dbe17ef93b"><span data-translate="">E-mail</span></a></li><!-- end ngIf: socialshare.showMailto --><!-- ngIf: socialshare.showPermalink --><li class="pic-permalink ng-scope" data-ng-if="socialshare.showPermalink"><a tabindex="0" href="#" class="pic-permalink-button" data-ng-click="socialshare.showPermalinkBox()"><i class="pic-icon-link"></i> <span data-translate="">Permalink</span></a><!-- ngIf: socialshare.isPermalinkOpen --></li><!-- end ngIf: socialshare.showPermalink --><!-- ngIf: socialshare.showGooglePlus --><!-- ngIf: socialshare.showMemorixUrl --></ul></div></mmx-social-share></div></section><!-- end ngIf: !loading || (register && persons) --></div></div>
+					<script type="text/ng-template" id="custom/header" class="ng-scope">
+						<tr> <th ng-controller="ngTableSorterRowController" ng-repeat="$column in $columns" ng-class="{ 'sortable': parse($column.sortable(this)), 'sort-asc': params.sorting()[$column.sortable(this)]=='asc', 'sort-desc': params.sorting()[$column.sortable(this)]=='desc' }" ng-click="params.sorting()[$column.sortable(this)]=='desc' ? params.resetSorting(params) : sortBy($column, $event)" ng-show="$column.show(this)" ng-init="template = $column.headerTemplateURL(this)" class="header sortable {{$column.class(this)}}"> <div ng-if="!template" ng-show="!template" class="ng-table-header" ng-class="{'sort-indicator': params.settings().sortingIndicator == 'div'}" ng-bind="$column.title(this) | translate"> </div> <div ng-if="template" ng-show="template"><div ng-include="template"></div></div> </th> </tr>
+					</script></div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+	<footer class="footer">
+		<div class="row">
+			<div class="small-12 medium-8 large-8 columns">
+				<div class="row">
+					<div class="small-12 large-12 columns">
+						<a href="/" title="home" class="brand-logo brand-logo__alleGroningers">
+							AlleGroningers
+						</a>
+						<div class="form-text-field">
+							<div class="module-custom ">
+								<span class="heading">
+									<p>Alle Groningers is een website van de Groninger Archieven</p>
+								</span>
+							</div>
+
+						</div>
+					</div>
+					<div class="small-12 large-12 columns">
+						<div class="social-nav">
+
+						</div>
+					</div>
+					<div class="small-12 medium-4 large-4 columns">
+						<div class="contact-block">
+							<div class="module-custom gra-footer-bezoekadres">
+								<span class="heading">
+									<h4>Bezoekadres</h4>
+									<p>Cascadeplein 4<br>9726 AD Groningen</p>
+									<p><a href="tel:0505992000">050-5992000</a></p>
+								</span>
+							</div>
+
+						</div>
+					</div>
+					<div class="small-12 medium-8 large-7 columns">
+						<div class="contact-block">
+							<div class="module-custom gra-footer-postbus">
+								<span class="heading">
+									<h4>Postadres</h4>
+									<p class="p1">Postbus 30040<br>9700 RM Groningen</p>
+									<p><a href="mailto:info@groningerarchieven.nl">info@groningerarchieven.nl</a></p>
+								</span>
+							</div>
+
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="medium-12 large-4 columns">
+				<div class="maps">
+					<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2389.351558037199!2d6.560162890088264!3d53.21154464097655!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x3fbca2197dbbc1f1!2sRHC+Groninger+Archieven!5e0!3m2!1snl!2snl!4v1495194920009" width="400" height="300" frameborder="0" style="border:0" allowfullscreen=""></iframe>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="medium-12 columns">
+				<div class="footer__nav">
+					<ul class="nav menu gra-footer-menu">
+						<li class="item-108"><a href="/">AlleGroningers</a></li>
+						<li class="item-109"><a href="/disclaimer">Gebruiksvoorwaarden</a></li>
+						<li class="item-111"><a href="/contact">Contact</a></li>
+					</ul>
+
+				</div>
+			</div>
+		</div>
+
+	</footer>
+
+
+
+	<script src="/templates/gra-allegroningers//js/combined-7d9b85a13311c90a7aa69f45d4179179.js"></script><div class="reveal-overlay">
+		<div class="reveal" id="exampleModal1" data-reveal="" role="dialog" aria-hidden="true" data-yeti-box="exampleModal1" data-resize="exampleModal1" data-n="x4257p-n" data-events="resize" style="top: 234px;">
+			<img src="/images/Sfeerbeelden/vakmensenbrouwer.jpg" alt="vakmensenbrouwer.jpg">	<button class="close-button" data-close="" aria-label="Close modal" type="button">
+				<span aria-hidden="true">×</span>
+			</button>
+		</div>
+	</div>
+
+	<!-- Joomla js -->
+	<script src="//images.memorix.nl/topviewer/1.0/src/topviewer.compressed.js?v=1.0"></script>
+	<script src="https://webservices.picturae.com/genealogy/dist/js/deps.min.js"></script>
+	<script src="https://webservices.picturae.com/genealogy/dist/js/partials/partials.min.js"></script>
+	<script src="https://webservices.picturae.com/genealogy/dist/js/i18n/nl.js"></script>
+	<script src="https://webservices.picturae.com/genealogy/dist/js/app.js"></script>
+
+	<script>
+		(function (b, o, i, l, e, r) {
+			b.GoogleAnalyticsObject = l; b[l] || (b[l] =
+				function () { (b[l].q = b[l].q || []).push(arguments) }); b[l].l = +new Date;
+			e = o.createElement(i); r = o.getElementsByTagName(i)[0];
+			e.src = '//www.google-analytics.com/analytics.js';
+			r.parentNode.insertBefore(e, r)
+		}(window, document, 'script', 'ga'));
+		ga('create', 'UA-6532219-35'); ga('send', 'pageview');
+	</script>
+
+
+
+	<div id="fb-root" class=" fb_reset"><div style="position: absolute; top: -10000px; width: 0px; height: 0px;"><div></div></div></div>
+</body>
+<grammarly-desktop-integration data-grammarly-shadow-root="true"></grammarly-desktop-integration>
+</html>

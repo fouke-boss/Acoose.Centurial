@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.168
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31205.134
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Acoose.Centurial.Package", "Acoose.Centurial.Package\Acoose.Centurial.Package.csproj", "{83A7EC77-B3CF-45E6-94EF-3A5551791158}"
 EndProject
@@ -10,6 +10,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{C33850D8-C88B-4705-B8B4-D349FD0DC726}"
 	ProjectSection(SolutionItems) = preProject
 		Testcases.txt = Testcases.txt
+		ToDo.txt = ToDo.txt
 	EndProjectSection
 EndProject
 Global

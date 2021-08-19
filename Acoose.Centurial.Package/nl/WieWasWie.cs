@@ -11,16 +11,154 @@ using Newtonsoft.Json.Linq;
 
 namespace Acoose.Centurial.Package.nl
 {
-    [Scraper("https://www.wiewaswie.nl/*")]
+    [Scraper("https://www.wiewaswie.nl/*/detail/*")]
     public partial class WieWasWie : Scraper.Default
     {
-        private static readonly Regex DEATH_DATE_REGEX = new Regex(@"(\d{2}-\d{2}-\d{4})");
+        public Record Data
+        {
+            get;
+            private set;
+        }
 
         public override IEnumerable<Activity> GetActivities(Context context)
         {
-            //return Enumerable.Empty<Activity>();
+            // scan
+            this.Scan(context);
+
             // screen shot
             yield return new Activity.ScreenCaptureActivity(context);
+        }
+        private void Scan(Context context)
+        {
+            // init
+            var container = context.Html
+                .Descendants("div")
+                .Where(x => x.GetAttributeValue("class", "").Contains("sourcedetail-themepage"))
+                .Single();
+            var data = new Record();
+
+            // persons
+            data.Persons = container
+                .Descendants("div")
+                .Where(x => x.GetAttributeValue("class", "") == "person")
+                .Select(div =>
+                {
+                    // init
+                    var result = new Package.Person();
+
+                    // process descirption list
+                    div.GetDescriptionLists((dt, dd) =>
+                    {
+                        // init
+                        var dataDictionary = dt.GetAttributeValue("data-dictionary", null);
+                        if (string.IsNullOrWhiteSpace(dataDictionary))
+                        {
+                            // name
+                            result.Name = dd.GetInnerText();
+                            result.Role = Utility.TryParseEventRole(dt.GetInnerText()).Value;
+                        }
+                        else
+                        {
+                            switch (dataDictionary)
+                            {
+                                case "SourceDetail.BirthDate":
+                                    result.BirthDate = Date.TryParse(dd.GetInnerText());
+                                    break;
+                                case "SourceDetail.BirthPlace":
+                                    result.BirthPlace = dd.GetInnerText();
+                                    break;
+                                case "SourceDetail.Age":
+                                    result.Age = Utility.TryParseAge(dd.GetInnerText());
+                                    break;
+                                case "SourceDetail.Gender":
+                                    result.Gender = Utility.TryParseGender(dd.GetInnerText());
+                                    break;
+                                case "SourceDetail.Profession":
+                                    result.Occupation = dd.GetInnerText();
+                                    break;
+                                default:
+                                    throw new NotSupportedException(dataDictionary);
+                            }
+                        }
+                    });
+
+                    // done
+                    return result;
+                })
+                .ToArray();
+
+            // event
+            container
+                .Descendants("div")
+                .Where(x => x.GetAttributeValue("class", "") == "gebeurtenis")
+                .SingleOrDefault()
+                .GetDescriptionLists((dt, dd) =>
+                {
+                    // init
+                    var dataDictionary = dt.GetAttributeValue("data-dictionary", null);
+                    switch (dataDictionary)
+                    {
+                        case "SourceDetail.Event":
+                            data.EventType = Utility.TryParseEventType(dd.GetInnerText());
+                            break;
+                        case "SourceDetail.EventDate":
+                            data.EventDate = Date.TryParse(dd.GetInnerText());
+                            break;
+                        case "SourceDetail.EventPlace":
+                            data.EventPlace = dd.GetInnerText();
+                            break;
+                        case "SourceDetail.Religion":
+                            data.Organization = dd.GetInnerText();
+                            break;
+                    }
+                });
+
+            // record
+            container
+                .Descendants("div").WithClass("akte")
+                .Single()
+                .GetDescriptionLists((dt, dd) =>
+                {
+                    switch (dt.Attribute("data-dictionary")?.ToLower())
+                    {
+                        case "sourcedetail.documenttype":
+                            var docType = dd.GetInnerText();
+                            if (docType.StartsWith("BS "))
+                            {
+                                data.RecordType = RecordType.Vital;
+                                data.Title = "Burgerlijke stand";
+                            }
+                            else if (docType.StartsWith("DTB "))
+                            {
+                                data.RecordType = RecordType.Church;
+                                data.Organization = data.Organization ?? "Kerk";
+                            }
+                            else
+                            {
+                                throw new NotSupportedException();
+                            }
+                            break;
+                        case "sourcedetail.heritageinstitutionname":
+                            data.ArchiveName = dd.GetInnerText();
+                            break;
+                        case "sourcedetail.heritageinstitutionplace":
+                            data.ArchivePlace = dd.GetInnerText();
+                            break;
+                        case "sourcedetail.registrationdate":
+                            data.RecordDate = Date.TryParse(dd.GetInnerText());
+                            break;
+                        case "sourcedetail.certificateplace":
+                            data.RecordPlace = dd.GetInnerText();
+                            break;
+                        case "sourcedetail.page":
+                            data.Page = dd.GetInnerText();
+                            break;
+                    }
+
+                });
+
+            // done
+            this.Data = data;
         }
 
         public override Genealogy.Extensibility.Data.Source GetSource(Context context, Activity[] activities)
@@ -34,8 +172,8 @@ namespace Acoose.Centurial.Package.nl
             // laag 1: website
             yield return new Website()
             {
-                Url = context.GetWebsiteUrl(),
-                Title = context.GetWebsiteTitle(),
+                Url = "https://www.wiewaswie.nl/",
+                Title = "WieWasWie",
                 Items = new OnlineItem[]
                 {
                     new OnlineItem()
@@ -51,37 +189,12 @@ namespace Acoose.Centurial.Package.nl
             };
 
             // laag 2: onbekende bron
-            yield return new UnknownRepository()
-            {
-                Items = new Genealogy.Extensibility.Data.References.Source[]
-                {
-                    new Unknown()
-                    {
-                        //CreditLine = string.Join(", ", this.Kranten)
-                    }
-                }
-            };
+            yield return this.Data.GenerateRepository();
         }
         protected override IEnumerable<Info> GetInfo(Context context)
         {
-            // titel zoeken
-            var container = context.Html
-                .Descendants("div")
-                .Where(x => x.GetAttributeValue("class", "").Contains("sourcedetail-themepage"))
-                .Single();
-            var @event = container
-                .Descendants("div")
-                .Where(x => x.GetAttributeValue("class", "") == "gebeurtenis")
-                .Select(x => new WieWasWie.Event(x))
-                .SingleOrDefault();
-            @event.Persons = container
-                .Descendants("div")
-                .Where(x => x.GetAttributeValue("class", "") == "person")
-                .Select(x => new WieWasWie.Person(x))
-                .ToArray();
-
             // done
-            return @event.Generate();
+            return this.Data.GenerateInfos();
         }
         protected override IEnumerable<Genealogy.Extensibility.Data.File> GetFiles(Context context, Activity[] activities)
         {

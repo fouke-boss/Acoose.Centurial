@@ -54,6 +54,8 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="nl\AlleFriezen.cs" />
+    <Compile Include="nl\AlleGroningers.cs" />
     <Compile Include="nl\WieWasWie.cs" />
     <Compile Include="nl\Mensenlinq.cs" />
     <Compile Include="org\FamilySearch.cs" />
@@ -96,16 +98,31 @@
     <EmbeddedResource Include="nl\WieWasWie - search1.html" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="nl\WieWasWie - details1.html" />
+    <EmbeddedResource Include="nl\WieWasWie - BS Huwelijk.html" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="nl\WieWasWie - details2.html" />
+    <EmbeddedResource Include="nl\WieWasWie - BS Geboorte.html" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="nl\WieWasWie - details3.html" />
+    <EmbeddedResource Include="nl\WieWasWie - DTB Dopen.html" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="nl\WieWasWie - details4.html" />
+    <EmbeddedResource Include="nl\WieWasWie - BS Overlijden.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="nl\AlleGroningers - BS Geboorte.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="nl\AlleGroningers - BS Huwelijk.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="nl\AlleGroningers - BS Overlijden.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="nl\AlleFriezen - BS Overlijden.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="nl\AlleGroningers - DTP Doop.html" />
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

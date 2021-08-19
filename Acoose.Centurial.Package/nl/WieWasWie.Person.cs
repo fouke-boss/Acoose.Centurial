@@ -24,7 +24,7 @@ namespace Acoose.Centurial.Package.nl
                     {
                         // name
                         this.Name = dd.GetInnerText();
-                        this.Role = Utility.TryParseEventRole(dt.GetInnerText());
+                        this.Role = Utility.TryParseEventRole(dt.GetInnerText()).Value;
                     }
                     else
                     {
@@ -37,7 +37,7 @@ namespace Acoose.Centurial.Package.nl
                                 this.BirthPlace = dd.GetInnerText();
                                 break;
                             case "SourceDetail.Age":
-                                this.Age = int.TryParse(dd.GetInnerText(), out var age) ? age : default;
+                                this.Age = Utility.TryParseAge(dd.GetInnerText());
                                 break;
                             case "SourceDetail.Gender":
                                 this.Gender = Utility.TryParseGender(dd.GetInnerText());
@@ -69,7 +69,7 @@ namespace Acoose.Centurial.Package.nl
             {
                 get; private set;
             }
-            public int? Age
+            public Age Age
             {
                 get; private set;
             }

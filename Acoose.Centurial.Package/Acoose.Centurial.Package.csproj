@@ -80,7 +80,10 @@
     <Compile Include="nl\A2A\Source.cs" />
     <Compile Include="nl\A2A\SourceType.cs" />
     <Compile Include="nl\A2A\TransDate.cs" />
+    <Compile Include="nl\AlleFriezen.cs" />
     <Compile Include="nl\GenealogieOnline.cs" />
+    <Compile Include="nl\AlleGroningers.cs" />
+    <Compile Include="nl\Picturae.cs" />
     <Compile Include="nl\WieWasWie.cs" />
     <Compile Include="nl\Mensenlinq.cs" />
     <Compile Include="nl\OpenArchieven.cs" />
@@ -90,7 +93,11 @@
     <Compile Include="org\FamilySearch.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="org\Wikipedia.cs" />
+    <Compile Include="Record.cs" />
+    <Compile Include="RecordType.cs" />
     <Compile Include="Utility.cs" />
+    <Compile Include="Event.cs" />
+    <Compile Include="Person.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="nl\A2A\A2AAllInOne_v.1.7.xsd">

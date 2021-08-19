@@ -1,4 +1,5 @@
 ﻿using Acoose.Genealogy.Extensibility.Data;
+using Acoose.Genealogy.Extensibility.Web;
 using HtmlAgilityPack;
 using System;
 using System.Collections.Generic;
@@ -117,12 +118,25 @@ namespace Acoose.Centurial.Package
 
         public static string GetInnerText(this HtmlNode node)
         {
-            return node.InnerText.Trim(' ', '\n', '\r', '\t');
+            // null?
+            if (node == null)
+            {
+                return null;
+            }
+
+            // init
+            var texts = node
+                .Descendants()
+                .OfType<HtmlTextNode>()
+                .Select(x => x.InnerText);
+
+            // done
+            return string.Join("", texts).Trim(' ', '\n', '\r', '\t', ':', ',', ';');
         }
         public static void GetDescriptionLists(this HtmlNode node, Action<HtmlNode, HtmlNode> processor)
         {
             // find description lists
-            foreach (var dl in node.DescendantsAndSelf("dl"))
+            foreach (var dl in node.DescendantsAndSelf().Where(x => x.NodeType == HtmlNodeType.Element && x.Name == "dl"))
             {
                 // init
                 var index = 0;
@@ -163,7 +177,65 @@ namespace Acoose.Centurial.Package
                 }
             }
         }
-        public static EventRole TryParseEventRole(string role)
+
+        public static HtmlNode Body(this Context context)
+        {
+            return context.Html
+                .Element("html")
+                .Elements("body")
+                .Single();
+        }
+        public static string Attribute(this HtmlNode node, string attribute)
+        {
+            return node.GetAttributeValue(attribute, null).NullIfWhitespace();
+        }
+        public static IEnumerable<HtmlNode> Descendants(this IEnumerable<HtmlNode> nodes)
+        {
+            return nodes.SelectMany(x => x.Descendants());
+        }
+        public static IEnumerable<HtmlNode> Descendants(this IEnumerable<HtmlNode> nodes, string name)
+        {
+            return nodes.SelectMany(x => x.Descendants(name));
+        }
+
+        public static IEnumerable<HtmlNode> WithAttribute(this IEnumerable<HtmlNode> nodes, string attribute)
+        {
+            return nodes.Where(x => x.Attribute(attribute) != null);
+        }
+        public static IEnumerable<HtmlNode> WithAttribute(this IEnumerable<HtmlNode> nodes, string attribute, string value)
+        {
+            return nodes.Where(x => x.Attribute(attribute) == value);
+        }
+        public static IEnumerable<HtmlNode> WithId(this IEnumerable<HtmlNode> nodes, string id)
+        {
+            return nodes.Where(x => x.Attribute("id") == id);
+        }
+        public static IEnumerable<HtmlNode> WithClass(this IEnumerable<HtmlNode> nodes, string @class)
+        {
+            return nodes
+                .Where(n =>
+                {
+                    // init
+                    var classes = (n.Attribute("class") ?? "").Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+
+                    // done
+                    return classes.Contains(@class);
+                });
+        }
+        public static IEnumerable<HtmlNode> WithAnyClass(this IEnumerable<HtmlNode> nodes, params string[] @class)
+        {
+            return nodes
+                .Where(n =>
+                {
+                    // init
+                    var classes = (n.Attribute("class") ?? "").Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+
+                    // done
+                    return classes.Any(c => @class.Contains(c));
+                });
+        }
+
+        public static EventRole? TryParseEventRole(string role)
         {
             switch (role?.ToLower())
             {
@@ -174,12 +246,16 @@ namespace Acoose.Centurial.Package
                 case "bruidegom":
                     return EventRole.Groom;
                 case "moeder van de bruidegom":
+                case "mothergroom":
                     return EventRole.MotherOfGroom;
                 case "vader van de bruidegom":
+                case "fathergroom":
                     return EventRole.FatherOfGroom;
                 case "moeder van de bruid":
+                case "motherbride":
                     return EventRole.MotherOfBride;
                 case "vader van de bruid":
+                case "fatherbride":
                     return EventRole.FatherOfBride;
                 case "kind":
                 case "child":
@@ -194,7 +270,7 @@ namespace Acoose.Centurial.Package
                 case "deceased":
                     return EventRole.Deceased;
                 default:
-                    throw new NotSupportedException();
+                    return null;
             }
         }
         public static EventType TryParseEventType(string @event)
@@ -229,6 +305,45 @@ namespace Acoose.Centurial.Package
                 default:
                     return null;
             }
+        }
+        public static Age TryParseAge(string age)
+        {
+            // init
+            var result = default(Age);
+
+            // null?
+            if (!string.IsNullOrWhiteSpace(age))
+            {
+                // init
+                var parts = age.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                if (parts.Length == 1 && int.TryParse(parts[0], out var years1))
+                {
+                    // 26
+                    result = new Age() { Years = years1 };
+                }
+                else if (parts.Length == 2 && parts[1] == "jaar" && int.TryParse(parts[0], out var years2))
+                {
+                    // 26 jaar
+                    result = new Age() { Years = years2 };
+                }
+                else if (parts.Length == 2 && parts[1] == "weken" && int.TryParse(parts[0], out var weeks1))
+                {
+                    // 26 weken
+                    result = new Age() { Weeks = weeks1 };
+                }
+            }
+
+            // done
+            return result;
+        }
+        public static T Get<T>(this Dictionary<string, T> dictionary, string key)
+        {
+            return (dictionary.TryGetValue(key, out var value) ? value : default(T));
+        }
+
+        public static Genealogy.Extensibility.Data.References.GenericTitle ToGenericTitle(this string title, bool isLiteral)
+        {
+            return (string.IsNullOrEmpty(title) ? null : new Genealogy.Extensibility.Data.References.GenericTitle() { Value = title, Literal = isLiteral });
         }
     }
 }
