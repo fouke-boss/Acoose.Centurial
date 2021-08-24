@@ -217,10 +217,9 @@ namespace Acoose.Centurial.Package
             match.ImportEvent(this.EventType.ToString(), this.EventDate, this.EventPlace);
         }
 
-        public Repository GenerateRepository()
+        internal RecordScriptFormat[] GenerateRecordScriptFormat()
         {
-            // record format
-            var details = new RecordScriptFormat[]
+            return new RecordScriptFormat[]
             {
                 new RecordScriptFormat()
                 {
@@ -231,47 +230,47 @@ namespace Acoose.Centurial.Package
                     ItemOfInterest = "xx"
                 }
             };
-
-            // init
-            var source = default(Acoose.Genealogy.Extensibility.Data.References.Source);
-
-            switch (this.RecordType)
+        }
+        internal CensusScriptFormat[] GenerateCensusScriptFormt()
+        {
+            return new CensusScriptFormat[]
             {
-                case RecordType.Vital:
-                    source = new VitalRecord()
-                    {
-                        Jurisdiction = this.RecordPlace,
-                        Title = this.Title.ToGenericTitle(true),
-                        Items = details
-                    };
-                    break;
-                case RecordType.Church:
-                    source = new ChurchRecord()
-                    {
-                        Church = this.Organization,
-                        Place = this.RecordPlace,
-                        Title = this.Title.ToGenericTitle(true),
-                        Items = details
-                    };
-                    break;
-                case RecordType.Census:
-                    source = new Census()
-                    {
-                        Jurisdiction = this.RecordPlace,
-                        Title = this.Title,
-                        Items = new CensusScriptFormat[]
-                        {
-                            new CensusScriptFormat()
-                            {
-                                Date = this.RecordDate,
-                                Page = this.Page,
-                                ItemOfInterest = "xx"
-                            }
-                        }
-                    };
-                    break;
-                default:
-                    throw new NotSupportedException();
+                new CensusScriptFormat()
+                {
+                    Date = this.RecordDate,
+                    Page = this.Page,
+                    ItemOfInterest = "xx"
+                }
+            };
+        }
+
+        public Repository GenerateRepository()
+        {
+            // init
+            Acoose.Genealogy.Extensibility.Data.References.Source source;
+
+            // source
+            if (this.RecordType == null)
+            {
+                // init
+                var parts = new string[]
+                {
+                    this.Organization,
+                    this.RecordPlace,
+                    this.Title,
+                    this.Label,
+                };
+
+                // unknown
+                source = new Unspecified()
+                {
+                    CreditLine = string.Join("; ", parts.Where(x => !string.IsNullOrEmpty(x)))
+                };
+            }
+            else
+            {
+                // per record type
+                source = this.RecordType.Generate(this);
             }
 
             // archived item

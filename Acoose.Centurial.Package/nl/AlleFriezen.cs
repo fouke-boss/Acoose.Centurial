@@ -19,16 +19,15 @@ namespace Acoose.Centurial.Package.nl
         {
         }
 
-        protected override void Improve(Record record, Dictionary<string, string> fields)
+        protected override void Customize(Record record, Dictionary<string, string> fields)
         {
             // record type
-            switch (record.RecordType)
+            if (record.RecordType == RecordType.DoopTrouwBegraaf)
             {
-                case RecordType.Church:
-                    record.Organization = string.Join(" ", (fields.Get("register.metadata.naam") ?? "")
-                        .Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries)
-                        .Skip(1));
-                    break;
+                // kerknaam
+                record.Organization = string.Join(" ", (fields.Get("register.metadata.naam") ?? "")
+                    .Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries)
+                    .Skip(1));
             }
 
             // archive

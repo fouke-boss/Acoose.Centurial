@@ -122,21 +122,11 @@ namespace Acoose.Centurial.Package.nl
                     switch (dt.Attribute("data-dictionary")?.ToLower())
                     {
                         case "sourcedetail.documenttype":
+                            // init
                             var docType = dd.GetInnerText();
-                            if (docType.StartsWith("BS "))
-                            {
-                                data.RecordType = RecordType.Vital;
-                                data.Title = "Burgerlijke stand";
-                            }
-                            else if (docType.StartsWith("DTB "))
-                            {
-                                data.RecordType = RecordType.Church;
-                                data.Organization = data.Organization ?? "Kerk";
-                            }
-                            else
-                            {
-                                throw new NotSupportedException();
-                            }
+
+                            // parse
+                            data.RecordType = RecordType.TryParse(docType);
                             break;
                         case "sourcedetail.heritageinstitutionname":
                             data.ArchiveName = dd.GetInnerText();

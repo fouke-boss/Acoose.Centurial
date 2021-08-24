@@ -23,5 +23,14 @@ namespace Acoose.Centurial.Package.Tests.nl
             Assert.IsTrue(result.Source.Info.Length == 5);
             Assert.IsTrue(result.Source.Info.OfType<PersonInfo>().Count() == 3);
         }
+        [TestMethod]
+        public void BS_Overig()
+        {
+            // draai test
+            var result = ScraperTest.ExecuteFromEmbeddedResource<Package.nl.AlleFriezen>("https://allefriezen.nl/zoeken/deeds/bc989c50-6833-49ad-8d75-8fb500450529", "Acoose.Centurial.Package.Tests.nl.AlleFriezen - Overig.html");
+
+            // valideren
+            Assert.IsTrue(result.Source.Info.Length == 1);
+        }
     }
 }

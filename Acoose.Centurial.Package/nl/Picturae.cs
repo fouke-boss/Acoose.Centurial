@@ -95,7 +95,7 @@ namespace Acoose.Centurial.Package.nl
                 .ToArray();
 
             // improve
-            this.Improve(record, fields);
+            this.Customize(record, fields);
 
             // done
             this.Data = record;
@@ -120,21 +120,7 @@ namespace Acoose.Centurial.Package.nl
 
             // event and record type
             record.EventType = (this.GetEventType(bron) ?? this.GetEventType(registratie)).Value;
-            record.RecordType = (this.GetRecordType(bron, record.EventType) ?? this.GetRecordType(registratie, record.EventType)).Value;
-
-            // per record type
-            switch (record.RecordType)
-            {
-                case RecordType.Vital:
-                    // BS
-                    record.Title = "Burgerlijke stand";
-                    break;
-                case RecordType.Church:
-                    break;
-                case RecordType.Census:
-                    // bevolkingsregister
-                    break;
-            }
+            record.RecordType = RecordType.TryParse(bron) ?? RecordType.TryParse(registratie);
 
             // collection
             record.CollectionNumber = fields.Get("register.metadata.archiefnummer");
@@ -167,26 +153,7 @@ namespace Acoose.Centurial.Package.nl
                 return null;
             }
         }
-        private RecordType? GetRecordType(string value, EventType eventType)
-        {
-            if (value.StartsWith("bs ") || value.Contains("burgerlijke stand"))
-            {
-                return RecordType.Vital;
-            }
-            else if (value.Contains("bevolkingsregister"))
-            {
-                return RecordType.Census;
-            }
-            else if (value.StartsWith("dtp ") || eventType == EventType.Baptism)
-            {
-                return RecordType.Church;
-            }
-            else
-            {
-                return null;
-            }
-        }
-        protected abstract void Improve(Record record, Dictionary<string, string> fields);
+        protected abstract void Customize(Record record, Dictionary<string, string> fields);
         private string GetProperty(HtmlNode node, string name)
         {
             // init

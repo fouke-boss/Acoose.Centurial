@@ -19,15 +19,15 @@ namespace Acoose.Centurial.Package.nl
         {
         }
 
-        protected override void Improve(Record record, Dictionary<string, string> fields)
+        protected override void Customize(Record record, Dictionary<string, string> fields)
         {
-            // per record type
-            switch (record.RecordType)
+            // record type
+            if (record.RecordType == null && record.EventType == EventType.Baptism)
             {
-                case RecordType.Church:
-                    record.RecordPlace = fields.Get("register.metadata.plaats");
-                    record.Organization = fields.Get("register.metadata.archiefnaam");
-                    break;
+                // record type
+                record.RecordType = RecordType.DoopTrouwBegraaf;
+                record.RecordPlace = fields.Get("register.metadata.plaats");
+                record.Organization = fields.Get("register.metadata.archiefnaam");
             }
 
             // archive

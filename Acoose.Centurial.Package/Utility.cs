@@ -131,7 +131,7 @@ namespace Acoose.Centurial.Package
                 .Select(x => x.InnerText);
 
             // done
-            return string.Join("", texts).Trim(' ', '\n', '\r', '\t', ':', ',', ';');
+            return string.Join("", texts).Trim(' ', '\n', '\r', '\t', ':', ',', ';', '.');
         }
         public static void GetDescriptionLists(this HtmlNode node, Action<HtmlNode, HtmlNode> processor)
         {
