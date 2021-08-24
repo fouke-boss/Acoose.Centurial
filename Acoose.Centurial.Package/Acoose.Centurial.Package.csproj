@@ -61,6 +61,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EnsureMode.cs" />
     <Compile Include="EventRole.cs" />
     <Compile Include="EventType.cs" />
     <Compile Include="nl\A2A\A2AAllInOne_v_1_7.cs" />

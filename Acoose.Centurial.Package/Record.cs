@@ -157,7 +157,8 @@ namespace Acoose.Centurial.Package
                 target.ImportEvent(
                     this.EventType.ToString(),
                     this.EventDate ?? this.RecordDate,
-                    this.EventPlace ?? this.RecordPlace
+                    this.EventPlace ?? this.RecordPlace,
+                    EnsureMode.AddIfNonePresent
                 );
             }
 
@@ -204,10 +205,8 @@ namespace Acoose.Centurial.Package
                 case EventRole.MotherOfGroom:
                 case EventRole.Bride:
                     return Gender.Female;
-                case EventRole.Child:
-                    return null;
                 default:
-                    throw new NotSupportedException();
+                    return null;
             }
         }
 

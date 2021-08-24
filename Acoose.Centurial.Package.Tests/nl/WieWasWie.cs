@@ -64,5 +64,15 @@ namespace Acoose.Centurial.Package.Tests.nl
             Assert.IsTrue(result.Source.Info.Length == 5);
             Assert.IsTrue(result.Source.Info.OfType<PersonInfo>().Count() == 3);
         }
+        [TestMethod]
+        public void Overig()
+        {
+            // draai test
+            var result = ScraperTest.ExecuteFromEmbeddedResource<Package.nl.WieWasWie>("https://www.wiewaswie.nl/nl/detail/61743783", "Acoose.Centurial.Package.Tests.nl.WieWasWie - Overig.html");
+
+            // valideren
+            Assert.IsTrue(result.Source.Info.Length == 5);
+            Assert.IsTrue(result.Source.Info.OfType<PersonInfo>().Count() == 5);
+        }
     }
 }

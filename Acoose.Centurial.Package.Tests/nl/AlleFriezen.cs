@@ -14,6 +14,16 @@ namespace Acoose.Centurial.Package.Tests.nl
     public class AlleFriezen
     {
         [TestMethod]
+        public void BS_Geboorte()
+        {
+            // draai test
+            var result = ScraperTest.ExecuteFromEmbeddedResource<Package.nl.AlleFriezen>("https://allefriezen.nl/zoeken/deeds/4aac4e15-f247-bd66-09af-c03ab15d71d9", "Acoose.Centurial.Package.Tests.nl.AlleFriezen - BS Geboorte.html");
+
+            // valideren
+            Assert.IsTrue(result.Source.Info.Length == 5);
+            Assert.IsTrue(result.Source.Info.OfType<PersonInfo>().Count() == 3);
+        }
+        [TestMethod]
         public void BS_Overlijden()
         {
             // draai test

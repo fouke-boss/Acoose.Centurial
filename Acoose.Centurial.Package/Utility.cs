@@ -34,6 +34,11 @@ namespace Acoose.Centurial.Package
         public static void ImportEvent<T>(this T info, string eventType, Date date, string place)
             where T : InfoWithEvents
         {
+            info.ImportEvent(eventType, date, place, EnsureMode.AddIfValueNotPresent);
+        }
+        public static void ImportEvent<T>(this T info, string eventType, Date date, string place, EnsureMode mode)
+            where T : InfoWithEvents
+        {
             // init
             var dates = date.ToArrayIfAny();
             var places = place.ToArrayIfAny();
@@ -69,9 +74,7 @@ namespace Acoose.Centurial.Package
                     // create
                     result = new EventInfo()
                     {
-                        Type = eventType,
-                        Date = dates,
-                        Place = places
+                        Type = eventType
                     };
 
                     // add
@@ -81,8 +84,14 @@ namespace Acoose.Centurial.Package
                 }
 
                 // add
-                result.Date.Ensure(dates);
-                result.Place.Ensure(places);
+                if (dates.Length == 1)
+                {
+                    result.Date = result.Date.Ensure(dates.Single(), mode);
+                }
+                if (places.Length == 1)
+                {
+                    result.Place = result.Place.Ensure(places.Single(), mode);
+                }
             }
         }
         internal static void ImportEvent<T>(this T[] info, string eventType, nl.A2A.Event @event)
@@ -95,27 +104,47 @@ namespace Acoose.Centurial.Package
                 data.ImportEvent(eventType, @event.EventDate?.ToData(), @event.EventPlace?.ToString());
             }
         }
-        public static T[] Ensure<T>(this IEnumerable<T> items, IEnumerable<T> values)
+        public static T[] Ensure<T>(this IEnumerable<T> items, T value)
+        {
+            return items.Ensure(value, EnsureMode.AddIfValueNotPresent);
+        }
+        public static T[] Ensure<T>(this IEnumerable<T> items, T value, EnsureMode mode)
         {
             // init
             var results = items.NullCoalesce()
                 .ToList();
 
-            // add
-            foreach (var value in values)
+            // mode
+            if ((mode == EnsureMode.AddIfNonePresent && results.Count == 0) ||
+                (mode == EnsureMode.AddIfValueNotPresent && !results.Contains(value))
+            )
             {
-                if (!results.Contains(value))
-                {
-                    results.Add(value);
-                }
+                results.Add(value);
             }
 
             // done
             return results.ToArray();
         }
-        public static T[] Ensure<T>(this IEnumerable<T> items, T value)
+
+        public static IEnumerable<HtmlNode> Parents(this HtmlNode node)
         {
-            return items.Ensure(new T[] { value });
+            // init
+            var current = node?.ParentNode;
+
+            // loop
+            while (current != null)
+            {
+                // yield
+                yield return current;
+
+                // recurse
+                current = current.ParentNode;
+            }
+        }
+        public static IEnumerable<HtmlNode> Parents(this HtmlNode node, string name)
+        {
+            return node.Parents()
+                .Where(x => x.NodeType == HtmlNodeType.Element && x.Name == name);
         }
 
         public static string GetInnerText(this HtmlNode node)

@@ -55,7 +55,7 @@ namespace Acoose.Centurial.Package.nl
                         {
                             // name
                             result.Name = dd.GetInnerText();
-                            result.Role = Utility.TryParseEventRole(dt.GetInnerText()).Value;
+                            result.Role = Utility.TryParseEventRole(dt.GetInnerText()) ?? EventRole.Attendee;
                         }
                         else
                         {
@@ -73,11 +73,12 @@ namespace Acoose.Centurial.Package.nl
                                 case "SourceDetail.Gender":
                                     result.Gender = Utility.TryParseGender(dd.GetInnerText());
                                     break;
+                                case "SourceDetail.PlaceOfResidence":
+                                    result.Residence = dd.GetInnerText();
+                                    break;
                                 case "SourceDetail.Profession":
                                     result.Occupation = dd.GetInnerText();
                                     break;
-                                default:
-                                    throw new NotSupportedException(dataDictionary);
                             }
                         }
                     });

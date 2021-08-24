@@ -76,6 +76,10 @@ namespace Acoose.Centurial.Package
         {
             get; set;
         }
+        public string Residence
+        {
+            get; set;
+        }
 
         internal PersonInfo ToInfo(Date recordDate)
         {
@@ -87,6 +91,9 @@ namespace Acoose.Centurial.Package
                 GivenNames = this.GivenNames.ToArrayIfAny(),
                 Gender = this.Gender.ToArrayIfAny(),
                 Occupation = this.Occupation.ToArrayIfAny()
+                    .Select(x => new Status<string>() { Date = recordDate, Value = x })
+                    .ToArray(),
+                Residence = this.Residence.ToArrayIfAny()
                     .Select(x => new Status<string>() { Date = recordDate, Value = x })
                     .ToArray(),
                 Age = this.Age.ToArrayIfAny()

@@ -51,7 +51,9 @@ namespace Acoose.Centurial.Package.nl
             // persons
             record.Persons = container
                 .Descendants("deed").WithAttribute("data-persons", "persons.person")
-                .Descendants("li").WithAttribute("data-ng-if")
+                .Descendants("person-data")
+                .Select(p => p.Parents("li").WithClass("ng-scope").FirstOrDefault())
+                .Where(x => x != null)
                 .Select(p =>
                 {
                     // init
