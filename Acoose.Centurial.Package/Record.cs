@@ -121,10 +121,14 @@ namespace Acoose.Centurial.Package
                 })
                 .ToList();
 
+            // partnership
+            var partnership = this.GenerateParentChild(EventRole.Bride, EventRole.Groom, null, true)
+                .ToArray();
+
             // relationships
             var relationships = new IEnumerable<RelationshipInfo>[]
             {
-                this.GenerateParentChild(EventRole.Bride, EventRole.Groom, null, true),
+                partnership,
                 this.GenerateParentChild(EventRole.Father, EventRole.Child, ParentChild.Person1IsBiologicalParentOfPerson2, null),
                 this.GenerateParentChild(EventRole.Mother, EventRole.Child, ParentChild.Person1IsBiologicalParentOfPerson2, null),
                 this.GenerateParentChild(EventRole.Father, EventRole.Deceased, ParentChild.Person1IsBiologicalParentOfPerson2, null),
@@ -134,7 +138,8 @@ namespace Acoose.Centurial.Package
                 this.GenerateParentChild(EventRole.FatherOfGroom, EventRole.Groom, ParentChild.Person1IsBiologicalParentOfPerson2, null),
                 this.GenerateParentChild(EventRole.MotherOfGroom, EventRole.Groom, ParentChild.Person1IsBiologicalParentOfPerson2, null)
             }
-            .SelectMany(x => x);
+            .SelectMany(x => x)
+            .ToList();
 
             // done
             var results = persons
@@ -145,21 +150,15 @@ namespace Acoose.Centurial.Package
             // event
             if (this.EventType is EventType eventType)
             {
-                switch (eventType)
-                {
-                    case Package.EventType.Baptism:
-                    case Package.EventType.Birth:
-                        this.ImportEventForPerson(results, EventRole.Child);
-                        break;
-                    case Package.EventType.CivilMarriage:
-                        this.ImportEventForPartnership(results);
-                        break;
-                    case Package.EventType.Death:
-                        this.ImportEventForPerson(results, EventRole.Deceased);
-                        break;
-                    default:
-                        throw new NotSupportedException();
-                }
+                // target
+                var target = (partnership.Length > 0 ? (InfoWithEvents)partnership.Single() : persons.Single(x => x.Id == this.Principal.Id.ToString()));
+
+                // import event
+                target.ImportEvent(
+                    this.EventType.ToString(),
+                    this.EventDate ?? this.RecordDate,
+                    this.EventPlace ?? this.RecordPlace
+                );
             }
 
             // done
@@ -210,27 +209,6 @@ namespace Acoose.Centurial.Package
                 default:
                     throw new NotSupportedException();
             }
-        }
-        private void ImportEventForPerson(IEnumerable<Info> info, EventRole role)
-        {
-            // init
-            var principal = this.Persons.Single(x => x.Role == role);
-            var match = info
-                .OfType<PersonInfo>()
-                .Single(x => x.Id == principal.Id.ToString());
-
-            // add
-            match.ImportEvent(this.EventType.ToString(), this.EventDate, this.EventPlace);
-        }
-        private void ImportEventForPartnership(IEnumerable<Info> info)
-        {
-            // init
-            var match = info
-                .OfType<RelationshipInfo>()
-                .Single(r => r.IsPartnership.NullCoalesce().Any(x => x));
-
-            // add
-            match.ImportEvent(this.EventType.ToString(), this.EventDate, this.EventPlace);
         }
 
         internal RecordScriptFormat[] GenerateRecordScriptFormat()

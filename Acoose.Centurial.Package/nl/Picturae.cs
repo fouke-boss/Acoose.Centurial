@@ -75,7 +75,7 @@ namespace Acoose.Centurial.Package.nl
                         result.DeathDate = Date.TryParse(this.GetProperty(p, "person.metadata.datum_overlijden"));
                         result.DeathPlace = this.GetProperty(p, "person.metadata.plaats_overlijden");
                         result.Age = Utility.TryParseAge(this.GetProperty(p, "person.metadata.leeftijd"));
-                        result.Occupation = this.GetProperty(p, "person.metadata.beroep")?.Trim('(', ')');
+                        result.Occupation = this.GetProperty(p, "person.metadata.beroep").TrimAll();
 
                         // gender
                         if (p.Descendants("i").WithAnyClass("pic-icon-male", "pic-icon-male-1", "pic-icon-boy").Any())
@@ -201,7 +201,7 @@ namespace Acoose.Centurial.Package.nl
                 .Select(x => x.InnerText);
 
             // done
-            return string.Join("", parts).Trim(' ', '\n', '\r', '\t', ',', ':');
+            return string.Join("", parts).TrimAll();
         }
 
         public override IEnumerable<Activity> GetActivities(Context context)

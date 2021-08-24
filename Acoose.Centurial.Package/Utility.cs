@@ -11,6 +11,8 @@ namespace Acoose.Centurial.Package
 {
     public static class Utility
     {
+        private static char[] TRIM_CHARS = " \n\r\t:,;.()[]{}".ToArray();
+
         public static IEnumerable<T> NullCoalesce<T>(this IEnumerable<T> values)
         {
             return values ?? Enumerable.Empty<T>();
@@ -131,7 +133,11 @@ namespace Acoose.Centurial.Package
                 .Select(x => x.InnerText);
 
             // done
-            return string.Join("", texts).Trim(' ', '\n', '\r', '\t', ':', ',', ';', '.');
+            return string.Join("", texts).TrimAll();
+        }
+        public static string TrimAll(this string text)
+        {
+            return text?.Trim(TRIM_CHARS);
         }
         public static void GetDescriptionLists(this HtmlNode node, Action<HtmlNode, HtmlNode> processor)
         {
