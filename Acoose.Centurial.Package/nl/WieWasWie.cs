@@ -141,7 +141,7 @@ namespace Acoose.Centurial.Package.nl
                             data.RecordPlace = dd.GetInnerText();
                             break;
                         case "sourcedetail.page":
-                            data.Page = dd.GetInnerText();
+                            data.Number = dd.GetInnerText();
                             break;
                     }
 
@@ -172,7 +172,7 @@ namespace Acoose.Centurial.Package.nl
                         Accessed = Date.Today,
                         Item = new DatabaseEntry()
                         {
-                           EntryFor = "xxx",
+                           EntryFor = this.Data.GenerateItemOfInterest(),
                         }
                     }
                 }

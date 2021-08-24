@@ -1,7 +1,6 @@
 
 
 Picturae/WieWasWie
-- WieWasWie ombouwen naar generieke objecten
 - partners in Picturae (AlleGroningers, overlijdensakte)
 - partners in WieWasWie (bij overlijden)
 - bij geïmporteerde age/occupation is de datum niet gesyncd met de brondatum.

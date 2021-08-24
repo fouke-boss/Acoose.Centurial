@@ -10,6 +10,8 @@ namespace Acoose.Centurial.Package
 {
     public class Record
     {
+        private static readonly EventRole[] PRINCIPAL_ROLES = new EventRole[] { EventRole.Child, EventRole.Deceased, EventRole.Principal };
+
         public RecordType RecordType
         {
             get; set;
@@ -68,12 +70,8 @@ namespace Acoose.Centurial.Package
         {
             get; set;
         }
-        public string ItemOfInterest
-        {
-            get; set;
-        }
 
-        public EventType EventType
+        public EventType? EventType
         {
             get; set;
         }
@@ -89,6 +87,21 @@ namespace Acoose.Centurial.Package
         public Person[] Persons
         {
             get; set;
+        }
+        public Person Principal
+        {
+            get
+            {
+                return this.Persons.SingleOrDefault(x => PRINCIPAL_ROLES.Contains(x.Role));
+            }
+        }
+        public IEnumerable<Person> Principals
+        {
+            get
+            {
+                return this.Persons
+                    .Where(x => PRINCIPAL_ROLES.Contains(x.Role) || x.Role == EventRole.Bride || x.Role == EventRole.Groom);
+            }
         }
 
         public IEnumerable<Info> GenerateInfos()
@@ -130,20 +143,23 @@ namespace Acoose.Centurial.Package
                 .ToArray();
 
             // event
-            switch (this.EventType)
+            if (this.EventType is EventType eventType)
             {
-                case EventType.Baptism:
-                case EventType.Birth:
-                    this.ImportEventForPerson(results, EventRole.Child);
-                    break;
-                case EventType.CivilMarriage:
-                    this.ImportEventForPartnership(results);
-                    break;
-                case EventType.Death:
-                    this.ImportEventForPerson(results, EventRole.Deceased);
-                    break;
-                default:
-                    throw new NotSupportedException();
+                switch (eventType)
+                {
+                    case Package.EventType.Baptism:
+                    case Package.EventType.Birth:
+                        this.ImportEventForPerson(results, EventRole.Child);
+                        break;
+                    case Package.EventType.CivilMarriage:
+                        this.ImportEventForPartnership(results);
+                        break;
+                    case Package.EventType.Death:
+                        this.ImportEventForPerson(results, EventRole.Deceased);
+                        break;
+                    default:
+                        throw new NotSupportedException();
+                }
             }
 
             // done
@@ -227,7 +243,7 @@ namespace Acoose.Centurial.Package
                     Label = this.Label,
                     Number = this.Number,
                     Page = this.Page,
-                    ItemOfInterest = "xx"
+                    ItemOfInterest = this.GenerateItemOfInterest()
                 }
             };
         }
@@ -239,9 +255,13 @@ namespace Acoose.Centurial.Package
                 {
                     Date = this.RecordDate,
                     Page = this.Page,
-                    ItemOfInterest = "xx"
+                    ItemOfInterest = this.GenerateItemOfInterest()
                 }
             };
+        }
+        public string GenerateItemOfInterest()
+        {
+            return string.Join(" & ", this.Principals.Select(x => x.Name));
         }
 
         public Repository GenerateRepository()
@@ -262,7 +282,7 @@ namespace Acoose.Centurial.Package
                 };
 
                 // unknown
-                source = new Unspecified()
+                source = new Unknown()
                 {
                     CreditLine = string.Join("; ", parts.Where(x => !string.IsNullOrEmpty(x)))
                 };

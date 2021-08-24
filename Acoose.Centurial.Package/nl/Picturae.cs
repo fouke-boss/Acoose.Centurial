@@ -110,7 +110,6 @@ namespace Acoose.Centurial.Package.nl
                 EventPlace = fields.Get("deed.metadata.plaats") ?? fields.Get("register.metadata.gemeente"),
                 Number = fields.Get("deed.metadata.nummer"),
                 Page = fields.Get("deed.metadata.pagina"),
-                Title = fields.Get("register.metadata.naam"),
                 Label = fields.Get("register.metadata.naam")
             };
 
@@ -235,7 +234,7 @@ namespace Acoose.Centurial.Package.nl
                         Accessed = Date.Today,
                         Item = new DatabaseEntry()
                         {
-                           EntryFor = "xxx",
+                           EntryFor = this.Data.GenerateItemOfInterest()
                         }
                     }
                 }

@@ -15,6 +15,9 @@ namespace Acoose.Centurial.Package
 
         public static RecordType TryParse(string value)
         {
+            // init
+            value = value.ToLower();
+
             // try to parse
             if (value.StartsWith("bs ") || value.Contains("burgerlijke stand"))
             {
@@ -66,7 +69,7 @@ namespace Acoose.Centurial.Package
                     break;
                 case ChurchRecord c1:
                     c1.Church = record.Organization;
-                    c1.Place = record.RecordPlace;
+                    c1.Place = record.RecordPlace ?? record.EventPlace;
                     c1.Title = record.Title.ToGenericTitle(true);
                     c1.Items = record.GenerateRecordScriptFormat();
                     break;

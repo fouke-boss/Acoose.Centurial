@@ -34,7 +34,6 @@ namespace Acoose.Centurial.Package
                 // done
                 this.FamilyName = string.Join(" ", new string[] { particles, lastName }.Where(x => !string.IsNullOrWhiteSpace(x)));
                 this.GivenNames = givenNames;
-
             }
         }
         public string FamilyName

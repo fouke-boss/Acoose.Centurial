@@ -8,15 +8,16 @@ namespace Acoose.Centurial.Package
 {
     public enum EventRole
     {
+        Principal,
+        Child,
+        Deceased,
+        Father,
+        Mother,
         Bride,
         Groom,
         FatherOfBride,
         MotherOfBride,
         FatherOfGroom,
         MotherOfGroom,
-        Child,
-        Father,
-        Mother,
-        Deceased
     }
 }
