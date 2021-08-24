@@ -55,37 +55,29 @@ namespace Acoose.Centurial.Package.nl
                 .Select(p =>
                 {
                     // init
-                    var result = default(Person);
-
-                    // role
-                    var role = Utility.TryParseEventRole(p.Attribute("data-ng-if"));
-                    if (role.HasValue)
+                    var result = new Person()
                     {
-                        // init
-                        result = new Person();
-
-                        // properties
-                        result.Role = role.Value;
-                        result.Name = p
+                        Role = Utility.TryParseEventRole(p.Attribute("data-ng-if")) ?? EventRole.Attendee,
+                        Name = p
                             .Descendants("a").WithClass("person")
                             .First() // the 2nd and further will be partners
-                            .GetInnerText();
-                        result.BirthDate = Date.TryParse(this.GetProperty(p, "person.metadata.datum_geboorte"));
-                        result.BirthPlace = this.GetProperty(p, "person.metadata.plaats_geboorte");
-                        result.DeathDate = Date.TryParse(this.GetProperty(p, "person.metadata.datum_overlijden"));
-                        result.DeathPlace = this.GetProperty(p, "person.metadata.plaats_overlijden");
-                        result.Age = Utility.TryParseAge(this.GetProperty(p, "person.metadata.leeftijd"));
-                        result.Occupation = this.GetProperty(p, "person.metadata.beroep").TrimAll();
+                            .GetInnerText(),
+                        BirthDate = Date.TryParse(this.GetProperty(p, "person.metadata.datum_geboorte")),
+                        BirthPlace = this.GetProperty(p, "person.metadata.plaats_geboorte"),
+                        DeathDate = Date.TryParse(this.GetProperty(p, "person.metadata.datum_overlijden")),
+                        DeathPlace = this.GetProperty(p, "person.metadata.plaats_overlijden"),
+                        Age = Utility.TryParseAge(this.GetProperty(p, "person.metadata.leeftijd")),
+                        Occupation = this.GetProperty(p, "person.metadata.beroep").TrimAll()
+                    };
 
-                        // gender
-                        if (p.Descendants("i").WithAnyClass("pic-icon-male", "pic-icon-male-1", "pic-icon-boy").Any())
-                        {
-                            result.Gender = Gender.Male;
-                        }
-                        else if (p.Descendants("i").WithAnyClass("pic-icon-female", "pic-icon-female-1", "pic-icon-girl").Any())
-                        {
-                            result.Gender = Gender.Female;
-                        }
+                    // gender
+                    if (p.Descendants("i").WithAnyClass("pic-icon-male", "pic-icon-male-1", "pic-icon-boy").Any())
+                    {
+                        result.Gender = Gender.Male;
+                    }
+                    else if (p.Descendants("i").WithAnyClass("pic-icon-female", "pic-icon-female-1", "pic-icon-girl").Any())
+                    {
+                        result.Gender = Gender.Female;
                     }
 
                     // done
@@ -118,7 +110,7 @@ namespace Acoose.Centurial.Package.nl
             var registratie = fields.Get("soort registratie").ToLower();
 
             // event and record type
-            record.EventType = (this.GetEventType(bron) ?? this.GetEventType(registratie)).Value;
+            record.EventType = Utility.TryParseEventType(bron) ?? Utility.TryParseEventType(registratie);
             record.RecordType = RecordType.TryParse(bron) ?? RecordType.TryParse(registratie);
 
             // collection
@@ -127,30 +119,6 @@ namespace Acoose.Centurial.Package.nl
 
             // done
             return record;
-        }
-        private EventType? GetEventType(string value)
-        {
-            // event type
-            if (value.Contains("doop") || value.Contains("dopen"))
-            {
-                return EventType.Baptism;
-            }
-            else if (value.Contains("geboorte"))
-            {
-                return EventType.Birth;
-            }
-            else if (value.Contains("huwelijk"))
-            {
-                return EventType.CivilMarriage;
-            }
-            else if (value.Contains("overlijden"))
-            {
-                return EventType.Death;
-            }
-            else
-            {
-                return null;
-            }
         }
         protected abstract void Customize(Record record, Dictionary<string, string> fields);
         private string GetProperty(HtmlNode node, string name)

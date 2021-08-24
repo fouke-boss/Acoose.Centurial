@@ -279,20 +279,28 @@ namespace Acoose.Centurial.Package
                     return null;
             }
         }
-        public static EventType TryParseEventType(string @event)
+        public static EventType? TryParseEventType(string value)
         {
-            switch (@event?.ToLower())
+            // event type
+            if (value.Contains("doop") || value.Contains("dopen"))
             {
-                case "huwelijk":
-                    return EventType.CivilMarriage;
-                case "geboorte":
-                    return EventType.Birth;
-                case "doop":
-                    return EventType.Baptism;
-                case "overlijden":
-                    return EventType.Death;
-                default:
-                    throw new NotSupportedException();
+                return EventType.Baptism;
+            }
+            else if (value.Contains("geboorte"))
+            {
+                return EventType.Birth;
+            }
+            else if (value.Contains("overlijden"))
+            {
+                return EventType.Death;
+            }
+            else if (value.Contains("huwelijk"))
+            {
+                return EventType.CivilMarriage;
+            }
+            else
+            {
+                return null;
             }
         }
         public static Gender? TryParseGender(string gender)

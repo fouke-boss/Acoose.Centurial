@@ -19,5 +19,6 @@ namespace Acoose.Centurial.Package
         MotherOfBride,
         FatherOfGroom,
         MotherOfGroom,
+        Attendee,
     }
 }

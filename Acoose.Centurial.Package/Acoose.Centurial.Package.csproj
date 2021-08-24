@@ -88,15 +88,12 @@
     <Compile Include="nl\Mensenlinq.cs" />
     <Compile Include="nl\OpenArchieven.cs" />
     <Compile Include="net\Centurial.cs" />
-    <Compile Include="nl\WieWasWie.Event.cs" />
-    <Compile Include="nl\WieWasWie.Person.cs" />
     <Compile Include="org\FamilySearch.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="org\Wikipedia.cs" />
     <Compile Include="Record.cs" />
     <Compile Include="RecordType.cs" />
     <Compile Include="Utility.cs" />
-    <Compile Include="Event.cs" />
     <Compile Include="Person.cs" />
   </ItemGroup>
   <ItemGroup>
