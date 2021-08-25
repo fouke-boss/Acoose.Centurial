@@ -153,9 +153,16 @@ namespace Acoose.Centurial.Package
                 // target
                 var target = (partnership.Length > 0 ? (InfoWithEvents)partnership.Single() : persons.Single(x => x.Id == this.Principal.Id.ToString()));
 
+                // marriage?
+                var text = eventType.ToString();
+                if (eventType == Package.EventType.Marriage)
+                {
+                    text = (this.RecordType is RecordType<ChurchRecord> ? "ChurchMarriage" : "CivilMarriage");
+                }
+
                 // import event
                 target.ImportEvent(
-                    this.EventType.ToString(),
+                    text,
                     this.EventDate ?? this.RecordDate,
                     this.EventPlace ?? this.RecordPlace,
                     EnsureMode.AddIfNonePresent

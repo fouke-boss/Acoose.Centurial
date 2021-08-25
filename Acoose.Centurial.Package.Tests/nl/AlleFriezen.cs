@@ -19,9 +19,42 @@ namespace Acoose.Centurial.Package.Tests.nl
             // draai test
             var result = ScraperTest.ExecuteFromEmbeddedResource<Package.nl.AlleFriezen>("https://allefriezen.nl/zoeken/deeds/4aac4e15-f247-bd66-09af-c03ab15d71d9", "Acoose.Centurial.Package.Tests.nl.AlleFriezen - BS Geboorte.html");
 
-            // valideren
-            Assert.IsTrue(result.Source.Info.Length == 5);
-            Assert.IsTrue(result.Source.Info.OfType<PersonInfo>().Count() == 3);
+            // provenance
+            result.FindProvenance<Website>(0)
+                .AssertCondition(x => x.Title == "AlleFriezen")
+                .AssertCondition(x => x.IsVirtualArchive == true)
+                .FindChild<OnlineItem>()
+                .FindChild<DatabaseEntry>()
+                .AssertCondition(x => x.EntryFor == "Egberta Maria Biersma");
+            result.FindProvenance<PublicArchive>(1)
+                .AssertCondition(x => x.Name == "Tresoar")
+                .FindChild<ArchivedItem>()
+                .FindChild<Collection>()
+                .FindChild<ArchivedItem>()
+                .FindChild<VitalRecord>()
+                .AssertCondition(x => x.Title.Value == "Burgerlijke stand")
+                .AssertCondition(x => x.Jurisdiction == "Aengwirden")
+                .FindChild<RecordScriptFormat>()
+                .AssertCondition(x => x.Number == "0018")
+                .AssertCondition(x => x.Label == "Geboorteregister 1823")
+                .AssertCondition(x => x.Date.Equals(Date.TryParse("1823-03-29")))
+                .AssertCondition(x => x.ItemOfInterest == "Egberta Maria Biersma");
+
+            // persons
+            var person1 = result.FindPerson("Egberta Maria Biersma")
+                .AssertDate("Birth", "1823-03-28")
+                .AssertPlace("Birth", "Aengwirden")
+                .AssertGender(Gender.Female);
+            var person2 = result.FindPerson("Roelof Biersma")
+                .AssertGender(Gender.Male);
+            var person3 = result.FindPerson("Geesje Wachters")
+                .AssertGender(Gender.Female);
+
+            // relationships
+            result.FindRelationship(person2, person1)
+                .AssertParentChild(ParentChild.Person1IsBiologicalParentOfPerson2);
+            result.FindRelationship(person3, person1)
+                .AssertParentChild(ParentChild.Person1IsBiologicalParentOfPerson2);
         }
         [TestMethod]
         public void BS_Overlijden()
@@ -29,12 +62,28 @@ namespace Acoose.Centurial.Package.Tests.nl
             // draai test
             var result = ScraperTest.ExecuteFromEmbeddedResource<Package.nl.AlleFriezen>("https://allefriezen.nl/zoeken/deeds/bbe4ab39-9950-99ba-f0ca-477324d15383", "Acoose.Centurial.Package.Tests.nl.AlleFriezen - BS Overlijden.html");
 
+            // persons
+            var person1 = result.FindPerson("Gerrit Pieters Biersma")
+                .AssertDate("Death", "1829-04-18")
+                .AssertPlace("Death", "Bolsward")
+                .AssertGender(Gender.Male);
+            var person2 = result.FindPerson("Pieter Pieters Biersma")
+                .AssertGender(Gender.Male);
+            var person3 = result.FindPerson("Grietje Jillerts Kuipers")
+                .AssertGender(Gender.Female);
+
+            // relationships
+            result.FindRelationship(person2, person1)
+                .AssertParentChild(ParentChild.Person1IsBiologicalParentOfPerson2);
+            result.FindRelationship(person3, person1)
+                .AssertParentChild(ParentChild.Person1IsBiologicalParentOfPerson2);
+
             // valideren
             Assert.IsTrue(result.Source.Info.Length == 5);
             Assert.IsTrue(result.Source.Info.OfType<PersonInfo>().Count() == 3);
         }
         [TestMethod]
-        public void BS_Overig()
+        public void Overig()
         {
             // draai test
             var result = ScraperTest.ExecuteFromEmbeddedResource<Package.nl.AlleFriezen>("https://allefriezen.nl/zoeken/deeds/bc989c50-6833-49ad-8d75-8fb500450529", "Acoose.Centurial.Package.Tests.nl.AlleFriezen - Overig.html");

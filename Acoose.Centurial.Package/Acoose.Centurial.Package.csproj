@@ -81,6 +81,9 @@
     <Compile Include="nl\A2A\Source.cs" />
     <Compile Include="nl\A2A\SourceType.cs" />
     <Compile Include="nl\A2A\TransDate.cs" />
+    <Compile Include="nl\RegionaalArchiefTilburg.cs" />
+    <Compile Include="nl\StadsarchiefAmsterdam.cs" />
+    <Compile Include="nl\BHIC.cs" />
     <Compile Include="nl\AlleFriezen.cs" />
     <Compile Include="nl\GenealogieOnline.cs" />
     <Compile Include="nl\AlleGroningers.cs" />

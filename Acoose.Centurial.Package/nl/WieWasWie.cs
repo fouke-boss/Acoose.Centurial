@@ -165,6 +165,7 @@ namespace Acoose.Centurial.Package.nl
             {
                 Url = "https://www.wiewaswie.nl/",
                 Title = "WieWasWie",
+                IsVirtualArchive = true,
                 Items = new OnlineItem[]
                 {
                     new OnlineItem()

@@ -27,7 +27,9 @@ namespace Acoose.Centurial.Package
             {
                 return RecordType.Bevolkingsregister;
             }
-            else if (value.StartsWith("dtp "))
+            else if (value.StartsWith("dtp ") ||
+                (value.Contains("doop") && value.Contains("trouw") && value.Contains("begra"))
+            )
             {
                 return RecordType.DoopTrouwBegraaf;
             }

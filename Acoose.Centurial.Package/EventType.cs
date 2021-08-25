@@ -10,7 +10,7 @@ namespace Acoose.Centurial.Package
     {
         Baptism,
         Birth,
-        CivilMarriage,
-        Death
+        Death,
+        Marriage
     }
 }

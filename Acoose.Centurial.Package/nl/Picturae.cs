@@ -69,7 +69,7 @@ namespace Acoose.Centurial.Package.nl
                         DeathDate = Date.TryParse(this.GetProperty(p, "person.metadata.datum_overlijden")),
                         DeathPlace = this.GetProperty(p, "person.metadata.plaats_overlijden"),
                         Age = Utility.TryParseAge(this.GetProperty(p, "person.metadata.leeftijd")),
-                        Occupation = this.GetProperty(p, "person.metadata.beroep").TrimAll()
+                        Occupation = this.GetProperty(p, "person.metadata.beroep")?.Trim('(', ')')?.TrimAll()
                     };
 
                     // gender
@@ -112,8 +112,8 @@ namespace Acoose.Centurial.Package.nl
             var registratie = fields.Get("soort registratie").ToLower();
 
             // event and record type
-            record.EventType = Utility.TryParseEventType(bron) ?? Utility.TryParseEventType(registratie);
             record.RecordType = RecordType.TryParse(bron) ?? RecordType.TryParse(registratie);
+            record.EventType = Utility.TryParseEventType(registratie) ?? Utility.TryParseEventType(bron);
 
             // collection
             record.CollectionNumber = fields.Get("register.metadata.archiefnummer");
@@ -196,6 +196,7 @@ namespace Acoose.Centurial.Package.nl
             {
                 Title = this.WebsiteTitle,
                 Url = this.WebsiteURL,
+                IsVirtualArchive = true,
                 Items = new OnlineItem[]
                 {
                     new OnlineItem()

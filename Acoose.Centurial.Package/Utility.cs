@@ -1,4 +1,5 @@
 ﻿using Acoose.Genealogy.Extensibility.Data;
+using Acoose.Genealogy.Extensibility.Data.References;
 using Acoose.Genealogy.Extensibility.Web;
 using HtmlAgilityPack;
 using System;
@@ -11,7 +12,7 @@ namespace Acoose.Centurial.Package
 {
     public static class Utility
     {
-        private static char[] TRIM_CHARS = " \n\r\t:,;.()[]{}".ToArray();
+        private static char[] TRIM_CHARS = " \n\r\t:,;.".ToArray();
 
         public static IEnumerable<T> NullCoalesce<T>(this IEnumerable<T> values)
         {
@@ -323,9 +324,9 @@ namespace Acoose.Centurial.Package
             {
                 return EventType.Death;
             }
-            else if (value.Contains("huwelijk"))
+            else if (value.Contains("huwelijk") || value.Contains("trouw"))
             {
-                return EventType.CivilMarriage;
+                return EventType.Marriage;
             }
             else
             {
