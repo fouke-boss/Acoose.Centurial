@@ -54,12 +54,16 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="com\FindAGrave.cs" />
+    <Compile Include="nl\Graftombe.cs" />
+    <Compile Include="nl\OnlineBegraafplaatsen.cs" />
     <Compile Include="nl\RegionaalArchiefTilburg.cs" />
     <Compile Include="nl\AlleFriezen.cs" />
     <Compile Include="nl\AlleGroningers.cs" />
     <Compile Include="nl\WieWasWie.cs" />
     <Compile Include="nl\Mensenlinq.cs" />
     <Compile Include="org\FamilySearch.cs" />
+    <Compile Include="com\BillionGraves.cs" />
     <Compile Include="org\Wikipedia.cs" />
     <Compile Include="nl\GenealogieOnline.cs" />
     <Compile Include="nl\OpenArchieven.cs" />
@@ -137,6 +141,21 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="nl\RegionaalArchiefTilburg - DTP Huwelijk.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="com\BillionGraves\Peter_Hendericks.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="com\FindAGrave\Charles_Suffolk.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="com\FindAGrave\Michael_Faraday.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="nl\OnlineBegraafplaatsen\Quadvlieg_Boss.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="nl\Graftombe\Martin_Peters.html" />
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

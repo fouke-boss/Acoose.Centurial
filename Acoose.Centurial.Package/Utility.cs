@@ -163,7 +163,7 @@ namespace Acoose.Centurial.Package
                 .Select(x => x.InnerText);
 
             // done
-            return string.Join("", texts).TrimAll();
+            return HtmlEntity.DeEntitize(string.Join("", texts)).TrimAll().NullIfWhitespace();
         }
         public static string TrimAll(this string text)
         {
@@ -223,6 +223,13 @@ namespace Acoose.Centurial.Package
         }
         public static string Attribute(this HtmlNode node, string attribute)
         {
+            // init
+            if (node == null)
+            {
+                return null;
+            }
+
+            // done
             return node.GetAttributeValue(attribute, null).NullIfWhitespace();
         }
         public static IEnumerable<HtmlNode> Descendants(this IEnumerable<HtmlNode> nodes)
@@ -232,6 +239,29 @@ namespace Acoose.Centurial.Package
         public static IEnumerable<HtmlNode> Descendants(this IEnumerable<HtmlNode> nodes, string name)
         {
             return nodes.SelectMany(x => x.Descendants(name));
+        }
+        public static IEnumerable<HtmlNode> Elements(this HtmlNode node)
+        {
+            // null
+            if (node == null)
+            {
+                return Enumerable.Empty<HtmlNode>();
+            }
+
+            // done
+            return node.ChildNodes
+                .Where(x => x.NodeType == HtmlNodeType.Element);
+        }
+        public static IEnumerable<HtmlNode> Elements(this IEnumerable<HtmlNode> nodes)
+        {
+            // done
+            return nodes
+                .SelectMany(x => x.ChildNodes)
+                .Where(x => x.NodeType == HtmlNodeType.Element);
+        }
+        public static IEnumerable<HtmlNode> Elements(this IEnumerable<HtmlNode> nodes, string name)
+        {
+            return nodes.SelectMany(x => x.Elements(name));
         }
 
         public static IEnumerable<HtmlNode> WithAttribute(this IEnumerable<HtmlNode> nodes, string attribute)
@@ -269,6 +299,11 @@ namespace Acoose.Centurial.Package
                     // done
                     return classes.Any(c => @class.Contains(c));
                 });
+        }
+        public static IEnumerable<HtmlNode> WithAny(this IEnumerable<HtmlNode> nodes, Func<HtmlNode, IEnumerable<HtmlNode>> selector)
+        {
+            return nodes
+                .Where(n => selector(n).Any());
         }
 
         public static EventRole? TryParseEventRole(string role)
