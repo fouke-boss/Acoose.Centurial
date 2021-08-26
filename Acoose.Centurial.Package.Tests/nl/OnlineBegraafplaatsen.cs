@@ -17,7 +17,7 @@ namespace Acoose.Centurial.Package.Tests.nl
         public void Quadvlieg_Boss()
         {
             // execute
-            var result = ScraperTest.ExecuteFromEmbeddedResource<Package.nl.OnlineBegraafplaatsen>("https://www.online-begraafplaatsen.nl/graf/1630904/2601706/M-E-Boss-1893-1976", "Acoose.Centurial.Package.Tests.nl.OnlineBegraafplaatsen.Quadvlieg_Boss.html");
+            var result = Utility.ExecuteTest<Package.nl.OnlineBegraafplaatsen>("https://www.online-begraafplaatsen.nl/graf/1630904/2601706/M-E-Boss-1893-1976");
 
             // provenance
             result.FindProvenance<UnknownRepository>(1)

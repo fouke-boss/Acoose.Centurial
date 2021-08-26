@@ -17,7 +17,7 @@ namespace Acoose.Centurial.Package.Tests.com
         public void Peter_Hendericks()
         {
             // execute
-            var result = ScraperTest.ExecuteFromEmbeddedResource<Package.com.BillionGraves>("https://billiongraves.nl/grave/Peter-Hendericks/43666597", "Acoose.Centurial.Package.Tests.com.BillionGraves.Peter_Hendericks.html");
+            var result = Utility.ExecuteTest<Package.com.BillionGraves>("https://billiongraves.nl/grave/Peter-Hendericks/43666597");
 
             // provenance
             result.FindProvenance<UnknownRepository>(1)

@@ -17,7 +17,7 @@ namespace Acoose.Centurial.Package.Tests.nl
         public void MartijnJankoBoss()
         {
             // draai test
-            var result = ScraperTest.ExecuteFromEmbeddedResource<Package.nl.Mensenlinq>("https://www.mensenlinq.nl/overlijdensberichten/martijn-janko-boss-3179153", "Acoose.Centurial.Package.Tests.nl.Mensenlinq1.html");
+            var result = Utility.ExecuteTest<Package.nl.Mensenlinq>("https://www.mensenlinq.nl/overlijdensberichten/martijn-janko-boss-3179153");
 
             // valideren
             Assert.IsTrue(result.Source.Info.Length == 1);
@@ -38,7 +38,7 @@ namespace Acoose.Centurial.Package.Tests.nl
         public void HennieCoenenFijen()
         {
             // draai test
-            var result = ScraperTest.ExecuteFromEmbeddedResource<Package.nl.Mensenlinq>("https://mensenlinq.nl/overlijdensberichten/hennie-coenen-fijen-8726190/", "Acoose.Centurial.Package.Tests.nl.Mensenlinq2.html");
+            var result = Utility.ExecuteTest<Package.nl.Mensenlinq>("https://mensenlinq.nl/overlijdensberichten/hennie-coenen-fijen-8726190/");
 
             // valideren
             Assert.IsTrue(result.Source.Info.Length == 1);

@@ -17,7 +17,7 @@ namespace Acoose.Centurial.Package.Tests.nl
         public void DTP_Huwelijk()
         {
             // draai test
-            var result = ScraperTest.ExecuteFromEmbeddedResource<Package.nl.AlleFriezen>("https://www.regionaalarchieftilburg.nl/zoek-een-persoon/deeds/14014cda-7f60-f1fd-f07d-df296dc44569?person=b1add30f-554a-0cec-501f-e24d5c5f1e9c", "Acoose.Centurial.Package.Tests.nl.RegionaalArchiefTilburg - DTP Huwelijk.html");
+            var result = Utility.ExecuteTest<Package.nl.RegionaalArchiefTilburg>("https://www.regionaalarchieftilburg.nl/zoek-een-persoon/deeds/14014cda-7f60-f1fd-f07d-df296dc44569?person=b1add30f-554a-0cec-501f-e24d5c5f1e9c");
 
             // provenance
             result.FindProvenance<Website>(0)

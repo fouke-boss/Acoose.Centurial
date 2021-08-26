@@ -5,6 +5,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -12,6 +13,17 @@ namespace Acoose.Centurial.Package.Tests
 {
     public static class Utility
     {
+        public static ScraperTest ExecuteTest<T>(string url, [CallerMemberName] string caseName = null)
+            where T : Scraper, new()
+        {
+            // init
+            var urlCountry = typeof(T).Namespace.Split('.').Last();
+            var resourceName = $"Acoose.Centurial.Package.Tests.{urlCountry}.{typeof(T).Name}.{caseName}.html";
+
+            // done
+            return ScraperTest.ExecuteFromEmbeddedResource<T>(url, resourceName);
+        }
+
         public static T FindProvenance<T>(this ScraperTest test, int index)
             where T : Repository
         {

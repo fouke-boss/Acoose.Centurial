@@ -17,7 +17,7 @@ namespace Acoose.Centurial.Package.Tests.nl
         public void Martin_Peters()
         {
             // execute
-            var result = ScraperTest.ExecuteFromEmbeddedResource<Package.nl.Graftombe>("https://www.graftombe.nl/names/info/1283307/peters", "Acoose.Centurial.Package.Tests.nl.Graftombe.Martin_Peters.html");
+            var result = Utility.ExecuteTest<Package.nl.Graftombe>("https://www.graftombe.nl/names/info/1283307/peters");
 
             // provenance
             result.FindProvenance<UnknownRepository>(1)

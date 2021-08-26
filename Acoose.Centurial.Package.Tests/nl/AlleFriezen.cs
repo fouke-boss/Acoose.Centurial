@@ -17,7 +17,7 @@ namespace Acoose.Centurial.Package.Tests.nl
         public void BS_Geboorte()
         {
             // draai test
-            var result = ScraperTest.ExecuteFromEmbeddedResource<Package.nl.AlleFriezen>("https://allefriezen.nl/zoeken/deeds/4aac4e15-f247-bd66-09af-c03ab15d71d9", "Acoose.Centurial.Package.Tests.nl.AlleFriezen - BS Geboorte.html");
+            var result = Utility.ExecuteTest<Package.nl.AlleFriezen>("https://allefriezen.nl/zoeken/deeds/4aac4e15-f247-bd66-09af-c03ab15d71d9");
 
             // provenance
             result.FindProvenance<Website>(0)
@@ -60,7 +60,7 @@ namespace Acoose.Centurial.Package.Tests.nl
         public void BS_Overlijden()
         {
             // draai test
-            var result = ScraperTest.ExecuteFromEmbeddedResource<Package.nl.AlleFriezen>("https://allefriezen.nl/zoeken/deeds/bbe4ab39-9950-99ba-f0ca-477324d15383", "Acoose.Centurial.Package.Tests.nl.AlleFriezen - BS Overlijden.html");
+            var result = Utility.ExecuteTest<Package.nl.AlleFriezen>("https://allefriezen.nl/zoeken/deeds/bbe4ab39-9950-99ba-f0ca-477324d15383");
 
             // persons
             var person1 = result.FindPerson("Gerrit Pieters Biersma")
@@ -86,7 +86,7 @@ namespace Acoose.Centurial.Package.Tests.nl
         public void Overig()
         {
             // draai test
-            var result = ScraperTest.ExecuteFromEmbeddedResource<Package.nl.AlleFriezen>("https://allefriezen.nl/zoeken/deeds/bc989c50-6833-49ad-8d75-8fb500450529", "Acoose.Centurial.Package.Tests.nl.AlleFriezen - Overig.html");
+            var result = Utility.ExecuteTest<Package.nl.AlleFriezen>("https://allefriezen.nl/zoeken/deeds/bc989c50-6833-49ad-8d75-8fb500450529");
 
             // valideren
             Assert.IsTrue(result.Source.Info.Length == 1);

@@ -17,7 +17,7 @@ namespace Acoose.Centurial.Package.Tests.com
         public void Charles_Suffolk()
         {
             // execute
-            var result = ScraperTest.ExecuteFromEmbeddedResource<Package.com.FindAGrave>("https://nl.findagrave.com/memorial/229778573/charles-suffolk", "Acoose.Centurial.Package.Tests.com.FindAGrave.Charles_Suffolk.html");
+            var result = Utility.ExecuteTest<Package.com.FindAGrave>("https://nl.findagrave.com/memorial/229778573/charles-suffolk");
 
             // provenance
             result.FindProvenance<UnknownRepository>(1)
@@ -38,7 +38,7 @@ namespace Acoose.Centurial.Package.Tests.com
         public void Michael_Faraday()
         {
             // execute
-            var result = ScraperTest.ExecuteFromEmbeddedResource<Package.com.FindAGrave>("https://nl.findagrave.com/memorial/20883/michael-faraday", "Acoose.Centurial.Package.Tests.com.FindAGrave.Michael_Faraday.html");
+            var result = Utility.ExecuteTest<Package.com.FindAGrave>("https://nl.findagrave.com/memorial/20883/michael-faraday");
         }
     }
 }

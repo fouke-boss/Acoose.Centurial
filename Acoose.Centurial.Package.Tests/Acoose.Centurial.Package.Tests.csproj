@@ -80,67 +80,67 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="org\Wikipedia\Fritz_Walter.txt" />
+    <Content Include="org\Wikipedia\Fritz_Walter.html" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="org\FamilySearch\Record1.txt" />
+    <Content Include="org\FamilySearch\Record1.html" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="org\FamilySearch\Record2.txt" />
+    <Content Include="org\FamilySearch\Record2.html" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="org\FamilySearch\Image1.txt" />
+    <Content Include="org\FamilySearch\Image1.html" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="org\FamilySearch\Image2.txt" />
+    <Content Include="org\FamilySearch\Image2.html" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="nl\Mensenlinq1.html" />
+    <EmbeddedResource Include="nl\Mensenlinq\MartijnJankoBoss.html" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="nl\Mensenlinq2.html" />
+    <EmbeddedResource Include="nl\Mensenlinq\HennieCoenenFijen.html" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="nl\WieWasWie - search1.html" />
+    <EmbeddedResource Include="nl\WieWasWie\Search1.html" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="nl\WieWasWie - BS Huwelijk.html" />
+    <EmbeddedResource Include="nl\WieWasWie\BS_Huwelijk.html" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="nl\WieWasWie - BS Geboorte.html" />
+    <EmbeddedResource Include="nl\WieWasWie\BS_Geboorte.html" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="nl\WieWasWie - DTB Dopen.html" />
+    <EmbeddedResource Include="nl\WieWasWie\DTB_Dopen.html" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="nl\WieWasWie - BS Overlijden.html" />
+    <EmbeddedResource Include="nl\WieWasWie\BS_Overlijden.html" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="nl\AlleGroningers - BS Geboorte.html" />
+    <EmbeddedResource Include="nl\AlleGroningers\BS_Geboorte.html" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="nl\AlleGroningers - BS Huwelijk.html" />
+    <EmbeddedResource Include="nl\AlleGroningers\BS_Huwelijk.html" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="nl\AlleGroningers - BS Overlijden.html" />
+    <EmbeddedResource Include="nl\AlleGroningers\BS_Overlijden.html" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="nl\AlleFriezen - BS Overlijden.html" />
+    <EmbeddedResource Include="nl\AlleFriezen\BS_Overlijden.html" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="nl\AlleGroningers - DTP Doop.html" />
+    <EmbeddedResource Include="nl\AlleGroningers\DTP_Doop.html" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="nl\AlleFriezen - Overig.html" />
+    <EmbeddedResource Include="nl\AlleFriezen\Overig.html" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="nl\AlleFriezen - BS Geboorte.html" />
+    <EmbeddedResource Include="nl\AlleFriezen\BS_Geboorte.html" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="WieWasWie - Overig.html" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="nl\RegionaalArchiefTilburg - DTP Huwelijk.html" />
+    <EmbeddedResource Include="nl\RegionaalArchiefTilburg\DTP_Huwelijk.html" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="com\BillionGraves\Peter_Hendericks.html" />

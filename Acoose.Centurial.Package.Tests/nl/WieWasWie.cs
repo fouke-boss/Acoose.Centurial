@@ -17,7 +17,7 @@ namespace Acoose.Centurial.Package.Tests.nl
         public void BS_Huwelijk()
         {
             // draai test
-            var result = ScraperTest.ExecuteFromEmbeddedResource<Package.nl.WieWasWie>("https://www.wiewaswie.nl/nl/detail/30179586", "Acoose.Centurial.Package.Tests.nl.WieWasWie - BS Huwelijk.html");
+            var result = Utility.ExecuteTest<Package.nl.WieWasWie>("https://www.wiewaswie.nl/nl/detail/30179586");
 
             // valideren
             Assert.IsTrue(result.Source.Info.Length == 9);
@@ -38,7 +38,7 @@ namespace Acoose.Centurial.Package.Tests.nl
         public void BS_Geboorte()
         {
             // draai test
-            var result = ScraperTest.ExecuteFromEmbeddedResource<Package.nl.WieWasWie>("https://www.wiewaswie.nl/nl/detail/55534975", "Acoose.Centurial.Package.Tests.nl.WieWasWie - BS Geboorte.html");
+            var result = Utility.ExecuteTest<Package.nl.WieWasWie>("https://www.wiewaswie.nl/nl/detail/55534975");
 
             // valideren
             Assert.IsTrue(result.Source.Info.Length == 5);
@@ -48,7 +48,7 @@ namespace Acoose.Centurial.Package.Tests.nl
         public void BS_Overlijden()
         {
             // draai test
-            var result = ScraperTest.ExecuteFromEmbeddedResource<Package.nl.WieWasWie>("https://www.wiewaswie.nl/en/detail/49955499", "Acoose.Centurial.Package.Tests.nl.WieWasWie - BS Overlijden.html");
+            var result = Utility.ExecuteTest<Package.nl.WieWasWie>("https://www.wiewaswie.nl/en/detail/49955499");
 
             // valideren
             Assert.IsTrue(result.Source.Info.Length == 5);
@@ -58,7 +58,7 @@ namespace Acoose.Centurial.Package.Tests.nl
         public void DTB_Dopen()
         {
             // draai test
-            var result = ScraperTest.ExecuteFromEmbeddedResource<Package.nl.WieWasWie>("https://www.wiewaswie.nl/nl/detail/49909227", "Acoose.Centurial.Package.Tests.nl.WieWasWie - DTB Dopen.html");
+            var result = Utility.ExecuteTest<Package.nl.WieWasWie>("https://www.wiewaswie.nl/nl/detail/49909227");
 
             // valideren
             Assert.IsTrue(result.Source.Info.Length == 5);
@@ -68,7 +68,7 @@ namespace Acoose.Centurial.Package.Tests.nl
         public void Overig()
         {
             // draai test
-            var result = ScraperTest.ExecuteFromEmbeddedResource<Package.nl.WieWasWie>("https://www.wiewaswie.nl/nl/detail/61743783", "Acoose.Centurial.Package.Tests.nl.WieWasWie - Overig.html");
+            var result = Utility.ExecuteTest<Package.nl.WieWasWie>("https://www.wiewaswie.nl/nl/detail/61743783");
 
             // valideren
             Assert.IsTrue(result.Source.Info.Length == 5);
