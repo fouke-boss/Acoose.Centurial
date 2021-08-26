@@ -31,7 +31,7 @@ namespace Acoose.Centurial.Package.Tests
                 throw new NotSupportedException();
             }
         }
-        public static T FindChild<T>(this IContainer container)
+        public static T AssertChild<T>(this IContainer container)
             where T : Representation
         {
             // init

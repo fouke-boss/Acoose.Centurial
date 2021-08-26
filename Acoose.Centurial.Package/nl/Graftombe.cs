@@ -10,34 +10,14 @@ using System.Threading.Tasks;
 namespace Acoose.Centurial.Package.nl
 {
     [Scraper("https://www.graftombe.nl/names/info/*")]
-    public class Graftombe : Scraper.Default
+    public class Graftombe : MemorialScraper
     {
-        public Memorial Data
+        public Graftombe()
+            : base("Graftombe.nl") 
         {
-            get;
-            private set;
         }
 
-        public override IEnumerable<Activity> GetActivities(Context context)
-        {
-            // scan
-            this.Data = this.Scan(context);
-
-            // done
-            var activities = this.Data.Images
-                .NullCoalesce()
-                .Select(x => new Activity.DownloadFileActivity(x))
-                .Cast<Activity>()
-                .ToList();
-            if (activities.Count == 0)
-            {
-                activities.AddRange(base.GetActivities(context));
-            }
-
-            // done
-            return activities;
-        }
-        private Memorial Scan(Context context)
+        protected override void Scan(Context context)
         {
             // init
             var container = context.Body()
@@ -54,6 +34,9 @@ namespace Acoose.Centurial.Package.nl
                 .Descendants("table").WithClass("names-info")
                 .Descendants("tr")
                 .ToDictionary(x => x.Element("th").GetInnerText().ToLower(), x => x.Element("td").GetInnerText());
+            var photoNr = properties["foto nr"];
+
+            // persons
             var principal = new Person()
             {
                 Role = EventRole.Deceased,
@@ -64,7 +47,6 @@ namespace Acoose.Centurial.Package.nl
                 BirthPlace = properties.Get("geboorteplaats"),
                 DeathPlace = properties.Get("Overlijdensplaats"),
             };
-            var photoNr = properties["foto nr"];
             var others = container
                 .Descendants("table").WithClass("names-table")
                 .Elements("tbody")
@@ -97,25 +79,10 @@ namespace Acoose.Centurial.Package.nl
                 .Where(x => x != null)
                 .ToArray();
 
-            // memorial
-            return new Memorial()
-            {
-                URL = context.Url,
-                WebsiteTitle = "Graftombe.nl",
-                WebsiteURL = context.GetWebsiteUrl(),
-                CemeteryName = breadcrumb.First(),
-                CemeteryPlace = string.Join(", ", breadcrumb.Skip(1)),
-                Persons = others.Prepend(principal).ToArray(),
-            };
-        }
-
-        protected override IEnumerable<Repository> GetProvenance(Context context)
-        {
-            return this.Data.GenerateProvenance();
-        }
-        protected override IEnumerable<Info> GetInfo(Context context)
-        {
-            return this.Data.GenerateInfos();
+            // done
+            this.CemeteryName = breadcrumb.First();
+            this.CemeteryPlace = string.Join(", ", breadcrumb.Skip(1));
+            this.Persons = others.Prepend(principal).ToArray();
         }
     }
 }

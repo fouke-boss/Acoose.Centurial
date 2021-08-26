@@ -19,20 +19,20 @@ namespace Acoose.Centurial.Package.Tests.com
             // execute
             var result = ScraperTest.ExecuteFromEmbeddedResource<Package.com.FindAGrave>("https://nl.findagrave.com/memorial/229778573/charles-suffolk", "Acoose.Centurial.Package.Tests.com.FindAGrave.Charles_Suffolk.html");
 
-            //// valideren
-            //Assert.IsTrue(result.Source.Info.Length == 9);
-            //Assert.IsTrue(result.Source.Info.OfType<PersonInfo>().Count() == 5);
+            // provenance
+            result.FindProvenance<UnknownRepository>(1)
+                .AssertChild<Photograph>()
+                .AssertCondition(x => x.Creator is PersonalName p && p.FamilyName == "S." && p.GivenNames == "Susan M.")
+                .AssertCondition(x => x.Date.Equals(Date.TryParse("21-07-2021")));
+            result.FindProvenance<UnknownRepository>(2)
+                .AssertChild<Cemetery>()
+                .AssertCondition(x => x.CemeteryName == "Lavenham Cemetery")
+                .AssertCondition(x => x.Place == "Lavenham, Babergh District, Suffolk, England");
 
-            //// persoon ophalen
-            //var gerardus = result.Source.Info
-            //    .OfType<PersonInfo>()
-            //    .Where(x => x.FamilyName.Single() == "Boss")
-            //    .Where(x => x.GivenNames.Single() == "Gerardus")
-            //    .Single();
-            //var birth = gerardus.Events.SingleOrDefault(x => x.Type == "Birth");
-            //Assert.IsTrue(birth != null);
-            //Assert.IsTrue(birth.Date.Length == 1);
-            //Assert.IsTrue(birth.Date.Single().ToDateString() == "1877-08-11");
+            // persons
+            var person1 = result.FindPerson("Charles Suffolk")
+                .AssertDate("Birth", "28-06-1918")
+                .AssertDate("Death", "24-02-1992");
         }
         [TestMethod]
         public void Michael_Faraday()
@@ -40,6 +40,5 @@ namespace Acoose.Centurial.Package.Tests.com
             // execute
             var result = ScraperTest.ExecuteFromEmbeddedResource<Package.com.FindAGrave>("https://nl.findagrave.com/memorial/20883/michael-faraday", "Acoose.Centurial.Package.Tests.com.FindAGrave.Michael_Faraday.html");
         }
-
     }
 }

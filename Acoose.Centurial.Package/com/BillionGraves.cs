@@ -10,34 +10,14 @@ using System.Threading.Tasks;
 namespace Acoose.Centurial.Package.com
 {
     [Scraper("http://billiongraves.*/grave/*")]
-    public class BillionGraves : Scraper.Default
+    public class BillionGraves : MemorialScraper
     {
-        public Memorial Data
+        public BillionGraves()
+            : base("BillionGraves")
         {
-            get;
-            private set;
         }
 
-        public override IEnumerable<Activity> GetActivities(Context context)
-        {
-            // scan
-            this.Data = this.Scan(context);
-
-            // done
-            var activities = this.Data.Images
-                .NullCoalesce()
-                .Select(x => new Activity.DownloadFileActivity(x))
-                .Cast<Activity>()
-                .ToList();
-            if (activities.Count == 0)
-            {
-                activities.AddRange(base.GetActivities(context));
-            }
-
-            // done
-            return activities;
-        }
-        private Memorial Scan(Context context)
+        protected override void Scan(Context context)
         {
             // init
             var vitalInfo = context.Body()
@@ -60,13 +40,6 @@ namespace Acoose.Centurial.Package.com
                 .WithAny(n => n.Descendants("amp-img").Where(x => x.Attribute("alt").Contains("oto")))
                 .Descendants("div").WithAny(n => n.Elements("h2").WithClass("bg-list-title"))
                 .Single();
-            var images = vitalInfo
-                .Descendants("amp-carousel").WithId("record-image-carousel")
-                .Descendants("div").WithClass("i-amphtml-slide-item")
-                .Elements("div").WithClass("record-image-wrapper")
-                .Elements("amp-img")
-                .Select(x => x.Attribute("src"))
-                .ToArray();
 
             // deceased
             var deceased = new Person()
@@ -77,31 +50,24 @@ namespace Acoose.Centurial.Package.com
                 Role = EventRole.Deceased
             };
 
-            // memorial
-            return new Memorial()
-            {
-                URL = context.Url,
-                WebsiteTitle = "BillionGraves",
-                WebsiteURL = context.GetWebsiteUrl(),
-                CemeteryName = cemeteryData
-                    .Descendants("h2").WithAttribute("itemprop", "name")
-                    .Single().GetInnerText(),
-                CemeteryPlace = string.Join(", ", cemeteryAddress.Where(x => x.Attribute("itemprop") != "streetAddress").Select(x => x.GetInnerText()).Where(x => !string.IsNullOrWhiteSpace(x))),
-                CemeteryAccess = string.Join(", ", cemeteryAddress.Where(x => x.Attribute("itemprop") == "streetAddress").Select(x => x.GetInnerText()).Where(x => !string.IsNullOrWhiteSpace(x))),
-                PhotographedBy = photographData.Elements("h2").Single().GetInnerText(),
-                PhotographedAt = Date.TryParse(photographData.Elements("div").Single().GetInnerText()),
-                Persons = new Person[] { deceased },
-                //Images = images
-            };
-        }
+            // done
+            CemeteryName = cemeteryData
+                .Descendants("h2").WithAttribute("itemprop", "name")
+                .Single().GetInnerText();
+            CemeteryPlace = string.Join(", ", cemeteryAddress.Where(x => x.Attribute("itemprop") != "streetAddress").Select(x => x.GetInnerText()).Where(x => !string.IsNullOrWhiteSpace(x)));
+            CemeteryAccess = string.Join(", ", cemeteryAddress.Where(x => x.Attribute("itemprop") == "streetAddress").Select(x => x.GetInnerText()).Where(x => !string.IsNullOrWhiteSpace(x)));
+            PhotographedBy = photographData.Elements("h2").Single().GetInnerText();
+            PhotographedAt = Date.TryParse(photographData.Elements("div").Single().GetInnerText());
+            Persons = new Person[] { deceased };
 
-        protected override IEnumerable<Repository> GetProvenance(Context context)
-        {
-            return this.Data.GenerateProvenance();
-        }
-        protected override IEnumerable<Info> GetInfo(Context context)
-        {
-            return this.Data.GenerateInfos();
+            // images are currently not being downloaded
+            //this.Images = vitalInfo
+            //    .Descendants("amp-carousel").WithId("record-image-carousel")
+            //    .Descendants("div").WithClass("i-amphtml-slide-item")
+            //    .Elements("div").WithClass("record-image-wrapper")
+            //    .Elements("amp-img")
+            //    .Select(x => x.Attribute("src"))
+            //    .ToArray();
         }
     }
 }

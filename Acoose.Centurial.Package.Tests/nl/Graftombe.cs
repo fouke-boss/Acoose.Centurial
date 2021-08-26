@@ -19,20 +19,19 @@ namespace Acoose.Centurial.Package.Tests.nl
             // execute
             var result = ScraperTest.ExecuteFromEmbeddedResource<Package.nl.Graftombe>("https://www.graftombe.nl/names/info/1283307/peters", "Acoose.Centurial.Package.Tests.nl.Graftombe.Martin_Peters.html");
 
-            //// valideren
-            //Assert.IsTrue(result.Source.Info.Length == 9);
-            //Assert.IsTrue(result.Source.Info.OfType<PersonInfo>().Count() == 5);
+            // provenance
+            result.FindProvenance<UnknownRepository>(1)
+                .AssertChild<Cemetery>()
+                .AssertCondition(x => x.CemeteryName == "Hoensbroek Randweg")
+                .AssertCondition(x => x.Place == "Heerlen, Limburg");
 
-            //// persoon ophalen
-            //var gerardus = result.Source.Info
-            //    .OfType<PersonInfo>()
-            //    .Where(x => x.FamilyName.Single() == "Boss")
-            //    .Where(x => x.GivenNames.Single() == "Gerardus")
-            //    .Single();
-            //var birth = gerardus.Events.SingleOrDefault(x => x.Type == "Birth");
-            //Assert.IsTrue(birth != null);
-            //Assert.IsTrue(birth.Date.Length == 1);
-            //Assert.IsTrue(birth.Date.Single().ToDateString() == "1877-08-11");
+            // persons
+            var person1 = result.FindPerson("Martin Peters")
+                .AssertDate("Birth", "18-02-1924")
+                .AssertDate("Death", "30-08-2008");
+            var persons = result.FindPerson("Ellie Michiels")
+                .AssertDate("Birth", "07-02-1925")
+                .AssertDate("Death", "02-08-2004");
         }
     }
 }

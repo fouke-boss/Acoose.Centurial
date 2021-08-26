@@ -10,34 +10,14 @@ using System.Threading.Tasks;
 namespace Acoose.Centurial.Package.com
 {
     [Scraper("http://*.findagrave.com/memorial/*")]
-    public class FindAGrave : Scraper.Default
+    public class FindAGrave : MemorialScraper
     {
-        public Memorial Data
+        public FindAGrave()
+            : base("Find a Grave")
         {
-            get;
-            private set;
         }
 
-        public override IEnumerable<Activity> GetActivities(Context context)
-        {
-            // scan
-            this.Data = this.Scan(context);
-
-            // done
-            var activities = this.Data.Images
-                .NullCoalesce()
-                .Select(x => new Activity.DownloadFileActivity(x))
-                .Cast<Activity>()
-                .ToList();
-            if (activities.Count == 0)
-            {
-                activities.AddRange(base.GetActivities(context));
-            }
-
-            // done
-            return activities;
-        }
-        private Memorial Scan(Context context)
+        protected override void Scan(Context context)
         {
             // init
             var bio = context.Body()
@@ -61,7 +41,7 @@ namespace Acoose.Centurial.Package.com
                 .Single();
             var cemeteryPlace = cemetery
                 .Descendants().WithAttribute("itemtype", "http://schema.org/PostalAddress")
-                .Elements().WithAttribute("itemprop")
+                .Elements("span")
                 .Select(x => x.GetInnerText())
                 .Where(x => !string.IsNullOrWhiteSpace(x))
                 .ToArray();
@@ -69,14 +49,39 @@ namespace Acoose.Centurial.Package.com
                 .Descendants("div").WithClass("section-transfer")
                 .Descendants("ul").WithId("source")
                 .Elements("li");
-            var photographedBy = photograph
-                .WithAny(n => n.Elements("input").WithId("createdBy"))
-                .Elements("a")
-                .SingleOrDefault().GetInnerText();
             var photographedAt = photograph
                 .WithAny(n => n.Elements("input").WithId("addedDate"))
                 .SingleOrDefault().GetInnerText()?.Split(':')?.Skip(1)?.FirstOrDefault();
-            var images = context.Body()
+
+            // photograph
+            this.PhotographedBy = photograph
+                .WithAny(n => n.Elements("input").WithId("createdBy"))
+                .Elements("a")
+                .SingleOrDefault().GetInnerText();
+            this.PhotographedAt = Date.TryParse(photographedAt);
+
+            // done
+            this.CemeteryName = cemetery
+                .Descendants("a")
+                .Descendants().WithAttribute("itemprop", "name")
+                .Single().GetInnerText();
+            this.CemeteryPlace = string.Join(", ", cemeteryPlace);
+
+            // persons
+            this.Persons = new Person[] {
+                new Person()
+                {
+                    Name = bio.Descendants("h1").WithId("bio-name").Single().GetInnerText(),
+                    BirthDate = Date.TryParse(birth.Elements().WithAttribute("itemprop", "birthDate").SingleOrDefault()?.GetInnerText()),
+                    BirthPlace = birth.Elements().WithAttribute("itemprop", "birthPlace").SingleOrDefault()?.GetInnerText(),
+                    DeathDate = Date.TryParse(death.Elements().WithAttribute("itemprop", "deathDate").SingleOrDefault()?.GetInnerText()?.Split('(')?.First()),
+                    DeathPlace = birth.Elements().WithAttribute("itemprop", "deathPlace").SingleOrDefault()?.GetInnerText(),
+                    Role = EventRole.Deceased
+                }
+            };
+
+            // images
+            this.Images = context.Body()
                 .Descendants("div").WithClass("section-photos")
                 .Descendants("div").WithAttribute("itemtype", "https://schema.org/ImageGallery")
                 .Descendants("img").WithAttribute("itemprop", "image")
@@ -85,45 +90,7 @@ namespace Acoose.Centurial.Package.com
                 .Distinct()
                 .Where(x => !string.IsNullOrWhiteSpace(x))
                 .ToArray();
-
-            // deceased
-            var deceased = new Person()
-            {
-                Name = bio.Descendants("h1").WithId("bio-name").Single().GetInnerText(),
-                BirthDate = Date.TryParse(birth.Elements().WithAttribute("itemprop", "birthDate").SingleOrDefault()?.GetInnerText()),
-                BirthPlace = birth.Elements().WithAttribute("itemprop", "birthPlace").SingleOrDefault()?.GetInnerText(),
-                DeathDate = Date.TryParse(death.Elements().WithAttribute("itemprop", "deathDate").SingleOrDefault()?.GetInnerText()?.Split('(')?.First()),
-                DeathPlace = birth.Elements().WithAttribute("itemprop", "deathPlace").SingleOrDefault()?.GetInnerText(),
-                Role = EventRole.Deceased
-            };
-
-            // memorial
-            return new Memorial()
-            {
-                URL = context.Url,
-                WebsiteTitle = "Find a Grave",
-                WebsiteURL = context.GetWebsiteUrl(),
-                CemeteryName = cemetery
-                    .Descendants("a")
-                    .Descendants().WithAttribute("itemprop", "name")
-                    .Single().GetInnerText(),
-                CemeteryPlace = string.Join(", ", cemeteryPlace),
-                PhotographedBy = photographedBy,
-                PhotographedAt = Date.TryParse(photographedAt),
-                Persons = new Person[] { deceased },
-                Images = images
-            };
         }
-
-        protected override IEnumerable<Repository> GetProvenance(Context context)
-        {
-            return this.Data.GenerateProvenance();
-        }
-        protected override IEnumerable<Info> GetInfo(Context context)
-        {
-            return this.Data.GenerateInfos();
-        }
-
         private string TrimImagePath(string path)
         {
             // empty?

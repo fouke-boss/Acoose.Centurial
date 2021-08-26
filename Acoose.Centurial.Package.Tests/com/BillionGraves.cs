@@ -19,20 +19,21 @@ namespace Acoose.Centurial.Package.Tests.com
             // execute
             var result = ScraperTest.ExecuteFromEmbeddedResource<Package.com.BillionGraves>("https://billiongraves.nl/grave/Peter-Hendericks/43666597", "Acoose.Centurial.Package.Tests.com.BillionGraves.Peter_Hendericks.html");
 
-            //// valideren
-            //Assert.IsTrue(result.Source.Info.Length == 9);
-            //Assert.IsTrue(result.Source.Info.OfType<PersonInfo>().Count() == 5);
+            // provenance
+            result.FindProvenance<UnknownRepository>(1)
+                .AssertChild<Photograph>()
+                .AssertCondition(x => x.Creator is PersonalName p && p.FamilyName == "bethj1973" && string.IsNullOrEmpty(p.GivenNames))
+                .AssertCondition(x => x.Date.Equals(Date.TryParse("28-11-2020")));
+            result.FindProvenance<UnknownRepository>(2)
+                .AssertChild<Cemetery>()
+                .AssertCondition(x => x.CemeteryName == "Exeter Cemetery")
+                .AssertCondition(x => x.Place == "Exeter, Fillmore, Nebraska, United States")
+                .AssertCondition(x => x.AccessData == "Unnamed Rd");
 
-            //// persoon ophalen
-            //var gerardus = result.Source.Info
-            //    .OfType<PersonInfo>()
-            //    .Where(x => x.FamilyName.Single() == "Boss")
-            //    .Where(x => x.GivenNames.Single() == "Gerardus")
-            //    .Single();
-            //var birth = gerardus.Events.SingleOrDefault(x => x.Type == "Birth");
-            //Assert.IsTrue(birth != null);
-            //Assert.IsTrue(birth.Date.Length == 1);
-            //Assert.IsTrue(birth.Date.Single().ToDateString() == "1877-08-11");
+            // persons
+            var person1 = result.FindPerson("Peter Hendericks")
+                .AssertDate("Birth", "1853")
+                .AssertDate("Death", "1903");
         }
     }
 }

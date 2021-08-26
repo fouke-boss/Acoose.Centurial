@@ -19,20 +19,20 @@ namespace Acoose.Centurial.Package.Tests.nl
             // execute
             var result = ScraperTest.ExecuteFromEmbeddedResource<Package.nl.OnlineBegraafplaatsen>("https://www.online-begraafplaatsen.nl/graf/1630904/2601706/M-E-Boss-1893-1976", "Acoose.Centurial.Package.Tests.nl.OnlineBegraafplaatsen.Quadvlieg_Boss.html");
 
-            //// valideren
-            //Assert.IsTrue(result.Source.Info.Length == 9);
-            //Assert.IsTrue(result.Source.Info.OfType<PersonInfo>().Count() == 5);
+            // provenance
+            result.FindProvenance<UnknownRepository>(1)
+                .AssertChild<Cemetery>()
+                .AssertCondition(x => x.CemeteryName == "Begraafplaats")
+                .AssertCondition(x => x.Place == "Brunssum")
+                .AssertCondition(x => x.AccessData == "Merkelbeekerstraat");
 
-            //// persoon ophalen
-            //var gerardus = result.Source.Info
-            //    .OfType<PersonInfo>()
-            //    .Where(x => x.FamilyName.Single() == "Boss")
-            //    .Where(x => x.GivenNames.Single() == "Gerardus")
-            //    .Single();
-            //var birth = gerardus.Events.SingleOrDefault(x => x.Type == "Birth");
-            //Assert.IsTrue(birth != null);
-            //Assert.IsTrue(birth.Date.Length == 1);
-            //Assert.IsTrue(birth.Date.Single().ToDateString() == "1877-08-11");
+            // persons
+            var person1 = result.FindPerson("N.J. Quadvlieg")
+                .AssertDate("Birth", "09-11-1889")
+                .AssertDate("Death", "29-01-1949");
+            var persons = result.FindPerson("M.E. Boss")
+                .AssertDate("Birth", "05-08-1893")
+                .AssertDate("Death", "12-01-1976");
         }
     }
 }

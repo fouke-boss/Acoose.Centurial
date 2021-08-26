@@ -61,6 +61,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MemorialScraper.cs" />
     <Compile Include="com\FindAGrave.cs" />
     <Compile Include="EnsureMode.cs" />
     <Compile Include="EventRole.cs" />

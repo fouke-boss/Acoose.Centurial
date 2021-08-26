@@ -11,34 +11,14 @@ namespace Acoose.Centurial.Package.nl
 {
     [Scraper("https://www.online-begraafplaatsen.nl/graf/*")]
     [Scraper("https://www.online-begraafplaatsen.nl/zerken.asp")]
-    public class OnlineBegraafplaatsen : Scraper.Default
+    public class OnlineBegraafplaatsen : MemorialScraper
     {
-        public Memorial Data
+        public OnlineBegraafplaatsen()
+            : base("Online Begraafplaatsen")
         {
-            get;
-            private set;
         }
 
-        public override IEnumerable<Activity> GetActivities(Context context)
-        {
-            // scan
-            this.Data = this.Scan(context);
-
-            // done
-            var activities = this.Data.Images
-                .NullCoalesce()
-                .Select(x => new Activity.DownloadFileActivity(x))
-                .Cast<Activity>()
-                .ToList();
-            if (activities.Count == 0)
-            {
-                activities.AddRange(base.GetActivities(context));
-            }
-
-            // done
-            return activities;
-        }
-        private Memorial Scan(Context context)
+        protected override void Scan(Context context)
         {
             // init
             var zerk = context.Body()
@@ -83,59 +63,15 @@ namespace Acoose.Centurial.Package.nl
                 })
                 .ToArray();
 
-            // memorial
-            return new Memorial()
-            {
-                URL = context.Url,
-                WebsiteTitle = "Online Begraafplaatsen",
-                WebsiteURL = context.GetWebsiteUrl(),
-                CemeteryName = cemetery[0],
-                CemeteryAccess = cemetery[1],
-                CemeteryPlace = cemetery[2],
-                Persons = persons,
-                Images = zerk
-                    .Elements("img").WithClass("zrk_img")
-                    .Select(x => $"https://www.online-begraafplaatsen.nl/{x.Attribute("src").TrimStart('/')}")
-                    .ToArray()
-            };
-        }
-
-        protected override IEnumerable<Repository> GetProvenance(Context context)
-        {
-            return this.Data.GenerateProvenance();
-        }
-        protected override IEnumerable<Info> GetInfo(Context context)
-        {
-            return this.Data.GenerateInfos();
-        }
-
-        private string TrimImagePath(string path)
-        {
-            // empty?
-            if (string.IsNullOrWhiteSpace(path))
-            {
-                return null;
-            }
-
-            // init
-            var parts = path.Split('?').First().Split('/', '\\')
-                .ToList();
-
-            // remove photo folder
-            if (parts.Count > 4 && parts[4] == "photos")
-            {
-                if (parts[3].StartsWith("photo"))
-                {
-                    parts.RemoveAt(3);
-                }
-                else
-                {
-                    throw new NotSupportedException($"Unsupported image path '{path}'.");
-                }
-            }
-
             // done
-            return string.Join("/", parts);
+            this.CemeteryName = cemetery[0];
+            this.CemeteryAccess = cemetery[1];
+            this.CemeteryPlace = cemetery[2];
+            this.Persons = persons;
+            this.Images = zerk
+                .Elements("img").WithClass("zrk_img")
+                .Select(x => $"https://www.online-begraafplaatsen.nl/{x.Attribute("src").TrimStart('/')}")
+                .ToArray();
         }
     }
 }
