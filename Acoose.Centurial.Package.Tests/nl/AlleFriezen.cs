@@ -24,14 +24,14 @@ namespace Acoose.Centurial.Package.Tests.nl
                 .AssertCondition(x => x.Title == "AlleFriezen")
                 .AssertCondition(x => x.IsVirtualArchive == true)
                 .AssertChild<OnlineItem>()
-                .FindChild<DatabaseEntry>()
+                .AssertChild<DatabaseEntry>()
                 .AssertCondition(x => x.EntryFor == "Egberta Maria Biersma");
             result.FindProvenance<PublicArchive>(1)
                 .AssertCondition(x => x.Name == "Tresoar")
                 .AssertChild<ArchivedItem>()
-                .FindChild<Collection>()
+                .AssertChild<Collection>()
                 .AssertChild<ArchivedItem>()
-                .FindChild<VitalRecord>()
+                .AssertChild<VitalRecord>()
                 .AssertCondition(x => x.Title.Value == "Burgerlijke stand")
                 .AssertCondition(x => x.Jurisdiction == "Aengwirden")
                 .AssertChild<RecordScriptFormat>()
@@ -89,7 +89,7 @@ namespace Acoose.Centurial.Package.Tests.nl
             var result = Utility.ExecuteTest<Package.nl.AlleFriezen>("https://allefriezen.nl/zoeken/deeds/bc989c50-6833-49ad-8d75-8fb500450529");
 
             // valideren
-            Assert.IsTrue(result.Source.Info.Length == 1);
+            Assert.IsTrue(result.Source.Info.Length == 2);
         }
     }
 }

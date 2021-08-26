@@ -13,7 +13,7 @@ namespace Acoose.Centurial.Package.Tests.org
     public class Wikipedia
     {
         [TestMethod]
-        public void FritzWalter()
+        public void Fritz_Walter()
         {
             // init ([Bearbeiten] in header)
             var result = Utility.ExecuteTest<Package.org.Wikipedia>("https://de.wikipedia.org/wiki/Fritz_Walter");

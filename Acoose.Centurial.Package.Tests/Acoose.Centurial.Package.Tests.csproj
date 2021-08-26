@@ -80,19 +80,22 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="org\Wikipedia\Fritz_Walter.html" />
+    <EmbeddedResource Include="nl\RegionaalArchiefTilburg\DTP_Doop.html" />
+    <EmbeddedResource Include="nl\RegionaalArchiefTilburg\BS_Geboorte.html" />
+    <EmbeddedResource Include="nl\WieWasWie\Overig.html" />
+    <EmbeddedResource Include="org\Wikipedia\Fritz_Walter.html" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="org\FamilySearch\Record1.html" />
+    <EmbeddedResource Include="org\FamilySearch\Record1.html" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="org\FamilySearch\Record2.html" />
+    <EmbeddedResource Include="org\FamilySearch\Record2.html" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="org\FamilySearch\Image1.html" />
+    <EmbeddedResource Include="org\FamilySearch\Image1.html" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="org\FamilySearch\Image2.html" />
+    <EmbeddedResource Include="org\FamilySearch\Image2.html" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="nl\Mensenlinq\MartijnJankoBoss.html" />

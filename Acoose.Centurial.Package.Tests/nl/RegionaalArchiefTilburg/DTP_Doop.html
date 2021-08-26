@@ -1,0 +1,1173 @@
+<html xmlns="http://www.w3.org/1999/xhtml" ng-app="picturaeGenealogy" class="ng-scope">
+<head>
+	<style type="text/css">
+		@charset "UTF-8";
+
+		[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak, .ng-hide:not(.ng-hide-animate) {
+			display: none !important;
+		}
+
+		ng\:form {
+			display: block;
+		}
+
+		.ng-animate-shim {
+			visibility: hidden;
+		}
+
+		.ng-anchor {
+			position: absolute;
+		}
+	</style>
+	<title>
+		Zoek een persoon
+	</title>
+	<link href="/Content/fontawesome-all.min.css" rel="stylesheet">
+	<link href="//fonts.googleapis.com/css?family=Raleway:400,500,700%7CRokkitt:400,700%7CBevan" rel="stylesheet" type="text/css">
+	<link rel="stylesheet" type="text/css" href="/Estate/Css/printstyle.css" media="print">
+	<link id="StyleSheet" rel="stylesheet" type="text/css" href="//webservices.picturae.com/genealogy/dist/css/genealogy.css">
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/ng-dialog/0.3.0/css/ngDialog.min.css">
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/ng-dialog/0.3.0/css/ngDialog-theme-plain.min.css">
+
+
+	<script src="https://connect.facebook.net/en_US/all.js?hash=3aae3826d0351584a9c4693b657421ed" async="" crossorigin="anonymous"></script>
+	<script id="facebook-jssdk" async="" src="//connect.facebook.net/en_US/all.js"></script>
+	<script type="text/javascript" async="" src="https://www.google-analytics.com/analytics.js"></script>
+	<script type="text/javascript" async="" src="https://eu.libraryh3lp.com/js/libraryh3lp.js?128"></script>
+	<script async="" src="https://www.googletagmanager.com/gtm.js?id=GTM-5ZLQS2Q"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha512-bnIvzh6FU75ZKxp0GXLH9bewza/OIw6dLVh9ICg0gogclmYGguQJWl8U30WpbsGTqbIiAwxTsbe76DErLq5EDQ==" crossorigin="anonymous"></script>
+
+	<meta id="viewport" name="viewport">
+	<meta name="HandheldFriendly" content="true">
+	<meta name="apple-touch-fullscreen" content="yes">
+	<meta name="viewport" content="minimal-ui">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<link rel="icon" type="image/png" href="/App_Themes/RegionaalArchiefTilburg/images/icons/favicon.ico">
+	<link rel="shortcut icon" href="/App_Themes/RegionaalArchiefTilburg/images/icons/favicon.ico" type="image/x-icon">
+	<link rel="apple-touch-icon" href="/App_Themes/RegionaalArchiefTilburg/images/icons/apple-icon.png">
+	<link rel="apple-touch-icon" sizes="57x57" href="/App_Themes/RegionaalArchiefTilburg/images/icons/apple-icon-57x57.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="/App_Themes/RegionaalArchiefTilburg/images/icons/apple-icon-72x72.png">
+	<link rel="apple-touch-icon" sizes="76x76" href="/App_Themes/RegionaalArchiefTilburg/images/icons/apple-icon-76x76.png">
+	<link rel="apple-touch-icon" sizes="114x114" href="/App_Themes/RegionaalArchiefTilburg/images/icons/apple-icon-114x114.png">
+	<link rel="apple-touch-icon" sizes="120x120" href="/App_Themes/RegionaalArchiefTilburg/images/icons/apple-icon-120x120.png">
+	<link rel="apple-touch-icon" sizes="144x144" href="/App_Themes/RegionaalArchiefTilburg/images/icons/apple-icon-144x144.png">
+	<link rel="apple-touch-icon" sizes="152x152" href="/App_Themes/RegionaalArchiefTilburg/images/icons/apple-icon-152x152.png">
+	<meta name="robots" content="noodp, index, follow">
+	<link href="/Content/custom/main.css" rel="stylesheet">
+	<link href="/Content/custom/picturae.css" rel="stylesheet">
+
+
+	<script type="text/javascript">
+	(function (w, d, s, l, i) {
+			w[l] = w[l] || []; w[l].push({
+				'gtm.start':
+					new Date().getTime(), event: 'gtm.js'
+			}); var f = d.getElementsByTagName(s)[0],
+				j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+					'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+		})(window, document, 'script', 'dataLayer', 'GTM-5ZLQS2Q');</script>
+
+	<base href="//www.regionaalarchieftilburg.nl/zoek-een-persoon/">
+	<link href="../../App_Themes/RegionaalArchiefTilburg/css/jquery.fancybox.css" type="text/css" rel="stylesheet">
+	<link href="../../App_Themes/RegionaalArchiefTilburg/css/main.css" type="text/css" rel="stylesheet">
+	<link href="../../App_Themes/RegionaalArchiefTilburg/css/main.min.css" type="text/css" rel="stylesheet">
+	<link href="../../App_Themes/RegionaalArchiefTilburg/css/mediabank-2-0.css" type="text/css" rel="stylesheet">
+	<link href="../../App_Themes/RegionaalArchiefTilburg/font/stylesheet.css" type="text/css" rel="stylesheet">
+	<link href="../../App_Themes/RegionaalArchiefTilburg/Fontello/css/fontello.css" type="text/css" rel="stylesheet">
+	<link href="../../App_Themes/RegionaalArchiefTilburg/Fontello/css/fontello-codes.css" type="text/css" rel="stylesheet">
+	<link href="../../App_Themes/RegionaalArchiefTilburg/Fontello/css/fontello-embedded.css" type="text/css" rel="stylesheet">
+	<link href="../../App_Themes/RegionaalArchiefTilburg/Fontello/css/fontello-ie7.css" type="text/css" rel="stylesheet">
+	<link href="../../App_Themes/RegionaalArchiefTilburg/Fontello/css/fontello-ie7-codes.css" type="text/css" rel="stylesheet">
+	<meta name="Generator" content="Sitefinity 13.3.7624.0 SE">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<script type="text/javascript">
+		(function () { var _rdDeviceWidth = (window.innerWidth > 0) ? window.innerWidth : screen.width; var _rdDeviceHeight = (window.innerHeight > 0) ? window.innerHeight : screen.height; var _rdOrientation = (window.width > window.height) ? 'landscape' : 'portrait'; })();
+	</script>
+	<link href="/Telerik.Web.UI.WebResource.axd?d=PMrIT5dOWaVYIcpFWUE4nB7in0GZvRGZISEcHS1bIFl0ZQAYWnzo7zG8e4Qt38TkjodV77oAomak2COQeXmXI2VjM1-DqmtzEne8vMoKg5TT72nhkwjv_fvxo7i8VgE-0&amp;t=637583487320000000&amp;compress=0&amp;_TSM_CombinedScripts_=%3b%3bTelerik.Sitefinity.Resources%2c+Version%3d13.3.7624.0%2c+Culture%3dneutral%2c+PublicKeyToken%3db28c218413bdf563%3aen%3a25a51fbf-f6a5-4323-963e-0105852ff6eb%3a7a90d6a" type="text/css" rel="stylesheet">
+	<link href="/Sitefinity/Public/ResponsiveDesign/layout_transformations.css?pageDataId=e174922d-f8b3-6730-a5ef-ff0000b9ad41&amp;pageSiteNode=E074922D-F8B3-6730-A5EF-FF0000B9AD41/196b8a38-99c1-4f9f-8b28-1ef86c205af3/SitefinitySiteMap" type="text/css" rel="stylesheet">
+	<link href="../../Estate/Css/tablets.css" type="text/css" rel="stylesheet" media="all and (min-width:320px) and (max-width:1024px)">
+	<link href="../../Estate/Css/smartphones.css" type="text/css" rel="stylesheet" media="only screen and (min-width: 240px) and (max-width: 320px)">
+	<link href="../../Estate/Css/smartphones.css" type="text/css" rel="stylesheet" media="all and (min-width:320px) and (max-width:739px)">
+	<style type="text/css">
+		.fancybox-margin {
+			margin-right: 0px;
+		}
+	</style>
+	<style type="text/css" data-fbcssmodules="css:fb.css.base css:fb.css.dialog css:fb.css.iframewidget css:fb.css.customer_chat_plugin_iframe">
+		.fb_hidden {
+			position: absolute;
+			top: -10000px;
+			z-index: 10001
+		}
+
+		.fb_reposition {
+			overflow: hidden;
+			position: relative
+		}
+
+		.fb_invisible {
+			display: none
+		}
+
+		.fb_reset {
+			background: none;
+			border: 0;
+			border-spacing: 0;
+			color: #000;
+			cursor: auto;
+			direction: ltr;
+			font-family: "lucida grande", tahoma, verdana, arial, sans-serif;
+			font-size: 11px;
+			font-style: normal;
+			font-variant: normal;
+			font-weight: normal;
+			letter-spacing: normal;
+			line-height: 1;
+			margin: 0;
+			overflow: visible;
+			padding: 0;
+			text-align: left;
+			text-decoration: none;
+			text-indent: 0;
+			text-shadow: none;
+			text-transform: none;
+			visibility: visible;
+			white-space: normal;
+			word-spacing: normal
+		}
+
+		.fb_reset > div {
+			overflow: hidden
+		}
+
+		@keyframes fb_transform {
+			from {
+				opacity: 0;
+				transform: scale(.95)
+			}
+
+			to {
+				opacity: 1;
+				transform: scale(1)
+			}
+		}
+
+		.fb_animate {
+			animation: fb_transform .3s forwards
+		}
+
+		.fb_dialog {
+			background: rgba(82, 82, 82, .7);
+			position: absolute;
+			top: -10000px;
+			z-index: 10001
+		}
+
+		.fb_dialog_advanced {
+			border-radius: 8px;
+			padding: 10px
+		}
+
+		.fb_dialog_content {
+			background: #fff;
+			color: #373737
+		}
+
+		.fb_dialog_close_icon {
+			background: url(https://static.xx.fbcdn.net/rsrc.php/v3/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 0 transparent;
+			cursor: pointer;
+			display: block;
+			height: 15px;
+			position: absolute;
+			right: 18px;
+			top: 17px;
+			width: 15px
+		}
+
+		.fb_dialog_mobile .fb_dialog_close_icon {
+			left: 5px;
+			right: auto;
+			top: 5px
+		}
+
+		.fb_dialog_padding {
+			background-color: transparent;
+			position: absolute;
+			width: 1px;
+			z-index: -1
+		}
+
+		.fb_dialog_close_icon:hover {
+			background: url(https://static.xx.fbcdn.net/rsrc.php/v3/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 -15px transparent
+		}
+
+		.fb_dialog_close_icon:active {
+			background: url(https://static.xx.fbcdn.net/rsrc.php/v3/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 -30px transparent
+		}
+
+		.fb_dialog_iframe {
+			line-height: 0
+		}
+
+		.fb_dialog_content .dialog_title {
+			background: #6d84b4;
+			border: 1px solid #365899;
+			color: #fff;
+			font-size: 14px;
+			font-weight: bold;
+			margin: 0
+		}
+
+		.fb_dialog_content .dialog_title > span {
+			background: url(https://static.xx.fbcdn.net/rsrc.php/v3/yd/r/Cou7n-nqK52.gif) no-repeat 5px 50%;
+			float: left;
+			padding: 5px 0 7px 26px
+		}
+
+		body.fb_hidden {
+			height: 100%;
+			left: 0;
+			margin: 0;
+			overflow: visible;
+			position: absolute;
+			top: -10000px;
+			transform: none;
+			width: 100%
+		}
+
+		.fb_dialog.fb_dialog_mobile.loading {
+			background: url(https://static.xx.fbcdn.net/rsrc.php/v3/ya/r/3rhSv5V8j3o.gif) white no-repeat 50% 50%;
+			min-height: 100%;
+			min-width: 100%;
+			overflow: hidden;
+			position: absolute;
+			top: 0;
+			z-index: 10001
+		}
+
+		.fb_dialog.fb_dialog_mobile.loading.centered {
+			background: none;
+			height: auto;
+			min-height: initial;
+			min-width: initial;
+			width: auto
+		}
+
+		.fb_dialog.fb_dialog_mobile.loading.centered #fb_dialog_loader_spinner {
+			width: 100%
+		}
+
+		.fb_dialog.fb_dialog_mobile.loading.centered .fb_dialog_content {
+			background: none
+		}
+
+		.loading.centered #fb_dialog_loader_close {
+			clear: both;
+			color: #fff;
+			display: block;
+			font-size: 18px;
+			padding-top: 20px
+		}
+
+		#fb-root #fb_dialog_ipad_overlay {
+			background: rgba(0, 0, 0, .4);
+			bottom: 0;
+			left: 0;
+			min-height: 100%;
+			position: absolute;
+			right: 0;
+			top: 0;
+			width: 100%;
+			z-index: 10000
+		}
+
+		#fb-root #fb_dialog_ipad_overlay.hidden {
+			display: none
+		}
+
+		.fb_dialog.fb_dialog_mobile.loading iframe {
+			visibility: hidden
+		}
+
+		.fb_dialog_mobile .fb_dialog_iframe {
+			position: sticky;
+			top: 0
+		}
+
+		.fb_dialog_content .dialog_header {
+			background: linear-gradient(from(#738aba), to(#2c4987));
+			border-bottom: 1px solid;
+			border-color: #043b87;
+			box-shadow: white 0 1px 1px -1px inset;
+			color: #fff;
+			font: bold 14px Helvetica, sans-serif;
+			text-overflow: ellipsis;
+			text-shadow: rgba(0, 30, 84, .296875) 0 -1px 0;
+			vertical-align: middle;
+			white-space: nowrap
+		}
+
+		.fb_dialog_content .dialog_header table {
+			height: 43px;
+			width: 100%
+		}
+
+		.fb_dialog_content .dialog_header td.header_left {
+			font-size: 12px;
+			padding-left: 5px;
+			vertical-align: middle;
+			width: 60px
+		}
+
+		.fb_dialog_content .dialog_header td.header_right {
+			font-size: 12px;
+			padding-right: 5px;
+			vertical-align: middle;
+			width: 60px
+		}
+
+		.fb_dialog_content .touchable_button {
+			background: linear-gradient(from(#4267B2), to(#2a4887));
+			background-clip: padding-box;
+			border: 1px solid #29487d;
+			border-radius: 3px;
+			display: inline-block;
+			line-height: 18px;
+			margin-top: 3px;
+			max-width: 85px;
+			padding: 4px 12px;
+			position: relative
+		}
+
+		.fb_dialog_content .dialog_header .touchable_button input {
+			background: none;
+			border: none;
+			color: #fff;
+			font: bold 12px Helvetica, sans-serif;
+			margin: 2px -12px;
+			padding: 2px 6px 3px 6px;
+			text-shadow: rgba(0, 30, 84, .296875) 0 -1px 0
+		}
+
+		.fb_dialog_content .dialog_header .header_center {
+			color: #fff;
+			font-size: 16px;
+			font-weight: bold;
+			line-height: 18px;
+			text-align: center;
+			vertical-align: middle
+		}
+
+		.fb_dialog_content .dialog_content {
+			background: url(https://static.xx.fbcdn.net/rsrc.php/v3/y9/r/jKEcVPZFk-2.gif) no-repeat 50% 50%;
+			border: 1px solid #4a4a4a;
+			border-bottom: 0;
+			border-top: 0;
+			height: 150px
+		}
+
+		.fb_dialog_content .dialog_footer {
+			background: #f5f6f7;
+			border: 1px solid #4a4a4a;
+			border-top-color: #ccc;
+			height: 40px
+		}
+
+		#fb_dialog_loader_close {
+			float: left
+		}
+
+		.fb_dialog.fb_dialog_mobile .fb_dialog_close_icon {
+			visibility: hidden
+		}
+
+		#fb_dialog_loader_spinner {
+			animation: rotateSpinner 1.2s linear infinite;
+			background-color: transparent;
+			background-image: url(https://static.xx.fbcdn.net/rsrc.php/v3/yD/r/t-wz8gw1xG1.png);
+			background-position: 50% 50%;
+			background-repeat: no-repeat;
+			height: 24px;
+			width: 24px
+		}
+
+		@keyframes rotateSpinner {
+			0% {
+				transform: rotate(0deg)
+			}
+
+			100% {
+				transform: rotate(360deg)
+			}
+		}
+
+		.fb_iframe_widget {
+			display: inline-block;
+			position: relative
+		}
+
+		.fb_iframe_widget span {
+			display: inline-block;
+			position: relative;
+			text-align: justify
+		}
+
+		.fb_iframe_widget iframe {
+			position: absolute
+		}
+
+		.fb_iframe_widget_fluid_desktop, .fb_iframe_widget_fluid_desktop span, .fb_iframe_widget_fluid_desktop iframe {
+			max-width: 100%
+		}
+
+		.fb_iframe_widget_fluid_desktop iframe {
+			min-width: 220px;
+			position: relative
+		}
+
+		.fb_iframe_widget_lift {
+			z-index: 1
+		}
+
+		.fb_iframe_widget_fluid {
+			display: inline
+		}
+
+		.fb_iframe_widget_fluid span {
+			width: 100%
+		}
+
+		.fb_mpn_mobile_landing_page_slide_out {
+			animation-duration: 200ms;
+			animation-name: fb_mpn_landing_page_slide_out;
+			transition-timing-function: ease-in
+		}
+
+		.fb_mpn_mobile_landing_page_slide_out_from_left {
+			animation-duration: 200ms;
+			animation-name: fb_mpn_landing_page_slide_out_from_left;
+			transition-timing-function: ease-in
+		}
+
+		.fb_mpn_mobile_landing_page_slide_up {
+			animation-duration: 500ms;
+			animation-name: fb_mpn_landing_page_slide_up;
+			transition-timing-function: ease-in
+		}
+
+		.fb_mpn_mobile_bounce_in {
+			animation-duration: 300ms;
+			animation-name: fb_mpn_bounce_in;
+			transition-timing-function: ease-in
+		}
+
+		.fb_mpn_mobile_bounce_out {
+			animation-duration: 300ms;
+			animation-name: fb_mpn_bounce_out;
+			transition-timing-function: ease-in
+		}
+
+		.fb_mpn_mobile_bounce_out_v2 {
+			animation-duration: 300ms;
+			animation-name: fb_mpn_fade_out;
+			transition-timing-function: ease-in
+		}
+
+		.fb_customer_chat_bounce_in_v2 {
+			animation-duration: 300ms;
+			animation-name: fb_bounce_in_v2;
+			transition-timing-function: ease-in
+		}
+
+		.fb_customer_chat_bounce_in_from_left {
+			animation-duration: 300ms;
+			animation-name: fb_bounce_in_from_left;
+			transition-timing-function: ease-in
+		}
+
+		.fb_customer_chat_bounce_out_v2 {
+			animation-duration: 300ms;
+			animation-name: fb_bounce_out_v2;
+			transition-timing-function: ease-in
+		}
+
+		.fb_customer_chat_bounce_out_from_left {
+			animation-duration: 300ms;
+			animation-name: fb_bounce_out_from_left;
+			transition-timing-function: ease-in
+		}
+
+		.fb_customer_chat_bubble_animated_no_badge {
+			box-shadow: 0 3px 12px rgba(0, 0, 0, .15);
+			transition: box-shadow 150ms linear
+		}
+
+		.fb_customer_chat_bubble_animated_no_badge:hover {
+			box-shadow: 0 5px 24px rgba(0, 0, 0, .3)
+		}
+
+		.fb_customer_chat_bubble_animated_with_badge {
+			box-shadow: -5px 4px 14px rgba(0, 0, 0, .15);
+			transition: box-shadow 150ms linear
+		}
+
+		.fb_customer_chat_bubble_animated_with_badge:hover {
+			box-shadow: -5px 8px 24px rgba(0, 0, 0, .2)
+		}
+
+		.fb_invisible_flow {
+			display: inherit;
+			height: 0;
+			overflow-x: hidden;
+			width: 0
+		}
+
+		.fb_new_ui_mobile_overlay_active {
+			overflow: hidden
+		}
+
+		@keyframes fb_mpn_landing_page_slide_in {
+			0% {
+				border-radius: 50%;
+				margin: 0 24px;
+				width: 60px
+			}
+
+			40% {
+				border-radius: 18px
+			}
+
+			100% {
+				margin: 0 12px;
+				width: 100% - 24px
+			}
+		}
+
+		@keyframes fb_mpn_landing_page_slide_in_from_left {
+			0% {
+				border-radius: 50%;
+				left: 12px;
+				margin: 0 24px;
+				width: 60px
+			}
+
+			40% {
+				border-radius: 18px
+			}
+
+			100% {
+				left: 12px;
+				margin: 0 12px;
+				width: 100% - 24px
+			}
+		}
+
+		@keyframes fb_mpn_landing_page_slide_out {
+			0% {
+				margin: 0 12px;
+				width: 100% - 24px
+			}
+
+			60% {
+				border-radius: 18px
+			}
+
+			100% {
+				border-radius: 50%;
+				margin: 0 24px;
+				width: 60px
+			}
+		}
+
+		@keyframes fb_mpn_landing_page_slide_out_from_left {
+			0% {
+				left: 12px;
+				width: 100% - 24px
+			}
+
+			60% {
+				border-radius: 18px
+			}
+
+			100% {
+				border-radius: 50%;
+				left: 12px;
+				width: 60px
+			}
+		}
+
+		@keyframes fb_mpn_landing_page_slide_up {
+			0% {
+				bottom: 0;
+				opacity: 0
+			}
+
+			100% {
+				bottom: 24px;
+				opacity: 1
+			}
+		}
+
+		@keyframes fb_mpn_bounce_in {
+			0% {
+				opacity: .5;
+				top: 100%
+			}
+
+			100% {
+				opacity: 1;
+				top: 0
+			}
+		}
+
+		@keyframes fb_mpn_fade_out {
+			0% {
+				bottom: 30px;
+				opacity: 1
+			}
+
+			100% {
+				bottom: 0;
+				opacity: 0
+			}
+		}
+
+		@keyframes fb_mpn_bounce_out {
+			0% {
+				opacity: 1;
+				top: 0
+			}
+
+			100% {
+				opacity: .5;
+				top: 100%
+			}
+		}
+
+		@keyframes fb_bounce_in_v2 {
+			0% {
+				opacity: 0;
+				transform: scale(0, 0);
+				transform-origin: bottom right
+			}
+
+			50% {
+				transform: scale(1.03, 1.03);
+				transform-origin: bottom right
+			}
+
+			100% {
+				opacity: 1;
+				transform: scale(1, 1);
+				transform-origin: bottom right
+			}
+		}
+
+		@keyframes fb_bounce_in_from_left {
+			0% {
+				opacity: 0;
+				transform: scale(0, 0);
+				transform-origin: bottom left
+			}
+
+			50% {
+				transform: scale(1.03, 1.03);
+				transform-origin: bottom left
+			}
+
+			100% {
+				opacity: 1;
+				transform: scale(1, 1);
+				transform-origin: bottom left
+			}
+		}
+
+		@keyframes fb_bounce_out_v2 {
+			0% {
+				opacity: 1;
+				transform: scale(1, 1);
+				transform-origin: bottom right
+			}
+
+			100% {
+				opacity: 0;
+				transform: scale(0, 0);
+				transform-origin: bottom right
+			}
+		}
+
+		@keyframes fb_bounce_out_from_left {
+			0% {
+				opacity: 1;
+				transform: scale(1, 1);
+				transform-origin: bottom left
+			}
+
+			100% {
+				opacity: 0;
+				transform: scale(0, 0);
+				transform-origin: bottom left
+			}
+		}
+
+		@keyframes fb_bounce_out_v2_mobile_chat_started {
+			0% {
+				opacity: 1;
+				top: 0
+			}
+
+			100% {
+				opacity: 0;
+				top: 20px
+			}
+		}
+
+		@keyframes fb_customer_chat_bubble_bounce_in_animation {
+			0% {
+				bottom: 6pt;
+				opacity: 0;
+				transform: scale(0, 0);
+				transform-origin: center
+			}
+
+			70% {
+				bottom: 18pt;
+				opacity: 1;
+				transform: scale(1.2, 1.2)
+			}
+
+			100% {
+				transform: scale(1, 1)
+			}
+		}
+
+		@keyframes slideInFromBottom {
+			0% {
+				opacity: .1;
+				transform: translateY(100%)
+			}
+
+			100% {
+				opacity: 1;
+				transform: translateY(0)
+			}
+		}
+
+		@keyframes slideInFromBottomDelay {
+			0% {
+				opacity: 0;
+				transform: translateY(100%)
+			}
+
+			97% {
+				opacity: 0;
+				transform: translateY(100%)
+			}
+
+			100% {
+				opacity: 1;
+				transform: translateY(0)
+			}
+		}
+	</style>
+</head>
+<body class="persons-page-template header-small" data-new-gr-c-s-check-loaded="14.1027.0" data-gr-ext-installed="">
+
+	<noscript>
+		<iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5ZLQS2Q"
+				height="0" width="0" style="display: none; visibility: hidden"></iframe>
+	</noscript>
+
+
+
+	<script type="text/javascript">
+		(function () {
+			var x = document.createElement("script"); x.type = "text/javascript"; x.async = true;
+			x.src = (document.location.protocol === "https:" ? "https://" : "http://") + "eu.libraryh3lp.com/js/libraryh3lp.js?128";
+			var y = document.getElementsByTagName("script")[0]; y.parentNode.insertBefore(x, y);
+		})();
+	</script>
+
+	<div id="RAT737625cdHeader">
+		<div class="rat737625cd-header-inner">
+			<div class="container">
+				<div class="rat737625cd-header-top">
+					<div class="rat737625cd-header-top-brand">
+						<div>
+							<a class="rat737625cd-logo-link" href="/" title="Home">
+								<img class="rat737625cd-logo" src="/App_Themes/RegionaalArchiefTilburg/images/regionaal-archief-tilburg-logo.png" alt="Regionaal Archief Tilburg">
+							</a>
+						</div>
+						<a class="mobileTrigger" title="Menu"><i class="icon-menu"></i></a>
+					</div>
+					<div class="rat737625cd-header-top-body">
+						<div class="rat737625cd-header-top-body-inner">
+							<div class="rat737625cd-header-top-body-left">
+								<ul class="main-menu">
+
+									<li>
+
+										<div class="libraryh3lp chatisonline" style="" jid="regionaal.archief.tilburgs-queue@chat.eu.libraryh3lp.com"><br>Beschikbaar<a onclick="" href="#"><div class="chatonline"><i class="icon-comment"> </i> Chat</div></a></div><div class="libraryh3lp" style="display: none;"><div class="chatoffline"><i class="icon-comment"> </i> Chat offline</div></div>
+									</li>
+									<li>
+										<a class="contact-link contact" href="#">Contact</a>
+									</li>
+									<li>
+										<a class="bibliotheek-link" href="https://zoeksysteem.regionaalarchieftilburg.nl/search.aspx" target="_blank" rel="referrer">Bibliotheek</a>
+									</li>
+									<li>
+										<a class="tilburg-op-de-kaart-link" href="https://www.tilburgopdekaart.nl/" target="_blank" rel="referrer">Tilburg op de Kaart</a>
+									</li>
+									<li>
+										<a class="wiki-link" href="https://wikimiddenbrabant.nl/Hoofdpagina" target="_blank" rel="referrer">WIKI</a>
+									</li>
+								</ul>
+							</div>
+							<div class="rat737625cd-header-top-body-right">
+								<ul class="rat737625cd-socialicons">
+									<li>
+										<a href="https://instagram.com/regionaalarchieftilburg" target="_blank" rel="referrer"><i class="fab fa-instagram"></i></a>
+									</li>
+									<li>
+										<a href="https://www.facebook.com/regionaalarchieftilburg" target="_blank" rel="referrer"><i class="fab fa-facebook-f"></i></a>
+									</li>
+									<li>
+										<a href="https://twitter.com/RATilburg" target="_blank" rel="referrer"><i class="fab fa-twitter"></i></a>
+									</li>
+									<li>
+										<a href="https://www.youtube.com/user/RATilburg" target="_blank" rel="referrer"><i class="fab fa-youtube"></i></a>
+									</li>
+								</ul>
+								<form id="siteSearchForm" class="site-search-form ng-pristine ng-valid" method="get" action="/zoek-in-databases/Zoekresultaten/">
+									<input type="hidden" name="indexCatalogue" id="indexCatalogue" value="algemeen" autocomplete="off">
+									<div class="search-wrap">
+										<input type="search" name="searchQuery" id="searchQuery" placeholder="Zoek in de website">
+										<button type="submit" title="Zoeken"><i class="fas fa-search"></i></button>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="rat737625cd-header-bottom">
+					<ul class="nav nav-pills nav-justified">
+						<li class="nav-item">
+							<a class="nav-link" href="/zoek-een-persoon/">
+								<img src="/App_Themes/RegionaalArchiefTilburg/images/icon-persoon.svg" alt="Persoon">
+								<div class="text">Zoek een persoon</div>
+							</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="/zoek-een-foto/?rel=0">
+								<img src="/App_Themes/RegionaalArchiefTilburg/images/icon-foto.svg" alt="Foto">
+								<div class="text">Zoek een foto of geluid</div>
+							</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="/zoek-in-archieven/?search/context/keywords/">
+								<img src="/App_Themes/RegionaalArchiefTilburg/images/icon-archieven.svg" alt="Archieven">
+								<div class="text">Zoek in archieven</div>
+							</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="/zoek-in-indexen/deeds">
+								<img src="/App_Themes/RegionaalArchiefTilburg/images/icon-indexen.svg" alt="Indexen">
+								<div class="text">Zoek in indexen</div>
+							</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="/home/blog-detail/algemeen/2017/12/19/raadplegen-bouwdossiers/">
+								<img src="/App_Themes/RegionaalArchiefTilburg/images/icon-bouwtekeningen.svg" alt="Bouwtekeningen">
+								<div class="text">Zoek een bouwtekening</div>
+							</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<form method="post" action="./14014cda-7f60-f1fd-f07d-df296dc44569?person=b1add30f-554a-0cec-501f-e24d5c5f1e9c" id="form1" class="ng-pristine ng-valid">
+		<div class="aspNetHidden">
+			<input type="hidden" name="ctl34_TSSM" id="ctl34_TSSM" value=";Telerik.Sitefinity.Resources, Version=13.3.7624.0, Culture=neutral, PublicKeyToken=b28c218413bdf563:en:25a51fbf-f6a5-4323-963e-0105852ff6eb:7a90d6a" autocomplete="off">
+			<input type="hidden" name="__EVENTTARGET" id="__EVENTTARGET" value="" autocomplete="off">
+			<input type="hidden" name="__EVENTARGUMENT" id="__EVENTARGUMENT" value="" autocomplete="off">
+			<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="yzhCg5AjdbLe3Qu1DFQIaF52rWr/fjifkqE+Nkw0sW1XSSC7ovlb/JxFrMB36O5xDMLAfhtR7iiwfLPqGyDmpnu7fASh1SJxdABO5rkMPds=" autocomplete="off">
+		</div>
+
+		<script type="text/javascript">
+			//<![CDATA[
+			var theForm = document.forms['form1'];
+			if (!theForm) {
+				theForm = document.form1;
+			}
+			function __doPostBack(eventTarget, eventArgument) {
+				if (!theForm.onsubmit || (theForm.onsubmit() != false)) {
+					theForm.__EVENTTARGET.value = eventTarget;
+					theForm.__EVENTARGUMENT.value = eventArgument;
+					theForm.submit();
+				}
+			}
+			//]]>
+		</script>
+
+
+		<script src="/WebResource.axd?d=pynGkmcFUV13He1Qd6_TZMh4EHn5E63pyse5YYX3fVqN_wyEtsRCdHUaMH8HbTOCVyC9KLJPz7AuIDYZok8szg2&amp;t=637454106340000000" type="text/javascript"></script>
+
+
+		<script src="/ScriptResource.axd?d=NJmAwtEo3Ipnlaxl6CMhvjS-b3PnQR2c15v6dS9hKN_UZXEbLZrEz25DzT76AtlMDtzEiGxTnyG1RA891UfROXEDPGVNIj2WaJd_bLeoHsBLqSypmcB_-QAx2zFgMB16-4-DKiNnX-pX-raw6AmDv3Rm70RijxJmnsvXzl5p3jg1&amp;t=363be08" type="text/javascript"></script>
+		<script src="/ScriptResource.axd?d=dwY9oWetJoJoVpgL6Zq8OB_ug0VNV6rEqDtm1NMAVZzilseCkOyhbwr_SbvaoH2wAKn_SizCfr93NTBFXc3QsSJvLmH_qcAPb2gwRn693DL5SUuMsNi0D8Cp0EsSkFgkJaIZdw61THe94XEKGzJkkxkTPKSew4nMDpxWziuvvAw1&amp;t=363be08" type="text/javascript"></script>
+		<div class="aspNetHidden">
+
+			<input type="hidden" name="__VIEWSTATEGENERATOR" id="__VIEWSTATEGENERATOR" value="0E4C9FC2" autocomplete="off">
+		</div>
+		<script type="text/javascript">
+			//<![CDATA[
+			Sys.WebForms.PageRequestManager._initialize('ctl00$ScriptManager1', 'form1', [], [], [], 90, 'ctl00');
+			//]]>
+		</script>
+
+
+
+		<a class="mobileTrigger"><i class="icon-menu"></i></a>
+		<div class="mobileMenuHolder">
+
+			<div class="sfContentBlock">
+				<ul>
+					<li><a class="gtmhome" href="/home"><em class="icon-home"></em>Home</a></li>
+					<li><a href="/recent"><em class="icon-heart"></em>Recent</a></li>
+					<li><a href="/contact"><em class="icon-location-1"></em>Contact</a></li>
+					<li><a class="chatbtn" href="#" onclick="window.open('https://eu.libraryh3lp.com/chat/regionaal.archief.tilburgs-queue@chat.eu.libraryh3lp.com?skin=14425', 'AskUs', 'resizable=1,width=320,height=300'); return false;"><em class="icon-comment"></em>Chat</a></li>
+				</ul>
+
+			</div><div class="sfContentBlock">
+				<span class="socialicons"> <a href="http://wiki.regionaalarchieftilburg.nl/Hoofdpagina" class="icon-wiki"></a> <a href="http://instagram.com/regionaalarchieftilburg" target="_blank"><em class="icon-instagram"></em></a> <a href="https://www.facebook.com/regionaalarchieftilburg/" target="_blank"><em class="icon-facebook"></em></a> <a href="https://twitter.com/RATilburg" target="_blank"><em class="icon-twitter"></em></a> <a href="https://www.youtube.com/user/RATilburg" target="_blank"><em class="icon-youtube"></em></a> </span>
+
+			</div>
+
+
+
+		</div>
+		<div id="Content">
+
+			<div class="sfContentBlock">
+				<div class="linkWrapper"><a href="/zoek-een-persoon/registers" class="registerLink">Zoek in registers</a></div>
+
+			</div><div class="sfContentBlock">
+				<div class="leesmeer">Contact en informatie<span class="icon-up-open"></span></div>
+
+			</div><div class="sf_cols footer">
+				<div class="sf_colsOut sf_1col_1_100">
+					<div id="Content_T3801DB11048_Col00" class="sf_colsIn sf_1col_1in_100">
+						<div class="sf_cols container">
+							<div class="sf_colsOut sf_3cols_1_33">
+								<div id="Content_T3801DB11043_Col00" class="sf_colsIn sf_3cols_1in_33">
+									<div class="sfContentBlock">
+										<h3>Op de hoogte blijven?</h3>
+										Wil je op de hoogte blijven?<br>
+										Meld je aan voor de nieuwsbrief
+
+									</div><div class="sfContentBlock subscribeForm">
+										<span class="mommerskwartier">Instelling van stichting Mommerskwartier</span>
+
+									</div>
+
+								</div>
+							</div>
+							<div class="sf_colsOut sf_3cols_2_34">
+								<div id="Content_T3801DB11043_Col01" class="sf_colsIn sf_3cols_2in_34">
+									<div class="sfContentBlock">
+										<h3>Informatie</h3>
+										<a href="/home/blog-detail/algemeen/2014/12/02/tarieven"></a><a href="https://www.regionaalarchieftilburg.nl/home/blog-detail/algemeen/2018/05/24/privacybeleid-regionaal-archief-tilburg/">Privacybeleid</a><br>
+										<a href="http://regionaalarchieftilburg.slimmestart.nl/">Startpagina van het archief</a><br>
+										<a href="http://www.tilburgopdekaart.nl"></a><a href="https://charterbank.regionaalarchieftilburg.nl/" target="_blank">Charterbank</a><br>
+										<a href="http://www.geschiedenislokaal013.nl/">Geschiedenislokaal 013</a><br>
+										<a href="/home/blog-detail/algemeen/2015/07/15/vrijwilligers-bij-het-archief/">Vrijwilligers bij het archief</a><br>
+										<a href="/home/blog-detail/algemeen/2016/05/20/verhuur-ruimtes-in-het-archief/">Verhuur van Ruimtes</a><br>
+										<a href="https://www.regionaalarchieftilburg.nl/home/blog-detail/algemeen/2014/12/02/tarieven">Tarieven</a><br>
+										<a href="https://www.regionaalarchieftilburg.nl/home/blog-detail/algemeen/2014/12/02/huisregels-regionaal-archief-tilburg">Huisregels</a><br>
+										<a href="https://www.werkenbijmommerskwartier.nl/regionaalarchieftilburg" target="_blank">Werken bij</a>
+
+									</div>
+
+								</div>
+							</div>
+							<div class="sf_colsOut sf_3cols_3_33">
+								<div id="Content_T3801DB11043_Col02" class="sf_colsIn sf_3cols_3in_33">
+									<div class="sfContentBlock">
+										<h3>Contact</h3>
+										Regionaal Archief Tilburg<br>
+										Postbus 4265<br>
+										5004 JG Tilburg<br>
+										<br>
+										Bezoekadres:<br>
+										Kazernehof 75<br>
+										5017 EV Tilburg<br>
+										<br>
+										<a href="/home/blog-detail/algemeen/2014/12/02/adres-openingstijden">Openingstijden</a><br>
+										<a href="/home/blog-detail/algemeen/2014/12/10/routebeschrijving">Routebeschrijving</a><br>
+										<br>
+										013 549 45 70<br>
+										<a href="mailto:info@regionaalarchieftilburg.nl">info@regionaalarchieftilburg.nl</a>
+
+									</div>
+
+								</div>
+							</div>
+						</div><div class="sf_cols">
+							<div class="sf_colsOut sf_1col_1_100">
+								<div id="Content_T3801DB11049_Col00" class="sf_colsIn sf_1col_1in_100">
+									<div class="sfContentBlock">
+										<div class="collapse"><span class="icon-up-open"></span></div>
+
+									</div>
+
+								</div>
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div><div class="sfContentBlock">
+				<div class="infoUitleg">
+					<h3>Uitleg</h3>
+					<strong>Zoek een persoon</strong>
+					<ul>
+						<li><a href="http://www.regionaalarchieftilburg.nl/home/blog-detail/algemeen/2015/10/20/informatie-bij-zoeken-naar-een-persoon/">Hoe kun je zoeken?</a></li>
+						<li><a href="http://www.regionaalarchieftilburg.nl/home/blog-detail/algemeen/2015/04/17/nieuw-op-de-website-slim-zoeken/">Slim zoeken naar personen</a></li>
+						<li><a href="http://www.regionaalarchieftilburg.nl/home/blog-detail/algemeen/2015/07/23/inzien-van-registers-terug-op-de-website/">Zoeken naar registers</a></li>
+						<li><a href="http://www.regionaalarchieftilburg.nl/home/blog-detail/algemeen/2016/03/10/beschikbare-bronnen/">Wat zit er in?</a></li>
+						<li><a href="http://www.regionaalarchieftilburg.nl/home/blog-detail/algemeen/2016/03/10/beschikbare-bronnen/"></a><a href="http://www.watstaatdaer.nl/">Oefen het lezen van oude handschriften</a></li>
+						<li><a href="https://www.regionaalarchieftilburg.nl/home/blog-detail/algemeen/2020/10/01/inschrijving-geopend-voor-de-lanciersprijs-2021">Geef je op voor de Lanciersprijs!</a></li>
+					</ul>
+				</div>
+
+			</div>
+		</div>
+
+
+		<script type="text/javascript">
+			//<![CDATA[
+			; (function () {
+				function loadHandler() {
+					var hf = $get('ctl34_TSSM');
+					if (!hf._RSSM_init) { hf._RSSM_init = true; hf.value = ''; }
+					hf.value += ';Telerik.Sitefinity.Resources, Version=13.3.7624.0, Culture=neutral, PublicKeyToken=b28c218413bdf563:en:25a51fbf-f6a5-4323-963e-0105852ff6eb:7a90d6a';
+					Sys.Application.remove_load(loadHandler);
+				};
+				Sys.Application.add_load(loadHandler);
+			})();//]]>
+		</script>
+	</form>
+
+
+	<div class="container content">
+		<!-- uiView: --><div id="pic-genealogy" ui-view="" data-url="https://webservices.picturae.com/genealogy/" data-api-key="6934d11e-52c6-11e4-b0d6-2f8b4b1371c5" data-pagination-rows="25" data-language="nl_NL" class="ng-scope"><!-- uiView: --><div id="picturae-genealogy-container" class="picturae-genealogy-container ng-scope" ui-view=""><div class="tablerecord active ng-scope"><!-- ngIf: loading && (!register || !persons) --><!-- ngIf: !loading || (register && persons) --><section class="row ng-scope" data-ng-if="!loading || (register &amp;&amp; persons)"><!-- ngIf: 'root.deed' | isState --><div class="back ng-scope" data-ng-if="'root.deed' | isState"><a tabindex="0" ng-click="$back()" href="#"><i class="pic-icon-left-open-mini"></i> <span data-translate="">Terug naar zoekresultaat</span></a></div><!-- end ngIf: 'root.deed' | isState --><header class="small-12 medium-12 columns"><h1 class="ng-binding">Inv.nr. 098 - Tilburg en Goirle - Doopboek 1821-1825(Rooms-katholieke parochie ´t Goirke)</h1></header><div class="small-12 medium-9 columns"><!-- ngIf: register.metadata.diversen --><ul class="registration-info-list"><li class="ng-binding"><strong data-translate="">Bron:</strong> doop-, trouw- en begraafregister</li><li class="ng-binding"><strong data-translate="">Soort registratie:</strong> doopakte</li><!-- ngIf: deed.metadata.datum --><li ng-if="deed.metadata.datum" class="ng-binding ng-scope"><strong data-translate="">(Akte)datum:</strong> 01-02-1825</li><!-- end ngIf: deed.metadata.datum --><!-- ngIf: deed.metadata.plaats --><li ng-if="deed.metadata.plaats" class="ng-binding ng-scope"><strong data-translate="">Plaats:</strong> Tilburg</li><!-- end ngIf: deed.metadata.plaats --><!-- ngIf: deed.metadata.subtype --></ul><!-- ngIf: deed.metadata.diversen --><deed data-persons="persons.person" data-deed="deed" data-selected-person-id="selectedPerson.id" class="ng-isolate-scope"><deed-dtb_d data-deed="deed" data-persons="persons" data-selected-person-id="selectedPersonId" class="ng-scope ng-isolate-scope"><ol><!-- ngIf: kind --><li class="born ng-scope" data-ng-if="kind"><ol><li class="male"><i data-ng-class="genderIconSuffix" class="pic-icon-girl"></i><h2 data-translate="">Dopeling</h2><person-data data-person="kind" data-template="dtb_d" data-header="false" data-icon="false" data-url="'deeds/'+deed.id+'?person='+kind.id" class="ng-isolate-scope"><!-- ngIf: !isSpecial() --><div data-ng-if="!isSpecial()" class="ng-binding ng-scope"> <a tabindex="0" href="#" data-ng-click="simpleSearchPerson(person)" class="person ng-binding"><!-- ngIf: hasGender() && icon != 'false' --> Maria van den Berg <!-- ngIf: person.metadata.meisjesnaam --> <!-- ngIf: person.metadata.beroep --></a><div class="person-permalink"><a tabindex="0" href="#" data-ng-click="showPermalinkBox()" class="person-permalink-button"><span class="pic-icon-link"></span></a><!-- ngIf: isPermalinkOpen --></div><!-- ngIf: person.metadata.leeftijd --> <!-- ngIf: person.metadata.subtype --> <!-- ngIf: person.metadata.datum_geboorte || person.metadata.plaats_geboorte --> <!-- ngIf: person.metadata.datum_doop || person.metadata.plaats_doop --> <!-- ngIf: person.metadata.plaats_wonen --> <!-- ngIf: person.metadata.type_of --> <!-- ngIf: person.metadata.datum_overlijden || person.metadata.plaats_overlijden --><!-- ngIf: person.metadata.diversen --></div><!-- end ngIf: !isSpecial() --><!-- ngIf: template === 'id_a' --></person-data></li></ol></li><!-- end ngIf: kind --><li class="parents-bride"><a data-ng-click="simpleSearchPerson(vader, moeder)" class="record-searchplus" title="Zoeken naar alle personen met deze naam/namen"><i class="pic-icon-search-circle"></i></a><ol><!-- ngIf: vader --><li class="male ng-scope" data-ng-if="vader"><i class="pic-icon-male-1"></i><h2 data-translate="">Vader</h2><person-data data-person="vader" data-template="dtb_d" data-header="false" data-icon="false" data-url="'deeds/'+deed.id+'?person='+vader.id" class="ng-isolate-scope"><!-- ngIf: !isSpecial() --><div data-ng-if="!isSpecial()" class="ng-binding ng-scope"> <a tabindex="0" href="#" data-ng-click="simpleSearchPerson(person)" class="person ng-binding"><!-- ngIf: hasGender() && icon != 'false' --> Cornelius van den Berg <!-- ngIf: person.metadata.meisjesnaam --> <!-- ngIf: person.metadata.beroep --></a><div class="person-permalink"><a tabindex="0" href="#" data-ng-click="showPermalinkBox()" class="person-permalink-button"><span class="pic-icon-link"></span></a><!-- ngIf: isPermalinkOpen --></div><!-- ngIf: person.metadata.leeftijd --> <!-- ngIf: person.metadata.subtype --> <!-- ngIf: person.metadata.datum_geboorte || person.metadata.plaats_geboorte --> <!-- ngIf: person.metadata.datum_doop || person.metadata.plaats_doop --> <!-- ngIf: person.metadata.plaats_wonen --> <!-- ngIf: person.metadata.type_of --> <!-- ngIf: person.metadata.datum_overlijden || person.metadata.plaats_overlijden --><!-- ngIf: person.metadata.diversen --></div><!-- end ngIf: !isSpecial() --><!-- ngIf: template === 'id_a' --></person-data></li><!-- end ngIf: vader --><!-- ngIf: moeder --><li class="female ng-scope" data-ng-if="moeder"><i class="pic-icon-female-1"></i><h2 data-translate="">Moeder</h2><person-data data-person="moeder" data-template="dtb_d" data-header="false" data-icon="false" data-url="'deeds/'+deed.id+'?person='+moeder.id" class="ng-isolate-scope"><!-- ngIf: !isSpecial() --><div data-ng-if="!isSpecial()" class="ng-binding ng-scope"> <a tabindex="0" href="#" data-ng-click="simpleSearchPerson(person)" class="person ng-binding"><!-- ngIf: hasGender() && icon != 'false' --> Joanna Maria Rijkers <!-- ngIf: person.metadata.meisjesnaam --> <!-- ngIf: person.metadata.beroep --></a><div class="person-permalink"><a tabindex="0" href="#" data-ng-click="showPermalinkBox()" class="person-permalink-button"><span class="pic-icon-link"></span></a><!-- ngIf: isPermalinkOpen --></div><!-- ngIf: person.metadata.leeftijd --> <!-- ngIf: person.metadata.subtype --> <!-- ngIf: person.metadata.datum_geboorte || person.metadata.plaats_geboorte --> <!-- ngIf: person.metadata.datum_doop || person.metadata.plaats_doop --> <!-- ngIf: person.metadata.plaats_wonen --> <!-- ngIf: person.metadata.type_of --> <!-- ngIf: person.metadata.datum_overlijden || person.metadata.plaats_overlijden --><!-- ngIf: person.metadata.diversen --></div><!-- end ngIf: !isSpecial() --><!-- ngIf: template === 'id_a' --></person-data></li><!-- end ngIf: moeder --></ol></li></ol><section class="registration person"><!-- ngRepeat: (role, people) in others --></section></deed-dtb_d></deed><div class="more ng-hide" ng-hide="'root.deed' | isState" aria-hidden="true"><a tabindex="0" data-ui-sref="root.deed({ id: deed.id, person: selectedPerson.id })" href="/zoek-een-persoon/deeds/ecd59e5d-0584-08c1-cb06-175ffe990f57?person=d2a05bae-3248-29c0-4eb0-6673f4bfcb71"><i class="pic-icon-right-open-mini"></i> <span data-translate="">Paginaweergave</span></a></div><!-- ngIf: deed.id --><mmx-report-warning data-ng-if="deed.id" data-subject="ecd59e5d-0584-08c1-cb06-175ffe990f57" class="ng-scope ng-isolate-scope"><!-- ngIf: warning.showWarning --></mmx-report-warning><!-- end ngIf: deed.id --></div><div class="small-12 medium-3 columns"><aside class="record-scource"><header><h3 data-translate="">Bronvermelding</h3></header><div class="header"><!-- ngIf: register.metadata.naam --><span data-ng-if="register.metadata.naam" class="ng-binding ng-scope">Inv.nr. 098 - Tilburg en Goirle - Doopboek 1821-1825(Rooms-katholieke parochie ´t Goirke)</span><!-- end ngIf: register.metadata.naam --><!-- ngIf: register.metadata.archiefnummer --><span data-ng-if="register.metadata.archiefnummer" class="ng-binding ng-scope">, <span data-translate="">archiefnummer</span> 15</span><!-- end ngIf: register.metadata.archiefnummer --><!-- ngIf: register.metadata.archiefnaam --><!-- ngIf: register.metadata.inventarisnummer --><span data-ng-if="register.metadata.inventarisnummer" class="ng-binding ng-scope">, <span data-translate="">inventarisnummer</span> 98</span><!-- end ngIf: register.metadata.inventarisnummer --><!-- ngIf: deed.metadata.pagina --><span data-ng-if="deed.metadata.pagina" class="ng-binding ng-scope">, <span data-translate="">blad</span> 65</span><!-- end ngIf: deed.metadata.pagina --><!-- ngIf: deed.metadata.nummer --></div><!-- ngIf: register.metadata.gemeente --><div data-ng-if="register.metadata.gemeente" class="ng-binding ng-scope"><span class="title" data-translate="">Gemeente</span>: Tilburg</div><!-- end ngIf: register.metadata.gemeente --><!-- ngIf: register.metadata.periode --><div data-ng-if="register.metadata.periode" class="ng-binding ng-scope"><span class="title" data-translate="">Periode</span>: 1821-1825</div><!-- end ngIf: register.metadata.periode --><!-- ngIf: register.metadata.religie --></aside><aside class="record-actions"><!-- ngIf: deed.asset && deed.asset.length --><ul data-ng-if="deed.asset &amp;&amp; deed.asset.length" class="ng-scope"><!-- ngRepeat: asset in deed.asset | startFrom:currentScan | limitTo:1 --><li class="view ng-scope" ng-repeat="asset in deed.asset | startFrom:currentScan | limitTo:1"><!-- ngIf: asset.uuid --><a data-ng-if="asset.uuid" href="#" tabindex="0" class="image ng-scope" data-ng-click="showScans(deed, null, deed.id, register.metadata, asset.dc_title, selectedPerson)"><img data-ng-src="https://images.memorix.nl/tlb/thumb/250x250/a5375b7c-1da7-a38e-0341-594eff0510b0.jpg" alt="Inv.nr. 098 - Tilburg en Goirle - Doopboek 1821-1825(Rooms-katholieke parochie ´t Goirke) pagina 65 aktenummer " src="https://images.memorix.nl/tlb/thumb/250x250/a5375b7c-1da7-a38e-0341-594eff0510b0.jpg"> <span><i class="pic-icon-eye"></i> <span data-translate="">Bekijk akte</span></span></a><!-- end ngIf: asset.uuid --><!-- ngIf: !asset.uuid --> <!-- ngIf: asset.uuid --><a data-ng-if="asset.uuid" href="https://images.memorix.nl/tlb/download/fullsize/a5375b7c-1da7-a38e-0341-594eff0510b0.jpg" tabindex="0" class="image ng-scope" ng-href="https://images.memorix.nl/tlb/download/fullsize/a5375b7c-1da7-a38e-0341-594eff0510b0.jpg" title="Download scan"><span><i class="pic-icon-download"></i> <span data-translate="">Download scan</span></span></a><!-- end ngIf: asset.uuid --></li><!-- end ngRepeat: asset in deed.asset | startFrom:currentScan | limitTo:1 --></ul><!-- end ngIf: deed.asset && deed.asset.length --><!-- ngIf: selectedPerson && selectedPerson.metadata.has_assets === 'register' || deed.metadata.has_assets === 'register' --><!-- ngIf: deed.asset.length > 1 --></aside><!-- ngIf: deed.id --><mmx-report-button data-ng-if="deed.id" data-subject="ecd59e5d-0584-08c1-cb06-175ffe990f57" data-deed="deed" data-memorixurl="https://maior.memorix.nl/collectiebeheer/entiteit/index/entiteit/ecfd35b4-3852-11e0-bcd1-8edf61960649/uuid/ecd59e5d-0584-08c1-cb06-175ffe990f57" data-url="deeds/ecd59e5d-0584-08c1-cb06-175ffe990f57?person=d2a05bae-3248-29c0-4eb0-6673f4bfcb71" class="ng-scope ng-isolate-scope"><div data-ng-show="button.showButton" aria-hidden="false" class=""><a tabindex="0" href="#" class="mmx-report-button" data-ng-click="button.showForm('error')"><i class="pic-icon-error"></i> <span data-translate="">Fout melden</span></a> <!-- ngIf: request --></div></mmx-report-button><!-- end ngIf: deed.id --><mmx-social-share data-handle="https://hdl.handle.net/21.12103/ecd59e5d-0584-08c1-cb06-175ffe990f57" data-url="deeds/ecd59e5d-0584-08c1-cb06-175ffe990f57" data-title="Inv.nr. 098 - Tilburg en Goirle - Doopboek 1821-1825(Rooms-katholieke parochie ´t Goirke) 65" data-image="https://images.memorix.nl/tlb/thumb/250x250/a5375b7c-1da7-a38e-0341-594eff0510b0.jpg" data-memorixentityuuid="ecfd35b4-3852-11e0-bcd1-8edf61960649" data-memorixrecorduuid="ecd59e5d-0584-08c1-cb06-175ffe990f57" class="ng-isolate-scope"><div class="social-media-share"><ul><!-- ngIf: socialshare.showFacebook --><li class="facebook ng-scope" data-ng-if="socialshare.showFacebook"><a data-ng-href="https://www.facebook.com/sharer/sharer.php?u=https://hdl.handle.net/21.12103/ecd59e5d-0584-08c1-cb06-175ffe990f57" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://hdl.handle.net/21.12103/ecd59e5d-0584-08c1-cb06-175ffe990f57"><span class="pic-hidden-linktext">Facebook</span></a></li><!-- end ngIf: socialshare.showFacebook --><!-- ngIf: socialshare.showTwitter --><li class="twitter ng-scope" data-ng-if="socialshare.showTwitter"><a tabindex="0" href="#" class="twitter-share-button" data-ng-click="socialshare.twitterShare()"><span class="pic-hidden-linktext">Twitter</span></a></li><!-- end ngIf: socialshare.showTwitter --><!-- ngIf: socialshare.showPinterest --><li class="pinterest ng-scope" data-ng-if="socialshare.showPinterest"><div pintrest="" data-href="https://hdl.handle.net/21.12103/ecd59e5d-0584-08c1-cb06-175ffe990f57" data-description="Inv.nr. 098 - Tilburg en Goirle - Doopboek 1821-1825(Rooms-katholieke parochie ´t Goirke) 65" data-img="https://images.memorix.nl/tlb/thumb/250x250/a5375b7c-1da7-a38e-0341-594eff0510b0.jpg" data-pin-do="buttonPin" data-pin-config="beside"><a href="//www.pinterest.com/pin/create/button/?url=https%3A%2F%2Fhdl.handle.net%2F21.12103%2Fecd59e5d-0584-08c1-cb06-175ffe990f57&amp;media=https%3A%2F%2Fimages.memorix.nl%2Ftlb%2Fthumb%2F250x250%2Fa5375b7c-1da7-a38e-0341-594eff0510b0.jpg&amp;description=Inv.nr.%20098%20-%20Tilburg%20en%20Goirle%20-%20Doopboek%201821-1825(Rooms-katholieke%20parochie%20%C2%B4t%20Goirke)%2065" pindo="buttonPin" pinconfig="beside"></a></div></li><!-- end ngIf: socialshare.showPinterest --><!-- ngIf: socialshare.showMailto --><li class="mailto ng-scope" data-ng-if="socialshare.showMailto"><a tabindex="0" ng-href="mailto:?subject=Inv.nr.%20098%20-%20Tilburg%20en%20Goirle%20-%20Doopboek%201821-1825(Rooms-katholieke%20parochie%20%C2%B4t%20Goirke)%2065&amp;body=Inv.nr.%20098%20-%20Tilburg%20en%20Goirle%20-%20Doopboek%201821-1825(Rooms-katholieke%20parochie%20%C2%B4t%20Goirke)%2065%20%0Ahttps%3A%2F%2Fhdl.handle.net%2F21.12103%2Fecd59e5d-0584-08c1-cb06-175ffe990f57" href="mailto:?subject=Inv.nr.%20098%20-%20Tilburg%20en%20Goirle%20-%20Doopboek%201821-1825(Rooms-katholieke%20parochie%20%C2%B4t%20Goirke)%2065&amp;body=Inv.nr.%20098%20-%20Tilburg%20en%20Goirle%20-%20Doopboek%201821-1825(Rooms-katholieke%20parochie%20%C2%B4t%20Goirke)%2065%20%0Ahttps%3A%2F%2Fhdl.handle.net%2F21.12103%2Fecd59e5d-0584-08c1-cb06-175ffe990f57"><span data-translate="">E-mail</span></a></li><!-- end ngIf: socialshare.showMailto --><!-- ngIf: socialshare.showPermalink --><li class="pic-permalink ng-scope" data-ng-if="socialshare.showPermalink"><a tabindex="0" href="#" class="pic-permalink-button" data-ng-click="socialshare.showPermalinkBox()"><i class="pic-icon-link"></i> <span data-translate="">Permalink</span></a><!-- ngIf: socialshare.isPermalinkOpen --></li><!-- end ngIf: socialshare.showPermalink --><!-- ngIf: socialshare.showGooglePlus --><!-- ngIf: socialshare.showMemorixUrl --></ul></div></mmx-social-share></div></section><!-- end ngIf: !loading || (register && persons) --></div></div>
+		<script type="text/ng-template" id="custom/header" class="ng-scope">
+			<tr> <th ng-controller="ngTableSorterRowController" ng-repeat="$column in $columns" ng-class="{ 'sortable': parse($column.sortable(this)), 'sort-asc': params.sorting()[$column.sortable(this)]=='asc', 'sort-desc': params.sorting()[$column.sortable(this)]=='desc' }" ng-click="params.sorting()[$column.sortable(this)]=='desc' ? params.resetSorting(params) : sortBy($column, $event)" ng-show="$column.show(this)" ng-init="template = $column.headerTemplateURL(this)" class="header sortable {{$column.class(this)}}"> <div ng-if="!template" ng-show="!template" class="ng-table-header" ng-class="{'sort-indicator': params.settings().sortingIndicator == 'div'}" ng-bind="$column.title(this) | translate"> </div> <div ng-if="template" ng-show="template"><div ng-include="template"></div></div> </th> </tr>
+		</script></div>
+	</div>
+
+
+
+	<!--[if lte IE 9]>
+		<script type="text/javascript" src="https://webservices.picturae.com/genealogy/js/xdomain/xdomain.min.js"></script>
+		<script>
+			xdomain.slaves({
+				"https://webservices.picturae.com": "/genealogy/proxy.html"
+			});
+		</script>
+	<![endif]-->
+
+	<script src="//images.memorix.nl/topviewer/1.0/src/topviewer.compressed.js?v=1.0" type="text/javascript"></script>
+	<script src="https://webservices.picturae.com/genealogy/dist/js/deps.min.js"></script>
+	<script src="https://webservices.picturae.com/genealogy/dist/js/partials/partials.min.js"></script>
+	<script src="https://webservices.picturae.com/genealogy/dist/js/app.js"></script>
+
+
+	<script type="text/javascript" src="/App_Themes/RegionaalArchiefTilburg/scripts/imagesloaded.pkgd.min.js"></script>
+	<script type="text/javascript" src="/App_Themes/RegionaalArchiefTilburg/scripts/jquery.fancybox.pack.js"></script>
+	<script type="text/javascript" src="/App_Themes/RegionaalArchiefTilburg/scripts/jquery.livequery.js"></script>
+	<script type="text/javascript" src="/App_Themes/RegionaalArchiefTilburg/scripts/jquery.dotdotdot.min.js"></script>
+	<script type="text/javascript" src="/App_Themes/RegionaalArchiefTilburg/scripts/jquery.imagemapster.min.js"></script>
+	<script type="text/javascript" src="/App_Themes/RegionaalArchiefTilburg/scripts/nl.estate.js?v=3"></script>
+
+
+
+	<div class="chatinfo offline" style="top: 0px; left: 0px;">
+		<div class="triangle"></div>
+		<div class="chatcontent">
+			<a class="chatclose">sluit</a>
+			<strong>Hulp nodig?</strong>
+			<br>
+			<br>
+			We helpen je graag van maandag t/m vrijdag van 19.00 tot 22.00 uur via chat.
+			<br>
+			<br>
+			Op dit moment zijn we offline. Je kunt je vraag wel stellen via e-mail.
+		</div>
+	</div>
+
+
+	<div class="chatinfo online" style="display: none; top: 82px; left: 376.344px;">
+		<div class="triangle"></div>
+		<div class="chatcontent">
+			<a class="chatclose">sluit</a>
+			<strong>Chat online</strong>
+			<br>
+			<br>
+			We helpen je via de chat. Klik op de button om te starten.
+			<br>
+			<br>
+			<a id="chatStartButton" class="button" href="#">Chat</a>
+		</div>
+	</div>
+
+
+
+	<link href="//cdn-images.mailchimp.com/embedcode/slim-081711.css" rel="stylesheet" type="text/css">
+	<div id="mc_embed_signup">
+		<form action="//regionaalarchieftilburg.us6.list-manage.com/subscribe/post?u=7d69f4f6f7242bee2a8164050&amp;id=552aa97916" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate ng-pristine ng-valid" target="_blank" novalidate="">
+			<div id="mc_embed_signup_scroll">
+				<br>
+				<input type="email" value="" name="EMAIL" class="email" id="mce-EMAIL" placeholder="Jouw e-mailadres" required="">
+
+				<div style="position: absolute; left: -5000px;">
+					<input type="text" name="b_7d69f4f6f7242bee2a8164050_552aa97916" tabindex="-1" value="">
+				</div>
+				<div class="clear">
+					<input type="submit" value="inschrijven" name="subscribe" id="mc-embedded-subscribe" class="button">
+				</div>
+			</div>
+		</form>
+	</div>
+
+
+
+	<script src="https://eu.libraryh3lp.com/presence/jid/regionaal.archief.tilburgs-queue/chat.eu.libraryh3lp.com/js?cb=lh3cb1629973713494"></script><div id="fb-root" class=" fb_reset"><div style="position: absolute; top: -10000px; width: 0px; height: 0px;"><div></div></div></div>
+	<script src="https://eu.libraryh3lp.com/presence/jid/regionaal.archief.tilburgs-queue/chat.eu.libraryh3lp.com/js?cb=lh3cb1629973743504"></script>
+	<script src="https://eu.libraryh3lp.com/presence/jid/regionaal.archief.tilburgs-queue/chat.eu.libraryh3lp.com/js?cb=lh3cb1629973774244"></script>
+	<script src="https://eu.libraryh3lp.com/presence/jid/regionaal.archief.tilburgs-queue/chat.eu.libraryh3lp.com/js?cb=lh3cb1629973804251"></script>
+	<script src="https://eu.libraryh3lp.com/presence/jid/regionaal.archief.tilburgs-queue/chat.eu.libraryh3lp.com/js?cb=lh3cb1629973834252"></script>
+	<script src="https://eu.libraryh3lp.com/presence/jid/regionaal.archief.tilburgs-queue/chat.eu.libraryh3lp.com/js?cb=lh3cb1629973864249"></script>
+	<script src="https://eu.libraryh3lp.com/presence/jid/regionaal.archief.tilburgs-queue/chat.eu.libraryh3lp.com/js?cb=lh3cb1629973894247"></script>
+	<script src="https://eu.libraryh3lp.com/presence/jid/regionaal.archief.tilburgs-queue/chat.eu.libraryh3lp.com/js?cb=lh3cb1629973923763"></script>
+	<script src="https://eu.libraryh3lp.com/presence/jid/regionaal.archief.tilburgs-queue/chat.eu.libraryh3lp.com/js?cb=lh3cb1629973954524"></script>
+	<script src="https://eu.libraryh3lp.com/presence/jid/regionaal.archief.tilburgs-queue/chat.eu.libraryh3lp.com/js?cb=lh3cb1629973984252"></script>
+	<script src="https://eu.libraryh3lp.com/presence/jid/regionaal.archief.tilburgs-queue/chat.eu.libraryh3lp.com/js?cb=lh3cb1629974014240"></script>
+	<script src="https://eu.libraryh3lp.com/presence/jid/regionaal.archief.tilburgs-queue/chat.eu.libraryh3lp.com/js?cb=lh3cb1629974044251"></script>
+	<script src="https://eu.libraryh3lp.com/presence/jid/regionaal.archief.tilburgs-queue/chat.eu.libraryh3lp.com/js?cb=lh3cb1629974074251"></script>
+	<script src="https://eu.libraryh3lp.com/presence/jid/regionaal.archief.tilburgs-queue/chat.eu.libraryh3lp.com/js?cb=lh3cb1629974104243"></script>
+	<script src="https://eu.libraryh3lp.com/presence/jid/regionaal.archief.tilburgs-queue/chat.eu.libraryh3lp.com/js?cb=lh3cb1629974134250"></script>
+	<script src="https://eu.libraryh3lp.com/presence/jid/regionaal.archief.tilburgs-queue/chat.eu.libraryh3lp.com/js?cb=lh3cb1629974163510"></script>
+	<script src="https://eu.libraryh3lp.com/presence/jid/regionaal.archief.tilburgs-queue/chat.eu.libraryh3lp.com/js?cb=lh3cb1629974193497"></script>
+	<script src="https://eu.libraryh3lp.com/presence/jid/regionaal.archief.tilburgs-queue/chat.eu.libraryh3lp.com/js?cb=lh3cb1629974224244"></script>
+	<script src="https://eu.libraryh3lp.com/presence/jid/regionaal.archief.tilburgs-queue/chat.eu.libraryh3lp.com/js?cb=lh3cb1629974253504"></script>
+	<script src="https://eu.libraryh3lp.com/presence/jid/regionaal.archief.tilburgs-queue/chat.eu.libraryh3lp.com/js?cb=lh3cb1629974284308"></script>
+	<script src="https://eu.libraryh3lp.com/presence/jid/regionaal.archief.tilburgs-queue/chat.eu.libraryh3lp.com/js?cb=lh3cb1629974314255"></script>
+	<script src="https://eu.libraryh3lp.com/presence/jid/regionaal.archief.tilburgs-queue/chat.eu.libraryh3lp.com/js?cb=lh3cb1629974344250"></script>
+	<script src="https://eu.libraryh3lp.com/presence/jid/regionaal.archief.tilburgs-queue/chat.eu.libraryh3lp.com/js?cb=lh3cb1629974374249"></script>
+	<script src="https://eu.libraryh3lp.com/presence/jid/regionaal.archief.tilburgs-queue/chat.eu.libraryh3lp.com/js?cb=lh3cb1629974403498"></script>
+</body>
+<grammarly-desktop-integration data-grammarly-shadow-root="true"></grammarly-desktop-integration>
+</html>

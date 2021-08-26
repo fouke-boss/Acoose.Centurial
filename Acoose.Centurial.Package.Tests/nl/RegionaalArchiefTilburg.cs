@@ -14,47 +14,82 @@ namespace Acoose.Centurial.Package.Tests.nl
     public class RegionaalArchiefTilburg
     {
         [TestMethod]
+        public void BS_Geboorte()
+        {
+            // test
+            var result = Utility.ExecuteTest<Package.nl.RegionaalArchiefTilburg>("https://www.regionaalarchieftilburg.nl/zoek-een-persoon/deeds/48a02c0d-25d7-a080-2527-5b51dea12b2a?person=afe01680-5b54-8fb4-07f7-207e5589a166");
+
+            // provenance
+            result.FindProvenance<PublicArchive>(1)
+                .AssertCondition(x => x.Name == "Regionaal Archief Tilburg")
+                .AssertChild<ArchivedItem>()
+                .AssertChild<Collection>()
+                .AssertChild<ArchivedItem>()
+                .AssertChild<VitalRecord>()
+                .AssertCondition(x => x.Jurisdiction == "Baarle-Nassau")
+                .AssertCondition(x => x.Title.Value == "Burgerlijke stand")
+                .AssertChild<RecordScriptFormat>()
+                .AssertCondition(x => x.Number == "23")
+                .AssertCondition(x => x.Label == "Geboorteregister 1920")
+                .AssertCondition(x => x.Date.Equals(Date.TryParse("27-04-1920")))
+                .AssertCondition(x => x.ItemOfInterest == "Louisa Theodora Francisca van den Heuvel");
+        }
+
+        [TestMethod]
         public void DTP_Huwelijk()
         {
-            // draai test
+            // test
             var result = Utility.ExecuteTest<Package.nl.RegionaalArchiefTilburg>("https://www.regionaalarchieftilburg.nl/zoek-een-persoon/deeds/14014cda-7f60-f1fd-f07d-df296dc44569?person=b1add30f-554a-0cec-501f-e24d5c5f1e9c");
 
             // provenance
             result.FindProvenance<Website>(0)
-                .AssertCondition(x => x.Title == "AlleFriezen")
+                .AssertCondition(x => x.Title == "Regionaal Archief Tilburg")
                 .AssertCondition(x => x.IsVirtualArchive == true)
                 .AssertChild<OnlineItem>()
-                .FindChild<DatabaseEntry>()
-                .AssertCondition(x => x.EntryFor == "Egberta Maria Biersma");
+                .AssertChild<DatabaseEntry>()
+                .AssertCondition(x => x.EntryFor == "Anthonij Hessels & Anna Maria Struijk");
             result.FindProvenance<PublicArchive>(1)
-                .AssertCondition(x => x.Name == "Tresoar")
+                .AssertCondition(x => x.Name == "Regionaal Archief Tilburg")
                 .AssertChild<ArchivedItem>()
-                .FindChild<Collection>()
+                .AssertChild<Collection>()
                 .AssertChild<ArchivedItem>()
-                .FindChild<VitalRecord>()
-                .AssertCondition(x => x.Title.Value == "Burgerlijke stand")
-                .AssertCondition(x => x.Jurisdiction == "Aengwirden")
+                .AssertChild<ChurchRecord>()
+                .AssertCondition(x => x.Church == "nederduits-gereformeerde gemeente")
+                .AssertCondition(x => x.Place == "Oosterhout")
                 .AssertChild<RecordScriptFormat>()
-                .AssertCondition(x => x.Number == "0018")
-                .AssertCondition(x => x.Label == "Geboorteregister 1823")
-                .AssertCondition(x => x.Date.Equals(Date.TryParse("1823-03-29")))
-                .AssertCondition(x => x.ItemOfInterest == "Egberta Maria Biersma");
+                .AssertCondition(x => x.Page == "11")
+                .AssertCondition(x => x.Label == "trouwboek 1780-1796")
+                .AssertCondition(x => x.Date.Equals(Date.TryParse("1781-01-13")))
+                .AssertCondition(x => x.ItemOfInterest == "Anthonij Hessels & Anna Maria Struijk");
 
-            //// persons
-            //var person1 = result.FindPerson("Egberta Maria Biersma")
-            //    .AssertDate("Birth", "1823-03-28")
-            //    .AssertPlace("Birth", "Aengwirden")
-            //    .AssertGender(Gender.Female);
-            //var person2 = result.FindPerson("Roelof Biersma")
-            //    .AssertGender(Gender.Male);
-            //var person3 = result.FindPerson("Geesje Wachters")
-            //    .AssertGender(Gender.Female);
+            // persons
+            var person1 = result.FindPerson("Anthonij Hessels")
+                .AssertPlace("Birth", "Oosterhout")
+                .AssertGender(Gender.Male);
+            var person2 = result.FindPerson("Anna Maria Struijk")
+                .AssertPlace("Birth", "Oosterhout")
+                .AssertGender(Gender.Female);
+        }
+        [TestMethod]
+        public void DTP_Doop()
+        {
+            // test
+            var result = Utility.ExecuteTest<Package.nl.RegionaalArchiefTilburg>("https://www.regionaalarchieftilburg.nl/zoek-een-persoon/deeds/ecd59e5d-0584-08c1-cb06-175ffe990f57?person=d2a05bae-3248-29c0-4eb0-6673f4bfcb71");
 
-            //// relationships
-            //result.FindRelationship(person2, person1)
-            //    .AssertParentChild(ParentChild.Person1IsBiologicalParentOfPerson2);
-            //result.FindRelationship(person3, person1)
-            //    .AssertParentChild(ParentChild.Person1IsBiologicalParentOfPerson2);
+            // provenance
+            result.FindProvenance<PublicArchive>(1)
+                .AssertCondition(x => x.Name == "Regionaal Archief Tilburg")
+                .AssertChild<ArchivedItem>()
+                .AssertChild<Collection>()
+                .AssertChild<ArchivedItem>()
+                .AssertChild<ChurchRecord>()
+                .AssertCondition(x => x.Church == "Rooms-katholieke parochie ´t Goirke")
+                .AssertCondition(x => x.Place == "Tilburg")
+                .AssertChild<RecordScriptFormat>()
+                .AssertCondition(x => x.Page == "65")
+                .AssertCondition(x => x.Label == "Doopboek 1821-1825")
+                .AssertCondition(x => x.Date.Equals(Date.TryParse("1 february 1825")))
+                .AssertCondition(x => x.ItemOfInterest == "Maria van den Berg");
         }
     }
 }

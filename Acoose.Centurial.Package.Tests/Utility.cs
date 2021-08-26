@@ -61,7 +61,7 @@ namespace Acoose.Centurial.Package.Tests
                 throw new NotSupportedException();
             }
         }
-        public static T FindChild<T>(this IWrapper wrapper)
+        public static T AssertChild<T>(this IWrapper wrapper)
             where T : Representation
         {
             // init
