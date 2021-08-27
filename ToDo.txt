@@ -7,9 +7,12 @@ Algemeen
 - Ancestry
 
 Picturae/WieWasWie
-- partners in Picturae (AlleGroningers, overlijdensakte)
-- partners in WieWasWie (bij overlijden)
 - bij geïmporteerde age/occupation is de datum niet gesyncd met de brondatum.
+- tests voor stadsarchief amsterdam en BHIC
+
+WieWasWie
+- census/bevolkingsregister
+- partners in WieWasWie (bij overlijden)
 
 
 Mais/Flexis

@@ -19,14 +19,14 @@ namespace Acoose.Centurial.Package.nl
         {
         }
 
-        protected override void Customize(Record record, Dictionary<string, string> fields)
+        protected override void Customize(Dictionary<string, string> fields)
         {
             // archive
-            record.ArchiveName = "Regionaal Archief Tilburg";
-            record.ArchivePlace= "Tilburg";
+            this.ArchiveName = "Regionaal Archief Tilburg";
+            this.ArchivePlace= "Tilburg";
 
             // dtp
-            if (record.RecordType == RecordType.DoopTrouwBegraaf)
+            if (this.RecordType == RecordType.DoopTrouwBegraaf)
             {
                 // assume register.metadata.naam "Inv.nr. 32 - Oosterhout - trouwboek 1730-1741 (nederduits-gereformeerde gemeente)"
                 if (fields.TryGetValue("register.metadata.naam", out var name))
@@ -42,8 +42,8 @@ namespace Acoose.Centurial.Package.nl
                     if (parts.Length == 2)
                     {
                         // done
-                        record.Label = parts[0].TrimAll();
-                        record.Organization = parts[1].TrimEnd(')').TrimAll();
+                        this.Label = parts[0].TrimAll();
+                        this.Organization = parts[1].TrimEnd(')').TrimAll();
                     }
                 }
             }

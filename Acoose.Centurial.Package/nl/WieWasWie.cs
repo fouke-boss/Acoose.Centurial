@@ -12,33 +12,23 @@ using Newtonsoft.Json.Linq;
 namespace Acoose.Centurial.Package.nl
 {
     [Scraper("https://www.wiewaswie.nl/*/detail/*")]
-    public partial class WieWasWie : Scraper.Default
+    public partial class WieWasWie : RecordScraper
     {
-        public Record Data
+        public WieWasWie()
+            : base("WieWasWie")
         {
-            get;
-            private set;
         }
 
-        public override IEnumerable<Activity> GetActivities(Context context)
-        {
-            // scan
-            this.Scan(context);
-
-            // screen shot
-            yield return new Activity.ScreenCaptureActivity(context);
-        }
-        private void Scan(Context context)
+        protected override void Scan(Context context)
         {
             // init
             var container = context.Html
                 .Descendants("div")
                 .Where(x => x.GetAttributeValue("class", "").Contains("sourcedetail-themepage"))
                 .Single();
-            var data = new Record();
 
             // persons
-            data.Persons = container
+            this.Persons = container
                 .Descendants("div")
                 .Where(x => x.GetAttributeValue("class", "") == "person")
                 .Select(div =>
@@ -100,16 +90,16 @@ namespace Acoose.Centurial.Package.nl
                     switch (dataDictionary)
                     {
                         case "SourceDetail.Event":
-                            data.EventType = Utility.TryParseEventType(dd.GetInnerText());
+                            this.EventType = Utility.TryParseEventType(dd.GetInnerText());
                             break;
                         case "SourceDetail.EventDate":
-                            data.EventDate = Date.TryParse(dd.GetInnerText());
+                            this.EventDate = Date.TryParse(dd.GetInnerText());
                             break;
                         case "SourceDetail.EventPlace":
-                            data.EventPlace = dd.GetInnerText();
+                            this.EventPlace = dd.GetInnerText();
                             break;
                         case "SourceDetail.Religion":
-                            data.Organization = dd.GetInnerText();
+                            this.Organization = dd.GetInnerText();
                             break;
                     }
                 });
@@ -127,70 +117,26 @@ namespace Acoose.Centurial.Package.nl
                             var docType = dd.GetInnerText();
 
                             // parse
-                            data.RecordType = RecordType.TryParse(docType);
+                            this.RecordType = RecordType.TryParse(docType);
                             break;
                         case "sourcedetail.heritageinstitutionname":
-                            data.ArchiveName = dd.GetInnerText();
+                            this.ArchiveName = dd.GetInnerText();
                             break;
                         case "sourcedetail.heritageinstitutionplace":
-                            data.ArchivePlace = dd.GetInnerText();
+                            this.ArchivePlace = dd.GetInnerText();
                             break;
                         case "sourcedetail.registrationdate":
-                            data.RecordDate = Date.TryParse(dd.GetInnerText());
+                            this.RecordDate = Date.TryParse(dd.GetInnerText());
                             break;
                         case "sourcedetail.certificateplace":
-                            data.RecordPlace = dd.GetInnerText();
+                            this.RecordPlace = dd.GetInnerText();
                             break;
                         case "sourcedetail.page":
-                            data.Number = dd.GetInnerText();
+                            this.Number = dd.GetInnerText();
                             break;
                     }
 
                 });
-
-            // done
-            this.Data = data;
-        }
-
-        public override Genealogy.Extensibility.Data.Source GetSource(Context context, Activity[] activities)
-        {
-            var result = base.GetSource(context, activities);
-            return result;
-        }
-
-        protected override IEnumerable<Repository> GetProvenance(Context context)
-        {
-            // laag 1: website
-            yield return new Website()
-            {
-                Url = "https://www.wiewaswie.nl/",
-                Title = "WieWasWie",
-                IsVirtualArchive = true,
-                Items = new OnlineItem[]
-                {
-                    new OnlineItem()
-                    {
-                        Url = context.Url,
-                        Accessed = Date.Today,
-                        Item = new DatabaseEntry()
-                        {
-                           EntryFor = this.Data.GenerateItemOfInterest(),
-                        }
-                    }
-                }
-            };
-
-            // laag 2: onbekende bron
-            yield return this.Data.GenerateRepository();
-        }
-        protected override IEnumerable<Info> GetInfo(Context context)
-        {
-            // done
-            return this.Data.GenerateInfos();
-        }
-        protected override IEnumerable<Genealogy.Extensibility.Data.File> GetFiles(Context context, Activity[] activities)
-        {
-            return base.GetFiles(context, activities);
         }
     }
 }

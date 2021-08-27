@@ -1,5 +1,6 @@
 ﻿using Acoose.Genealogy.Extensibility.Data;
 using Acoose.Genealogy.Extensibility.Data.References;
+using Acoose.Genealogy.Extensibility.Web;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Acoose.Centurial.Package
 {
-    public class Record
+    public abstract class RecordScraper : Scraper.Default
     {
         private static readonly EventRole[] PRINCIPAL_ROLES = new EventRole[] { EventRole.Child, EventRole.Deceased, EventRole.Principal };
         private static readonly EventRole[] PRINCIPAL_PARENT_ROLES = new EventRole[] { EventRole.Father, EventRole.Mother };
@@ -18,42 +19,75 @@ namespace Acoose.Centurial.Package
         private static readonly EventRole[] GROOM_ROLES = new EventRole[] { EventRole.Groom };
         private static readonly EventRole[] GROOM_PARENT_ROLES = new EventRole[] { EventRole.FatherOfGroom, EventRole.MotherOfGroom };
 
+        protected RecordScraper(string websiteTitle)
+        {
+            // init
+            this.WebsiteTitle = websiteTitle;
+        }
+
+        public string URL
+        {
+            get; private set;
+        }
+
+        public string WebsiteTitle
+        {
+            get;
+        }
+        public string WebsiteURL
+        {
+            get; private set;
+        }
+
         public RecordType RecordType
         {
-            get; set;
+            get; protected set;
         }
         public Date RecordDate
         {
-            get; set;
+            get; protected set;
         }
         public string RecordPlace
         {
-            get; set;
+            get; protected set;
+        }
+
+        public EventType? EventType
+        {
+            get; protected set;
+        }
+        public Date EventDate
+        {
+            get; protected set;
+        }
+        public string EventPlace
+        {
+            get; protected set;
         }
 
         public string ArchiveName
         {
-            get; set;
+            get; protected set;
         }
         public string ArchivePlace
         {
-            get; set;
+            get; protected set;
         }
         public string CollectionName
         {
-            get; set;
+            get; protected set;
         }
         public string CollectionNumber
         {
-            get; set;
+            get; protected set;
         }
         public string Title
         {
-            get; set;
+            get; protected set;
         }
         public string SeriesNumber
         {
-            get; set;
+            get; protected set;
         }
 
         /// <summary>
@@ -61,44 +95,33 @@ namespace Acoose.Centurial.Package
         /// </summary>
         public string Organization
         {
-            get; set;
+            get; protected set;
         }
         public string Label
         {
-            get; set;
+            get; protected set;
         }
 
         public string Page
         {
-            get; set;
+            get; protected set;
         }
         public string Number
         {
-            get; set;
-        }
-
-        public EventType? EventType
-        {
-            get; set;
-        }
-        public Date EventDate
-        {
-            get; set;
-        }
-        public string EventPlace
-        {
-            get; set;
+            get; protected set;
         }
 
         public Person[] Persons
         {
-            get; set;
+            get; protected set;
         }
         public Person Principal
         {
             get
             {
-                return this.Persons.SingleOrDefault(x => PRINCIPAL_ROLES.Contains(x.Role));
+                return this.Persons
+                    .NullCoalesce()
+                    .SingleOrDefault(x => PRINCIPAL_ROLES.Contains(x.Role));
             }
         }
         public IEnumerable<Person> Principals
@@ -106,16 +129,164 @@ namespace Acoose.Centurial.Package
             get
             {
                 return this.Persons
+                    .NullCoalesce()
                     .Where(x => PRINCIPAL_ROLES.Contains(x.Role) || x.Role == EventRole.Bride || x.Role == EventRole.Groom);
             }
+        }
+        public string GenerateItemOfInterest()
+        {
+            return string.Join(" & ", this.Principals.Select(x => x.Name));
         }
 
         public string[] Images
         {
-            get;set;
+            get; set;
         }
 
-        public IEnumerable<Info> GenerateInfos()
+        public override IEnumerable<Activity> GetActivities(Context context)
+        {
+            // init
+            this.URL = context.Url;
+            this.WebsiteURL = context.GetWebsiteUrl();
+
+            // scan
+            this.Scan(context);
+
+            // done
+            var activities = this.Images
+                .NullCoalesce()
+                .Select(x => new Activity.DownloadFileActivity(x))
+                .Cast<Activity>()
+                .ToList();
+            if (activities.Count == 0)
+            {
+                // screen capture
+                activities.AddRange(base.GetActivities(context));
+            }
+
+            // done
+            return activities;
+        }
+        protected abstract void Scan(Context context);
+
+        protected override IEnumerable<Repository> GetProvenance(Context context)
+        {
+            // layer 1: website
+            yield return new Website()
+            {
+                Title = this.WebsiteTitle,
+                Url = this.WebsiteURL,
+                IsVirtualArchive = true,
+                Items = new OnlineItem[]
+               {
+                    new OnlineItem()
+                    {
+                        Url = this.URL,
+                        Accessed = Date.Today,
+                        Item = new DatabaseEntry()
+                        {
+                            EntryFor = this.GenerateItemOfInterest()
+                        }
+                    }
+               }
+            };
+
+            // layer 2: record
+            yield return this.GenerateLayer2();
+        }
+        private Repository GenerateLayer2()
+        {
+            // init
+            Acoose.Genealogy.Extensibility.Data.References.Source source;
+
+            // source
+            if (this.RecordType == null)
+            {
+                // init
+                var parts = new string[]
+                {
+                    this.Organization,
+                    this.RecordPlace,
+                    this.Title,
+                    this.Label,
+                };
+
+                // unknown
+                source = new Unknown()
+                {
+                    CreditLine = string.Join("; ", parts.Where(x => !string.IsNullOrEmpty(x)))
+                };
+            }
+            else
+            {
+                // per record type
+                source = this.RecordType.Generate(this);
+            }
+
+            // archived item
+            var archivedItems = new ArchivedItem[]
+            {
+                new ArchivedItem()
+                {
+                    Identifier = this.SeriesNumber,
+                    Item = source
+                }
+            };
+
+            // collection?
+            if (!string.IsNullOrEmpty(this.CollectionName) || !string.IsNullOrEmpty(this.CollectionNumber))
+            {
+                // wrap
+                archivedItems = new ArchivedItem[]
+                {
+                    new ArchivedItem()
+                    {
+                        Identifier = this.CollectionNumber,
+                        Item = new Collection()
+                        {
+                            Name = this.CollectionName,
+                            Items = archivedItems
+                        }
+                    }
+                };
+            }
+
+            // archive
+            return new PublicArchive()
+            {
+                Name = this.ArchiveName,
+                Place = this.ArchivePlace,
+                Items = archivedItems
+            };
+        }
+        internal RecordScriptFormat[] GenerateRecordScriptFormat()
+        {
+            return new RecordScriptFormat[]
+            {
+                new RecordScriptFormat()
+                {
+                    Date = this.RecordDate,
+                    Label = this.Label,
+                    Number = this.Number,
+                    Page = this.Page,
+                    ItemOfInterest = this.GenerateItemOfInterest()
+                }
+            };
+        }
+        internal CensusScriptFormat[] GenerateCensusScriptFormt()
+        {
+            return new CensusScriptFormat[]
+            {
+                new CensusScriptFormat()
+                {
+                    Date = this.RecordDate,
+                    Page = this.Page,
+                    ItemOfInterest = this.GenerateItemOfInterest()
+                }
+            };
+        }
+
+        protected override IEnumerable<Info> GetInfo(Context context)
         {
             // persons
             var persons = this.Persons
@@ -228,103 +399,6 @@ namespace Acoose.Centurial.Package
                 default:
                     return null;
             }
-        }
-
-        internal RecordScriptFormat[] GenerateRecordScriptFormat()
-        {
-            return new RecordScriptFormat[]
-            {
-                new RecordScriptFormat()
-                {
-                    Date = this.RecordDate,
-                    Label = this.Label,
-                    Number = this.Number,
-                    Page = this.Page,
-                    ItemOfInterest = this.GenerateItemOfInterest()
-                }
-            };
-        }
-        internal CensusScriptFormat[] GenerateCensusScriptFormt()
-        {
-            return new CensusScriptFormat[]
-            {
-                new CensusScriptFormat()
-                {
-                    Date = this.RecordDate,
-                    Page = this.Page,
-                    ItemOfInterest = this.GenerateItemOfInterest()
-                }
-            };
-        }
-        public string GenerateItemOfInterest()
-        {
-            return string.Join(" & ", this.Principals.Select(x => x.Name));
-        }
-
-        public Repository GenerateRepository()
-        {
-            // init
-            Acoose.Genealogy.Extensibility.Data.References.Source source;
-
-            // source
-            if (this.RecordType == null)
-            {
-                // init
-                var parts = new string[]
-                {
-                    this.Organization,
-                    this.RecordPlace,
-                    this.Title,
-                    this.Label,
-                };
-
-                // unknown
-                source = new Unknown()
-                {
-                    CreditLine = string.Join("; ", parts.Where(x => !string.IsNullOrEmpty(x)))
-                };
-            }
-            else
-            {
-                // per record type
-                source = this.RecordType.Generate(this);
-            }
-
-            // archived item
-            var archivedItems = new ArchivedItem[]
-            {
-                new ArchivedItem()
-                {
-                    Identifier = this.SeriesNumber,
-                    Item = source
-                }
-            };
-
-            // collection?
-            if (!string.IsNullOrEmpty(this.CollectionName) || !string.IsNullOrEmpty(this.CollectionNumber))
-            {
-                // wrap
-                archivedItems = new ArchivedItem[]
-                {
-                    new ArchivedItem()
-                    {
-                        Identifier = this.CollectionNumber,
-                        Item = new Collection()
-                        {
-                            Name = this.CollectionName,
-                            Items = archivedItems
-                        }
-                    }
-                };
-            }
-
-            // archive
-            return new PublicArchive()
-            {
-                Name = this.ArchiveName,
-                Place = this.ArchivePlace,
-                Items = archivedItems
-            };
         }
     }
 }

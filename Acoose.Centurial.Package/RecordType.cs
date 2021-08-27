@@ -43,7 +43,7 @@ namespace Acoose.Centurial.Package
         {
         }
 
-        public abstract Source Generate(Record record);
+        public abstract Source Generate(RecordScraper record);
     }
     public sealed class RecordType<T> : RecordType
         where T : Source, new()
@@ -56,7 +56,7 @@ namespace Acoose.Centurial.Package
             this._Action = action;
         }
 
-        public override Source Generate(Record record)
+        public override Source Generate(RecordScraper record)
         {
             // init
             var result = new T();

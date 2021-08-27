@@ -61,6 +61,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="RecordScraper.cs" />
     <Compile Include="MemorialScraper.cs" />
     <Compile Include="com\FindAGrave.cs" />
     <Compile Include="EnsureMode.cs" />
@@ -100,7 +101,6 @@
     <Compile Include="org\FamilySearch.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="org\Wikipedia.cs" />
-    <Compile Include="Record.cs" />
     <Compile Include="RecordType.cs" />
     <Compile Include="Utility.cs" />
     <Compile Include="Person.cs" />

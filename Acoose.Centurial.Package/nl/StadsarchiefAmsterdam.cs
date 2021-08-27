@@ -19,7 +19,7 @@ namespace Acoose.Centurial.Package.nl
         {
         }
 
-        protected override void Customize(Record record, Dictionary<string, string> fields)
+        protected override void Customize(Dictionary<string, string> fields)
         {
         }
     }

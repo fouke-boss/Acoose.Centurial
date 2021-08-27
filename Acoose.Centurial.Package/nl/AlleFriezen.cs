@@ -19,21 +19,21 @@ namespace Acoose.Centurial.Package.nl
         {
         }
 
-        protected override void Customize(Record record, Dictionary<string, string> fields)
+        protected override void Customize(Dictionary<string, string> fields)
         {
             // record type
-            if (record.RecordType == RecordType.DoopTrouwBegraaf)
+            if (this.RecordType == RecordType.DoopTrouwBegraaf)
             {
                 // kerknaam
-                record.Organization = string.Join(" ", (fields.Get("register.metadata.naam") ?? "")
+                this.Organization = string.Join(" ", (fields.Get("register.metadata.naam") ?? "")
                     .Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries)
                     .Skip(1));
             }
 
             // archive
             var archief = fields.Get("register.metadata.archiefnaam").Split('-');
-            record.ArchiveName = archief.Last().Trim();
-            record.CollectionName = string.Join("-", archief.Reverse().Skip(1).Reverse());
+            this.ArchiveName = archief.Last().Trim();
+            this.CollectionName = string.Join("-", archief.Reverse().Skip(1).Reverse());
         }
     }
 }

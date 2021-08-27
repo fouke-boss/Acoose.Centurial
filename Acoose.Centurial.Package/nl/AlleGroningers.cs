@@ -19,20 +19,20 @@ namespace Acoose.Centurial.Package.nl
         {
         }
 
-        protected override void Customize(Record record, Dictionary<string, string> fields)
+        protected override void Customize(Dictionary<string, string> fields)
         {
             // record type
-            if (record.RecordType == null && record.EventType == EventType.Baptism)
+            if (this.RecordType == null && this.EventType == Package.EventType.Baptism)
             {
                 // record type
-                record.RecordType = RecordType.DoopTrouwBegraaf;
-                record.RecordPlace = fields.Get("register.metadata.plaats");
-                record.Organization = fields.Get("register.metadata.archiefnaam");
+                this.RecordType = RecordType.DoopTrouwBegraaf;
+                this.RecordPlace = fields.Get("register.metadata.plaats");
+                this.Organization = fields.Get("register.metadata.archiefnaam");
             }
 
             // archive
-            record.ArchiveName = "Groninger Archieven";
-            record.ArchivePlace = "Groningen";
+            this.ArchiveName = "Groninger Archieven";
+            this.ArchivePlace = "Groningen";
         }
     }
 }

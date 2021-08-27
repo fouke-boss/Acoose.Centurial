@@ -12,30 +12,14 @@ using Newtonsoft.Json.Linq;
 
 namespace Acoose.Centurial.Package.nl
 {
-    public abstract class Picturae : Scraper.Default
+    public abstract class Picturae : RecordScraper
     {
         protected Picturae(string websiteTitle, string websiteURL)
+            : base(websiteTitle)
         {
-            // init
-            this.WebsiteTitle = websiteTitle;
-            this.WebsiteURL = websiteURL;
         }
 
-        public string WebsiteTitle
-        {
-            get;
-        }
-        public string WebsiteURL
-        {
-            get;
-        }
-        public Record Data
-        {
-            get;
-            private set;
-        }
-
-        private void Parse(Context context)
+        protected override void Scan(Context context)
         {
             // init
             var container = context.Body()
@@ -44,12 +28,27 @@ namespace Acoose.Centurial.Package.nl
 
             // fields
             var fields = this.GetSourceFields(container);
+            var bron = fields.Get("bron").ToLower();
+            var registratie = fields.Get("soort registratie").ToLower();
 
             // record
-            var record = this.ParseRecord(fields);
+            this.RecordDate = Date.TryParse(fields.Get("deed.metadata.datum"));
+            this.RecordPlace = fields.Get("register.metadata.gemeente");
+            this.EventPlace = fields.Get("deed.metadata.plaats") ?? fields.Get("register.metadata.gemeente");
+            this.Number = fields.Get("deed.metadata.nummer");
+            this.Page = fields.Get("deed.metadata.pagina");
+            this.Label = fields.Get("register.metadata.naam");
+
+            // event and record type
+            this.RecordType = RecordType.TryParse(bron) ?? RecordType.TryParse(registratie);
+            this.EventType = Utility.TryParseEventType(registratie) ?? Utility.TryParseEventType(bron);
+
+            // collection
+            this.CollectionNumber = fields.Get("register.metadata.archiefnummer");
+            this.SeriesNumber = fields.Get("register.metadata.inventarisnummer");
 
             // persons
-            record.Persons = container
+            this.Persons = container
                 .Descendants("deed").WithAttribute("data-persons", "persons.person")
                 .Descendants("person-data")
                 .Select(p =>
@@ -87,48 +86,17 @@ namespace Acoose.Centurial.Package.nl
                 .ToArray();
 
             // images (disable,d because these images are served from memorix.nl, which is a different host and therefore not accessible
-            //record.Images = container
+            //this.Images = container
             //    .Descendants("aside").WithClass("record-actions")
             //    .Descendants("a")
             //    .Select(x => x.Attribute("href"))
             //    .Where(x => !string.IsNullOrEmpty(x) && x != "#")
             //    .ToArray();
 
-            // improve
-            this.Customize(record, fields);
-
-            // done
-            this.Data = record;
+            // customize
+            this.Customize(fields);
         }
-        private Record ParseRecord(Dictionary<string, string> fields)
-        {
-            // init
-            var record = new Record()
-            {
-                RecordDate = Date.TryParse(fields.Get("deed.metadata.datum")),
-                RecordPlace = fields.Get("register.metadata.gemeente"),
-                EventPlace = fields.Get("deed.metadata.plaats") ?? fields.Get("register.metadata.gemeente"),
-                Number = fields.Get("deed.metadata.nummer"),
-                Page = fields.Get("deed.metadata.pagina"),
-                Label = fields.Get("register.metadata.naam")
-            };
-
-            // init
-            var bron = fields.Get("bron").ToLower();
-            var registratie = fields.Get("soort registratie").ToLower();
-
-            // event and record type
-            record.RecordType = RecordType.TryParse(bron) ?? RecordType.TryParse(registratie);
-            record.EventType = Utility.TryParseEventType(registratie) ?? Utility.TryParseEventType(bron);
-
-            // collection
-            record.CollectionNumber = fields.Get("register.metadata.archiefnummer");
-            record.SeriesNumber = fields.Get("register.metadata.inventarisnummer");
-
-            // done
-            return record;
-        }
-        protected abstract void Customize(Record record, Dictionary<string, string> fields);
+        protected abstract void Customize(Dictionary<string, string> fields);
         private string GetProperty(HtmlNode node, string name)
         {
             // init
@@ -178,67 +146,6 @@ namespace Acoose.Centurial.Package.nl
 
             // done
             return string.Join("", parts).TrimAll();
-        }
-
-        public override IEnumerable<Activity> GetActivities(Context context)
-        {
-            // init
-            this.Parse(context);
-
-            // done
-            var activities = this.Data.Images
-                .NullCoalesce()
-                .Select(x => new Activity.DownloadFileActivity(x))
-                .Cast<Activity>()
-                .ToList();
-            if (activities.Count == 0)
-            {
-                // screen capture
-                activities.AddRange(base.GetActivities(context));
-            }
-
-            // done
-            return activities;
-        }
-
-        public override Genealogy.Extensibility.Data.Source GetSource(Context context, Activity[] activities)
-        {
-            var result = base.GetSource(context, activities);
-            return result;
-        }
-
-        protected override IEnumerable<Repository> GetProvenance(Context context)
-        {
-            // laag 1: website
-            yield return new Website()
-            {
-                Title = this.WebsiteTitle,
-                Url = this.WebsiteURL,
-                IsVirtualArchive = true,
-                Items = new OnlineItem[]
-                {
-                    new OnlineItem()
-                    {
-                        Url = context.Url,
-                        Accessed = Date.Today,
-                        Item = new DatabaseEntry()
-                        {
-                           EntryFor = this.Data.GenerateItemOfInterest()
-                        }
-                    }
-                }
-            };
-
-            // laag 2: record
-            yield return this.Data.GenerateRepository();
-        }
-        protected override IEnumerable<Info> GetInfo(Context context)
-        {
-            return this.Data.GenerateInfos();
-        }
-        protected override IEnumerable<Genealogy.Extensibility.Data.File> GetFiles(Context context, Activity[] activities)
-        {
-            return base.GetFiles(context, activities);
         }
     }
 }
