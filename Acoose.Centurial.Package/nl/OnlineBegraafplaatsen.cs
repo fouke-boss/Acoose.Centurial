@@ -73,5 +73,28 @@ namespace Acoose.Centurial.Package.nl
                 .Select(x => $"https://www.online-begraafplaatsen.nl/{x.Attribute("src").TrimStart('/')}")
                 .ToArray();
         }
+
+        protected override IEnumerable<Genealogy.Extensibility.Data.File> GetFiles(Context context, Activity[] activities)
+        {
+            // init
+            return base.GetFiles(context, activities)
+                .Select(file =>
+                {
+                    // init
+                    var originalName = file.OriginalName.Split('?').First();
+
+                    // .asp?
+                    if (originalName.EndsWith(".asp"))
+                    {
+                        originalName = $"{originalName.Substring(0, originalName.Length - 4)}.jpg";
+                    }
+
+                    // set
+                    file.OriginalName = originalName;
+
+                    // done
+                    return file;
+                });
+        }
     }
 }
