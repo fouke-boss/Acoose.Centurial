@@ -104,6 +104,11 @@ namespace Acoose.Centurial.Package
             }
         }
 
+        public string[] Images
+        {
+            get;set;
+        }
+
         public IEnumerable<Info> GenerateInfos()
         {
             // persons

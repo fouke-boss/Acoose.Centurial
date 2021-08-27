@@ -88,6 +88,14 @@ namespace Acoose.Centurial.Package.nl
                 .Where(x => x != null)
                 .ToArray();
 
+            // images (disable,d because these images are served from memorix.nl, which is a different host and therefore not accessible
+            //record.Images = container
+            //    .Descendants("aside").WithClass("record-actions")
+            //    .Descendants("a")
+            //    .Select(x => x.Attribute("href"))
+            //    .Where(x => !string.IsNullOrEmpty(x) && x != "#")
+            //    .ToArray();
+
             // improve
             this.Customize(record, fields);
 
@@ -179,8 +187,20 @@ namespace Acoose.Centurial.Package.nl
             // init
             this.Parse(context);
 
-            // screen shot
-            yield return new Activity.ScreenCaptureActivity(context);
+            // done
+            var activities = this.Data.Images
+                .NullCoalesce()
+                .Select(x => new Activity.DownloadFileActivity(x))
+                .Cast<Activity>()
+                .ToList();
+            if (activities.Count == 0)
+            {
+                // screen capture
+                activities.AddRange(base.GetActivities(context));
+            }
+
+            // done
+            return activities;
         }
 
         public override Genealogy.Extensibility.Data.Source GetSource(Context context, Activity[] activities)
