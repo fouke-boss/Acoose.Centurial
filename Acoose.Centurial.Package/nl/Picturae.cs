@@ -52,14 +52,12 @@ namespace Acoose.Centurial.Package.nl
             record.Persons = container
                 .Descendants("deed").WithAttribute("data-persons", "persons.person")
                 .Descendants("person-data")
-                .Select(p => p.Parents("li").WithClass("ng-scope").FirstOrDefault())
-                .Where(x => x != null)
                 .Select(p =>
                 {
                     // init
                     var result = new Person()
                     {
-                        Role = Utility.TryParseEventRole(p.Attribute("data-ng-if")) ?? EventRole.Attendee,
+                        Role = Utility.TryParseEventRole(p.Attribute("data-person")) ?? EventRole.Attendee,
                         Name = p
                             .Descendants("a").WithClass("person")
                             .First() // the 2nd and further will be partners
@@ -73,11 +71,11 @@ namespace Acoose.Centurial.Package.nl
                     };
 
                     // gender
-                    if (p.Descendants("i").WithAnyClass("pic-icon-male", "pic-icon-male-1", "pic-icon-boy").Any())
+                    if (p.ParentNode.Descendants("i").WithAnyClass("pic-icon-male", "pic-icon-male-1", "pic-icon-boy").Any())
                     {
                         result.Gender = Gender.Male;
                     }
-                    else if (p.Descendants("i").WithAnyClass("pic-icon-female", "pic-icon-female-1", "pic-icon-girl").Any())
+                    else if (p.ParentNode.Descendants("i").WithAnyClass("pic-icon-female", "pic-icon-female-1", "pic-icon-girl").Any())
                     {
                         result.Gender = Gender.Female;
                     }

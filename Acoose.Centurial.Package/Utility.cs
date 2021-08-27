@@ -340,6 +340,12 @@ namespace Acoose.Centurial.Package
                 case "overledene":
                 case "deceased":
                     return EventRole.Deceased;
+                case "partner":
+                case "relatie":
+                case "echtgenoot":
+                case "echtgenote":
+                case "spouse":
+                    return EventRole.Partner;
                 default:
                     return null;
             }

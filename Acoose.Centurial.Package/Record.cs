@@ -11,6 +11,12 @@ namespace Acoose.Centurial.Package
     public class Record
     {
         private static readonly EventRole[] PRINCIPAL_ROLES = new EventRole[] { EventRole.Child, EventRole.Deceased, EventRole.Principal };
+        private static readonly EventRole[] PRINCIPAL_PARENT_ROLES = new EventRole[] { EventRole.Father, EventRole.Mother };
+        private static readonly EventRole[] PRINCIPAL_PARTNER_ROLES = new EventRole[] { EventRole.Partner };
+        private static readonly EventRole[] BRIDE_ROLES = new EventRole[] { EventRole.Bride };
+        private static readonly EventRole[] BRIDE_PARENT_ROLES = new EventRole[] { EventRole.FatherOfBride, EventRole.MotherOfBride };
+        private static readonly EventRole[] GROOM_ROLES = new EventRole[] { EventRole.Groom };
+        private static readonly EventRole[] GROOM_PARENT_ROLES = new EventRole[] { EventRole.FatherOfGroom, EventRole.MotherOfGroom };
 
         public RecordType RecordType
         {
@@ -127,21 +133,17 @@ namespace Acoose.Centurial.Package
                 .ToList();
 
             // partnership
-            var partnership = this.GenerateParentChild(EventRole.Bride, EventRole.Groom, null, true)
+            var partnership = this.GenerateRelationship(BRIDE_ROLES, GROOM_ROLES, null, true)
                 .ToArray();
 
             // relationships
             var relationships = new IEnumerable<RelationshipInfo>[]
             {
                 partnership,
-                this.GenerateParentChild(EventRole.Father, EventRole.Child, ParentChild.Person1IsBiologicalParentOfPerson2, null),
-                this.GenerateParentChild(EventRole.Mother, EventRole.Child, ParentChild.Person1IsBiologicalParentOfPerson2, null),
-                this.GenerateParentChild(EventRole.Father, EventRole.Deceased, ParentChild.Person1IsBiologicalParentOfPerson2, null),
-                this.GenerateParentChild(EventRole.Mother, EventRole.Deceased, ParentChild.Person1IsBiologicalParentOfPerson2, null),
-                this.GenerateParentChild(EventRole.FatherOfBride, EventRole.Bride, ParentChild.Person1IsBiologicalParentOfPerson2, null),
-                this.GenerateParentChild(EventRole.MotherOfBride, EventRole.Bride, ParentChild.Person1IsBiologicalParentOfPerson2, null),
-                this.GenerateParentChild(EventRole.FatherOfGroom, EventRole.Groom, ParentChild.Person1IsBiologicalParentOfPerson2, null),
-                this.GenerateParentChild(EventRole.MotherOfGroom, EventRole.Groom, ParentChild.Person1IsBiologicalParentOfPerson2, null)
+                this.GenerateRelationship(PRINCIPAL_PARENT_ROLES, PRINCIPAL_ROLES, ParentChild.Person1IsBiologicalParentOfPerson2, null),
+                this.GenerateRelationship(PRINCIPAL_PARTNER_ROLES, PRINCIPAL_ROLES, null, true),
+                this.GenerateRelationship(BRIDE_PARENT_ROLES, BRIDE_ROLES, ParentChild.Person1IsBiologicalParentOfPerson2, null),
+                this.GenerateRelationship(GROOM_PARENT_ROLES, GROOM_ROLES, ParentChild.Person1IsBiologicalParentOfPerson2, null),
             }
             .SelectMany(x => x)
             .ToList();
@@ -177,30 +179,36 @@ namespace Acoose.Centurial.Package
             // done
             return results;
         }
-        private IEnumerable<RelationshipInfo> GenerateParentChild(EventRole parent, EventRole child, ParentChild? parentChild, bool? partners)
+        private IEnumerable<RelationshipInfo> GenerateRelationship(EventRole[] roles1, EventRole[] roles2, ParentChild? parentChild, bool? partnership)
         {
-            // init
-            var parents = this.Persons
-                .Where(x => x.Role == parent)
-                .ToList();
-            var children = this.Persons
-                .Where(x => x.Role == child)
-                .ToList();
-
-            // done
-            if (parents.Count == 1 && children.Count == 1)
+            foreach (var role1 in roles1)
             {
-                // init
-                var result = new RelationshipInfo()
+                foreach (var role2 in roles2)
                 {
-                    Person1Id = parents.Single().Id.ToString(),
-                    Person2Id = children.Single().Id.ToString(),
-                    IsParentChild = parentChild.ToArrayIfAny(),
-                    IsPartnership = partners.ToArrayIfAny()
-                };
+                    // init
+                    var persons1 = this.Persons
+                        .Where(x => x.Role == role1)
+                        .ToList();
+                    var persons2 = this.Persons
+                        .Where(x => x.Role == role2)
+                        .ToList();
 
-                // done
-                yield return result;
+                    // done
+                    if (persons1.Count == 1 && persons2.Count == 1)
+                    {
+                        // init
+                        var result = new RelationshipInfo()
+                        {
+                            Person1Id = persons1.Single().Id.ToString(),
+                            Person2Id = persons2.Single().Id.ToString(),
+                            IsParentChild = parentChild.ToArrayIfAny(),
+                            IsPartnership = partnership.ToArrayIfAny()
+                        };
+
+                        // done
+                        yield return result;
+                    }
+                }
             }
         }
         private Gender? GetGender(EventRole role)

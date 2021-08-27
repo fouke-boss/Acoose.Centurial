@@ -40,7 +40,7 @@ namespace Acoose.Centurial.Package.Tests.nl
             var result = Utility.ExecuteTest<Package.nl.AlleGroningers>("https://www.allegroningers.nl/zoeken-op-naam/deeds/27788d0d-57dc-d1ff-a9fd-14dbe17ef93b?person=5afd6369-954b-b934-5420-47b666850cb9");
 
             // valideren
-            Assert.IsTrue(result.Source.Info.Length == 6);
+            Assert.IsTrue(result.Source.Info.Length == 7);
             Assert.IsTrue(result.Source.Info.OfType<PersonInfo>().Count() == 4);
         }
 
