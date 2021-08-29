@@ -20,8 +20,27 @@ namespace Acoose.Centurial.Package.Tests
             var urlCountry = typeof(T).Namespace.Split('.').Last();
             var resourceName = $"Acoose.Centurial.Package.Tests.{urlCountry}.{typeof(T).Name}.{caseName}.html";
 
+            // execute
+            var result = ScraperTest.ExecuteFromEmbeddedResource<T>(url, resourceName);
+
+            // first layer of provenance should be a website (it's a scraper!), check the url
+            var onlineItem = result
+                .FindProvenance<Website>(0)
+                .AssertChild<OnlineItem>();
+
+            // online collections
+            while (onlineItem.Item is OnlineCollection c)
+            {
+                onlineItem = c.AssertChild<OnlineItem>();
+            }
+
+            // check
+            onlineItem
+                .AssertCondition(x => Equals(x.Url, url))
+                .AssertCondition(x => Equals(x.Accessed, Date.Today));
+
             // done
-            return ScraperTest.ExecuteFromEmbeddedResource<T>(url, resourceName);
+            return result;
         }
 
         public static T FindProvenance<T>(this ScraperTest test, int index)
@@ -77,6 +96,7 @@ namespace Acoose.Centurial.Package.Tests
                 throw new NotSupportedException();
             }
         }
+
         public static PersonInfo FindPerson(this ScraperTest test, string name)
         {
             // init
@@ -98,12 +118,51 @@ namespace Acoose.Centurial.Package.Tests
             // init
             var result = test.Source.Info
                 .OfType<RelationshipInfo>()
-                .SingleOrDefault(x => x.Person1Id == person1.Id && x.Person2Id == person2.Id);
+                .Where(x =>
+                {
+                    // init
+                    var ids = new string[] { x.Person1Id, x.Person2Id };
+
+                    // done
+                    return (ids.Contains(person1.Id) && ids.Contains(person2.Id));
+                })
+                .SingleOrDefault();
 
             // fail?
             if (result == null)
             {
                 Assert.Fail($"Relationship between '{person1.Name()}' and '{person2.Name()}' not present.");
+            }
+
+            // done
+            return result;
+        }
+        public static RelationshipInfo FindParentChild(this ScraperTest test, PersonInfo parent, PersonInfo child)
+        {
+            // init
+            var result = test.FindRelationship(parent, child);
+
+            // check
+            var required = (result.Person1Id == parent.Id ? ParentChild.Person1IsBiologicalParentOfPerson2 : ParentChild.Person2IsBiologicalParentOfPerson1);
+
+            // validate
+            if (!result.IsParentChild.NullCoalesce().Contains(required))
+            {
+                Assert.Fail();
+            }
+
+            // done
+            return result;
+        }
+        public static RelationshipInfo FindPartnership(this ScraperTest test, PersonInfo partner1, PersonInfo partner2)
+        {
+            // init
+            var result = test.FindRelationship(partner1, partner2);
+
+            // check
+            if (!result.IsPartnership.NullCoalesce().Any())
+            {
+                Assert.Fail();
             }
 
             // done
@@ -118,6 +177,51 @@ namespace Acoose.Centurial.Package.Tests
 
             // done
             return string.Join(" ", new string[] { givenNames, familyName }.Where(x => !string.IsNullOrWhiteSpace(x)));
+        }
+
+        public static T AssertEvent<T>(this T info, string eventType, string date, string place)
+            where T : InfoWithEvents
+        {
+            // init
+            var match = info.Events
+                .SingleOrDefault(x => x.Type == eventType);
+            if (match == null)
+            {
+                Assert.Fail($"No event of type '{eventType}' present.");
+            }
+
+            // date
+            if (Date.TryParse(date) is Date value && !match.Date.Contains(value))
+            {
+                Assert.Fail($"Date '{date}' was for event '{eventType}' was not found.");
+            }
+
+            // place
+            if (place != null && !match.Place.Contains(place))
+            {
+                Assert.Fail($"Place '{place}' was for event '{eventType}' was not found.");
+            }
+
+            // done
+            return info;
+        }
+        public static T AssertBirth<T>(this T info, string date, string place)
+            where T : InfoWithEvents
+        {
+            return info
+                .AssertEvent<T>("Birth", date, place);
+        }
+        public static T AssertDeath<T>(this T info, string date, string place)
+            where T : InfoWithEvents
+        {
+            return info
+                .AssertEvent<T>("Death", date, place);
+        }
+        public static T AssertBaptism<T>(this T info, string date, string place)
+            where T : InfoWithEvents
+        {
+            return info
+                .AssertEvent<T>("Baptism", date, place);
         }
 
         public static T AssertDate<T>(this T info, string eventType, string date)
@@ -178,12 +282,31 @@ namespace Acoose.Centurial.Package.Tests
             // done
             return info;
         }
-        public static RelationshipInfo AssertParentChild(this RelationshipInfo info, ParentChild parentChild)
+        public static PersonInfo AssertAge(this PersonInfo info, int age, string date)
         {
+            return info.AssertAge(new Age() { Years = age }, date);
+        }
+        public static PersonInfo AssertAge(this PersonInfo info, Age age, string date)
+        {
+            // init
+            var value = info.Age.NullCoalesce().SingleOrDefault();
+
             // check
-            if (!info.IsParentChild.NullCoalesce().Contains(parentChild))
+            var valid = (value != null && Equals(value.Date, Date.TryParse(date)) && (age == null) == (value.Value == null));
+            if (valid && age != null)
             {
-                Assert.Fail($"ParentChild '{parentChild}' not found.");
+                // check age
+                valid = (value.Value is Age a &&
+                    Equals(a.Years, age.Years) &&
+                    Equals(a.Months, age.Months) &&
+                    Equals(a.Weeks, age.Weeks) &&
+                    Equals(a.Days, age.Days));
+            }
+
+            // done
+            if (!valid)
+            {
+                Assert.Fail($"Age for person '{info.Name()}' was not valid.");
             }
 
             // done
@@ -201,7 +324,7 @@ namespace Acoose.Centurial.Package.Tests
             {
                 result = condition(representation);
             }
-            catch 
+            catch
             {
                 result = false;
             }
@@ -214,6 +337,68 @@ namespace Acoose.Centurial.Package.Tests
 
             // done
             return representation;
+        }
+        public static PublicArchive AssertPublicArchive(this ScraperTest test, int index, string name, string place)
+        {
+            // init
+            return test
+                .FindProvenance<PublicArchive>(index)
+                .AssertCondition(x => Equals(x.Name, name))
+                .AssertCondition(x => Equals(x.Place, place));
+        }
+        public static OnlineItem AssertWebsite(this ScraperTest test, int index, string title, string url, bool isVirtualArchive)
+        {
+            // init
+            return test
+                .FindProvenance<Website>(index)
+                .AssertCondition(x => Equals(x.Title, title))
+                .AssertCondition(x => Equals(x.Url, url))
+                .AssertCondition(x => (x.IsVirtualArchive == isVirtualArchive))
+                .AssertChild<OnlineItem>();
+        }
+
+        public static ArchivedItem AssertArchivedItem(this IContainer container, string identifier)
+        {
+            // init
+            return container
+                .AssertChild<ArchivedItem>()
+                .AssertCondition(x => Equals(x.Identifier, identifier));
+        }
+
+        public static VitalRecord AssertVitalRecord(this IWrapper wrapper, string jurisdiction, string title)
+        {
+            // init
+            return wrapper
+                .AssertChild<VitalRecord>()
+                .AssertCondition(x => Equals(x.Jurisdiction, jurisdiction))
+                .AssertCondition(x => Equals(x.Title?.Value, title));
+        }
+        public static ChurchRecord AssertChurchRecord(this IWrapper wrapper, string church, string place)
+        {
+            // init
+            return wrapper
+                .AssertChild<ChurchRecord>()
+                .AssertCondition(x => Equals(x.Church, church))
+                .AssertCondition(x => Equals(x.Place, place));
+        }
+        public static DatabaseEntry AssertDatabaseEntry(this IWrapper wrapper, string entryFor)
+        {
+            // init
+            return wrapper
+                .AssertChild<DatabaseEntry>()
+                .AssertCondition(x => Equals(x.EntryFor, entryFor));
+        }
+
+        public static RecordScriptFormat AssertRecordScriptFormat(this IContainer container, string label, string page, string number, string itemOfInterest, string date)
+        {
+            // init
+            return container
+                .AssertChild<RecordScriptFormat>()
+                .AssertCondition(x => Equals(x.Label, label))
+                .AssertCondition(x => Equals(x.Page, page))
+                .AssertCondition(x => Equals(x.Number, number))
+                .AssertCondition(x => Equals(x.ItemOfInterest, itemOfInterest))
+                .AssertCondition(x => Equals(x.Date, Date.TryParse(date)));
         }
     }
 }

@@ -81,7 +81,7 @@ namespace Acoose.Centurial.Package.nl
                 .Select(file =>
                 {
                     // init
-                    var originalName = file.OriginalName.Split('?').First();
+                    var originalName = (file.OriginalName ?? "").Split('?').First();
 
                     // .asp?
                     if (originalName.EndsWith(".asp"))

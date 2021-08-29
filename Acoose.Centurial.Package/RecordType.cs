@@ -11,7 +11,7 @@ namespace Acoose.Centurial.Package
     {
         public static readonly RecordType BurgerlijkeStand = new RecordType<VitalRecord>(x => x.Title = x.Title ?? "Burgerlijke stand".ToGenericTitle(false));
         public static readonly RecordType DoopTrouwBegraaf = new RecordType<ChurchRecord>(x => x.Church = x.Church ?? "Kerk");
-        public static readonly RecordType Bevolkingsregister = new RecordType<Census>(x => x.Title = x.Title ?? "Bevolkingsregister");
+        public static readonly RecordType Bevolkingsregister = new RecordType<Census>(x => x.CensusId = "Bevolkingsregister");
 
         public static RecordType TryParse(string value)
         {
@@ -27,7 +27,7 @@ namespace Acoose.Centurial.Package
             {
                 return RecordType.Bevolkingsregister;
             }
-            else if (value.StartsWith("dtp ") ||
+            else if (value.StartsWith("dtb ") ||
                 (value.Contains("doop") && value.Contains("trouw") && value.Contains("begra"))
             )
             {

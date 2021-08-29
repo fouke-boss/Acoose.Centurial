@@ -116,7 +116,7 @@
     <EmbeddedResource Include="nl\WieWasWie\DTB_Dopen.html" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="nl\WieWasWie\BS_Overlijden.html" />
+    <EmbeddedResource Include="nl\WieWasWie\BS_Overlijden_1.html" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="nl\AlleGroningers\BS_Geboorte.html" />
@@ -159,6 +159,18 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="nl\Graftombe\Martin_Peters.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="nl\WieWasWie\BS_Overlijden_2.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="nl\WieWasWie\Bevolkingsregister.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="nl\WieWasWie\VOC.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="nl\WieWasWie\BS_Huwelijk_EN.html" />
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

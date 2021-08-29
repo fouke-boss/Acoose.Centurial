@@ -80,9 +80,8 @@ namespace Acoose.Centurial.Package.nl
 
             // event
             container
-                .Descendants("div")
-                .Where(x => x.GetAttributeValue("class", "") == "gebeurtenis")
-                .SingleOrDefault()
+                .Descendants("div").WithClass("gebeurtenis")
+                .FirstOrDefault()
                 .GetDescriptionLists((dt, dd) =>
                 {
                     // init
@@ -90,7 +89,16 @@ namespace Acoose.Centurial.Package.nl
                     switch (dataDictionary)
                     {
                         case "SourceDetail.Event":
-                            this.EventType = Utility.TryParseEventType(dd.GetInnerText());
+                            var eventType = dd.GetInnerText()?.ToLower();
+                            switch (eventType)
+                            {
+                                case "bidprentje":
+                                    this.EventType = Package.EventType.Death;
+                                    break;
+                                default:
+                                    this.EventType = Utility.TryParseEventType(dd.GetInnerText());
+                                    break;
+                            }
                             break;
                         case "SourceDetail.EventDate":
                             this.EventDate = Date.TryParse(dd.GetInnerText());
@@ -125,6 +133,9 @@ namespace Acoose.Centurial.Package.nl
                         case "sourcedetail.heritageinstitutionplace":
                             this.ArchivePlace = dd.GetInnerText();
                             break;
+                        case "sourcedetail.archive":
+                            this.SeriesNumber = dd.GetInnerText();
+                            break;
                         case "sourcedetail.registrationdate":
                             this.RecordDate = Date.TryParse(dd.GetInnerText());
                             break;
@@ -132,7 +143,19 @@ namespace Acoose.Centurial.Package.nl
                             this.RecordPlace = dd.GetInnerText();
                             break;
                         case "sourcedetail.page":
-                            this.Number = dd.GetInnerText();
+                            switch (dt.GetInnerText().ToLower())
+                            {
+                                case "page":
+                                case "pagina":
+                                    this.Page = dd.GetInnerText();
+                                    break;
+                                default:
+                                    this.Number = dd.GetInnerText();
+                                    break;
+                            }
+                            break;
+                        case "sourcedetail.book":
+                            this.Label = dd.GetInnerText();
                             break;
                     }
 

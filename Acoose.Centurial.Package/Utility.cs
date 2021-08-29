@@ -171,44 +171,48 @@ namespace Acoose.Centurial.Package
         }
         public static void GetDescriptionLists(this HtmlNode node, Action<HtmlNode, HtmlNode> processor)
         {
-            // find description lists
-            foreach (var dl in node.DescendantsAndSelf().Where(x => x.NodeType == HtmlNodeType.Element && x.Name == "dl"))
+            // null
+            if (node != null)
             {
-                // init
-                var index = 0;
-                var nodes = dl.ChildNodes
-                    .Where(x => x.NodeType == HtmlNodeType.Element)
-                    .Where(x => x.Name == "dt" || x.Name == "dd")
-                    .ToArray();
-
-                // loop
-                while (index < nodes.Length)
+                // find description lists
+                foreach (var dl in node.DescendantsAndSelf().Where(x => x.NodeType == HtmlNodeType.Element && x.Name == "dl"))
                 {
-                    // find <dt>
-                    while (index < nodes.Length && nodes[index].Name != "dt")
+                    // init
+                    var index = 0;
+                    var nodes = dl.ChildNodes
+                        .Where(x => x.NodeType == HtmlNodeType.Element)
+                        .Where(x => x.Name == "dt" || x.Name == "dd")
+                        .ToArray();
+
+                    // loop
+                    while (index < nodes.Length)
                     {
+                        // find <dt>
+                        while (index < nodes.Length && nodes[index].Name != "dt")
+                        {
+                            index++;
+                        }
+
+                        // copy
+                        var dt = nodes[index];
                         index++;
-                    }
 
-                    // copy
-                    var dt = nodes[index];
-                    index++;
+                        // find <dd>
+                        var dds = new List<HtmlNode>();
+                        while (index < nodes.Length && nodes[index].Name == "dd")
+                        {
+                            // add
+                            dds.Add(nodes[index]);
 
-                    // find <dd>
-                    var dds = new List<HtmlNode>();
-                    while (index < nodes.Length && nodes[index].Name == "dd")
-                    {
-                        // add
-                        dds.Add(nodes[index]);
+                            // increment
+                            index++;
+                        }
 
-                        // increment
-                        index++;
-                    }
-
-                    // execute
-                    if (dt != null)
-                    {
-                        processor(dt, dds.FirstOrDefault());
+                        // execute
+                        if (dt != null)
+                        {
+                            processor(dt, dds.FirstOrDefault());
+                        }
                     }
                 }
             }
@@ -318,15 +322,19 @@ namespace Acoose.Centurial.Package
                     return EventRole.Groom;
                 case "moeder van de bruidegom":
                 case "mothergroom":
+                case "mother of the groom":
                     return EventRole.MotherOfGroom;
                 case "vader van de bruidegom":
                 case "fathergroom":
+                case "father of the groom":
                     return EventRole.FatherOfGroom;
                 case "moeder van de bruid":
                 case "motherbride":
+                case "mother of the bride":
                     return EventRole.MotherOfBride;
                 case "vader van de bruid":
                 case "fatherbride":
+                case "father of the bride":
                     return EventRole.FatherOfBride;
                 case "kind":
                 case "child":
@@ -337,35 +345,45 @@ namespace Acoose.Centurial.Package
                 case "moeder":
                 case "mother":
                     return EventRole.Mother;
+                case "overleden":
                 case "overledene":
                 case "deceased":
                     return EventRole.Deceased;
                 case "partner":
                 case "relatie":
-                case "echtgenoot":
-                case "echtgenote":
                 case "spouse":
                     return EventRole.Partner;
+                case "man":
+                case "husband":
+                case "echtgenoot":
+                    return EventRole.Husband;
+                case "vrouw":
+                case "wife":
+                case "echtgenote":
+                    return EventRole.Wife;
                 default:
                     return null;
             }
         }
         public static EventType? TryParseEventType(string value)
         {
+            // init
+            var lower = value?.ToLower();
+
             // event type
-            if (value.Contains("doop") || value.Contains("dopen"))
+            if (lower.Contains("doop") || lower.Contains("dopen"))
             {
                 return EventType.Baptism;
             }
-            else if (value.Contains("geboorte"))
+            else if (lower.Contains("geboorte"))
             {
                 return EventType.Birth;
             }
-            else if (value.Contains("overlijden"))
+            else if (lower.Contains("overlijden"))
             {
                 return EventType.Death;
             }
-            else if (value.Contains("huwelijk") || value.Contains("trouw"))
+            else if (lower.Contains("huwelijk") || lower.Contains("trouw"))
             {
                 return EventType.Marriage;
             }

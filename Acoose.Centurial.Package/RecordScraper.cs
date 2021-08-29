@@ -13,7 +13,7 @@ namespace Acoose.Centurial.Package
     {
         private static readonly EventRole[] PRINCIPAL_ROLES = new EventRole[] { EventRole.Child, EventRole.Deceased, EventRole.Principal };
         private static readonly EventRole[] PRINCIPAL_PARENT_ROLES = new EventRole[] { EventRole.Father, EventRole.Mother };
-        private static readonly EventRole[] PRINCIPAL_PARTNER_ROLES = new EventRole[] { EventRole.Partner };
+        private static readonly EventRole[] PRINCIPAL_PARTNER_ROLES = new EventRole[] { EventRole.Partner, EventRole.Husband, EventRole.Wife };
         private static readonly EventRole[] BRIDE_ROLES = new EventRole[] { EventRole.Bride };
         private static readonly EventRole[] BRIDE_PARENT_ROLES = new EventRole[] { EventRole.FatherOfBride, EventRole.MotherOfBride };
         private static readonly EventRole[] GROOM_ROLES = new EventRole[] { EventRole.Groom };
@@ -390,11 +390,13 @@ namespace Acoose.Centurial.Package
                 case EventRole.FatherOfBride:
                 case EventRole.FatherOfGroom:
                 case EventRole.Groom:
+                case EventRole.Husband:
                     return Gender.Male;
                 case EventRole.Mother:
                 case EventRole.MotherOfBride:
                 case EventRole.MotherOfGroom:
                 case EventRole.Bride:
+                case EventRole.Wife:
                     return Gender.Female;
                 default:
                     return null;

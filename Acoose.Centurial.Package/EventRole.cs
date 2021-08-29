@@ -11,6 +11,8 @@ namespace Acoose.Centurial.Package
         Principal,
         Child,
         Deceased,
+        Husband,
+        Wife,
         Father,
         Mother,
         Bride,

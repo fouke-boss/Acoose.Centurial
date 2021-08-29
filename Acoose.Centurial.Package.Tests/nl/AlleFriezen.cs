@@ -20,25 +20,16 @@ namespace Acoose.Centurial.Package.Tests.nl
             var result = Utility.ExecuteTest<Package.nl.AlleFriezen>("https://allefriezen.nl/zoeken/deeds/4aac4e15-f247-bd66-09af-c03ab15d71d9");
 
             // provenance
-            result.FindProvenance<Website>(0)
-                .AssertCondition(x => x.Title == "AlleFriezen")
-                .AssertCondition(x => x.IsVirtualArchive == true)
-                .AssertChild<OnlineItem>()
-                .AssertChild<DatabaseEntry>()
-                .AssertCondition(x => x.EntryFor == "Egberta Maria Biersma");
-            result.FindProvenance<PublicArchive>(1)
-                .AssertCondition(x => x.Name == "Tresoar")
-                .AssertChild<ArchivedItem>()
+            result
+                .AssertWebsite(0, "AlleFriezen", "https://allefriezen.nl", true)
+                .AssertDatabaseEntry("Egberta Maria Biersma");
+            result
+                .AssertPublicArchive(1, "Tresoar", null)
+                .AssertArchivedItem("30-02")
                 .AssertChild<Collection>()
-                .AssertChild<ArchivedItem>()
-                .AssertChild<VitalRecord>()
-                .AssertCondition(x => x.Title.Value == "Burgerlijke stand")
-                .AssertCondition(x => x.Jurisdiction == "Aengwirden")
-                .AssertChild<RecordScriptFormat>()
-                .AssertCondition(x => x.Number == "0018")
-                .AssertCondition(x => x.Label == "Geboorteregister 1823")
-                .AssertCondition(x => x.Date.Equals(Date.TryParse("1823-03-29")))
-                .AssertCondition(x => x.ItemOfInterest == "Egberta Maria Biersma");
+                .AssertArchivedItem("1004")
+                .AssertVitalRecord("Aengwirden", "Burgerlijke stand")
+                .AssertRecordScriptFormat("Geboorteregister 1823", null, "0018", "Egberta Maria Biersma", "1823-03-29");
 
             // persons
             var person1 = result.FindPerson("Egberta Maria Biersma")
@@ -51,10 +42,8 @@ namespace Acoose.Centurial.Package.Tests.nl
                 .AssertGender(Gender.Female);
 
             // relationships
-            result.FindRelationship(person2, person1)
-                .AssertParentChild(ParentChild.Person1IsBiologicalParentOfPerson2);
-            result.FindRelationship(person3, person1)
-                .AssertParentChild(ParentChild.Person1IsBiologicalParentOfPerson2);
+            result.FindParentChild(person2, person1);
+            result.FindParentChild(person3, person1);
         }
         [TestMethod]
         public void BS_Overlijden()
@@ -73,10 +62,8 @@ namespace Acoose.Centurial.Package.Tests.nl
                 .AssertGender(Gender.Female);
 
             // relationships
-            result.FindRelationship(person2, person1)
-                .AssertParentChild(ParentChild.Person1IsBiologicalParentOfPerson2);
-            result.FindRelationship(person3, person1)
-                .AssertParentChild(ParentChild.Person1IsBiologicalParentOfPerson2);
+            result.FindParentChild(person2, person1);
+            result.FindParentChild(person3, person1);
 
             // valideren
             Assert.IsTrue(result.Source.Info.Length == 5);
