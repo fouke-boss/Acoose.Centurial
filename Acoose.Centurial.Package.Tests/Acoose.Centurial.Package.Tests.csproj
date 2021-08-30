@@ -54,6 +54,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="com\Ancestry.cs" />
     <Compile Include="com\FindAGrave.cs" />
     <Compile Include="nl\Graftombe.cs" />
     <Compile Include="nl\OnlineBegraafplaatsen.cs" />
@@ -171,6 +172,12 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="nl\WieWasWie\BS_Huwelijk_EN.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="com\Ancestry\Page1 - Copy.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="com\Ancestry\DiscoveryUI_George_Johnson.html" />
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

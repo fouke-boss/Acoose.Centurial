@@ -61,6 +61,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="com\Ancestry.cs" />
+    <Compile Include="Language.cs" />
+    <Compile Include="Property.cs" />
+    <Compile Include="PropertyBag.cs" />
     <Compile Include="RecordScraper.cs" />
     <Compile Include="MemorialScraper.cs" />
     <Compile Include="com\FindAGrave.cs" />

@@ -27,7 +27,7 @@ namespace Acoose.Centurial.Package
 
         public string URL
         {
-            get; private set;
+            get; protected set;
         }
 
         public string WebsiteTitle
@@ -37,6 +37,10 @@ namespace Acoose.Centurial.Package
         public string WebsiteURL
         {
             get; private set;
+        }
+        public string OnlineCollectionName
+        {
+            get; protected set;
         }
 
         public RecordType RecordType
@@ -172,27 +176,51 @@ namespace Acoose.Centurial.Package
         protected override IEnumerable<Repository> GetProvenance(Context context)
         {
             // layer 1: website
-            yield return new Website()
+            yield return this.GenerateLayer1();
+
+            // layer 2: record
+            yield return this.GenerateLayer2();
+        }
+        private Repository GenerateLayer1()
+        {
+            // init
+            var item = new OnlineItem()
+            {
+                Url = this.URL,
+                Accessed = Date.Today,
+                Item = new DatabaseEntry()
+                {
+                    EntryFor = this.GenerateItemOfInterest()
+                }
+            };
+
+            // online collection?
+            if (!string.IsNullOrWhiteSpace(this.OnlineCollectionName))
+            {
+                item = new OnlineItem()
+                {
+                    Item = new OnlineCollection()
+                    {
+                        Title = this.OnlineCollectionName,
+                        Items = new OnlineItem[]
+                        {
+                            item
+                        }
+                    }
+                };
+            }
+
+            // done
+            return new Website()
             {
                 Title = this.WebsiteTitle,
                 Url = this.WebsiteURL,
                 IsVirtualArchive = true,
                 Items = new OnlineItem[]
-               {
-                    new OnlineItem()
-                    {
-                        Url = this.URL,
-                        Accessed = Date.Today,
-                        Item = new DatabaseEntry()
-                        {
-                            EntryFor = this.GenerateItemOfInterest()
-                        }
-                    }
-               }
+                {
+                    item
+                }
             };
-
-            // layer 2: record
-            yield return this.GenerateLayer2();
         }
         private Repository GenerateLayer2()
         {

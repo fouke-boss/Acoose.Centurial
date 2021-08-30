@@ -5,22 +5,22 @@ Algemeen
 - import van PDF of image
 - Mais/Flexis
 - Ancestry
+- / achter website url
 
 Picturae/WieWasWie
 - bij geïmporteerde age/occupation is de datum niet gesyncd met de brondatum.
 - tests voor stadsarchief amsterdam en BHIC
 
-- / achter website url
+Ancestry
+- parsing of german date format (2. Oktober 1856)
+- support for both ancestry url's
+- support voor ancestry.co.uk, ancestry, de, ancestry.ca, etc.
+- 
+
 
 Mais/Flexis
 https://www.de-ree.nl/wat-doen-wij-voor-u/mais-flexis
 
 
-- https://billiongraves.nl
-- https://billiongraves.com
-- https://www.findagrave.com, https://images.findagrave.com
-
-- https://www.online-begraafplaatsen.nl
-- https://www.graftombe.nl
 
 https://sok.riksarkivet.se

@@ -165,6 +165,23 @@ namespace Acoose.Centurial.Package
             // done
             return HtmlEntity.DeEntitize(string.Join("", texts)).TrimAll().NullIfWhitespace();
         }
+        public static string GetChildText(this HtmlNode node)
+        {
+            // null?
+            if (node == null)
+            {
+                return null;
+            }
+
+            // init
+            var texts = node
+                .ChildNodes
+                .OfType<HtmlTextNode>()
+                .Select(x => x.InnerText);
+
+            // done
+            return HtmlEntity.DeEntitize(string.Join("", texts)).TrimAll().NullIfWhitespace();
+        }
         public static string TrimAll(this string text)
         {
             return text?.Trim(TRIM_CHARS);
@@ -310,6 +327,22 @@ namespace Acoose.Centurial.Package
                 .Where(n => selector(n).Any());
         }
 
+        public static PropertyBag ToPropertyBag(this IEnumerable<HtmlNode> tables, Func<HtmlNode, string> keySelector)
+        {
+            return PropertyBag.LoadFromTable(tables, keySelector);
+        }
+        public static PropertyBag ToPropertyBag2(this IEnumerable<HtmlNode> nodes, Func<HtmlNode, string> keySelector)
+        {
+            // init
+            var properties = nodes
+                .Select(x => new Property(keySelector(x), x))
+                .Where(x => !string.IsNullOrWhiteSpace(x.Key))
+                .ToArray();
+
+            // done
+            return new PropertyBag(properties);
+        }
+
         public static EventRole? TryParseEventRole(string role)
         {
             switch (role?.ToLower())
@@ -399,11 +432,13 @@ namespace Acoose.Centurial.Package
                 case "m":
                 case "man":
                 case "male":
+                case "männlich":
                     return Gender.Male;
                 case "f":
                 case "v":
                 case "vrouw":
                 case "female":
+                case "weiblich":
                     return Gender.Female;
                 default:
                     return null;
