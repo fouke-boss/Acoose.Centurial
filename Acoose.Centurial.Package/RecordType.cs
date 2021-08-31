@@ -12,9 +12,17 @@ namespace Acoose.Centurial.Package
         public static readonly RecordType BurgerlijkeStand = new RecordType<VitalRecord>(x => x.Title = x.Title ?? "Burgerlijke stand".ToGenericTitle(false));
         public static readonly RecordType DoopTrouwBegraaf = new RecordType<ChurchRecord>(x => x.Church = x.Church ?? "Kerk");
         public static readonly RecordType Bevolkingsregister = new RecordType<Census>(x => x.CensusId = "Bevolkingsregister");
+        public static readonly RecordType Standesämter = new RecordType<VitalRecord>(x => x.Title = x.Title ?? "Standesämter".ToGenericTitle(false));
+        public static readonly RecordType ChurchParish = new RecordType<ChurchRecord>(x => x.Church = x.Church ?? "Church Parish");
 
         public static RecordType TryParse(string value)
         {
+            // null
+            if (string.IsNullOrWhiteSpace(value))
+            {
+                return null;
+            }
+
             // init
             value = value.ToLower();
 
@@ -22,6 +30,10 @@ namespace Acoose.Centurial.Package
             if (value.StartsWith("bs ") || value.Contains("burgerlijke stand"))
             {
                 return RecordType.BurgerlijkeStand;
+            }
+            if (value.Contains("standesämter") || value.Contains("personenstandsregister"))
+            {
+                return RecordType.Standesämter;
             }
             else if (value.Contains("bevolkingsregister"))
             {
@@ -32,6 +44,10 @@ namespace Acoose.Centurial.Package
             )
             {
                 return RecordType.DoopTrouwBegraaf;
+            }
+            if (value.Contains("church") || value.Contains("parish") || value.Contains("presbyt"))
+            {
+                return RecordType.ChurchParish;
             }
             else
             {
@@ -68,6 +84,7 @@ namespace Acoose.Centurial.Package
                     v.Jurisdiction = record.RecordPlace;
                     v.Title = record.Title.ToGenericTitle(true);
                     v.Items = record.GenerateRecordScriptFormat();
+                    v.Creator = record.Organization;
                     break;
                 case ChurchRecord c1:
                     c1.Church = record.Organization;

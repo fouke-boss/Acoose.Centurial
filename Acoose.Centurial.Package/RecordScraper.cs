@@ -331,44 +331,57 @@ namespace Acoose.Centurial.Package
                 })
                 .ToList();
 
-            // partnership
-            var partnership = this.GenerateRelationship(BRIDE_ROLES, GROOM_ROLES, null, true)
-                .ToArray();
-
-            // relationships
-            var relationships = new IEnumerable<RelationshipInfo>[]
+            // partnerships
+            var partnerships = new IEnumerable<RelationshipInfo>[]
             {
-                partnership,
-                this.GenerateRelationship(PRINCIPAL_PARENT_ROLES, PRINCIPAL_ROLES, ParentChild.Person1IsBiologicalParentOfPerson2, null),
+                this.GenerateRelationship(BRIDE_ROLES, GROOM_ROLES, null, true),
                 this.GenerateRelationship(PRINCIPAL_PARTNER_ROLES, PRINCIPAL_ROLES, null, true),
+            }
+            .SelectMany(x => x)
+            .ToArray();
+
+            // parent/child
+            var parents = new IEnumerable<RelationshipInfo>[]
+            {
+                this.GenerateRelationship(PRINCIPAL_PARENT_ROLES, PRINCIPAL_ROLES, ParentChild.Person1IsBiologicalParentOfPerson2, null),
                 this.GenerateRelationship(BRIDE_PARENT_ROLES, BRIDE_ROLES, ParentChild.Person1IsBiologicalParentOfPerson2, null),
                 this.GenerateRelationship(GROOM_PARENT_ROLES, GROOM_ROLES, ParentChild.Person1IsBiologicalParentOfPerson2, null),
             }
             .SelectMany(x => x)
-            .ToList();
+            .ToArray();
 
             // done
             var results = persons
                 .Cast<Info>()
-                .Concat(relationships)
+                .Concat(partnerships)
+                .Concat(parents)
                 .ToArray();
 
             // event
             if (this.EventType is EventType eventType)
             {
-                // target
-                var target = (partnership.Length > 0 ? (InfoWithEvents)partnership.Single() : persons.Single(x => x.Id == this.Principal.Id.ToString()));
+                // init
+                var eventName = eventType.ToString();
+                var target = default(InfoWithEvents);
 
-                // marriage?
-                var text = eventType.ToString();
+                // event type
                 if (eventType == Package.EventType.Marriage)
                 {
-                    text = (this.RecordType is RecordType<ChurchRecord> ? "ChurchMarriage" : "CivilMarriage");
+                    // target
+                    target = partnerships.Single();
+
+                    // marriage type
+                    eventName = (this.RecordType is RecordType<ChurchRecord> ? "ChurchMarriage" : "CivilMarriage");
+                }
+                else
+                {
+                    // target
+                    target = persons.Single(x => x.Id == this.Principal.Id.ToString());
                 }
 
                 // import event
                 target.ImportEvent(
-                    text,
+                    eventName,
                     this.EventDate ?? this.RecordDate,
                     this.EventPlace ?? this.RecordPlace,
                     EnsureMode.AddIfNonePresent

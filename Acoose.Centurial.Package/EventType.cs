@@ -8,9 +8,10 @@ namespace Acoose.Centurial.Package
 {
     public enum EventType
     {
-        Baptism,
         Birth,
+        Baptism,
+        Marriage,
         Death,
-        Marriage
+        Burial
     }
 }

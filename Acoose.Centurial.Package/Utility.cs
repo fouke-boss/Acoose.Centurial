@@ -182,6 +182,14 @@ namespace Acoose.Centurial.Package
             // done
             return HtmlEntity.DeEntitize(string.Join("", texts)).TrimAll().NullIfWhitespace();
         }
+        public static Phrase ToPhrase(this string value)
+        {
+            return Phrase.Parse(value);
+        }
+        public static Phrase ToPhrase(this HtmlNode value)
+        {
+            return Phrase.Parse(value.GetInnerText());
+        }
         public static string TrimAll(this string text)
         {
             return text?.Trim(TRIM_CHARS);

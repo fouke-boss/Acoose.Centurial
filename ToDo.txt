@@ -12,8 +12,9 @@ Picturae/WieWasWie
 - tests voor stadsarchief amsterdam en BHIC
 
 Ancestry
+- events
 - parsing of german date format (2. Oktober 1856)
-- support for both ancestry url's
+- cleaning of both ancestry url's
 - support voor ancestry.co.uk, ancestry, de, ancestry.ca, etc.
 - 
 

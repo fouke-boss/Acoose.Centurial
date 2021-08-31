@@ -63,6 +63,7 @@
   <ItemGroup>
     <Compile Include="com\Ancestry.cs" />
     <Compile Include="Language.cs" />
+    <Compile Include="Phrase.cs" />
     <Compile Include="Property.cs" />
     <Compile Include="PropertyBag.cs" />
     <Compile Include="RecordScraper.cs" />

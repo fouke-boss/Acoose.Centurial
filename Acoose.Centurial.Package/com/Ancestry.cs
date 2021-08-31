@@ -23,6 +23,9 @@ namespace Acoose.Centurial.Package.com
     {
         private const string SOURCE_INFORMATION_PREFIX = "Ancestry.com.";
         private const string SOURCE_INFORMATION_SUFFIX = "[database on-line]";
+        private static readonly string[] QUERY_PARAMETERS = new string[] { "db", "dbid", "h", "indiv" };
+        private static readonly string[] MALE_PREFIXES = new string[] { "mr" };
+        private static readonly string[] FEMALE_PREFIXES = new string[] { "mrs", "miss", "ms" };
 
         private Dictionary<Language, Dictionary<Property, string>> _PropertyNames = new Dictionary<Language, Dictionary<Property, string>>()
         {
@@ -39,6 +42,8 @@ namespace Acoose.Centurial.Package.com
         public Ancestry()
             : base("Ancestry")
         {
+            // init
+            this.Events = new List<Event>();
         }
 
         protected override void Scan(Context context)
@@ -69,7 +74,7 @@ namespace Acoose.Centurial.Package.com
                 var parts = sourceCitation.GetInnerText().Split(';')
                     .Select(x => x.TrimAll())
                     .ToArray();
-                if (parts.Length >= 3)
+                if (parts.Length >= 3 && parts.Take(3).All(p => !p.Contains(":")))
                 {
                     this.ArchiveName = parts[0];
                     this.ArchivePlace = parts[1];
@@ -82,14 +87,7 @@ namespace Acoose.Centurial.Package.com
             this.OnlineCollectionName = this.GetOnlineCollectionName(citationPanel);
 
             // person
-            var person = new Person()
-            {
-                Name = recordData["name"].GetInnerText(),
-                Gender = Utility.TryParseGender(recordData["gender"].GetChildText()),
-                BirthDate = Date.TryParse(recordData["birth date"].GetChildText()),
-                DeathPlace = recordData["death place"].GetChildText(),
-                Age = Utility.TryParseAge(recordData["age"].GetInnerText())
-            };
+            var person = this.GetPrincipal(recordData);
             var others = new string[] { "father", "mother", "spouse" }
                 .Select(property =>
                 {
@@ -116,6 +114,99 @@ namespace Acoose.Centurial.Package.com
             this.Persons = others
                 .Prepend(person)
                 .ToArray();
+
+            // events
+            this.AddEvent(Package.EventType.Birth, recordData["birth date"], recordData["birth place"]);
+            this.AddEvent(Package.EventType.Baptism, recordData["baptism date"], recordData["baptism place"]);
+            this.AddEvent(Package.EventType.Marriage, recordData["marriage date"], recordData["marriage place"]);
+            this.AddEvent(Package.EventType.Death, recordData["death date"], recordData["death place"]);
+            this.AddEvent(Package.EventType.Burial, recordData["burial date"], recordData["burial place"]);
+
+            // record
+            this.FixRecordType(recordData);
+        }
+        private Person GetPrincipal(PropertyBag recordData)
+        {
+            // init
+            var result = new Person();
+
+            // name
+            var name = recordData["name"].ToPhrase().PreferWithBrackets().Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+            var index = 0;
+            if (MALE_PREFIXES.Any(x => string.Compare(x, name.FirstOrDefault(), true) == 0))
+            {
+                // male
+                result.Gender = Gender.Male;
+
+                // skip
+                index = 1;
+            }
+            else if (FEMALE_PREFIXES.Any(x => string.Compare(x, name.FirstOrDefault(), true) == 0))
+            {
+                // female
+                result.Gender = Gender.Female;
+
+                // skip
+                index = 1;
+            }
+
+            // properties
+            result.Name = string.Join(" ", name.Skip(index));
+            result.Age = Utility.TryParseAge(recordData.First("age", "marriage age").GetInnerText());
+            result.Gender = result.Gender ?? Utility.TryParseGender(recordData["gender"].ToPhrase().PreferWithoutBrackets());
+
+            // done
+            return result;
+        }
+        private void AddEvent(Package.EventType eventType, HtmlNode date, HtmlNode place)
+        {
+            // init
+            var dateValue = date.GetInnerText();
+            var placeValue = place.ToPhrase().PreferWithoutBrackets();
+
+            // any?
+            if (!string.IsNullOrWhiteSpace(dateValue) || !string.IsNullOrWhiteSpace(placeValue))
+            {
+                // create
+                var result = this.GetEvent(eventType);
+                result.Date = Date.TryParse(dateValue);
+                result.Place = placeValue.NullIfWhitespace();
+            }
+        }
+        private void FixRecordType(PropertyBag recordData)
+        {
+            // init
+            var mainEvent = this.Events
+                .OrderByDescending(x => x.Type)
+                .FirstOrDefault();
+            if (mainEvent != null && !string.IsNullOrEmpty(mainEvent.Place))
+            {
+                // set
+                this.RecordDate = mainEvent.Date;
+                this.RecordPlace = mainEvent.Place;
+
+                // type
+                this.RecordType = RecordType.TryParse(this.Label);
+
+                // details
+                this.Number = recordData["certificate number"].GetInnerText();
+            }
+
+            // label
+            var label = new HtmlNode[] { recordData["civil registration office"] }
+                .Select(x => x.GetInnerText())
+                .Prepend(this.Label)
+                .Where(x => !string.IsNullOrWhiteSpace(x))
+                .Select(x => x.Trim());
+            this.Label = string.Join(", ", label).NullIfWhitespace();
+
+            // organization
+            var organization = new string[] { "church" }
+                .Select(x => recordData[x].GetInnerText())
+                .Prepend(this.Organization)
+                .Where(x => !string.IsNullOrWhiteSpace(x))
+                .Select(x => x.Trim());
+            this.Organization = string.Join(", ", organization).NullIfWhitespace();
         }
         private string GetOnlineCollectionName(HtmlNode citationPanel)
         {
@@ -142,7 +233,7 @@ namespace Acoose.Centurial.Package.com
             // done
             return result;
         }
-        private static readonly string[] QUERY_PARAMETERS = new string[] { "dbid", "h", "indiv" };
+
         private string CleanURL(string url)
         {
             // init
@@ -165,6 +256,78 @@ namespace Acoose.Centurial.Package.com
             return $"{parts[0]}?{string.Join("&", query)}";
         }
 
+        private List<Event> Events
+        {
+            get;
+        }
+        private Event GetEvent(EventType type)
+        {
+            // init
+            var result = this.Events
+                .NullCoalesce()
+                .SingleOrDefault(x => x.Type == type);
+            if (result == null)
+            {
+                // init
+                result = new Event()
+                {
+                    Type = type
+                };
+
+                // add
+                this.Events.Add(result);
+            }
+
+            // done
+            return result;
+        }
+
+        protected override IEnumerable<Info> GetInfo(Context context)
+        {
+            // init
+            var results = base.GetInfo(context).ToArray();
+
+            // events
+            this.Events
+                .NullCoalesce()
+                .ForEach(e =>
+                {
+                // init
+                var target = default(InfoWithEvents);
+                    var eventType = e.Type.ToString();
+
+                // type?
+                if (e.Type == Package.EventType.Marriage)
+                    {
+                    // relationship
+                    target = results
+                    .OfType<RelationshipInfo>()
+                    .Single(r => r.IsPartnership.NullCoalesce().Any(x => x));
+
+                    // type of marriage
+                    eventType = (this.RecordType is RecordType<ChurchRecord> ? "ChurchMarriage" : "CivilMarriage");
+                    }
+                    else
+                    {
+                    // principal
+                    target = results
+                    .OfType<PersonInfo>()
+                    .Single(p => p.Id == this.Principal.Id.ToString());
+                    }
+
+                // import
+                target.ImportEvent(
+                eventType,
+                e.Date,
+                e.Place,
+                EnsureMode.AddIfNonePresent
+            );
+                });
+
+            // done
+            return results;
+        }
+
         private enum Property
         {
             Name,
@@ -173,6 +336,21 @@ namespace Acoose.Centurial.Package.com
             BirthDate,
             Father,
             Mother
+        }
+        private class Event
+        {
+            public EventType Type
+            {
+                get; set;
+            }
+            public Date Date
+            {
+                get; set;
+            }
+            public string Place
+            {
+                get; set;
+            }
         }
     }
 }

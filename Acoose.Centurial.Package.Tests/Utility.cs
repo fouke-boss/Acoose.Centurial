@@ -365,6 +365,15 @@ namespace Acoose.Centurial.Package.Tests
                 .AssertCondition(x => Equals(x.Identifier, identifier));
         }
 
+        public static OnlineItem AssertOnlineCollection(this IWrapper wrapper, string title)
+        {
+            // init
+            return wrapper
+                .AssertChild<OnlineCollection>()
+                .AssertCondition(x => Equals(x.Title, title))
+                .AssertChild<OnlineItem>();
+        }
+
         public static VitalRecord AssertVitalRecord(this IWrapper wrapper, string jurisdiction, string title)
         {
             // init

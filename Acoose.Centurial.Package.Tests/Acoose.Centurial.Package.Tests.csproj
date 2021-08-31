@@ -56,6 +56,7 @@
   <ItemGroup>
     <Compile Include="com\Ancestry.cs" />
     <Compile Include="com\FindAGrave.cs" />
+    <Compile Include="UtilityTest.cs" />
     <Compile Include="nl\Graftombe.cs" />
     <Compile Include="nl\OnlineBegraafplaatsen.cs" />
     <Compile Include="nl\RegionaalArchiefTilburg.cs" />
@@ -141,9 +142,6 @@
     <EmbeddedResource Include="nl\AlleFriezen\BS_Geboorte.html" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="WieWasWie - Overig.html" />
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="nl\RegionaalArchiefTilburg\DTP_Huwelijk.html" />
   </ItemGroup>
   <ItemGroup>
@@ -174,10 +172,19 @@
     <EmbeddedResource Include="nl\WieWasWie\BS_Huwelijk_EN.html" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="com\Ancestry\Page1 - Copy.html" />
+    <EmbeddedResource Include="com\Ancestry\EN_Search_Paul_Vierus.html" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="com\Ancestry\DiscoveryUI_George_Johnson.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="com\Ancestry\EN_Search_Auguste_Nettelmann.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="com\Ancestry\EN_DiscoveryUI_Maria_Avent.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="com\Ancestry\EN_Search_Charles_Johnson.html" />
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

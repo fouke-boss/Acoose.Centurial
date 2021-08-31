@@ -87,5 +87,13 @@ namespace Acoose.Centurial.Package
                 return match?.Html;
             }
         }
+        public HtmlNode First(params string[] keys)
+        {
+            // init
+            return keys
+                .Select(x => this[x])
+                .Where(x => x != null)
+                .FirstOrDefault();
+        }
     }
 }
