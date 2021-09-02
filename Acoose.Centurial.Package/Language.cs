@@ -8,6 +8,7 @@ namespace Acoose.Centurial.Package
 {
     public enum Language
     {
-        English
+        English,
+        Deutsch
     }
 }

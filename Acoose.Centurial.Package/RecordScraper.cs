@@ -225,67 +225,82 @@ namespace Acoose.Centurial.Package
         private Repository GenerateLayer2()
         {
             // init
-            Acoose.Genealogy.Extensibility.Data.References.Source source;
+            var source = this.RecordType?.Generate(this);
 
             // source
-            if (this.RecordType == null)
+            if (source == null)
             {
                 // init
-                var parts = new string[]
+                var details = new string[]
                 {
                     this.Organization,
                     this.RecordPlace,
                     this.Title,
                     this.Label,
-                };
+                    this.Page,
+                    this.Number,
+                    this.GenerateItemOfInterest(),
+                }.Join(", ");
+                var collection = new string[] { this.CollectionName, this.CollectionNumber }.Join(", ");
+                var archive = new string[] { this.ArchiveName, this.ArchivePlace }.Join(", ");
 
                 // unknown
-                source = new Unknown()
+                source = new Unspecified()
                 {
-                    CreditLine = string.Join("; ", parts.Where(x => !string.IsNullOrEmpty(x)))
+                    CreditLine = new string[] { details, collection, archive }.Join("; ")
+                };
+            }
+
+            // repository
+            if (source is Unspecified || string.IsNullOrWhiteSpace(this.ArchiveName))
+            {
+                // unknown
+                return new UnknownRepository()
+                {
+                    Items = new Genealogy.Extensibility.Data.References.Source[]
+                    {
+                        source
+                    }
                 };
             }
             else
             {
-                // per record type
-                source = this.RecordType.Generate(this);
-            }
-
-            // archived item
-            var archivedItems = new ArchivedItem[]
-            {
-                new ArchivedItem()
-                {
-                    Identifier = this.SeriesNumber,
-                    Item = source
-                }
-            };
-
-            // collection?
-            if (!string.IsNullOrEmpty(this.CollectionName) || !string.IsNullOrEmpty(this.CollectionNumber))
-            {
-                // wrap
-                archivedItems = new ArchivedItem[]
+                // archived item
+                var archivedItems = new ArchivedItem[]
                 {
                     new ArchivedItem()
                     {
-                        Identifier = this.CollectionNumber,
-                        Item = new Collection()
-                        {
-                            Name = this.CollectionName,
-                            Items = archivedItems
-                        }
+                        Identifier = this.SeriesNumber,
+                        Item = source
                     }
                 };
-            }
 
-            // archive
-            return new PublicArchive()
-            {
-                Name = this.ArchiveName,
-                Place = this.ArchivePlace,
-                Items = archivedItems
-            };
+                // collection?
+                if (!string.IsNullOrEmpty(this.CollectionName) || !string.IsNullOrEmpty(this.CollectionNumber))
+                {
+                    // wrap
+                    archivedItems = new ArchivedItem[]
+                    {
+                        new ArchivedItem()
+                        {
+                            Identifier = this.CollectionNumber,
+                            Item = new Collection()
+                            {
+                                Name = this.CollectionName,
+                                Items = archivedItems
+                            }
+                        }
+                    };
+                }
+
+                // archive
+                return new PublicArchive()
+                {
+                    Name = this.ArchiveName,
+                    Place = this.ArchivePlace,
+                    Items = archivedItems
+                };
+            }
         }
         internal RecordScriptFormat[] GenerateRecordScriptFormat()
         {

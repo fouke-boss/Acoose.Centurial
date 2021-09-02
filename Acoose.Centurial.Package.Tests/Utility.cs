@@ -62,40 +62,70 @@ namespace Acoose.Centurial.Package.Tests
                 throw new NotSupportedException();
             }
         }
-        public static T AssertChild<T>(this IContainer container)
+
+        public static T AssertChild<T>(this Representation parent)
             where T : Representation
         {
             // init
-            var items = container.Items
-                .NullCoalesce()
-                .ToList();
+            var result = default(T[]);
+
+            // find?
+            if (parent is IContainer container)
+            {
+                result = container.Items
+                    .NullCoalesce()
+                    .OfType<T>()
+                    .ToArray();
+            }
+            else if (parent is IWrapper wrapper && wrapper.Item is T item)
+            {
+                result = new T[] { item };
+            }
 
             // fail?
-            if (items.Count == 1 && items.Single() is T result)
+            if (result.Length == 1)
             {
-                return result;
+                return result.Single();
             }
             else
             {
                 throw new NotSupportedException();
             }
         }
-        public static T AssertChild<T>(this IWrapper wrapper)
-            where T : Representation
-        {
-            // init
-            var item = wrapper.Item;
+        //public static T AssertChild<T>(this IContainer container)
+        //    where T : Representation
+        //{
+        //    // init
+        //    var items = container.Items
+        //        .NullCoalesce()
+        //        .ToList();
 
-            // fail?
-            if (item is T result)
-            {
-                return result;
-            }
-            else
-            {
-                throw new NotSupportedException();
-            }
-        }
+        //    // fail?
+        //    if (items.Count == 1 && items.Single() is T result)
+        //    {
+        //        return result;
+        //    }
+        //    else
+        //    {
+        //        throw new NotSupportedException();
+        //    }
+        //}
+        //public static T AssertChild<T>(this IWrapper wrapper)
+        //    where T : Representation
+        //{
+        //    // init
+        //    var item = wrapper.Item;
+
+        //    // fail?
+        //    if (item is T result)
+        //    {
+        //        return result;
+        //    }
+        //    else
+        //    {
+        //        throw new NotSupportedException();
+        //    }
+        //}
 
         public static PersonInfo FindPerson(this ScraperTest test, string name)
         {
@@ -229,6 +259,7 @@ namespace Acoose.Centurial.Package.Tests
         {
             // init
             var match = info.Events
+                .NullCoalesce()
                 .SingleOrDefault(x => x.Type == eventType);
             if (match == null)
             {
@@ -352,12 +383,12 @@ namespace Acoose.Centurial.Package.Tests
             return test
                 .FindProvenance<Website>(index)
                 .AssertCondition(x => Equals(x.Title, title))
-                .AssertCondition(x => Equals(x.Url, url))
+                //.AssertCondition(x => Equals(x.Url, url))
                 .AssertCondition(x => (x.IsVirtualArchive == isVirtualArchive))
                 .AssertChild<OnlineItem>();
         }
 
-        public static ArchivedItem AssertArchivedItem(this IContainer container, string identifier)
+        public static ArchivedItem AssertArchivedItem(this Representation container, string identifier)
         {
             // init
             return container
@@ -365,7 +396,7 @@ namespace Acoose.Centurial.Package.Tests
                 .AssertCondition(x => Equals(x.Identifier, identifier));
         }
 
-        public static OnlineItem AssertOnlineCollection(this IWrapper wrapper, string title)
+        public static OnlineItem AssertOnlineCollection(this Representation wrapper, string title)
         {
             // init
             return wrapper
@@ -374,7 +405,7 @@ namespace Acoose.Centurial.Package.Tests
                 .AssertChild<OnlineItem>();
         }
 
-        public static VitalRecord AssertVitalRecord(this IWrapper wrapper, string jurisdiction, string title)
+        public static VitalRecord AssertVitalRecord(this Representation wrapper, string jurisdiction, string title)
         {
             // init
             return wrapper
@@ -382,7 +413,7 @@ namespace Acoose.Centurial.Package.Tests
                 .AssertCondition(x => Equals(x.Jurisdiction, jurisdiction))
                 .AssertCondition(x => Equals(x.Title?.Value, title));
         }
-        public static ChurchRecord AssertChurchRecord(this IWrapper wrapper, string church, string place)
+        public static ChurchRecord AssertChurchRecord(this Representation wrapper, string church, string place)
         {
             // init
             return wrapper
@@ -390,15 +421,22 @@ namespace Acoose.Centurial.Package.Tests
                 .AssertCondition(x => Equals(x.Church, church))
                 .AssertCondition(x => Equals(x.Place, place));
         }
-        public static DatabaseEntry AssertDatabaseEntry(this IWrapper wrapper, string entryFor)
+        public static DatabaseEntry AssertDatabaseEntry(this Representation wrapper, string crd)
         {
             // init
             return wrapper
                 .AssertChild<DatabaseEntry>()
-                .AssertCondition(x => Equals(x.EntryFor, entryFor));
+                .AssertCondition(x => Equals(x.EntryFor, crd));
+        }
+        public static Unspecified AssertUnspecified(this Representation parent, string creditLine)
+        {
+            // init
+            return parent
+                .AssertChild<Unspecified>()
+                .AssertCondition(x => Equals(x.CreditLine, creditLine));
         }
 
-        public static RecordScriptFormat AssertRecordScriptFormat(this IContainer container, string label, string page, string number, string itemOfInterest, string date)
+        public static RecordScriptFormat AssertRecordScriptFormat(this Representation container, string label, string page, string number, string itemOfInterest, string date)
         {
             // init
             return container

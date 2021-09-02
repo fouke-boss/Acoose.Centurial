@@ -13,12 +13,21 @@ using Newtonsoft.Json.Linq;
 namespace Acoose.Centurial.Package.com
 {
     [Scraper("https://search.ancestry.com/cgi-bin/sse.dll")]
-    [Scraper("https://search.ancestry.de/cgi-bin/sse.dll")]
     [Scraper("https://search.ancestry.co.uk/cgi-bin/sse.dll")]
-    [Scraper("https://search.ancestrylibrary.com/cgi-bin/sse.dll")]
+    [Scraper("https://search.ancestry.de/cgi-bin/sse.dll")]
     [Scraper("https://search.ancestry.ca/cgi-bin/sse.dll")]
+    [Scraper("https://search.ancestry.com.au/cgi-bin/sse.dll")]
+    [Scraper("https://search.ancestrylibrary.com/cgi-bin/sse.dll")]
     [Scraper("https://search.ancestrylibrary.com.au/cgi-bin/sse.dll")]
-    [Scraper("https://www.ancestry.*/discoveryui-content/view/*")]
+    [Scraper("https://search.ancestrylibraryedition.co.uk/cgi-bin/sse.dll")]
+    [Scraper("https://www.ancestry.com/discoveryui-content/view/*")]
+    [Scraper("https://www.ancestry.co.uk/discoveryui-content/view/*")]
+    [Scraper("https://www.ancestry.de/discoveryui-content/view/*")]
+    [Scraper("https://www.ancestry.ca/discoveryui-content/view/*")]
+    [Scraper("https://www.ancestry.com.au/discoveryui-content/view/*")]
+    [Scraper("https://www.ancestrylibrary.com/discoveryui-content/view/*")]
+    [Scraper("https://www.ancestrylibrary.com.au/discoveryui-content/view/*")]
+    [Scraper("https://www.ancestrylibraryedition.co.uk/discoveryui-content/view/*")]
     public partial class Ancestry : RecordScraper
     {
         private const string SOURCE_INFORMATION_PREFIX = "Ancestry.com.";
@@ -26,18 +35,6 @@ namespace Acoose.Centurial.Package.com
         private static readonly string[] QUERY_PARAMETERS = new string[] { "db", "dbid", "h", "indiv" };
         private static readonly string[] MALE_PREFIXES = new string[] { "mr" };
         private static readonly string[] FEMALE_PREFIXES = new string[] { "mrs", "miss", "ms" };
-
-        private Dictionary<Language, Dictionary<Property, string>> _PropertyNames = new Dictionary<Language, Dictionary<Property, string>>()
-        {
-            {
-                Language.English,
-                new Dictionary<Property, string>()
-                {
-                    { Property.Name, "name" },
-                    { Property.Gender, "gender" }
-                }
-            }
-        };
 
         public Ancestry()
             : base("Ancestry")
@@ -49,7 +46,6 @@ namespace Acoose.Centurial.Package.com
         protected override void Scan(Context context)
         {
             // init
-            var language = Language.English;
             var page = context.Body()
                 .Elements().WithId("mainContent")
                 .Elements("div").WithClass("page")
@@ -62,10 +58,13 @@ namespace Acoose.Centurial.Package.com
                 .Descendants("section").WithId("sourceCitation")
                 .Single();
 
+            // language
+            this.Language = this.GetLanguage(context);
+
             // source citation
             var sourceCitation = citationPanel
                 .Descendants("div")
-                .Where(x => x.Element("h4")?.GetInnerText() == "Source Citation")
+                .Where(x => string.Compare(x.Element("h4")?.GetInnerText(), PropertyName.SourceCitation[this.Language], true) == 0)
                 .SelectMany(x => x.Descendants("p"))
                 .SingleOrDefault();
             if (sourceCitation is HtmlNode)
@@ -88,11 +87,11 @@ namespace Acoose.Centurial.Package.com
 
             // person
             var person = this.GetPrincipal(recordData);
-            var others = new string[] { "father", "mother", "spouse" }
+            var others = new PropertyName[] { PropertyName.Father, PropertyName.Mother, PropertyName.Spouse, PropertyName.Child }
                 .Select(property =>
                 {
                     // init
-                    var name = recordData[property].GetInnerText();
+                    var name = recordData[property[this.Language]].GetInnerText();
                     var result = default(Person);
 
                     // any?
@@ -102,7 +101,7 @@ namespace Acoose.Centurial.Package.com
                         result = new Person()
                         {
                             Name = name,
-                            Role = Utility.TryParseEventRole(property).Value
+                            Role = Utility.TryParseEventRole(property.English).Value
                         };
                     }
 
@@ -116,22 +115,45 @@ namespace Acoose.Centurial.Package.com
                 .ToArray();
 
             // events
-            this.AddEvent(Package.EventType.Birth, recordData["birth date"], recordData["birth place"]);
-            this.AddEvent(Package.EventType.Baptism, recordData["baptism date"], recordData["baptism place"]);
-            this.AddEvent(Package.EventType.Marriage, recordData["marriage date"], recordData["marriage place"]);
-            this.AddEvent(Package.EventType.Death, recordData["death date"], recordData["death place"]);
-            this.AddEvent(Package.EventType.Burial, recordData["burial date"], recordData["burial place"]);
+            this.AddEvent(Package.EventType.Birth, recordData, PropertyName.BirthDate, PropertyName.BirthPlace);
+            this.AddEvent(Package.EventType.Baptism, recordData, PropertyName.BaptismDate, PropertyName.BaptismPlace);
+            this.AddEvent(Package.EventType.Marriage, recordData, PropertyName.MarriageDate, PropertyName.MarriagePlace);
+            this.AddEvent(Package.EventType.Death, recordData, PropertyName.DeathDate, PropertyName.DeathPlace);
+            this.AddEvent(Package.EventType.Burial, recordData, PropertyName.BurialDate, PropertyName.BurialPlace);
 
             // record
             this.FixRecordType(recordData);
         }
+
+        public Language Language
+        {
+            get; private set;
+        }
+        private Language GetLanguage(Context context)
+        {
+            // init
+            var country = context.GetWebsiteUrl()
+                .Trim('/', '\\')
+                .Split('.')
+                .Last();
+
+            // done
+            switch (country)
+            {
+                case "de":
+                    return Language.Deutsch;
+                default:
+                    return Language.English;
+            }
+        }
+
         private Person GetPrincipal(PropertyBag recordData)
         {
             // init
             var result = new Person();
 
             // name
-            var name = recordData["name"].ToPhrase().PreferWithBrackets().Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+            var name = recordData[PropertyName.Name[this.Language]].ToPhrase().PreferWithBrackets().Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
             var index = 0;
             if (MALE_PREFIXES.Any(x => string.Compare(x, name.FirstOrDefault(), true) == 0))
             {
@@ -152,17 +174,23 @@ namespace Acoose.Centurial.Package.com
 
             // properties
             result.Name = string.Join(" ", name.Skip(index));
-            result.Age = Utility.TryParseAge(recordData.First("age", "marriage age").GetInnerText());
-            result.Gender = result.Gender ?? Utility.TryParseGender(recordData["gender"].ToPhrase().PreferWithoutBrackets());
+            result.Age = Utility.TryParseAge(recordData.First(PropertyName.Age[this.Language], PropertyName.MarriageAge[this.Language], PropertyName.DeathAge[this.Language]).GetInnerText());
+            result.Gender = result.Gender ?? Utility.TryParseGender(recordData[PropertyName.Gender[this.Language]].ToPhrase().PreferWithoutBrackets());
+
+            // maiden name
+            if (recordData[PropertyName.MaidenName[this.Language]].GetInnerText() is string maidenName && !string.IsNullOrWhiteSpace(maidenName))
+            {
+                result.FamilyName = maidenName;
+            }
 
             // done
             return result;
         }
-        private void AddEvent(Package.EventType eventType, HtmlNode date, HtmlNode place)
+        private void AddEvent(Package.EventType eventType, PropertyBag recordData, PropertyName date, PropertyName place)
         {
             // init
-            var dateValue = date.GetInnerText();
-            var placeValue = place.ToPhrase().PreferWithoutBrackets();
+            var dateValue = recordData[date[this.Language]].GetInnerText();
+            var placeValue = recordData[place[this.Language]].ToPhrase().PreferWithoutBrackets();
 
             // any?
             if (!string.IsNullOrWhiteSpace(dateValue) || !string.IsNullOrWhiteSpace(placeValue))
@@ -186,14 +214,15 @@ namespace Acoose.Centurial.Package.com
                 this.RecordPlace = mainEvent.Place;
 
                 // type
-                this.RecordType = RecordType.TryParse(this.Label);
+                this.RecordType = RecordType.TryParse(this.Label) ?? RecordType.TryParse(this.OnlineCollectionName);
 
                 // details
-                this.Number = recordData["certificate number"].GetInnerText();
+                this.Number = recordData[PropertyName.CertificateNumber[this.Language]].GetInnerText();
             }
 
             // label
-            var label = new HtmlNode[] { recordData["civil registration office"] }
+            var label = new PropertyName[] { PropertyName.CivilRegistrationOffice }
+                .Select(x => recordData[x[this.Language]])
                 .Select(x => x.GetInnerText())
                 .Prepend(this.Label)
                 .Where(x => !string.IsNullOrWhiteSpace(x))
@@ -201,22 +230,28 @@ namespace Acoose.Centurial.Package.com
             this.Label = string.Join(", ", label).NullIfWhitespace();
 
             // organization
-            var organization = new string[] { "church" }
-                .Select(x => recordData[x].GetInnerText())
+            var organization = new PropertyName[] { PropertyName.Church, PropertyName.ParishAsItAppears }
+                .Select(x => recordData[x[this.Language]].GetInnerText())
                 .Prepend(this.Organization)
                 .Where(x => !string.IsNullOrWhiteSpace(x))
                 .Select(x => x.Trim());
             this.Organization = string.Join(", ", organization).NullIfWhitespace();
+
+            // page
+            this.Page = recordData[PropertyName.PageNumber[this.Language]].GetInnerText()?.Split(';', '-', '/').Join("-");
         }
         private string GetOnlineCollectionName(HtmlNode citationPanel)
         {
             // init
             var result = default(string);
+            var names = new PropertyName[] { PropertyName.SourceInformationInSearch, PropertyName.SourceInformationInDiscoveryUI }
+                .Select(x => x[this.Language])
+                .ToArray();
 
             // source information
             var sourceInformation = citationPanel
                 .Descendants("div").WithClass("sourceText")
-                .Where(x => x.ParentNode.Element("h4")?.GetInnerText() == "Source Information")
+                .Where(n => names.Any(x => string.Compare(n.ParentNode.Element("h4")?.GetInnerText(), x, true) == 0))
                 .SelectMany(x => x.Descendants("p"))
                 .FirstOrDefault();
             if (sourceInformation is HtmlNode)
@@ -250,10 +285,11 @@ namespace Acoose.Centurial.Package.com
                 .Where(x => x.Length == 2)
                 .Where(x => QUERY_PARAMETERS.Contains(x[0]))
                 .OrderBy(x => Array.IndexOf(QUERY_PARAMETERS, x[0]))
-                .Select(x => string.Join("=", x));
+                .Select(x => x.Join("="))
+                .Join("&");
 
             // done
-            return $"{parts[0]}?{string.Join("&", query)}";
+            return new string[] { parts[0], query }.Join("?");
         }
 
         private List<Event> Events
@@ -292,50 +328,102 @@ namespace Acoose.Centurial.Package.com
                 .NullCoalesce()
                 .ForEach(e =>
                 {
-                // init
-                var target = default(InfoWithEvents);
+                    // init
+                    var target = default(InfoWithEvents);
                     var eventType = e.Type.ToString();
 
-                // type?
-                if (e.Type == Package.EventType.Marriage)
+                    // type?
+                    if (e.Type == Package.EventType.Marriage)
                     {
-                    // relationship
-                    target = results
-                    .OfType<RelationshipInfo>()
-                    .Single(r => r.IsPartnership.NullCoalesce().Any(x => x));
+                        // relationship
+                        target = results
+                        .OfType<RelationshipInfo>()
+                        .Single(r => r.IsPartnership.NullCoalesce().Any(x => x));
 
-                    // type of marriage
-                    eventType = (this.RecordType is RecordType<ChurchRecord> ? "ChurchMarriage" : "CivilMarriage");
+                        // type of marriage
+                        eventType = (this.RecordType is RecordType<ChurchRecord> ? "ChurchMarriage" : "CivilMarriage");
                     }
                     else
                     {
-                    // principal
-                    target = results
-                    .OfType<PersonInfo>()
-                    .Single(p => p.Id == this.Principal.Id.ToString());
+                        // principal
+                        target = results
+                        .OfType<PersonInfo>()
+                        .Single(p => p.Id == this.Principal.Id.ToString());
                     }
 
-                // import
-                target.ImportEvent(
-                eventType,
-                e.Date,
-                e.Place,
-                EnsureMode.AddIfNonePresent
-            );
+                    // import
+                    target.ImportEvent(
+                    eventType,
+                    e.Date,
+                    e.Place,
+                    EnsureMode.AddIfNonePresent
+                );
                 });
 
             // done
             return results;
         }
 
-        private enum Property
+        private class PropertyName
         {
-            Name,
-            Gender,
-            Age,
-            BirthDate,
-            Father,
-            Mother
+            public static readonly PropertyName Age = new PropertyName("age", "alter");
+            public static readonly PropertyName BaptismDate = new PropertyName("baptism date", "taufdatum");
+            public static readonly PropertyName BaptismPlace = new PropertyName("baptism place", "taufort");
+            public static readonly PropertyName BirthDate = new PropertyName("birth date", "geburtsdatum");
+            public static readonly PropertyName BirthPlace = new PropertyName("birth place", "geburtsort");
+            public static readonly PropertyName BurialDate = new PropertyName("burial date", "bestattungsdatum");
+            public static readonly PropertyName BurialPlace = new PropertyName("burial place", "bestattungsort");
+            public static readonly PropertyName CertificateNumber = new PropertyName("certificate number", "urkunde nummer");
+            public static readonly PropertyName Child = new PropertyName("child", "kind");
+            public static readonly PropertyName Church = new PropertyName("church", "kirche");
+            public static readonly PropertyName CivilRegistrationOffice = new PropertyName("civil registration office", "standesamt");
+            public static readonly PropertyName DeathAge = new PropertyName("death age", "sterbealter");
+            public static readonly PropertyName DeathDate = new PropertyName("death date", "sterbedatum");
+            public static readonly PropertyName DeathPlace = new PropertyName("death place", "Sterbeort");
+            public static readonly PropertyName Father = new PropertyName("father", "vater");
+            public static readonly PropertyName Gender = new PropertyName("gender", "geschlecht");
+            public static readonly PropertyName MaidenName = new PropertyName("maiden name", "mädchenname");
+            public static readonly PropertyName MarriageAge = new PropertyName("marriage age", "alter zur zeit der heirat");
+            public static readonly PropertyName MarriageDate = new PropertyName("marriage date", "heiratsdatum");
+            public static readonly PropertyName MarriagePlace = new PropertyName("marriage place", "heiratsort");
+            public static readonly PropertyName Mother = new PropertyName("mother", "mutter");
+            public static readonly PropertyName Name = new PropertyName("name", "name");
+            public static readonly PropertyName PageNumber = new PropertyName("page number", "seitennummer");
+            public static readonly PropertyName ParishAsItAppears = new PropertyName("parish as it appears", "kirchgemeinde wie angezeigt");
+            public static readonly PropertyName SourceCitation = new PropertyName("source citation", "quellenangabe");
+            public static readonly PropertyName SourceInformationInSearch = new PropertyName("source information", "quelleninformationen");
+            public static readonly PropertyName SourceInformationInDiscoveryUI = new PropertyName("source information", "angaben zur quelle");
+            public static readonly PropertyName Spouse = new PropertyName("spouse", "ehepartner");
+
+            private PropertyName(string english, string deutsch)
+            {
+                // init
+                this.English = english;
+                this.Deutsch = deutsch;
+            }
+
+            public string English
+            {
+                get;
+            }
+            public string Deutsch
+            {
+                get;
+            }
+
+            public string this[Language language]
+            {
+                get
+                {
+                    switch (language)
+                    {
+                        case Language.Deutsch:
+                            return this.Deutsch;
+                        default:
+                            return this.English;
+                    }
+                }
+            }
         }
         private class Event
         {

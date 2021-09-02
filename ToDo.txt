@@ -12,11 +12,10 @@ Picturae/WieWasWie
 - tests voor stadsarchief amsterdam en BHIC
 
 Ancestry
-- events
-- parsing of german date format (2. Oktober 1856)
-- cleaning of both ancestry url's
 - support voor ancestry.co.uk, ancestry, de, ancestry.ca, etc.
-- 
+- fix [Scraper("https://www.ancestry.*/discoveryui-content/view/*")] to match all possible sites
+- kind
+- support for census (George Johnson)
 
 
 Mais/Flexis

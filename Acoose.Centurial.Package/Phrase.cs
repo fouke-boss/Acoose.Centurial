@@ -95,7 +95,7 @@ namespace Acoose.Centurial.Package
         }
         private string Format(IEnumerable<Part> parts)
         {
-            return string.Join(" ", parts.Select(x => x.Text.Trim()));
+            return string.Join("", parts.Select(x => x.Text.TrimEnd()));
         }
 
         public IEnumerator<Part> GetEnumerator()

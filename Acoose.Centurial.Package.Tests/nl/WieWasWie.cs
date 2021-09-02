@@ -178,7 +178,8 @@ namespace Acoose.Centurial.Package.Tests.nl
 
             // public archive
             result
-                .AssertPublicArchive(1, "Nationaal Archief", "Den Haag");
+                .FindProvenance<UnknownRepository>(1)
+                .AssertUnspecified("Delft, Delft, 35, Hendrik van Vliet; Nationaal Archief, Den Haag");
 
             // persons
             var person1 = result.FindPerson("Hendrik van Vliet");

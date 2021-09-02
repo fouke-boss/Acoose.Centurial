@@ -491,5 +491,10 @@ namespace Acoose.Centurial.Package
         {
             return (string.IsNullOrEmpty(title) ? null : new Genealogy.Extensibility.Data.References.GenericTitle() { Value = title, Literal = isLiteral });
         }
+
+        public static string Join(this IEnumerable<string> values, string separator)
+        {
+            return string.Join(separator, values.NullCoalesce().Where(x => !string.IsNullOrWhiteSpace(x)));
+        }
     }
 }

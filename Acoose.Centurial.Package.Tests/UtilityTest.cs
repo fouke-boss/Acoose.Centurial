@@ -64,5 +64,14 @@ namespace Acoose.Centurial.Package.Tests
             Assert.IsTrue(result.ElementAt(2).OpeningBracket == null);
             Assert.IsTrue(result.IgnoreBrackets() == "Fouke Boss");
         }
+        [TestMethod]
+        public void Phrase5()
+        {
+            // init
+            var result = Phrase.Parse("Vogelbach, Baden (Baden-Württemberg), Preußen");
+
+            // done
+            Assert.IsTrue(result.PreferWithoutBrackets() == "Vogelbach, Baden, Preußen");
+        }
     }
 }

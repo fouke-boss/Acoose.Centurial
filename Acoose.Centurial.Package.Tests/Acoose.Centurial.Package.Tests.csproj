@@ -172,19 +172,49 @@
     <EmbeddedResource Include="nl\WieWasWie\BS_Huwelijk_EN.html" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="com\Ancestry\EN_Search_Paul_Vierus.html" />
+    <EmbeddedResource Include="com\Ancestry\Search_Paul_Vierus_COM.html" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="com\Ancestry\DiscoveryUI_George_Johnson.html" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="com\Ancestry\EN_Search_Auguste_Nettelmann.html" />
+    <EmbeddedResource Include="com\Ancestry\Search_Auguste_Nettelmann_COM.html" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="com\Ancestry\EN_DiscoveryUI_Maria_Avent.html" />
+    <EmbeddedResource Include="com\Ancestry\DiscoveryUI_Maria_Avent_COM.html" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="com\Ancestry\EN_Search_Charles_Johnson.html" />
+    <EmbeddedResource Include="com\Ancestry\Search_Charles_Johnson_COM.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="com\Ancestry\Search_Paul_Vierus_DE.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="com\Ancestry\DiscoveryUI_Maria_Avent_DE.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="com\Ancestry\Search_Auguste_Nettelmann_DE.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="com\Ancestry\Search_Charles_Johnson_DE.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="com\Ancestry\DiscoveryUI_Maria_Dreher_COM.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="com\Ancestry\DiscoveryUI_Maria_Dreher_DE.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="com\Ancestry\DiscoveryUI_Hugo_Dreher_COM.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="com\Ancestry\DiscoveryUI_Hugo_Dreher_DE.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="com\Ancestry\DiscoveryUI_Alma_SchulzConrad_COM.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="com\Ancestry\DiscoveryUI_Alma_SchulzConrad_DE.html" />
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

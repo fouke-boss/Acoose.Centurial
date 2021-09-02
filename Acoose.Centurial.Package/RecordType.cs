@@ -14,6 +14,7 @@ namespace Acoose.Centurial.Package
         public static readonly RecordType Bevolkingsregister = new RecordType<Census>(x => x.CensusId = "Bevolkingsregister");
         public static readonly RecordType Standesämter = new RecordType<VitalRecord>(x => x.Title = x.Title ?? "Standesämter".ToGenericTitle(false));
         public static readonly RecordType ChurchParish = new RecordType<ChurchRecord>(x => x.Church = x.Church ?? "Church Parish");
+        public static readonly RecordType Kirchenbuch = new RecordType<ChurchRecord>(x => x.Church = x.Church ?? "Kirche");
 
         public static RecordType TryParse(string value)
         {
@@ -31,7 +32,7 @@ namespace Acoose.Centurial.Package
             {
                 return RecordType.BurgerlijkeStand;
             }
-            if (value.Contains("standesämter") || value.Contains("personenstandsregister"))
+            if (value.Contains("standesamt") || value.Contains("standesämt") || value.Contains("personenstandsregister"))
             {
                 return RecordType.Standesämter;
             }
@@ -45,9 +46,17 @@ namespace Acoose.Centurial.Package
             {
                 return RecordType.DoopTrouwBegraaf;
             }
-            if (value.Contains("church") || value.Contains("parish") || value.Contains("presbyt"))
+            if (value.Contains("church") || 
+                value.Contains("parish") || 
+                value.Contains("presbyt") || 
+                value.Contains("lutheran") || 
+                value.Contains("catholic"))
             {
                 return RecordType.ChurchParish;
+            }
+            if (value.Contains("kirch"))
+            {
+                return RecordType.Kirchenbuch;
             }
             else
             {
@@ -104,8 +113,25 @@ namespace Acoose.Centurial.Package
             // action
             this._Action?.Invoke(result);
 
+            // is the reference complete (are all requried fields completed)?
+            var isComplete = false;
+            switch (result)
+            {
+                case VitalRecord v:
+                    isComplete = (!string.IsNullOrWhiteSpace(v.Jurisdiction) && v.Title != null);
+                    break;
+                case ChurchRecord c1:
+                    isComplete = (!string.IsNullOrWhiteSpace(c1.Church) && !string.IsNullOrWhiteSpace(c1.Place));
+                    break;
+                case Census c2:
+                    isComplete = (!string.IsNullOrWhiteSpace(c2.Jurisdiction) && !string.IsNullOrWhiteSpace(c2.CensusId));
+                    break;
+                default:
+                    throw new NotImplementedException();
+            }
+
             // done
-            return result;
+            return (isComplete ? result : default);
         }
     }
 }
