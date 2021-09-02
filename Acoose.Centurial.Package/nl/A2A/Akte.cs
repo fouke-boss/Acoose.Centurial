@@ -173,7 +173,7 @@ namespace Acoose.Centurial.Package.nl.A2A
                 return new References.ChurchRecord()
                 {
                     Church = "Kerk",
-                    Place = this.Events.NullCoalesce().FirstOrDefault()?.EventPlace?.ToString(),
+                    Place = this.Source.SourcePlace?.ToString() ?? this.Events.NullCoalesce().FirstOrDefault()?.EventPlace?.ToString(),
                     Title = title,
                     Items = formats
                 };
