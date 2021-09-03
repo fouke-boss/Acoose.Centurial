@@ -156,21 +156,21 @@ namespace Acoose.Centurial.Package.Tests.com
                 {
                     // provenance
                     result.AssertWebsite(0, "Ancestry", $"https://www.ancestry.{extension}", true)
-                        .AssertOnlineCollection(extension == "de" ? 
-                            "Baden und Hessen, Deutschland, evangelische Kirchenbücher, 1502-1985" : 
-                            "Baden and Hesse Germany, Lutheran Baptisms, Marriages, and Burials, 1502-1985")
-                        .AssertDatabaseEntry("Maria Boss");
-                    result.AssertPublicArchive(1, "Presbyterian Historical Society", "Philadelphia, Pennsylvania")
-                        .AssertArchivedItem(null)
-                        .AssertChurchRecord("Vogelbach", "Perth Amboy, New Jersey, USA")
-                        .AssertRecordScriptFormat("U.S., Presbyterian Church Records, 1701-1907", null, null, "Charles W. Johnson", "1970");
+                        .AssertOnlineCollection(extension == "de" ?
+                            "Baden und Hessen, Deutschland, evangelische Kirchenbücher, 1502-1985" :
+                            "Baden and Hesse Germany, Lutheran Baptisms, Marriages, and Burials, 1502-1985");
+                    //.AssertDatabaseEntry("Maria Boss");
+                    //result.AssertPublicArchive(1, "Presbyterian Historical Society", "Philadelphia, Pennsylvania")
+                    //    .AssertArchivedItem(null)
+                    //    .AssertChurchRecord("Vogelbach", "Perth Amboy, New Jersey, USA")
+                    //    .AssertRecordScriptFormat("U.S., Presbyterian Church Records, 1701-1907", null, null, "Charles W. Johnson", "1970");
 
-                    // persons
-                    var person1 = result.FindPerson("Charles W. Johnson")
-                        .AssertDate("Death", "1970-08-21")
-                        .AssertDate("Burial", "1970")
-                        .AssertPlace("Burial", "Perth Amboy, New Jersey, USA")
-                        .AssertGender(Gender.Male);
+                    //// persons
+                    //var person1 = result.FindPerson("Charles W. Johnson")
+                    //    .AssertDate("Death", "1970-08-21")
+                    //    .AssertDate("Burial", "1970")
+                    //    .AssertPlace("Burial", "Perth Amboy, New Jersey, USA")
+                    //    .AssertGender(Gender.Male);
                 }
             );
         }

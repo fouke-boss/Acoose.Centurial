@@ -38,6 +38,7 @@ namespace Acoose.Centurial.Package.nl
             this.Number = fields.Get("deed.metadata.nummer");
             this.Page = Utility.TryParsePageNumber(fields.Get("deed.metadata.pagina"));
             this.Label = fields.Get("register.metadata.naam");
+            this.Organization = fields.Get("register.metadata.religie");
 
             // event and record type
             this.RecordType = RecordType.TryParse(bron) ?? RecordType.TryParse(registratie);

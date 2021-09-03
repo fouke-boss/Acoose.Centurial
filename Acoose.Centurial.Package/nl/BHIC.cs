@@ -22,6 +22,9 @@ namespace Acoose.Centurial.Package.nl
 
         protected override void Customize(HtmlNode container, Dictionary<string, string> fields)
         {
+            // archief
+            this.ArchiveName = "Brabants Historisch Informatie Centrum";
+            this.ArchivePlace = "'s-Hertogenbosch";
         }
     }
 }

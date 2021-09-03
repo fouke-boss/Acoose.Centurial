@@ -1,0 +1,1341 @@
+<html class="u-height--100 ng-scope wf-minionpro-n7-active wf-minionpro-n4-active wf-minionpro-i7-active wf-minionpro-i4-active wf-active" lang="nl" ng-app="picturaeGenealogy">
+<head>
+	<style type="text/css">
+		@charset "UTF-8";
+
+		[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak, .ng-hide:not(.ng-hide-animate) {
+			display: none !important;
+		}
+
+		ng\:form {
+			display: block;
+		}
+
+		.ng-animate-shim {
+			visibility: hidden;
+		}
+
+		.ng-anchor {
+			position: absolute;
+		}
+	</style>
+	<title>Stamboom - BHIC</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+
+
+	<meta name="description" content="">
+	<meta property="og:url" content="https://www.bhic.nlStamboom">
+	<meta property="og:locale" content="nl_NL">
+	<meta property="og:title" content="">
+	<meta property="og:image" content="">
+	<meta property="og:description" content="">
+
+	<script type="text/javascript" async="" src="https://eu.libraryh3lp.com/js/libraryh3lp.js?multi"></script>
+	<script async="" src="//www.google-analytics.com/analytics.js"></script>
+	<script>
+		if (window.location.hash.length > 0 && null !== window.location.hash.match(/\+/)) {
+			window.location.hash = window.location.hash.replace(/\+/g, '%20')
+		}
+	</script>
+
+	<meta property="og:image:width" content="620">
+	<meta property="og:image:height" content="540">
+	<meta property="og:image" content="https://www.bhic.nl/bundles/zichtbhiccore/images/share-default.jpg?7-1-7">
+	<link rel="canonical" href="https://www.bhic.nl/stamboomonderzoek">
+	<meta property="og:url" content="https://www.bhic.nl/stamboomonderzoek">
+
+	<link rel="stylesheet" href="//webservices.picturae.com/genealogy/dist/css/genealogy.css">
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/ng-dialog/0.3.0/css/ngDialog.min.css">
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/ng-dialog/0.3.0/css/ngDialog-theme-plain.min.css">
+
+	<link rel="stylesheet" type="text/css" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/ui-lightness/jquery-ui.css">
+	<link rel="stylesheet" type="text/css" href="/bundles/zichtbhiccore/javascript/3rd-party/fancybox/jquery.fancybox.css?v=2.1.3?7-1-7" media="screen">
+	<link rel="stylesheet" href="/assets/main.css?7-1-7" media="screen">
+	<link rel="stylesheet" href="/assets/print.css?7-1-7" media="print">
+
+
+	<link rel="icon" type="image/x-icon" href="/favicon.ico?7-1-7">
+
+	<script type="text/javascript" src="//use.typekit.net/kbs3pdq.js"></script>
+	<style type="text/css">
+		.tk-minion-pro {
+			font-family: "minion-pro",serif;
+		}
+	</style>
+	<style type="text/css">
+		@font-face {
+			font-family: minion-pro;
+			src: url(https://use.typekit.net/af/ea8d85/0000000000000000000151d1/27/l?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n7&v=3) format("woff2"),url(https://use.typekit.net/af/ea8d85/0000000000000000000151d1/27/d?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n7&v=3) format("woff"),url(https://use.typekit.net/af/ea8d85/0000000000000000000151d1/27/a?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n7&v=3) format("opentype");
+			font-weight: 700;
+			font-style: normal;
+			font-display: auto;
+		}
+
+		@font-face {
+			font-family: minion-pro;
+			src: url(https://use.typekit.net/af/bc1d75/0000000000000000000151d2/27/l?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=i7&v=3) format("woff2"),url(https://use.typekit.net/af/bc1d75/0000000000000000000151d2/27/d?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=i7&v=3) format("woff"),url(https://use.typekit.net/af/bc1d75/0000000000000000000151d2/27/a?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=i7&v=3) format("opentype");
+			font-weight: 700;
+			font-style: italic;
+			font-display: auto;
+		}
+
+		@font-face {
+			font-family: minion-pro;
+			src: url(https://use.typekit.net/af/5033af/0000000000000000000151d3/27/l?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=i4&v=3) format("woff2"),url(https://use.typekit.net/af/5033af/0000000000000000000151d3/27/d?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=i4&v=3) format("woff"),url(https://use.typekit.net/af/5033af/0000000000000000000151d3/27/a?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=i4&v=3) format("opentype");
+			font-weight: 400;
+			font-style: italic;
+			font-display: auto;
+		}
+
+		@font-face {
+			font-family: minion-pro;
+			src: url(https://use.typekit.net/af/1286c7/0000000000000000000151d6/27/l?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n4&v=3) format("woff2"),url(https://use.typekit.net/af/1286c7/0000000000000000000151d6/27/d?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n4&v=3) format("woff"),url(https://use.typekit.net/af/1286c7/0000000000000000000151d6/27/a?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n4&v=3) format("opentype");
+			font-weight: 400;
+			font-style: normal;
+			font-display: auto;
+		}
+	</style>
+	<script type="text/javascript">try { Typekit.load(); } catch (e) { }</script>
+
+	<script>
+		(function (i, s, o, g, r, a, m) {
+			i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+				(i[r].q = i[r].q || []).push(arguments)
+			}, i[r].l = 1 * new Date(); a = s.createElement(o),
+				m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+		})(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+		ga('create', 'UA-45993597-1', 'bhic.nl');
+		ga('set', 'forceSSL', true);
+		ga('set', 'anonymizeIp', true);
+		ga('send', 'pageview');
+	</script>
+
+
+	<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-HT47Q7WXMS"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag() { dataLayer.push(arguments); }
+		gtag('js', new Date());
+
+		gtag('config', 'G-HT47Q7WXMS');
+	</script>
+
+	<script>
+		var _mfq = _mfq || [];
+		(function () {
+			var mf = document.createElement("script"); mf.type = "text/javascript"; mf.async = true;
+			mf.src = "//cdn.mouseflow.com/projects/9d30e3b2-ffc1-491c-adda-606c72f15435.js";
+			document.getElementsByTagName("head")[0].appendChild(mf);
+		})();
+	</script>
+	<script type="text/javascript" async="" src="//cdn.mouseflow.com/projects/9d30e3b2-ffc1-491c-adda-606c72f15435.js"></script>
+
+
+	<base href="https://www.bhic.nl/memorix/genealogy/search/">
+
+	<style>
+		[data-columns]::before {
+			display: block;
+			visibility: hidden;
+			position: absolute;
+			font-size: 1px;
+		}
+	</style>
+	<script type="text/javascript" charset="UTF-8" src="https://maps.googleapis.com/maps-api-v3/api/js/46/3/intl/nl_ALL/common.js"></script>
+	<script type="text/javascript" charset="UTF-8" src="https://maps.googleapis.com/maps-api-v3/api/js/46/3/intl/nl_ALL/util.js"></script>
+</head>
+<body class="u-flex  u-flex--column  u-height--m100  u-margin--0  v-background--noise-pattern
+    u-ff--pt-sans  u-grey--charcoal
+" data-new-gr-c-s-check-loaded="14.1027.0" data-gr-ext-installed="">
+
+	<script type="text/javascript">
+		var html = document.getElementsByTagName('html')[0];
+		html.className = html.className.replace(/no-js\s*/, '');
+	</script>
+
+	<a href="#section" class="c-skiplink  u-absolute  u-padding--y3  u-padding--x5  u-bw--1  u-bs--solid  u-bc--red--cranberry  u-red--cranberry  u-bg--white">skip naar content</a>
+	<a href="#mainnavigation" class="c-skiplink  u-absolute  u-padding--y3  u-padding--x5  u-bw--1  u-bs--solid  u-bc--red--cranberry  u-red--cranberry  u-bg--white">skip naar hoofdnavigatie</a>
+	<a href="#servicenavigation" class="c-skiplink  u-absolute  u-padding--y3  u-padding--x5  u-bw--1  u-bs--solid  u-bc--red--cranberry  u-red--cranberry  u-bg--white">spring naar service navigatie</a>
+
+
+
+
+
+
+
+
+
+
+
+
+	<header class="js-toggle--container  u-fixed  u-relative@lg  u-z--top  u-bg--blue--cobalt  u-width--100" data-toggle-group="mobile_menu" data-toggle-state-name="mobile_menu" data-toggle-only-one="only-one-navigation-open">
+		<div class="u-hidden@lg  u-z--top  u-flex  u-bg--blue--cobalt  u-flex--items--stretch">
+			<div class="u-flex--auto  u-padding--t4  u-padding--b2  u-padding--l4">
+				<div class="u-hidden@lg">
+
+
+					<a class="u-inline-block  u-no-underline" href="/" title="Home">
+
+						<figure>
+
+							<!--?xml version="1.0"?-->
+							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 178 43" height="20px" width="85px" preserveAspectRatio="xMidYMid meet" class="u-block  u-valign--text-bottom  u-white" aria-hidden="true" role="img">
+								<g fill="currentColor">
+									<path d="M106.7,22c0-3.2,1.8-5.2,4.7-5.2c2.9,0,4.8,2,4.8,5.2c0,3.2-1.8,5.2-4.8,5.2C108.5,27.2,106.7,25.2,106.7,22z M100.3,0.5    v31.8h6.7v-3.4c1.8,2.8,4.2,4.2,7,4.2c5.7,0,9.5-4.2,9.5-11.1c0-6.7-3.9-11-9.3-11c-3.4,0-5.4,1-7.2,4.1c0.2-1.2,0.2-2.4,0.2-3.7    V0.5H100.3z"></path>
+									<path d="M125.8,0.5h7.2v11.2c0,1.3-0.1,2.6-0.3,3.7c1.9-3.1,4.2-4.5,7.7-4.5c2.7,0,4.9,0.9,6.1,2.5c1.4,1.8,1.5,4,1.5,7v11.8h-7.3    V21.2c0-3.2-1-4.7-3.4-4.7c-3.3,0-4.4,2.5-4.4,7.1v8.7h-7.2V0.5z"></path>
+									<path d="M151.3,11.6h7.3v20.7h-7.3V11.6z M155,1.1c2.2,0,4,1.8,4,4c0,2.3-1.8,4.1-4,4.1c-2.3,0-4-1.9-4-4.1    C151,2.9,152.8,1.1,155,1.1z"></path>
+									<path d="M172.9,16.6c-2.8,0-4.7,2-4.7,5.3c0,3.1,1.8,5.2,4.9,5.2c1.6,0,2.7-0.5,3.9-1.8v6.3c-1.7,0.9-3.4,1.4-5.3,1.4    c-6.1,0-10.7-4.2-10.7-11.1c0-6.5,4.5-11,10.8-11c2,0,3.6,0.3,5.2,1.3v6.2C175.6,17.2,174.4,16.6,172.9,16.6z"></path>
+								</g>
+								<g fill="currentColor" fill-opacity="0.6">
+									<path d="M1,0.5h3.8v31.8H1V0.5z"></path>
+									<path d="M10.3,0.5h3.8v31.8h-3.8V0.5z"></path>
+									<path d="M62.2,0.5H71v31.8h-8.8V0.5z"></path>
+									<path d="M85.4,0.5h8.8v31.8h-8.8V0.5z"></path>
+									<path d="M26.5,0.5h11.6v31.8H26.5V0.5z"></path>
+									<path d="M49,0.5h8.8v31.8H49V0.5z"></path>
+								</g>
+							</svg>
+
+
+						</figure>
+
+					</a>
+
+				</div>
+				<div class="u-hidden  u-inline-block@lg">
+
+
+					<a class="u-inline-block  u-no-underline" href="/" title="Home">
+
+						<figure>
+
+							<!--?xml version="1.0"?-->
+							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 326 34" height="32px" width="315px" preserveAspectRatio="xMidYMid meet" class="u-block  u-valign--text-bottom  u-white" aria-hidden="true" role="img">
+								<g fill="currentColor">
+									<path d="M6.9,8.6c0-1.2-0.8-2-1.9-2.2v0c1.1-0.2,1.7-0.9,1.7-2.1c0-1.7-1.4-2.2-2.9-2.2H1.6v9.1h1.8C5.3,11.2,6.9,10.6,6.9,8.6z     M2.5,2.9h1.2c0.8,0,2,0.2,2,1.5c0,1.4-1.3,1.7-2.2,1.7h-1V2.9z M3.5,10.4H2.5V6.9h0.8C4.6,6.9,6,7,6,8.6C6,10.1,4.7,10.4,3.5,10.4    z"></path>
+									<path d="M14.7,11.2l-1.5-3.5c-0.3-0.6-0.4-1-1.2-1.1v0c1.1-0.1,2-0.9,2-2.1c0-1.7-1.1-2.4-2.7-2.4H9v9.1h0.9V6.9h0.7    c0.9,0,1.2,0,1.8,1.2l1.3,3.1H14.7z M10.9,6.1H9.9V2.9h0.9c1.2,0,2.3,0.1,2.3,1.6C13.1,5.7,11.9,6.1,10.9,6.1z"></path>
+									<path d="M17.2,8.7h4.6l1,2.4h0.9l-3.6-9.1h-1l-3.7,9.1h0.9L17.2,8.7z M19.5,3l2,5h-3.9L19.5,3z"></path>
+									<path d="M30.2,8.6c0-1.2-0.8-2-1.9-2.2v0C29.4,6.2,30,5.5,30,4.3c0-1.7-1.4-2.2-2.9-2.2h-2.2v9.1h1.8C28.6,11.2,30.2,10.6,30.2,8.6    z M25.9,2.9h1.2c0.8,0,2,0.2,2,1.5c0,1.4-1.3,1.7-2.2,1.7h-1V2.9z M25.8,6.9h0.8c1.3,0,2.7,0.2,2.7,1.8c0,1.4-1.4,1.8-2.6,1.8h-0.9    V6.9z"></path>
+									<path d="M33.2,8.7h4.6l1,2.4h0.9l-3.6-9.1h-1l-3.7,9.1h0.9L33.2,8.7z M35.5,3l2,5h-3.9L35.5,3z"></path>
+									<polygon points="47.6,2.1 46.7,2.1 46.7,10.1 46.7,10.1 42.1,2.1 40.9,2.1 40.9,11.2 41.8,11.2 41.8,3.4 41.9,3.4 46.4,11.2    47.6,11.2  "></polygon>
+									<polygon points="51.5,11.2 52.4,11.2 52.4,2.9 55.1,2.9 55.1,2.1 48.8,2.1 48.8,2.9 51.5,2.9  "></polygon>
+									<path d="M56.9,4.3c0-1.2,1-1.6,2-1.6c0.6,0,1.2,0.1,1.7,0.3l0.1-0.8C60,2,59.3,2,58.9,2C57.3,2,56,2.9,56,4.3    c0,2.4,4.2,2.6,4.2,4.4c0,1.3-0.9,1.9-2,1.9c-0.8,0-1.5-0.2-2-0.5L56,10.9c0.5,0.2,1.2,0.4,2.1,0.4c1.4,0,3-0.7,3-2.6    C61,6.1,56.9,6.1,56.9,4.3z"></path>
+									<polygon points="72.1,6.1 67.5,6.1 67.5,2.1 66.6,2.1 66.6,11.2 67.5,11.2 67.5,6.9 72.1,6.9 72.1,11.2 73,11.2 73,2.1 72.1,2.1    "></polygon>
+									<rect x="75.2" y="2.1" width="0.9" height="9.1"></rect>
+									<path d="M78.8,4.3c0-1.2,1-1.6,2-1.6c0.6,0,1.2,0.1,1.7,0.3l0.1-0.8C81.9,2,81.2,2,80.8,2c-1.6,0-2.9,0.9-2.9,2.4    c0,2.4,4.2,2.6,4.2,4.4c0,1.3-0.9,1.9-2,1.9c-0.8,0-1.5-0.2-2-0.5l-0.1,0.9c0.5,0.2,1.2,0.4,2.1,0.4c1.4,0,3-0.7,3-2.6    C83,6.1,78.8,6.1,78.8,4.3z"></path>
+									<polygon points="83.9,2.9 86.5,2.9 86.5,11.2 87.4,11.2 87.4,2.9 90.1,2.9 90.1,2.1 83.9,2.1  "></polygon>
+									<path d="M95,2c-2.7,0-4,2.2-4,4.7c0,2.8,1.4,4.7,4,4.7s4-1.9,4-4.7C99,4.2,97.7,2,95,2z M95,10.6c-2.1,0-3.1-2-3.1-3.9    c0-1.9,1-3.9,3.1-3.9s3.1,2,3.1,3.9C98.1,8.6,97.1,10.6,95,10.6z"></path>
+									<path d="M105,7.7c-0.3-0.6-0.4-1-1.2-1.1v0c1.1-0.1,2-0.9,2-2.1c0-1.7-1.1-2.4-2.7-2.4h-2.3v9.1h0.9V6.9h0.7c0.9,0,1.2,0,1.8,1.2    l1.3,3.1h1L105,7.7z M102.7,6.1h-0.9V2.9h0.9c1.2,0,2.3,0.1,2.3,1.6C105,5.7,103.8,6.1,102.7,6.1z"></path>
+									<rect x="108" y="2.1" width="0.9" height="9.1"></rect>
+									<path d="M115.8,8.8c0-2.7-4.2-2.7-4.2-4.5c0-1.2,1-1.6,2-1.6c0.6,0,1.2,0.1,1.7,0.3l0.1-0.8C114.8,2,114.1,2,113.6,2    c-1.6,0-2.9,0.9-2.9,2.4c0,2.4,4.2,2.6,4.2,4.4c0,1.3-0.9,1.9-2,1.9c-0.8,0-1.5-0.2-2-0.5l-0.1,0.9c0.5,0.2,1.2,0.4,2.1,0.4    C114.2,11.3,115.8,10.6,115.8,8.8z"></path>
+									<path d="M121.9,11.3c0.6,0,1.6-0.1,2.1-0.4l-0.1-0.8c-0.5,0.3-1.4,0.4-2,0.4c-2.4,0-3.7-1.6-3.7-3.9c0-2.2,1.3-3.9,3.7-3.9    c0.6,0,1.5,0.1,2,0.4l0.1-0.8C123.5,2,122.4,2,121.9,2c-2.8,0-4.6,1.9-4.6,4.7C117.3,9.5,119,11.3,121.9,11.3z"></path>
+									<polygon points="131.9,2.1 131.9,6.1 127.3,6.1 127.3,2.1 126.4,2.1 126.4,11.2 127.3,11.2 127.3,6.9 131.9,6.9 131.9,11.2    132.8,11.2 132.8,2.1  "></polygon>
+									<rect x="1.6" y="21.1" width="0.9" height="9.1"></rect>
+									<polygon points="10.3,29.1 10.3,29.1 5.7,21.1 4.5,21.1 4.5,30.2 5.4,30.2 5.4,22.4 5.5,22.4 10,30.2 11.2,30.2 11.2,21.1    10.3,21.1  "></polygon>
+									<polygon points="13.3,30.2 14.2,30.2 14.2,25.9 17.4,25.9 17.4,25.1 14.2,25.1 14.2,21.9 17.6,21.9 17.6,21.1 13.3,21.1  "></polygon>
+									<path d="M22.8,21c-2.7,0-4,2.2-4,4.7c0,2.8,1.4,4.7,4,4.7c2.6,0,4-1.9,4-4.7C26.8,23.2,25.5,21,22.8,21z M22.8,29.6    c-2.1,0-3.1-2-3.1-3.9c0-1.9,1-3.9,3.1-3.9c2.1,0,3.1,2,3.1,3.9C25.9,27.6,24.9,29.6,22.8,29.6z"></path>
+									<path d="M31.7,25.6L31.7,25.6c1.1-0.2,2-0.9,2-2.1c0-1.7-1.1-2.4-2.7-2.4h-2.3v9.1h0.9v-4.3h0.7c0.9,0,1.2,0,1.8,1.2l1.3,3.1h1    l-1.5-3.5C32.6,26.1,32.4,25.7,31.7,25.6z M30.5,25.1h-0.9v-3.2h0.9c1.2,0,2.3,0.1,2.3,1.6C32.8,24.7,31.6,25.1,30.5,25.1z"></path>
+									<polygon points="40.7,29.1 37.4,21.1 36,21.1 36,30.2 36.9,30.2 36.9,22 36.9,22 40.3,30.2 41.1,30.2 44.4,22 44.4,22 44.4,30.2    45.3,30.2 45.3,21.1 44,21.1  "></polygon>
+									<path d="M50.4,21.1l-3.7,9.1h0.9l1-2.4h4.6l1,2.4H55l-3.6-9.1H50.4z M48.8,27l2-5l2,5H48.8z"></path>
+									<polygon points="54.5,21.9 57.1,21.9 57.1,30.2 58,30.2 58,21.9 60.7,21.9 60.7,21.1 54.5,21.1  "></polygon>
+									<rect x="61.9" y="21.1" width="0.9" height="9.1"></rect>
+									<polygon points="65.9,25.9 69.2,25.9 69.2,25.1 65.9,25.1 65.9,21.9 69.4,21.9 69.4,21.1 65,21.1 65,30.2 69.6,30.2 69.6,29.4    65.9,29.4  "></polygon>
+									<path d="M79.4,21.7c0.6,0,1.5,0.1,2,0.4l0.1-0.8C81,21,79.9,21,79.4,21c-2.8,0-4.6,1.9-4.6,4.7c0,2.8,1.7,4.7,4.6,4.7    c0.6,0,1.6-0.1,2.1-0.4l-0.1-0.8c-0.5,0.3-1.4,0.4-2,0.4c-2.4,0-3.7-1.6-3.7-3.9C75.7,23.4,77,21.7,79.4,21.7z"></path>
+									<polygon points="84.8,25.9 88.2,25.9 88.2,25.1 84.8,25.1 84.8,21.9 88.4,21.9 88.4,21.1 83.9,21.1 83.9,30.2 88.5,30.2 88.5,29.4    84.8,29.4  "></polygon>
+									<polygon points="96.2,29.1 96.1,29.1 91.5,21.1 90.4,21.1 90.4,30.2 91.3,30.2 91.3,22.4 91.3,22.4 95.8,30.2 97.1,30.2 97.1,21.1    96.2,21.1  "></polygon>
+									<polygon points="98.3,21.9 100.9,21.9 100.9,30.2 101.8,30.2 101.8,21.9 104.5,21.9 104.5,21.1 98.3,21.1  "></polygon>
+									<path d="M108.8,25.6L108.8,25.6c1.1-0.2,2-0.9,2-2.1c0-1.7-1.1-2.4-2.7-2.4h-2.3v9.1h0.9v-4.3h0.7c0.9,0,1.2,0,1.8,1.2l1.3,3.1h1    l-1.5-3.5C109.7,26.1,109.5,25.7,108.8,25.6z M107.7,25.1h-0.9v-3.2h0.9c1.2,0,2.3,0.1,2.3,1.6C109.9,24.7,108.7,25.1,107.7,25.1z"></path>
+									<path d="M118.7,27c0,1.5-0.8,2.5-2.4,2.5c-1.6,0-2.4-1.1-2.4-2.5v-5.9H113V27c0,2.7,2,3.3,3.3,3.3c1.3,0,3.3-0.7,3.3-3.3v-5.9h-0.9    V27z"></path>
+									<polygon points="126.5,29.1 123.2,21.1 121.8,21.1 121.8,30.2 122.7,30.2 122.7,22 122.8,22 126.2,30.2 126.9,30.2 130.2,22    130.3,22 130.3,30.2 131.2,30.2 131.2,21.1 129.9,21.1  "></polygon>
+								</g>
+								<g fill="currentColor">
+									<path d="M262.6,11.5c-3.4,0-5.4,1-7.2,4.1c0.2-1.2,0.2-2.4,0.2-3.7V1h-6.9v31.8h6.7v-3.4c1.8,2.8,4.2,4.2,7,4.2    c5.7,0,9.5-4.2,9.5-11.1C271.9,15.8,268,11.5,262.6,11.5z M259.8,27.7c-2.9,0-4.7-2-4.7-5.2s1.8-5.2,4.7-5.2c2.9,0,4.8,2,4.8,5.2    S262.8,27.7,259.8,27.7z"></path>
+									<path d="M288.8,11.4c-3.5,0-5.8,1.4-7.7,4.5c0.2-1.1,0.3-2.4,0.3-3.7V1h-7.2h-0.1v31.8h7.2v-8.7c0-4.6,1.1-7.1,4.4-7.1    c2.4,0,3.4,1.5,3.4,4.7v11h7.3V20.9c0-3-0.1-5.2-1.5-7C293.7,12.3,291.5,11.4,288.8,11.4z"></path>
+									<rect x="299.7" y="12.1" width="7.3" height="20.7"></rect>
+									<path d="M303.4,1.6c-2.2,0-4,1.8-4,4s1.7,4.1,4,4.1c2.2,0,4-1.8,4-4.1C307.4,3.4,305.6,1.6,303.4,1.6z"></path>
+									<path d="M321.3,17.1c1.5,0,2.7,0.6,4.1,1.8v-6.2c-1.6-1-3.2-1.3-5.2-1.3c-6.3,0-10.8,4.5-10.8,11c0,6.9,4.6,11.1,10.7,11.1    c1.9,0,3.6-0.5,5.3-1.4v-6.3c-1.2,1.3-2.3,1.8-3.9,1.8c-3.1,0-4.9-2.1-4.9-5.2C316.6,19.1,318.5,17.1,321.3,17.1z"></path>
+								</g>
+								<g fill="currentColor" fill-opacity="0.6">
+									<rect x="149.4" y="1" width="3.8" height="31.8"></rect>
+									<rect x="158.7" y="1" width="3.8" height="31.8"></rect>
+									<rect x="210.6" y="1" width="8.8" height="31.8"></rect>
+									<rect x="233.8" y="1" width="8.8" height="31.8"></rect>
+									<rect x="174.9" y="1" width="11.6" height="31.8"></rect>
+									<rect x="197.4" y="1" width="8.8" height="31.8"></rect>
+								</g>
+
+							</svg>
+
+
+						</figure>
+
+					</a>
+
+				</div>
+			</div>
+
+			<div class="u-hidden@lg  u-flex  u-flex--items--stretch  u-margin--l-auto">
+				<a href="/my-bhic/login" class="u-flex  u-flex--items--center  u-padding--y2  u-padding--x4">
+
+					<!--?xml version="1.0"?-->
+					<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" height="20px" width="20px" preserveAspectRatio="xMidYMid meet" class="u-white  u-valign--bottom" aria-hidden="true" role="img">
+						<g fill="currentColor">
+							<path class="st0" d="M14.9,2.1c0,0-1-0.1,2-0.1c4.6,0,5.1,5.3,5.1,5.3s0.1,5.6,0.1,6.9c0,1.3-2.2,2.2-1.8,1.8    c0.1-0.1,0,3.5,0,3.5l8.8,7V30H2.9l-0.1-3.4l8.7-7.1V16c0,0-1.7-0.2-1.7-1.8c0-1.6,0-6.9,0-6.9S10.5,2.1,14.9,2.1z"></path>
+						</g>
+					</svg>
+
+
+				</a>
+
+
+				<span style="" class="u-flex  u-flex--items--center  libraryh3lp  bttn  chatbttn  active  js-track-click  u-pointer  u-inline-block  u-padding--y1  u-padding--x4  u-white  u-no-decoration  u-trans--all  u-bg--green--kelly  u-bg-hover--green--forest" title="De chat is actief" jid="bhic@chat.eu.libraryh3lp.com" data-track-category="chat" data-track-action="click" data-track-label="Chat actief">
+
+					<!--?xml version="1.0"?-->
+					<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" height="18px" width="18px" preserveAspectRatio="xMidYMid meet" class="u-valign--bottom" aria-hidden="true" role="img">
+						<g fill="currentColor">
+							<path d="M5.2,2c-1.6,0-3,1.4-3,3v14.6c0,1.7,1.4,3,3,3h3.4V30l6-7.5h12.3c1.7,0,3-1.4,3-3V5c0-1.7-1.4-3-3-3C26.8,2,5.2,2,5.2,2z"></path>
+						</g>
+					</svg>
+
+
+					<span class="u-hidden  u-inline-block@lg  u-padding--l2">
+						Chat
+					</span>
+				</span>
+				<span style="display: none;" class="u-flex  u-flex--items--center  libraryh3lp  bttn  chatbttn  inactive  js-track-click  u-pointer  u-inline-block  u-padding--y1  u-padding--x4  u-white  u-no-decoration  u-trans--all  u-bg--blue--dark-cerulean  v-hover--brighten" title="De chat is niet actief" data-track-category="chat" data-track-action="click" data-track-label="Chat inactief">
+
+					<!--?xml version="1.0"?-->
+					<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" height="18px" width="18px" preserveAspectRatio="xMidYMid meet" class="u-valign--bottom" aria-hidden="true" role="img">
+						<g fill="currentColor">
+							<path d="M5.2,2c-1.6,0-3,1.4-3,3v14.6c0,1.7,1.4,3,3,3h3.4V30l6-7.5h12.3c1.7,0,3-1.4,3-3V5c0-1.7-1.4-3-3-3C26.8,2,5.2,2,5.2,2z"></path>
+						</g>
+					</svg>
+
+
+					<span class="u-hidden  u-inline-block@lg  u-padding--l2">
+						Chat
+					</span>
+				</span>
+				<div id="js-chatmessage" class="closed  c-navigation--chat online">
+					<a class="close  u-margin--t1  u-blue--cobalt  u-hover--blue--curious  u-trans--color" href="javascript:void(null);">sluit</a>
+					<div class="offline">
+						<span class="title">Hulp nodig?</span>
+						<p>Chat is online op <strong>maandag t/m vrijdag</strong> van&nbsp;<strong>10.00 - 16.00 uur</strong> en van <strong>19.00 - 22.00 uur</strong>.</p>
+						<p>Op dit moment zijn we offline. Je kunt je vraag <a href="mailto:vragen@bhic.nl">stellen via e-mail</a> of <strong>WhatsApp</strong>: 06-12887717 (alleen berichtjes)</p>
+						<p>Meer informatie over de chat-service? <a href="/onderzoeken/hulp-bij-onderzoek/chatten-met-archivarissen">Klik hier</a></p>
+						<p>
+							<!-- [if gte mso 9]><xml>
+							 <w:WordDocument>
+							  <w:View>Normal</w:View>
+							  <w:Zoom>0</w:Zoom>
+							  <w:TrackMoves/>
+							  <w:TrackFormatting/>
+							  <w:HyphenationZone>21</w:HyphenationZone>
+							  <w:PunctuationKerning/>
+							  <w:ValidateAgainstSchemas/>
+							  <w:SaveIfXMLInvalid>false</w:SaveIfXMLInvalid>
+							  <w:IgnoreMixedContent>false</w:IgnoreMixedContent>
+							  <w:AlwaysShowPlaceholderText>false</w:AlwaysShowPlaceholderText>
+							  <w:DoNotPromoteQF/>
+							  <w:LidThemeOther>NL</w:LidThemeOther>
+							  <w:LidThemeAsian>X-NONE</w:LidThemeAsian>
+							  <w:LidThemeComplexScript>X-NONE</w:LidThemeComplexScript>
+							  <w:Compatibility>
+							   <w:BreakWrappedTables/>
+							   <w:SnapToGridInCell/>
+							   <w:WrapTextWithPunct/>
+							   <w:UseAsianBreakRules/>
+							   <w:DontGrowAutofit/>
+							   <w:SplitPgBreakAndParaMark/>
+							   <w:EnableOpenTypeKerning/>
+							   <w:DontFlipMirrorIndents/>
+							   <w:OverrideTableStyleHps/>
+							  </w:Compatibility>
+							  <w:BrowserLevel>MicrosoftInternetExplorer4</w:BrowserLevel>
+							  <m:mathPr>
+							   <m:mathFont m:val="Cambria Math"/>
+							   <m:brkBin m:val="before"/>
+							   <m:brkBinSub m:val="&#45;-"/>
+							   <m:smallFrac m:val="off"/>
+							   <m:dispDef/>
+							   <m:lMargin m:val="0"/>
+							   <m:rMargin m:val="0"/>
+							   <m:defJc m:val="centerGroup"/>
+							   <m:wrapIndent m:val="1440"/>
+							   <m:intLim m:val="subSup"/>
+							   <m:naryLim m:val="undOvr"/>
+							  </m:mathPr></w:WordDocument>
+							</xml><![endif]-->
+						</p>
+						<p>
+							<!-- [if gte mso 9]><xml>
+							 <w:LatentStyles DefLockedState="false" DefUnhideWhenUsed="true"
+							  DefSemiHidden="true" DefQFormat="false" DefPriority="99"
+							  LatentStyleCount="267">
+							  <w:LsdException Locked="false" Priority="0" SemiHidden="false"
+							   UnhideWhenUsed="false" QFormat="true" Name="Normal"/>
+							  <w:LsdException Locked="false" Priority="9" SemiHidden="false"
+							   UnhideWhenUsed="false" QFormat="true" Name="heading 1"/>
+							  <w:LsdException Locked="false" Priority="9" QFormat="true" Name="heading 2"/>
+							  <w:LsdException Locked="false" Priority="9" QFormat="true" Name="heading 3"/>
+							  <w:LsdException Locked="false" Priority="9" QFormat="true" Name="heading 4"/>
+							  <w:LsdException Locked="false" Priority="9" QFormat="true" Name="heading 5"/>
+							  <w:LsdException Locked="false" Priority="9" QFormat="true" Name="heading 6"/>
+							  <w:LsdException Locked="false" Priority="9" QFormat="true" Name="heading 7"/>
+							  <w:LsdException Locked="false" Priority="9" QFormat="true" Name="heading 8"/>
+							  <w:LsdException Locked="false" Priority="9" QFormat="true" Name="heading 9"/>
+							  <w:LsdException Locked="false" Priority="39" Name="toc 1"/>
+							  <w:LsdException Locked="false" Priority="39" Name="toc 2"/>
+							  <w:LsdException Locked="false" Priority="39" Name="toc 3"/>
+							  <w:LsdException Locked="false" Priority="39" Name="toc 4"/>
+							  <w:LsdException Locked="false" Priority="39" Name="toc 5"/>
+							  <w:LsdException Locked="false" Priority="39" Name="toc 6"/>
+							  <w:LsdException Locked="false" Priority="39" Name="toc 7"/>
+							  <w:LsdException Locked="false" Priority="39" Name="toc 8"/>
+							  <w:LsdException Locked="false" Priority="39" Name="toc 9"/>
+							  <w:LsdException Locked="false" Priority="35" QFormat="true" Name="caption"/>
+							  <w:LsdException Locked="false" Priority="10" SemiHidden="false"
+							   UnhideWhenUsed="false" QFormat="true" Name="Title"/>
+							  <w:LsdException Locked="false" Priority="1" Name="Default Paragraph Font"/>
+							  <w:LsdException Locked="false" Priority="11" SemiHidden="false"
+							   UnhideWhenUsed="false" QFormat="true" Name="Subtitle"/>
+							  <w:LsdException Locked="false" Priority="22" SemiHidden="false"
+							   UnhideWhenUsed="false" QFormat="true" Name="Strong"/>
+							  <w:LsdException Locked="false" Priority="20" SemiHidden="false"
+							   UnhideWhenUsed="false" QFormat="true" Name="Emphasis"/>
+							  <w:LsdException Locked="false" Priority="59" SemiHidden="false"
+							   UnhideWhenUsed="false" Name="Table Grid"/>
+							  <w:LsdException Locked="false" UnhideWhenUsed="false" Name="Placeholder Text"/>
+							  <w:LsdException Locked="false" Priority="1" SemiHidden="false"
+							   UnhideWhenUsed="false" QFormat="true" Name="No Spacing"/>
+							  <w:LsdException Locked="false" Priority="60" SemiHidden="false"
+							   UnhideWhenUsed="false" Name="Light Shading"/>
+							  <w:LsdException Locked="false" Priority="61" SemiHidden="false"
+							   UnhideWhenUsed="false" Name="Light List"/>
+							  <w:LsdException Locked="false" Priority="62" SemiHidden="false"
+							   UnhideWhenUsed="false" Name="Light Grid"/>
+							  <w:LsdException Locked="false" Priority="63" SemiHidden="false"
+							   UnhideWhenUsed="false" Name="Medium Shading 1"/>
+							  <w:LsdException Locked="false" Priority="64" SemiHidden="false"
+							   UnhideWhenUsed="false" Name="Medium Shading 2"/>
+							  <w:LsdException Locked="false" Priority="65" SemiHidden="false"
+							   UnhideWhenUsed="false" Name="Medium List 1"/>
+							  <w:LsdException Locked="false" Priority="66" SemiHidden="false"
+							   UnhideWhenUsed="false" Name="Medium List 2"/>
+							  <w:LsdException Locked="false" Priority="67" SemiHidden="false"
+							   UnhideWhenUsed="false" Name="Medium Grid 1"/>
+							  <w:LsdException Locked="false" Priority="68" SemiHidden="false"
+							   UnhideWhenUsed="false" Name="Medium Grid 2"/>
+							  <w:LsdException Locked="false" Priority="69" SemiHidden="false"
+							   UnhideWhenUsed="false" Name="Medium Grid 3"/>
+							  <w:LsdException Locked="false" Priority="70" SemiHidden="false"
+							   UnhideWhenUsed="false" Name="Dark List"/>
+							  <w:LsdException Locked="false" Priority="71" SemiHidden="false"
+							   UnhideWhenUsed="false" Name="Colorful Shading"/>
+							  <w:LsdException Locked="false" Priority="72" SemiHidden="false"
+							   UnhideWhenUsed="false" Name="Colorful List"/>
+							  <w:LsdException Locked="false" Priority="73" SemiHidden="false"
+							   UnhideWhenUsed="false" Name="Colorful Grid"/>
+							  <w:LsdException Locked="false" Priority="60" SemiHidden="false"
+							   UnhideWhenUsed="false" Name="Light Shading Accent 1"/>
+							  <w:LsdException Locked="false" Priority="61" SemiHidden="false"
+							   UnhideWhenUsed="false" Name="Light List Accent 1"/>
+							  <w:LsdException Locked="false" Priority="62" SemiHidden="false"
+							   UnhideWhenUsed="false" Name="Light Grid Accent 1"/>
+							  <w:LsdException Locked="false" Priority="63" SemiHidden="false"
+							   UnhideWhenUsed="false" Name="Medium Shading 1 Accent 1"/>
+							  <w:LsdException Locked="false" Priority="64" SemiHidden="false"
+							   UnhideWhenUsed="false" Name="Medium Shading 2 Accent 1"/>
+							  <w:LsdException Locked="false" Priority="65" SemiHidden="false"
+							   UnhideWhenUsed="false" Name="Medium List 1 Accent 1"/>
+							  <w:LsdException Locked="false" UnhideWhenUsed="false" Name="Revision"/>
+							  <w:LsdException Locked="false" Priority="34" SemiHidden="false"
+							   UnhideWhenUsed="false" QFormat="true" Name="List Paragraph"/>
+							  <w:LsdException Locked="false" Priority="29" SemiHidden="false"
+							   UnhideWhenUsed="false" QFormat="true" Name="Quote"/>
+							  <w:LsdException Locked="false" Priority="30" SemiHidden="false"
+							   UnhideWhenUsed="false" QFormat="true" Name="Intense Quote"/>
+							  <w:LsdException Locked="false" Priority="66" SemiHidden="false"
+							   UnhideWhenUsed="false" Name="Medium List 2 Accent 1"/>
+							  <w:LsdException Locked="false" Priority="67" SemiHidden="false"
+							   UnhideWhenUsed="false" Name="Medium Grid 1 Accent 1"/>
+							  <w:LsdException Locked="false" Priority="68" SemiHidden="false"
+							   UnhideWhenUsed="false" Name="Medium Grid 2 Accent 1"/>
+							  <w:LsdException Locked="false" Priority="69" SemiHidden="false"
+							   UnhideWhenUsed="false" Name="Medium Grid 3 Accent 1"/>
+							  <w:LsdException Locked="false" Priority="70" SemiHidden="false"
+							   UnhideWhenUsed="false" Name="Dark List Accent 1"/>
+							  <w:LsdException Locked="false" Priority="71" SemiHidden="false"
+							   UnhideWhenUsed="false" Name="Colorful Shading Accent 1"/>
+							  <w:LsdException Locked="false" Priority="72" SemiHidden="false"
+							   UnhideWhenUsed="false" Name="Colorful List Accent 1"/>
+							  <w:LsdException Locked="false" Priority="73" SemiHidden="false"
+							   UnhideWhenUsed="false" Name="Colorful Grid Accent 1"/>
+							  <w:LsdException Locked="false" Priority="60" SemiHidden="false"
+							   UnhideWhenUsed="false" Name="Light Shading Accent 2"/>
+							  <w:LsdException Locked="false" Priority="61" SemiHidden="false"
+							   UnhideWhenUsed="false" Name="Light List Accent 2"/>
+							  <w:LsdException Locked="false" Priority="62" SemiHidden="false"
+							   UnhideWhenUsed="false" Name="Light Grid Accent 2"/>
+							  <w:LsdException Locked="false" Priority="63" SemiHidden="false"
+							   UnhideWhenUsed="false" Name="Medium Shading 1 Accent 2"/>
+							  <w:LsdException Locked="false" Priority="64" SemiHidden="false"
+							   UnhideWhenUsed="false" Name="Medium Shading 2 Accent 2"/>
+							  <w:LsdException Locked="false" Priority="65" SemiHidden="false"
+							   UnhideWhenUsed="false" Name="Medium List 1 Accent 2"/>
+							  <w:LsdException Locked="false" Priority="66" SemiHidden="false"
+							   UnhideWhenUsed="false" Name="Medium List 2 Accent 2"/>
+							  <w:LsdException Locked="false" Priority="67" SemiHidden="false"
+							   UnhideWhenUsed="false" Name="Medium Grid 1 Accent 2"/>
+							  <w:LsdException Locked="false" Priority="68" SemiHidden="false"
+							   UnhideWhenUsed="false" Name="Medium Grid 2 Accent 2"/>
+							  <w:LsdException Locked="false" Priority="69" SemiHidden="false"
+							   UnhideWhenUsed="false" Name="Medium Grid 3 Accent 2"/>
+							  <w:LsdException Locked="false" Priority="70" SemiHidden="false"
+							   UnhideWhenUsed="false" Name="Dark List Accent 2"/>
+							  <w:LsdException Locked="false" Priority="71" SemiHidden="false"
+							   UnhideWhenUsed="false" Name="Colorful Shading Accent 2"/>
+							  <w:LsdException Locked="false" Priority="72" SemiHidden="false"
+							   UnhideWhenUsed="false" Name="Colorful List Accent 2"/>
+							  <w:LsdException Locked="false" Priority="73" SemiHidden="false"
+							   UnhideWhenUsed="false" Name="Colorful Grid Accent 2"/>
+							  <w:LsdException Locked="false" Priority="60" SemiHidden="false"
+							   UnhideWhenUsed="false" Name="Light Shading Accent 3"/>
+							  <w:LsdException Locked="false" Priority="61" SemiHidden="false"
+							   UnhideWhenUsed="false" Name="Light List Accent 3"/>
+							  <w:LsdException Locked="false" Priority="62" SemiHidden="false"
+							   UnhideWhenUsed="false" Name="Light Grid Accent 3"/>
+							  <w:LsdException Locked="false" Priority="63" SemiHidden="false"
+							   UnhideWhenUsed="false" Name="Medium Shading 1 Accent 3"/>
+							  <w:LsdException Locked="false" Priority="64" SemiHidden="false"
+							   UnhideWhenUsed="false" Name="Medium Shading 2 Accent 3"/>
+							  <w:LsdException Locked="false" Priority="65" SemiHidden="false"
+							   UnhideWhenUsed="false" Name="Medium List 1 Accent 3"/>
+							  <w:LsdException Locked="false" Priority="66" SemiHidden="false"
+							   UnhideWhenUsed="false" Name="Medium List 2 Accent 3"/>
+							  <w:LsdException Locked="false" Priority="67" SemiHidden="false"
+							   UnhideWhenUsed="false" Name="Medium Grid 1 Accent 3"/>
+							  <w:LsdException Locked="false" Priority="68" SemiHidden="false"
+							   UnhideWhenUsed="false" Name="Medium Grid 2 Accent 3"/>
+							  <w:LsdException Locked="false" Priority="69" SemiHidden="false"
+							   UnhideWhenUsed="false" Name="Medium Grid 3 Accent 3"/>
+							  <w:LsdException Locked="false" Priority="70" SemiHidden="false"
+							   UnhideWhenUsed="false" Name="Dark List Accent 3"/>
+							  <w:LsdException Locked="false" Priority="71" SemiHidden="false"
+							   UnhideWhenUsed="false" Name="Colorful Shading Accent 3"/>
+							  <w:LsdException Locked="false" Priority="72" SemiHidden="false"
+							   UnhideWhenUsed="false" Name="Colorful List Accent 3"/>
+							  <w:LsdException Locked="false" Priority="73" SemiHidden="false"
+							   UnhideWhenUsed="false" Name="Colorful Grid Accent 3"/>
+							  <w:LsdException Locked="false" Priority="60" SemiHidden="false"
+							   UnhideWhenUsed="false" Name="Light Shading Accent 4"/>
+							  <w:LsdException Locked="false" Priority="61" SemiHidden="false"
+							   UnhideWhenUsed="false" Name="Light List Accent 4"/>
+							  <w:LsdException Locked="false" Priority="62" SemiHidden="false"
+							   UnhideWhenUsed="false" Name="Light Grid Accent 4"/>
+							  <w:LsdException Locked="false" Priority="63" SemiHidden="false"
+							   UnhideWhenUsed="false" Name="Medium Shading 1 Accent 4"/>
+							  <w:LsdException Locked="false" Priority="64" SemiHidden="false"
+							   UnhideWhenUsed="false" Name="Medium Shading 2 Accent 4"/>
+							  <w:LsdException Locked="false" Priority="65" SemiHidden="false"
+							   UnhideWhenUsed="false" Name="Medium List 1 Accent 4"/>
+							  <w:LsdException Locked="false" Priority="66" SemiHidden="false"
+							   UnhideWhenUsed="false" Name="Medium List 2 Accent 4"/>
+							  <w:LsdException Locked="false" Priority="67" SemiHidden="false"
+							   UnhideWhenUsed="false" Name="Medium Grid 1 Accent 4"/>
+							  <w:LsdException Locked="false" Priority="68" SemiHidden="false"
+							   UnhideWhenUsed="false" Name="Medium Grid 2 Accent 4"/>
+							  <w:LsdException Locked="false" Priority="69" SemiHidden="false"
+							   UnhideWhenUsed="false" Name="Medium Grid 3 Accent 4"/>
+							  <w:LsdException Locked="false" Priority="70" SemiHidden="false"
+							   UnhideWhenUsed="false" Name="Dark List Accent 4"/>
+							  <w:LsdException Locked="false" Priority="71" SemiHidden="false"
+							   UnhideWhenUsed="false" Name="Colorful Shading Accent 4"/>
+							  <w:LsdException Locked="false" Priority="72" SemiHidden="false"
+							   UnhideWhenUsed="false" Name="Colorful List Accent 4"/>
+							  <w:LsdException Locked="false" Priority="73" SemiHidden="false"
+							   UnhideWhenUsed="false" Name="Colorful Grid Accent 4"/>
+							  <w:LsdException Locked="false" Priority="60" SemiHidden="false"
+							   UnhideWhenUsed="false" Name="Light Shading Accent 5"/>
+							  <w:LsdException Locked="false" Priority="61" SemiHidden="false"
+							   UnhideWhenUsed="false" Name="Light List Accent 5"/>
+							  <w:LsdException Locked="false" Priority="62" SemiHidden="false"
+							   UnhideWhenUsed="false" Name="Light Grid Accent 5"/>
+							  <w:LsdException Locked="false" Priority="63" SemiHidden="false"
+							   UnhideWhenUsed="false" Name="Medium Shading 1 Accent 5"/>
+							  <w:LsdException Locked="false" Priority="64" SemiHidden="false"
+							   UnhideWhenUsed="false" Name="Medium Shading 2 Accent 5"/>
+							  <w:LsdException Locked="false" Priority="65" SemiHidden="false"
+							   UnhideWhenUsed="false" Name="Medium List 1 Accent 5"/>
+							  <w:LsdException Locked="false" Priority="66" SemiHidden="false"
+							   UnhideWhenUsed="false" Name="Medium List 2 Accent 5"/>
+							  <w:LsdException Locked="false" Priority="67" SemiHidden="false"
+							   UnhideWhenUsed="false" Name="Medium Grid 1 Accent 5"/>
+							  <w:LsdException Locked="false" Priority="68" SemiHidden="false"
+							   UnhideWhenUsed="false" Name="Medium Grid 2 Accent 5"/>
+							  <w:LsdException Locked="false" Priority="69" SemiHidden="false"
+							   UnhideWhenUsed="false" Name="Medium Grid 3 Accent 5"/>
+							  <w:LsdException Locked="false" Priority="70" SemiHidden="false"
+							   UnhideWhenUsed="false" Name="Dark List Accent 5"/>
+							  <w:LsdException Locked="false" Priority="71" SemiHidden="false"
+							   UnhideWhenUsed="false" Name="Colorful Shading Accent 5"/>
+							  <w:LsdException Locked="false" Priority="72" SemiHidden="false"
+							   UnhideWhenUsed="false" Name="Colorful List Accent 5"/>
+							  <w:LsdException Locked="false" Priority="73" SemiHidden="false"
+							   UnhideWhenUsed="false" Name="Colorful Grid Accent 5"/>
+							  <w:LsdException Locked="false" Priority="60" SemiHidden="false"
+							   UnhideWhenUsed="false" Name="Light Shading Accent 6"/>
+							  <w:LsdException Locked="false" Priority="61" SemiHidden="false"
+							   UnhideWhenUsed="false" Name="Light List Accent 6"/>
+							  <w:LsdException Locked="false" Priority="62" SemiHidden="false"
+							   UnhideWhenUsed="false" Name="Light Grid Accent 6"/>
+							  <w:LsdException Locked="false" Priority="63" SemiHidden="false"
+							   UnhideWhenUsed="false" Name="Medium Shading 1 Accent 6"/>
+							  <w:LsdException Locked="false" Priority="64" SemiHidden="false"
+							   UnhideWhenUsed="false" Name="Medium Shading 2 Accent 6"/>
+							  <w:LsdException Locked="false" Priority="65" SemiHidden="false"
+							   UnhideWhenUsed="false" Name="Medium List 1 Accent 6"/>
+							  <w:LsdException Locked="false" Priority="66" SemiHidden="false"
+							   UnhideWhenUsed="false" Name="Medium List 2 Accent 6"/>
+							  <w:LsdException Locked="false" Priority="67" SemiHidden="false"
+							   UnhideWhenUsed="false" Name="Medium Grid 1 Accent 6"/>
+							  <w:LsdException Locked="false" Priority="68" SemiHidden="false"
+							   UnhideWhenUsed="false" Name="Medium Grid 2 Accent 6"/>
+							  <w:LsdException Locked="false" Priority="69" SemiHidden="false"
+							   UnhideWhenUsed="false" Name="Medium Grid 3 Accent 6"/>
+							  <w:LsdException Locked="false" Priority="70" SemiHidden="false"
+							   UnhideWhenUsed="false" Name="Dark List Accent 6"/>
+							  <w:LsdException Locked="false" Priority="71" SemiHidden="false"
+							   UnhideWhenUsed="false" Name="Colorful Shading Accent 6"/>
+							  <w:LsdException Locked="false" Priority="72" SemiHidden="false"
+							   UnhideWhenUsed="false" Name="Colorful List Accent 6"/>
+							  <w:LsdException Locked="false" Priority="73" SemiHidden="false"
+							   UnhideWhenUsed="false" Name="Colorful Grid Accent 6"/>
+							  <w:LsdException Locked="false" Priority="19" SemiHidden="false"
+							   UnhideWhenUsed="false" QFormat="true" Name="Subtle Emphasis"/>
+							  <w:LsdException Locked="false" Priority="21" SemiHidden="false"
+							   UnhideWhenUsed="false" QFormat="true" Name="Intense Emphasis"/>
+							  <w:LsdException Locked="false" Priority="31" SemiHidden="false"
+							   UnhideWhenUsed="false" QFormat="true" Name="Subtle Reference"/>
+							  <w:LsdException Locked="false" Priority="32" SemiHidden="false"
+							   UnhideWhenUsed="false" QFormat="true" Name="Intense Reference"/>
+							  <w:LsdException Locked="false" Priority="33" SemiHidden="false"
+							   UnhideWhenUsed="false" QFormat="true" Name="Book Title"/>
+							  <w:LsdException Locked="false" Priority="37" Name="Bibliography"/>
+							  <w:LsdException Locked="false" Priority="39" QFormat="true" Name="TOC Heading"/>
+							 </w:LatentStyles>
+							</xml><![endif]-->
+							<!-- [if gte mso 10]>
+							<style>
+							 /* Style Definitions */
+							 table.MsoNormalTable
+								{mso-style-name:Standaardtabel;
+								mso-tstyle-rowband-size:0;
+								mso-tstyle-colband-size:0;
+								mso-style-noshow:yes;
+								mso-style-priority:99;
+								mso-style-parent:"";
+								mso-padding-alt:0cm 5.4pt 0cm 5.4pt;
+								mso-para-margin:0cm;
+								mso-para-margin-bottom:.0001pt;
+								mso-pagination:widow-orphan;
+								font-size:10.0pt;
+								font-family:"Times New Roman","serif";}
+							</style>
+							<![endif]-->
+						</p>
+					</div>
+					<div class="online">
+						<span class="u-inline-block  u-margin--b2  u-size--6  u-weight--600  u-grey--charcoal  u-lh--3">Online op dit moment</span>
+						<div class="userinfo story bhicmember">
+							<div class="linkcontainer">
+
+
+
+
+								<article class="u-flex  u-margin--b4  u-ff--pt-sans" data-component="card--author">
+									<div class="u-flex">
+
+
+										<span class="u-block  u-flex--shrink--0  _width--50px  u-margin--r4">
+											<figure class="u-no-flex">
+												<img class="u-block  u-fit--cover  u-bw--3  u-bs--solid  u-box-shadow--2  u-size--7  u-lh--1  u-bc--blue--deep-sky " src="https://www.bhic.nl/media/cache/avatar/media/user/avatar/anschat.jpg" alt="Ans Holman">
+											</figure>
+										</span>
+
+
+
+
+										<div class="u-flex--auto">
+											<h5 class="u-margin--b1  u-size--7  u-lh--3  u-weight--400">
+												Ans Holman
+												<span class="u-padding--x2  u-white  u-size--7    u-br--2  u-bg--blue--deep-sky  _white-space--chat">RA Tilburg</span>
+											</h5>
+
+
+											<span class="">
+
+
+												<a class="o-button  u-size--7  u-bw--0  u-trans--all  u-ff--pt-sans  u-box-shadow--1  u-bg--blue--cobalt  u-white  v-hover--brighten  u-padding--x4  u-padding--y2  u-size--6@lg    " href="/chat/open?url=http://www.bhic.nl/memorix/genealogy/search/deeds/09634674-52e0-4449-6355-3613d1bbafed?person=f31815d2-462c-11e3-a747-d206bceb4d38" data-component="button" target="_blank" rel="noreferrer  noopener">
+
+
+													<span class="u-flex  u-flex--items--center u-flex--justify--center  u-bc--grey--gainsboro">
+														<span class="u-margin--r3  u-padding--r3  u-bw--r1  u-bs--r-solid  u-bc--white--40">
+															Stel je vraag
+														</span>
+
+
+														<!--?xml version="1.0"?-->
+														<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" height="12px" width="12px" preserveAspectRatio="xMidYMid meet" class="u-block" aria-hidden="true" role="img">
+															<g fill="currentColor">
+																<path d="M22.5,15.1C22.5,15.1,22.4,15.1,22.5,15.1C22.4,15,22.4,15,22.5,15.1L11.9,2.5c-0.5-0.6-1.5-0.7-2.2-0.2    C9.1,2.9,9.1,3.9,9.6,4.5L19.2,16L9.6,27.5c-0.5,0.6-0.5,1.6,0.2,2.2c0.6,0.5,1.6,0.5,2.2-0.2l10.4-12.4    C22.8,16.5,22.9,15.7,22.5,15.1z"></path>
+															</g>
+														</svg>
+
+
+													</span>
+												</a>
+
+
+											</span>
+										</div>
+									</div>
+								</article>
+
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="c-chatwindow-container  u-hidden">
+					<div class="c-chatwindow  u-padding--x4">
+						<h2 class="u-margin--t3  u-margin--b4  u-size--5  u-grey--charcoal  u-lh--2">Stel je vraag</h2>
+						<div class="bhicmember">
+
+
+
+							<article class="u-flex  u-margin--b4  u-ff--pt-sans" data-component="card--author">
+								<div class="u-flex">
+
+
+									<span class="u-block  u-flex--shrink--0  _width--50px  u-margin--r4">
+										<figure class="u-no-flex">
+											<img class="u-block  u-fit--cover  u-bw--3  u-bs--solid  u-box-shadow--2  u-size--7  u-lh--1  u-bc--blue--deep-sky " src="https://www.bhic.nl/media/cache/avatar/media/user/avatar/anschat.jpg" alt="Ans Holman">
+										</figure>
+									</span>
+
+
+
+
+									<div class="u-flex--auto">
+										<h5 class="u-margin--b1  u-size--7  u-lh--3  u-weight--400">
+											Ans Holman
+											<span class="u-padding--x2  u-white  u-size--7    u-br--2  u-bg--blue--deep-sky  _white-space--chat">RA Tilburg</span>
+										</h5>
+
+
+									</div>
+								</div>
+							</article>
+
+						</div>
+						<iframe data-src="https://eu.libraryh3lp.com/chat/bhic@chat.eu.libraryh3lp.com?skin=9999" frameborder="0" style="border: none; width: 600px; height: 300px;" src="https://eu.libraryh3lp.com/chat/bhic@chat.eu.libraryh3lp.com?skin=9999"></iframe>
+					</div>
+				</div>
+
+			</div>
+
+			<div class="u-hidden@lg  u-flex">
+				<div class="js-menu--trigger  js-toggle--trigger  js-toggle--content  c-menu-container  u--pointer  u-flex  u-padding--0">
+					<div class="js-toggle--trigger js-toggle--content u-flex c-menu__mobile-toggle u-white is-not-active hamburger hamburger--squeeze u-hidden@lg u-flex--items--center u-padding--l3 u-no-decoration has-hover-propagation" aria-label="Menu" role="button" aria-controls="navigation" data-toggle-hidden-class="is-not-active" data-toggle-visible-class="is-active" data-toggle-group="mobile_menu">
+						<div class="hamburger-box">
+							<div class="hamburger-inner"></div>
+						</div>
+						<div class="js-text-toggle  _width--mobile-toggle--label  u-padding--l2">Menu</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="js-toggle--content u-fixed u-bg--blue--dark-cerulean u-hidden u-z--bottom _navigation-overlay-offset u-top--0 u-right--0 u-bottom--0 u-left--0 u-ofy--auto slideOutUp" style="-webkit-overflow-scrolling: touch;" data-toggle-group="mobile_menu" data-toggle-animated="true">
+			<div class="u-relative  u-z--4">
+
+				<nav class="u-flex@lg  u-flex--justify--end@lg  u-bg--blue--hawkes  u-bg--blue--cobalt@lg  u-ff--pt-sans  u-padding--t4  u-padding--b5  u-padding--y0@lg" data-component="navigation--main">
+					<ol class="o-list-reset">
+						<li class="o-list-reset__item  u-padding--y2  u-padding--0@lg  u-block  u-inline-block@lg" data-component="navigation--main-item">
+							<a href="/het-geheugen-van-brabant" class="u-block  u-relative  u-padding--x5  u-padding--0@lg  u-margin--x5@lg  u-margin--x4@lg  u-margin--b2  u-margin--b0@lg  u-padding--y4@lg  u-size--5  u-weight--700  u-grey--charcoal  u-white@lg  u-pointer  u-trans--bg  u-no-decoration  v-accent" data-toggle-id="mainitem-" data-toggle-group-name="mainitem">
+								Home
+							</a>
+						</li>
+						<li class="o-list-reset__item  u-padding--y2  u-padding--0@lg  u-block  u-inline-block@lg" data-component="navigation--main-item">
+							<a href="/ontdekken/mijn-plaats" class="u-block  u-relative  u-padding--x5  u-padding--0@lg  u-margin--x5@lg  u-margin--x4@lg  u-margin--b2  u-margin--b0@lg  u-padding--y4@lg  u-size--5  u-weight--700  u-grey--charcoal  u-white@lg  u-pointer  u-trans--bg  u-no-decoration  v-accent" data-toggle-id="mainitem-" data-toggle-group-name="mainitem">
+								Ontdekken
+							</a><div class="u-padding--b6">
+								<ul class="o-list-reset  u-relative  u-absolute@lg  u-width--100@lg  u-left--0@lg  u-bg--blue--hawkes@lg  u-text--right@lg  js-subnavigation-toggle__target" data-component="navigation--sub">
+									<li class="o-list-reset__item  u-inline-block@lg" data-component="navigation--sub-item">
+										<a class="u-block  u-inline-block@lg  u-padding--y1  u-padding--x5  u-padding--x3@lg  u-size--6  u-weight--700  u-lh--3  u-no-decoration  u-trans--all  u-blue--cobalt  u-bg-hover--blue--spindle@lg" href="/ontdekken/mijn-plaats">
+											Mijn plaats
+										</a>
+									</li>
+									<li class="o-list-reset__item  u-inline-block@lg" data-component="navigation--sub-item">
+										<a class="u-block  u-inline-block@lg  u-padding--y1  u-padding--x5  u-padding--x3@lg  u-size--6  u-weight--700  u-lh--3  u-no-decoration  u-trans--all  u-blue--cobalt  u-bg-hover--blue--spindle@lg" href="/ontdekken/ons-brabant">
+											Ons Brabant
+										</a>
+									</li>
+									<li class="o-list-reset__item  u-inline-block@lg" data-component="navigation--sub-item">
+										<a class="u-block  u-inline-block@lg  u-padding--y1  u-padding--x5  u-padding--x3@lg  u-size--6  u-weight--700  u-lh--3  u-no-decoration  u-trans--all  u-blue--cobalt  u-bg-hover--blue--spindle@lg" href="/ontdekken/verhalen">
+											Verhalen
+										</a>
+									</li>
+									<li class="o-list-reset__item  u-inline-block@lg" data-component="navigation--sub-item">
+										<a class="u-block  u-inline-block@lg  u-padding--y1  u-padding--x5  u-padding--x3@lg  u-size--6  u-weight--700  u-lh--3  u-no-decoration  u-trans--all  u-blue--cobalt  u-bg-hover--blue--spindle@lg" href="/ontdekken/praat-mee">
+											Forum
+										</a>
+									</li>
+								</ul>
+							</div>
+						</li>
+						<li class="o-list-reset__item  u-padding--y2  u-padding--0@lg  u-block  u-inline-block@lg" data-component="navigation--main-item">
+							<a href="/onderzoeken/stamboom" class="u-block  u-relative  u-padding--x5  u-padding--0@lg  u-margin--x5@lg  u-margin--x4@lg  u-margin--b2  u-margin--b0@lg  u-padding--y4@lg  u-size--5  u-weight--700  u-grey--charcoal  u-white@lg  u-pointer  u-trans--bg  u-no-decoration  " data-toggle-id="mainitem-" data-toggle-group-name="mainitem">
+								Onderzoeken
+							</a><div class="u-padding--b6">
+								<ul class="o-list-reset  u-relative  u-absolute@lg  u-width--100@lg  u-left--0@lg  u-bg--blue--hawkes@lg  u-text--right@lg  js-subnavigation-toggle__target" data-component="navigation--sub">
+									<li class="o-list-reset__item  u-inline-block@lg" data-component="navigation--sub-item">
+										<a class="u-block  u-inline-block@lg  u-padding--y1  u-padding--x5  u-padding--x3@lg  u-size--6  u-weight--700  u-lh--3  u-no-decoration  u-trans--all  u-blue--cobalt  v-menuitem--active--mobile  u-bg--blue--spindle@lg" href="/onderzoeken/stamboom">
+											Stamboom
+										</a>
+									</li>
+									<li class="o-list-reset__item  u-inline-block@lg" data-component="navigation--sub-item">
+										<a class="u-block  u-inline-block@lg  u-padding--y1  u-padding--x5  u-padding--x3@lg  u-size--6  u-weight--700  u-lh--3  u-no-decoration  u-trans--all  u-blue--cobalt  u-bg-hover--blue--spindle@lg" href="/memorix/images/search/">
+											Foto's
+										</a>
+									</li>
+									<li class="o-list-reset__item  u-inline-block@lg" data-component="navigation--sub-item">
+										<a class="u-block  u-inline-block@lg  u-padding--y1  u-padding--x5  u-padding--x3@lg  u-size--6  u-weight--700  u-lh--3  u-no-decoration  u-trans--all  u-blue--cobalt  u-bg-hover--blue--spindle@lg" href="/onderzoeken/archieven">
+											Archieven
+										</a>
+									</li>
+									<li class="o-list-reset__item  u-inline-block@lg" data-component="navigation--sub-item">
+										<a class="u-block  u-inline-block@lg  u-padding--y1  u-padding--x5  u-padding--x3@lg  u-size--6  u-weight--700  u-lh--3  u-no-decoration  u-trans--all  u-blue--cobalt  u-bg-hover--blue--spindle@lg" href="/onderzoeken/hulp-bij-onderzoek/scannen-op-verzoek">
+											Scannen op verzoek
+										</a>
+									</li>
+									<li class="o-list-reset__item  u-inline-block@lg" data-component="navigation--sub-item">
+										<a class="u-block  u-inline-block@lg  u-padding--y1  u-padding--x5  u-padding--x3@lg  u-size--6  u-weight--700  u-lh--3  u-no-decoration  u-trans--all  u-blue--cobalt  u-bg-hover--blue--spindle@lg" href="/onderzoeken/hulp-bij-onderzoek">
+											Hulp bij onderzoek
+										</a>
+									</li>
+									<li class="o-list-reset__item  u-inline-block@lg" data-component="navigation--sub-item">
+										<a class="u-block  u-inline-block@lg  u-padding--y1  u-padding--x5  u-padding--x3@lg  u-size--6  u-weight--700  u-lh--3  u-no-decoration  u-trans--all  u-blue--cobalt  u-bg-hover--blue--spindle@lg" href="/onderzoeken/forum">
+											Forum
+										</a>
+									</li>
+								</ul>
+							</div>
+						</li>
+						<li class="o-list-reset__item  u-padding--y2  u-padding--0@lg  u-block  u-inline-block@lg" data-component="navigation--main-item">
+							<a href="/mijn-bhic" class="u-block  u-relative  u-padding--x5  u-padding--0@lg  u-margin--x5@lg  u-margin--x4@lg  u-margin--b2  u-margin--b0@lg  u-padding--y4@lg  u-size--5  u-weight--700  u-grey--charcoal  u-white@lg  u-pointer  u-trans--bg  u-no-decoration  v-accent" data-toggle-id="mainitem-" data-toggle-group-name="mainitem">
+								Mijn BHIC
+							</a><div class="u-padding--b6">
+								<ul class="o-list-reset  u-relative  u-absolute@lg  u-width--100@lg  u-left--0@lg  u-bg--blue--hawkes@lg  u-text--right@lg  js-subnavigation-toggle__target" data-component="navigation--sub">
+									<li class="o-list-reset__item  u-inline-block@lg" data-component="navigation--sub-item">
+										<a class="u-block  u-inline-block@lg  u-padding--y1  u-padding--x5  u-padding--x3@lg  u-size--6  u-weight--700  u-lh--3  u-no-decoration  u-trans--all  u-blue--cobalt  u-bg-hover--blue--spindle@lg" href="/mijn-bhic/mijn-profiel">
+											Mijn profiel
+										</a>
+									</li>
+									<li class="o-list-reset__item  u-inline-block@lg" data-component="navigation--sub-item">
+										<a class="u-block  u-inline-block@lg  u-padding--y1  u-padding--x5  u-padding--x3@lg  u-size--6  u-weight--700  u-lh--3  u-no-decoration  u-trans--all  u-blue--cobalt  u-bg-hover--blue--spindle@lg" href="/mijn-bhic/mijn-favorieten">
+											Mijn favorieten
+										</a>
+									</li>
+									<li class="o-list-reset__item  u-inline-block@lg" data-component="navigation--sub-item">
+										<a class="u-block  u-inline-block@lg  u-padding--y1  u-padding--x5  u-padding--x3@lg  u-size--6  u-weight--700  u-lh--3  u-no-decoration  u-trans--all  u-blue--cobalt  u-bg-hover--blue--spindle@lg" href="/mijn-bhic/mijn-notificaties">
+											Mijn notificaties
+										</a>
+									</li>
+									<li class="o-list-reset__item  u-inline-block@lg" data-component="navigation--sub-item">
+										<a class="u-block  u-inline-block@lg  u-padding--y1  u-padding--x5  u-padding--x3@lg  u-size--6  u-weight--700  u-lh--3  u-no-decoration  u-trans--all  u-blue--cobalt  u-bg-hover--blue--spindle@lg" href="/mijn-bhic/mijn-verhalen">
+											Mijn verhalen
+										</a>
+									</li>
+								</ul>
+							</div>
+						</li>
+					</ol>
+				</nav>
+
+
+
+				<nav class="u-inline-block@lg  u-padding--y5  u-padding--0@lg  u-bg--blue--dark-cerulean  u-ff--pt-sans" data-component="navigation--service">
+					<ol class="o-list-reset  u-flex@lg  u-flex--justify--between">
+
+
+						<li class="o-list-reset__item  u-padding--y2  u-padding--0@lg  u-block  u-inline-block@lg" data-component="navigation--service-item">
+							<a href="/over-ons" class="u-block  u-relative  u-margin--x5  u-margin--b1  u-margin--0@lg  u-padding--x4@lg  u-padding--y2@lg  u-size--6  u-weight--700  u-weight--400@lg  u-lh--2  u-white  u-pointer  u-trans--bg  u-bg--blue--dark-cerulean  u-no-decoration  u-trans--all  v-hover--brighten">
+								<span>Over ons</span>
+							</a>
+						</li>
+
+
+
+						<li class="o-list-reset__item  u-padding--y2  u-padding--0@lg  u-block  u-inline-block@lg" data-component="navigation--service-item">
+							<a href="/nieuws" class="u-block  u-relative  u-margin--x5  u-margin--b1  u-margin--0@lg  u-padding--x4@lg  u-padding--y2@lg  u-size--6  u-weight--700  u-weight--400@lg  u-lh--2  u-white  u-pointer  u-trans--bg  u-bg--blue--dark-cerulean  u-no-decoration  u-trans--all  v-hover--brighten">
+								<span>Nieuws</span>
+							</a>
+						</li>
+
+
+
+						<li class="o-list-reset__item  u-padding--y2  u-padding--0@lg  u-block  u-inline-block@lg" data-component="navigation--service-item">
+							<a href="/onderzoeken/forum" class="u-block  u-relative  u-margin--x5  u-margin--b1  u-margin--0@lg  u-padding--x4@lg  u-padding--y2@lg  u-size--6  u-weight--700  u-weight--400@lg  u-lh--2  u-white  u-pointer  u-trans--bg  u-bg--blue--dark-cerulean  u-no-decoration  u-trans--all  v-hover--brighten">
+								<span>Forum</span>
+							</a>
+						</li>
+
+
+
+						<li class="o-list-reset__item  u-padding--y2  u-padding--0@lg  u-block  u-inline-block@lg" data-component="navigation--service-item">
+							<a href="/english" class="u-block  u-relative  u-margin--x5  u-margin--b1  u-margin--0@lg  u-padding--x4@lg  u-padding--y2@lg  u-size--6  u-weight--700  u-weight--400@lg  u-lh--2  u-white  u-pointer  u-trans--bg  u-bg--blue--dark-cerulean  u-no-decoration  u-trans--all  v-hover--brighten">
+								<span>English</span>
+							</a>
+						</li>
+
+
+
+						<li class="o-list-reset__item  u-padding--y2  u-padding--0@lg  u-block  u-inline-block@lg" data-component="navigation--service-item">
+							<a href="/my-bhic/login" class="u-block  u-relative  u-margin--x5  u-margin--b1  u-margin--0@lg  u-padding--x4@lg  u-padding--y2@lg  u-size--6  u-weight--700  u-weight--400@lg  u-lh--2  u-white  u-pointer  u-trans--bg  u-bg--blue--dark-cerulean  u-no-decoration  u-trans--all  v-hover--brighten">
+								<span class="u-padding--y2  u-padding--r1">
+
+									<!--?xml version="1.0"?-->
+									<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" height="20px" width="20px" preserveAspectRatio="xMidYMid meet" class="u-white  u-valign--bottom" aria-hidden="true" role="img">
+										<g fill="currentColor">
+											<path class="st0" d="M14.9,2.1c0,0-1-0.1,2-0.1c4.6,0,5.1,5.3,5.1,5.3s0.1,5.6,0.1,6.9c0,1.3-2.2,2.2-1.8,1.8    c0.1-0.1,0,3.5,0,3.5l8.8,7V30H2.9l-0.1-3.4l8.7-7.1V16c0,0-1.7-0.2-1.7-1.8c0-1.6,0-6.9,0-6.9S10.5,2.1,14.9,2.1z"></path>
+										</g>
+									</svg>
+
+
+								</span>
+								<span>Inloggen Mijn BHIC</span>
+							</a>
+						</li>
+
+					</ol>
+				</nav>
+
+			</div>
+		</div>
+
+		<div class="u-hidden  u-flex@lg">
+			<div class="u-flex  u-flex--items--stretch  u-width--100">
+				<div class="u-padding--t6  u-padding--l4">
+
+
+					<a class="u-inline-block  u-no-underline" href="/" title="Home">
+
+						<figure>
+
+							<!--?xml version="1.0"?-->
+							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 326 34" height="32px" width="315px" preserveAspectRatio="xMidYMid meet" class="u-block  u-valign--text-bottom  u-white" aria-hidden="true" role="img">
+								<g fill="currentColor">
+									<path d="M6.9,8.6c0-1.2-0.8-2-1.9-2.2v0c1.1-0.2,1.7-0.9,1.7-2.1c0-1.7-1.4-2.2-2.9-2.2H1.6v9.1h1.8C5.3,11.2,6.9,10.6,6.9,8.6z     M2.5,2.9h1.2c0.8,0,2,0.2,2,1.5c0,1.4-1.3,1.7-2.2,1.7h-1V2.9z M3.5,10.4H2.5V6.9h0.8C4.6,6.9,6,7,6,8.6C6,10.1,4.7,10.4,3.5,10.4    z"></path>
+									<path d="M14.7,11.2l-1.5-3.5c-0.3-0.6-0.4-1-1.2-1.1v0c1.1-0.1,2-0.9,2-2.1c0-1.7-1.1-2.4-2.7-2.4H9v9.1h0.9V6.9h0.7    c0.9,0,1.2,0,1.8,1.2l1.3,3.1H14.7z M10.9,6.1H9.9V2.9h0.9c1.2,0,2.3,0.1,2.3,1.6C13.1,5.7,11.9,6.1,10.9,6.1z"></path>
+									<path d="M17.2,8.7h4.6l1,2.4h0.9l-3.6-9.1h-1l-3.7,9.1h0.9L17.2,8.7z M19.5,3l2,5h-3.9L19.5,3z"></path>
+									<path d="M30.2,8.6c0-1.2-0.8-2-1.9-2.2v0C29.4,6.2,30,5.5,30,4.3c0-1.7-1.4-2.2-2.9-2.2h-2.2v9.1h1.8C28.6,11.2,30.2,10.6,30.2,8.6    z M25.9,2.9h1.2c0.8,0,2,0.2,2,1.5c0,1.4-1.3,1.7-2.2,1.7h-1V2.9z M25.8,6.9h0.8c1.3,0,2.7,0.2,2.7,1.8c0,1.4-1.4,1.8-2.6,1.8h-0.9    V6.9z"></path>
+									<path d="M33.2,8.7h4.6l1,2.4h0.9l-3.6-9.1h-1l-3.7,9.1h0.9L33.2,8.7z M35.5,3l2,5h-3.9L35.5,3z"></path>
+									<polygon points="47.6,2.1 46.7,2.1 46.7,10.1 46.7,10.1 42.1,2.1 40.9,2.1 40.9,11.2 41.8,11.2 41.8,3.4 41.9,3.4 46.4,11.2    47.6,11.2  "></polygon>
+									<polygon points="51.5,11.2 52.4,11.2 52.4,2.9 55.1,2.9 55.1,2.1 48.8,2.1 48.8,2.9 51.5,2.9  "></polygon>
+									<path d="M56.9,4.3c0-1.2,1-1.6,2-1.6c0.6,0,1.2,0.1,1.7,0.3l0.1-0.8C60,2,59.3,2,58.9,2C57.3,2,56,2.9,56,4.3    c0,2.4,4.2,2.6,4.2,4.4c0,1.3-0.9,1.9-2,1.9c-0.8,0-1.5-0.2-2-0.5L56,10.9c0.5,0.2,1.2,0.4,2.1,0.4c1.4,0,3-0.7,3-2.6    C61,6.1,56.9,6.1,56.9,4.3z"></path>
+									<polygon points="72.1,6.1 67.5,6.1 67.5,2.1 66.6,2.1 66.6,11.2 67.5,11.2 67.5,6.9 72.1,6.9 72.1,11.2 73,11.2 73,2.1 72.1,2.1    "></polygon>
+									<rect x="75.2" y="2.1" width="0.9" height="9.1"></rect>
+									<path d="M78.8,4.3c0-1.2,1-1.6,2-1.6c0.6,0,1.2,0.1,1.7,0.3l0.1-0.8C81.9,2,81.2,2,80.8,2c-1.6,0-2.9,0.9-2.9,2.4    c0,2.4,4.2,2.6,4.2,4.4c0,1.3-0.9,1.9-2,1.9c-0.8,0-1.5-0.2-2-0.5l-0.1,0.9c0.5,0.2,1.2,0.4,2.1,0.4c1.4,0,3-0.7,3-2.6    C83,6.1,78.8,6.1,78.8,4.3z"></path>
+									<polygon points="83.9,2.9 86.5,2.9 86.5,11.2 87.4,11.2 87.4,2.9 90.1,2.9 90.1,2.1 83.9,2.1  "></polygon>
+									<path d="M95,2c-2.7,0-4,2.2-4,4.7c0,2.8,1.4,4.7,4,4.7s4-1.9,4-4.7C99,4.2,97.7,2,95,2z M95,10.6c-2.1,0-3.1-2-3.1-3.9    c0-1.9,1-3.9,3.1-3.9s3.1,2,3.1,3.9C98.1,8.6,97.1,10.6,95,10.6z"></path>
+									<path d="M105,7.7c-0.3-0.6-0.4-1-1.2-1.1v0c1.1-0.1,2-0.9,2-2.1c0-1.7-1.1-2.4-2.7-2.4h-2.3v9.1h0.9V6.9h0.7c0.9,0,1.2,0,1.8,1.2    l1.3,3.1h1L105,7.7z M102.7,6.1h-0.9V2.9h0.9c1.2,0,2.3,0.1,2.3,1.6C105,5.7,103.8,6.1,102.7,6.1z"></path>
+									<rect x="108" y="2.1" width="0.9" height="9.1"></rect>
+									<path d="M115.8,8.8c0-2.7-4.2-2.7-4.2-4.5c0-1.2,1-1.6,2-1.6c0.6,0,1.2,0.1,1.7,0.3l0.1-0.8C114.8,2,114.1,2,113.6,2    c-1.6,0-2.9,0.9-2.9,2.4c0,2.4,4.2,2.6,4.2,4.4c0,1.3-0.9,1.9-2,1.9c-0.8,0-1.5-0.2-2-0.5l-0.1,0.9c0.5,0.2,1.2,0.4,2.1,0.4    C114.2,11.3,115.8,10.6,115.8,8.8z"></path>
+									<path d="M121.9,11.3c0.6,0,1.6-0.1,2.1-0.4l-0.1-0.8c-0.5,0.3-1.4,0.4-2,0.4c-2.4,0-3.7-1.6-3.7-3.9c0-2.2,1.3-3.9,3.7-3.9    c0.6,0,1.5,0.1,2,0.4l0.1-0.8C123.5,2,122.4,2,121.9,2c-2.8,0-4.6,1.9-4.6,4.7C117.3,9.5,119,11.3,121.9,11.3z"></path>
+									<polygon points="131.9,2.1 131.9,6.1 127.3,6.1 127.3,2.1 126.4,2.1 126.4,11.2 127.3,11.2 127.3,6.9 131.9,6.9 131.9,11.2    132.8,11.2 132.8,2.1  "></polygon>
+									<rect x="1.6" y="21.1" width="0.9" height="9.1"></rect>
+									<polygon points="10.3,29.1 10.3,29.1 5.7,21.1 4.5,21.1 4.5,30.2 5.4,30.2 5.4,22.4 5.5,22.4 10,30.2 11.2,30.2 11.2,21.1    10.3,21.1  "></polygon>
+									<polygon points="13.3,30.2 14.2,30.2 14.2,25.9 17.4,25.9 17.4,25.1 14.2,25.1 14.2,21.9 17.6,21.9 17.6,21.1 13.3,21.1  "></polygon>
+									<path d="M22.8,21c-2.7,0-4,2.2-4,4.7c0,2.8,1.4,4.7,4,4.7c2.6,0,4-1.9,4-4.7C26.8,23.2,25.5,21,22.8,21z M22.8,29.6    c-2.1,0-3.1-2-3.1-3.9c0-1.9,1-3.9,3.1-3.9c2.1,0,3.1,2,3.1,3.9C25.9,27.6,24.9,29.6,22.8,29.6z"></path>
+									<path d="M31.7,25.6L31.7,25.6c1.1-0.2,2-0.9,2-2.1c0-1.7-1.1-2.4-2.7-2.4h-2.3v9.1h0.9v-4.3h0.7c0.9,0,1.2,0,1.8,1.2l1.3,3.1h1    l-1.5-3.5C32.6,26.1,32.4,25.7,31.7,25.6z M30.5,25.1h-0.9v-3.2h0.9c1.2,0,2.3,0.1,2.3,1.6C32.8,24.7,31.6,25.1,30.5,25.1z"></path>
+									<polygon points="40.7,29.1 37.4,21.1 36,21.1 36,30.2 36.9,30.2 36.9,22 36.9,22 40.3,30.2 41.1,30.2 44.4,22 44.4,22 44.4,30.2    45.3,30.2 45.3,21.1 44,21.1  "></polygon>
+									<path d="M50.4,21.1l-3.7,9.1h0.9l1-2.4h4.6l1,2.4H55l-3.6-9.1H50.4z M48.8,27l2-5l2,5H48.8z"></path>
+									<polygon points="54.5,21.9 57.1,21.9 57.1,30.2 58,30.2 58,21.9 60.7,21.9 60.7,21.1 54.5,21.1  "></polygon>
+									<rect x="61.9" y="21.1" width="0.9" height="9.1"></rect>
+									<polygon points="65.9,25.9 69.2,25.9 69.2,25.1 65.9,25.1 65.9,21.9 69.4,21.9 69.4,21.1 65,21.1 65,30.2 69.6,30.2 69.6,29.4    65.9,29.4  "></polygon>
+									<path d="M79.4,21.7c0.6,0,1.5,0.1,2,0.4l0.1-0.8C81,21,79.9,21,79.4,21c-2.8,0-4.6,1.9-4.6,4.7c0,2.8,1.7,4.7,4.6,4.7    c0.6,0,1.6-0.1,2.1-0.4l-0.1-0.8c-0.5,0.3-1.4,0.4-2,0.4c-2.4,0-3.7-1.6-3.7-3.9C75.7,23.4,77,21.7,79.4,21.7z"></path>
+									<polygon points="84.8,25.9 88.2,25.9 88.2,25.1 84.8,25.1 84.8,21.9 88.4,21.9 88.4,21.1 83.9,21.1 83.9,30.2 88.5,30.2 88.5,29.4    84.8,29.4  "></polygon>
+									<polygon points="96.2,29.1 96.1,29.1 91.5,21.1 90.4,21.1 90.4,30.2 91.3,30.2 91.3,22.4 91.3,22.4 95.8,30.2 97.1,30.2 97.1,21.1    96.2,21.1  "></polygon>
+									<polygon points="98.3,21.9 100.9,21.9 100.9,30.2 101.8,30.2 101.8,21.9 104.5,21.9 104.5,21.1 98.3,21.1  "></polygon>
+									<path d="M108.8,25.6L108.8,25.6c1.1-0.2,2-0.9,2-2.1c0-1.7-1.1-2.4-2.7-2.4h-2.3v9.1h0.9v-4.3h0.7c0.9,0,1.2,0,1.8,1.2l1.3,3.1h1    l-1.5-3.5C109.7,26.1,109.5,25.7,108.8,25.6z M107.7,25.1h-0.9v-3.2h0.9c1.2,0,2.3,0.1,2.3,1.6C109.9,24.7,108.7,25.1,107.7,25.1z"></path>
+									<path d="M118.7,27c0,1.5-0.8,2.5-2.4,2.5c-1.6,0-2.4-1.1-2.4-2.5v-5.9H113V27c0,2.7,2,3.3,3.3,3.3c1.3,0,3.3-0.7,3.3-3.3v-5.9h-0.9    V27z"></path>
+									<polygon points="126.5,29.1 123.2,21.1 121.8,21.1 121.8,30.2 122.7,30.2 122.7,22 122.8,22 126.2,30.2 126.9,30.2 130.2,22    130.3,22 130.3,30.2 131.2,30.2 131.2,21.1 129.9,21.1  "></polygon>
+								</g>
+								<g fill="currentColor">
+									<path d="M262.6,11.5c-3.4,0-5.4,1-7.2,4.1c0.2-1.2,0.2-2.4,0.2-3.7V1h-6.9v31.8h6.7v-3.4c1.8,2.8,4.2,4.2,7,4.2    c5.7,0,9.5-4.2,9.5-11.1C271.9,15.8,268,11.5,262.6,11.5z M259.8,27.7c-2.9,0-4.7-2-4.7-5.2s1.8-5.2,4.7-5.2c2.9,0,4.8,2,4.8,5.2    S262.8,27.7,259.8,27.7z"></path>
+									<path d="M288.8,11.4c-3.5,0-5.8,1.4-7.7,4.5c0.2-1.1,0.3-2.4,0.3-3.7V1h-7.2h-0.1v31.8h7.2v-8.7c0-4.6,1.1-7.1,4.4-7.1    c2.4,0,3.4,1.5,3.4,4.7v11h7.3V20.9c0-3-0.1-5.2-1.5-7C293.7,12.3,291.5,11.4,288.8,11.4z"></path>
+									<rect x="299.7" y="12.1" width="7.3" height="20.7"></rect>
+									<path d="M303.4,1.6c-2.2,0-4,1.8-4,4s1.7,4.1,4,4.1c2.2,0,4-1.8,4-4.1C307.4,3.4,305.6,1.6,303.4,1.6z"></path>
+									<path d="M321.3,17.1c1.5,0,2.7,0.6,4.1,1.8v-6.2c-1.6-1-3.2-1.3-5.2-1.3c-6.3,0-10.8,4.5-10.8,11c0,6.9,4.6,11.1,10.7,11.1    c1.9,0,3.6-0.5,5.3-1.4v-6.3c-1.2,1.3-2.3,1.8-3.9,1.8c-3.1,0-4.9-2.1-4.9-5.2C316.6,19.1,318.5,17.1,321.3,17.1z"></path>
+								</g>
+								<g fill="currentColor" fill-opacity="0.6">
+									<rect x="149.4" y="1" width="3.8" height="31.8"></rect>
+									<rect x="158.7" y="1" width="3.8" height="31.8"></rect>
+									<rect x="210.6" y="1" width="8.8" height="31.8"></rect>
+									<rect x="233.8" y="1" width="8.8" height="31.8"></rect>
+									<rect x="174.9" y="1" width="11.6" height="31.8"></rect>
+									<rect x="197.4" y="1" width="8.8" height="31.8"></rect>
+								</g>
+
+							</svg>
+
+
+						</figure>
+
+					</a>
+
+				</div>
+
+				<div class="u-flex  u-flex--column  u-margin--l-auto">
+					<div class="u-flex">
+						<div class="u-flex  u-flex--items--stretch">
+							<nav class="u-inline-block@lg  u-padding--y5  u-padding--0@lg  u-bg--blue--dark-cerulean  u-ff--pt-sans" data-component="navigation--service"><ol class="o-list-reset  u-flex@lg  u-flex--justify--between"><li class="o-list-reset__item  u-padding--y2  u-padding--0@lg  u-block  u-inline-block@lg" data-component="navigation--service-item"><a href="/over-ons" class="u-block  u-relative  u-margin--x5  u-margin--b1  u-margin--0@lg  u-padding--x4@lg  u-padding--y2@lg  u-size--6  u-weight--700  u-weight--400@lg  u-lh--2  u-white  u-pointer  u-trans--bg  u-bg--blue--dark-cerulean  u-no-decoration  u-trans--all  v-hover--brighten"><span>Over ons</span></a></li><li class="o-list-reset__item  u-padding--y2  u-padding--0@lg  u-block  u-inline-block@lg" data-component="navigation--service-item"><a href="/nieuws" class="u-block  u-relative  u-margin--x5  u-margin--b1  u-margin--0@lg  u-padding--x4@lg  u-padding--y2@lg  u-size--6  u-weight--700  u-weight--400@lg  u-lh--2  u-white  u-pointer  u-trans--bg  u-bg--blue--dark-cerulean  u-no-decoration  u-trans--all  v-hover--brighten"><span>Nieuws</span></a></li><li class="o-list-reset__item  u-padding--y2  u-padding--0@lg  u-block  u-inline-block@lg" data-component="navigation--service-item"><a href="/onderzoeken/forum" class="u-block  u-relative  u-margin--x5  u-margin--b1  u-margin--0@lg  u-padding--x4@lg  u-padding--y2@lg  u-size--6  u-weight--700  u-weight--400@lg  u-lh--2  u-white  u-pointer  u-trans--bg  u-bg--blue--dark-cerulean  u-no-decoration  u-trans--all  v-hover--brighten"><span>Forum</span></a></li><li class="o-list-reset__item  u-padding--y2  u-padding--0@lg  u-block  u-inline-block@lg" data-component="navigation--service-item"><a href="/english" class="u-block  u-relative  u-margin--x5  u-margin--b1  u-margin--0@lg  u-padding--x4@lg  u-padding--y2@lg  u-size--6  u-weight--700  u-weight--400@lg  u-lh--2  u-white  u-pointer  u-trans--bg  u-bg--blue--dark-cerulean  u-no-decoration  u-trans--all  v-hover--brighten"><span>English</span></a></li><li class="o-list-reset__item  u-padding--y2  u-padding--0@lg  u-block  u-inline-block@lg" data-component="navigation--service-item"><a href="/my-bhic/login" class="u-block  u-relative  u-margin--x5  u-margin--b1  u-margin--0@lg  u-padding--x4@lg  u-padding--y2@lg  u-size--6  u-weight--700  u-weight--400@lg  u-lh--2  u-white  u-pointer  u-trans--bg  u-bg--blue--dark-cerulean  u-no-decoration  u-trans--all  v-hover--brighten"><span class="u-padding--y2  u-padding--r1"><!--?xml version="1.0"?--><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" height="20px" width="20px" preserveAspectRatio="xMidYMid meet" class="u-white  u-valign--bottom" aria-hidden="true" role="img"><g fill="currentColor"><path class="st0" d="M14.9,2.1c0,0-1-0.1,2-0.1c4.6,0,5.1,5.3,5.1,5.3s0.1,5.6,0.1,6.9c0,1.3-2.2,2.2-1.8,1.8    c0.1-0.1,0,3.5,0,3.5l8.8,7V30H2.9l-0.1-3.4l8.7-7.1V16c0,0-1.7-0.2-1.7-1.8c0-1.6,0-6.9,0-6.9S10.5,2.1,14.9,2.1z"></path></g></svg></span><span>Inloggen Mijn BHIC</span></a></li></ol></nav><span style="" class="u-flex  u-flex--items--center  libraryh3lp  bttn  chatbttn  active  js-track-click  u-pointer  u-inline-block  u-padding--y1  u-padding--x4  u-white  u-no-decoration  u-trans--all  u-bg--green--kelly  u-bg-hover--green--forest" title="De chat is actief" jid="bhic@chat.eu.libraryh3lp.com" data-track-category="chat" data-track-action="click" data-track-label="Chat actief">
+								<!--?xml version="1.0"?--><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" height="18px" width="18px" preserveAspectRatio="xMidYMid meet" class="u-valign--bottom" aria-hidden="true" role="img"><g fill="currentColor"><path d="M5.2,2c-1.6,0-3,1.4-3,3v14.6c0,1.7,1.4,3,3,3h3.4V30l6-7.5h12.3c1.7,0,3-1.4,3-3V5c0-1.7-1.4-3-3-3C26.8,2,5.2,2,5.2,2z"></path></g></svg><span class="u-hidden  u-inline-block@lg  u-padding--l2">
+									Chat
+								</span>
+							</span><span style="display: none;" class="u-flex  u-flex--items--center  libraryh3lp  bttn  chatbttn  inactive  js-track-click  u-pointer  u-inline-block  u-padding--y1  u-padding--x4  u-white  u-no-decoration  u-trans--all  u-bg--blue--dark-cerulean  v-hover--brighten" title="De chat is niet actief" data-track-category="chat" data-track-action="click" data-track-label="Chat inactief">
+								<!--?xml version="1.0"?--><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" height="18px" width="18px" preserveAspectRatio="xMidYMid meet" class="u-valign--bottom" aria-hidden="true" role="img"><g fill="currentColor"><path d="M5.2,2c-1.6,0-3,1.4-3,3v14.6c0,1.7,1.4,3,3,3h3.4V30l6-7.5h12.3c1.7,0,3-1.4,3-3V5c0-1.7-1.4-3-3-3C26.8,2,5.2,2,5.2,2z"></path></g></svg><span class="u-hidden  u-inline-block@lg  u-padding--l2">
+									Chat
+								</span>
+							</span><div id="js-chatmessage" class="closed  c-navigation--chat">
+								<a class="close  u-margin--t1  u-blue--cobalt  u-hover--blue--curious  u-trans--color" href="javascript:void(null);">sluit</a><div class="offline">
+									<span class="title">Hulp nodig?</span><p>Chat is online op <strong>maandag t/m vrijdag</strong> van&nbsp;<strong>10.00 - 16.00 uur</strong> en van <strong>19.00 - 22.00 uur</strong>.</p><p>Op dit moment zijn we offline. Je kunt je vraag <a href="mailto:vragen@bhic.nl">stellen via e-mail</a> of <strong>WhatsApp</strong>: 06-12887717 (alleen berichtjes)</p><p>Meer informatie over de chat-service? <a href="/onderzoeken/hulp-bij-onderzoek/chatten-met-archivarissen">Klik hier</a></p><p><!-- [if gte mso 9]><xml><w:WordDocument><w:View>Normal</w:View><w:Zoom>0</w:Zoom><w:TrackMoves/><w:TrackFormatting/><w:HyphenationZone>21</w:HyphenationZone><w:PunctuationKerning/><w:ValidateAgainstSchemas/><w:SaveIfXMLInvalid>false</w:SaveIfXMLInvalid><w:IgnoreMixedContent>false</w:IgnoreMixedContent><w:AlwaysShowPlaceholderText>false</w:AlwaysShowPlaceholderText><w:DoNotPromoteQF/><w:LidThemeOther>NL</w:LidThemeOther><w:LidThemeAsian>X-NONE</w:LidThemeAsian><w:LidThemeComplexScript>X-NONE</w:LidThemeComplexScript><w:Compatibility><w:BreakWrappedTables/><w:SnapToGridInCell/><w:WrapTextWithPunct/><w:UseAsianBreakRules/><w:DontGrowAutofit/><w:SplitPgBreakAndParaMark/><w:EnableOpenTypeKerning/><w:DontFlipMirrorIndents/><w:OverrideTableStyleHps/></w:Compatibility><w:BrowserLevel>MicrosoftInternetExplorer4</w:BrowserLevel><m:mathPr><m:mathFont m:val="Cambria Math"/><m:brkBin m:val="before"/><m:brkBinSub m:val="&#45;-"/><m:smallFrac m:val="off"/><m:dispDef/><m:lMargin m:val="0"/><m:rMargin m:val="0"/><m:defJc m:val="centerGroup"/><m:wrapIndent m:val="1440"/><m:intLim m:val="subSup"/><m:naryLim m:val="undOvr"/></m:mathPr></w:WordDocument></xml><![endif]--></p><p>
+										<!-- [if gte mso 9]><xml><w:LatentStyles DefLockedState="false" DefUnhideWhenUsed="true"
+										DefSemiHidden="true" DefQFormat="false" DefPriority="99"
+										LatentStyleCount="267"><w:LsdException Locked="false" Priority="0" SemiHidden="false"
+										 UnhideWhenUsed="false" QFormat="true" Name="Normal"/><w:LsdException Locked="false" Priority="9" SemiHidden="false"
+										 UnhideWhenUsed="false" QFormat="true" Name="heading 1"/><w:LsdException Locked="false" Priority="9" QFormat="true" Name="heading 2"/><w:LsdException Locked="false" Priority="9" QFormat="true" Name="heading 3"/><w:LsdException Locked="false" Priority="9" QFormat="true" Name="heading 4"/><w:LsdException Locked="false" Priority="9" QFormat="true" Name="heading 5"/><w:LsdException Locked="false" Priority="9" QFormat="true" Name="heading 6"/><w:LsdException Locked="false" Priority="9" QFormat="true" Name="heading 7"/><w:LsdException Locked="false" Priority="9" QFormat="true" Name="heading 8"/><w:LsdException Locked="false" Priority="9" QFormat="true" Name="heading 9"/><w:LsdException Locked="false" Priority="39" Name="toc 1"/><w:LsdException Locked="false" Priority="39" Name="toc 2"/><w:LsdException Locked="false" Priority="39" Name="toc 3"/><w:LsdException Locked="false" Priority="39" Name="toc 4"/><w:LsdException Locked="false" Priority="39" Name="toc 5"/><w:LsdException Locked="false" Priority="39" Name="toc 6"/><w:LsdException Locked="false" Priority="39" Name="toc 7"/><w:LsdException Locked="false" Priority="39" Name="toc 8"/><w:LsdException Locked="false" Priority="39" Name="toc 9"/><w:LsdException Locked="false" Priority="35" QFormat="true" Name="caption"/><w:LsdException Locked="false" Priority="10" SemiHidden="false"
+										 UnhideWhenUsed="false" QFormat="true" Name="Title"/><w:LsdException Locked="false" Priority="1" Name="Default Paragraph Font"/><w:LsdException Locked="false" Priority="11" SemiHidden="false"
+										 UnhideWhenUsed="false" QFormat="true" Name="Subtitle"/><w:LsdException Locked="false" Priority="22" SemiHidden="false"
+										 UnhideWhenUsed="false" QFormat="true" Name="Strong"/><w:LsdException Locked="false" Priority="20" SemiHidden="false"
+										 UnhideWhenUsed="false" QFormat="true" Name="Emphasis"/><w:LsdException Locked="false" Priority="59" SemiHidden="false"
+										 UnhideWhenUsed="false" Name="Table Grid"/><w:LsdException Locked="false" UnhideWhenUsed="false" Name="Placeholder Text"/><w:LsdException Locked="false" Priority="1" SemiHidden="false"
+										 UnhideWhenUsed="false" QFormat="true" Name="No Spacing"/><w:LsdException Locked="false" Priority="60" SemiHidden="false"
+										 UnhideWhenUsed="false" Name="Light Shading"/><w:LsdException Locked="false" Priority="61" SemiHidden="false"
+										 UnhideWhenUsed="false" Name="Light List"/><w:LsdException Locked="false" Priority="62" SemiHidden="false"
+										 UnhideWhenUsed="false" Name="Light Grid"/><w:LsdException Locked="false" Priority="63" SemiHidden="false"
+										 UnhideWhenUsed="false" Name="Medium Shading 1"/><w:LsdException Locked="false" Priority="64" SemiHidden="false"
+										 UnhideWhenUsed="false" Name="Medium Shading 2"/><w:LsdException Locked="false" Priority="65" SemiHidden="false"
+										 UnhideWhenUsed="false" Name="Medium List 1"/><w:LsdException Locked="false" Priority="66" SemiHidden="false"
+										 UnhideWhenUsed="false" Name="Medium List 2"/><w:LsdException Locked="false" Priority="67" SemiHidden="false"
+										 UnhideWhenUsed="false" Name="Medium Grid 1"/><w:LsdException Locked="false" Priority="68" SemiHidden="false"
+										 UnhideWhenUsed="false" Name="Medium Grid 2"/><w:LsdException Locked="false" Priority="69" SemiHidden="false"
+										 UnhideWhenUsed="false" Name="Medium Grid 3"/><w:LsdException Locked="false" Priority="70" SemiHidden="false"
+										 UnhideWhenUsed="false" Name="Dark List"/><w:LsdException Locked="false" Priority="71" SemiHidden="false"
+										 UnhideWhenUsed="false" Name="Colorful Shading"/><w:LsdException Locked="false" Priority="72" SemiHidden="false"
+										 UnhideWhenUsed="false" Name="Colorful List"/><w:LsdException Locked="false" Priority="73" SemiHidden="false"
+										 UnhideWhenUsed="false" Name="Colorful Grid"/><w:LsdException Locked="false" Priority="60" SemiHidden="false"
+										 UnhideWhenUsed="false" Name="Light Shading Accent 1"/><w:LsdException Locked="false" Priority="61" SemiHidden="false"
+										 UnhideWhenUsed="false" Name="Light List Accent 1"/><w:LsdException Locked="false" Priority="62" SemiHidden="false"
+										 UnhideWhenUsed="false" Name="Light Grid Accent 1"/><w:LsdException Locked="false" Priority="63" SemiHidden="false"
+										 UnhideWhenUsed="false" Name="Medium Shading 1 Accent 1"/><w:LsdException Locked="false" Priority="64" SemiHidden="false"
+										 UnhideWhenUsed="false" Name="Medium Shading 2 Accent 1"/><w:LsdException Locked="false" Priority="65" SemiHidden="false"
+										 UnhideWhenUsed="false" Name="Medium List 1 Accent 1"/><w:LsdException Locked="false" UnhideWhenUsed="false" Name="Revision"/><w:LsdException Locked="false" Priority="34" SemiHidden="false"
+										 UnhideWhenUsed="false" QFormat="true" Name="List Paragraph"/><w:LsdException Locked="false" Priority="29" SemiHidden="false"
+										 UnhideWhenUsed="false" QFormat="true" Name="Quote"/><w:LsdException Locked="false" Priority="30" SemiHidden="false"
+										 UnhideWhenUsed="false" QFormat="true" Name="Intense Quote"/><w:LsdException Locked="false" Priority="66" SemiHidden="false"
+										 UnhideWhenUsed="false" Name="Medium List 2 Accent 1"/><w:LsdException Locked="false" Priority="67" SemiHidden="false"
+										 UnhideWhenUsed="false" Name="Medium Grid 1 Accent 1"/><w:LsdException Locked="false" Priority="68" SemiHidden="false"
+										 UnhideWhenUsed="false" Name="Medium Grid 2 Accent 1"/><w:LsdException Locked="false" Priority="69" SemiHidden="false"
+										 UnhideWhenUsed="false" Name="Medium Grid 3 Accent 1"/><w:LsdException Locked="false" Priority="70" SemiHidden="false"
+										 UnhideWhenUsed="false" Name="Dark List Accent 1"/><w:LsdException Locked="false" Priority="71" SemiHidden="false"
+										 UnhideWhenUsed="false" Name="Colorful Shading Accent 1"/><w:LsdException Locked="false" Priority="72" SemiHidden="false"
+										 UnhideWhenUsed="false" Name="Colorful List Accent 1"/><w:LsdException Locked="false" Priority="73" SemiHidden="false"
+										 UnhideWhenUsed="false" Name="Colorful Grid Accent 1"/><w:LsdException Locked="false" Priority="60" SemiHidden="false"
+										 UnhideWhenUsed="false" Name="Light Shading Accent 2"/><w:LsdException Locked="false" Priority="61" SemiHidden="false"
+										 UnhideWhenUsed="false" Name="Light List Accent 2"/><w:LsdException Locked="false" Priority="62" SemiHidden="false"
+										 UnhideWhenUsed="false" Name="Light Grid Accent 2"/><w:LsdException Locked="false" Priority="63" SemiHidden="false"
+										 UnhideWhenUsed="false" Name="Medium Shading 1 Accent 2"/><w:LsdException Locked="false" Priority="64" SemiHidden="false"
+										 UnhideWhenUsed="false" Name="Medium Shading 2 Accent 2"/><w:LsdException Locked="false" Priority="65" SemiHidden="false"
+										 UnhideWhenUsed="false" Name="Medium List 1 Accent 2"/><w:LsdException Locked="false" Priority="66" SemiHidden="false"
+										 UnhideWhenUsed="false" Name="Medium List 2 Accent 2"/><w:LsdException Locked="false" Priority="67" SemiHidden="false"
+										 UnhideWhenUsed="false" Name="Medium Grid 1 Accent 2"/><w:LsdException Locked="false" Priority="68" SemiHidden="false"
+										 UnhideWhenUsed="false" Name="Medium Grid 2 Accent 2"/><w:LsdException Locked="false" Priority="69" SemiHidden="false"
+										 UnhideWhenUsed="false" Name="Medium Grid 3 Accent 2"/><w:LsdException Locked="false" Priority="70" SemiHidden="false"
+										 UnhideWhenUsed="false" Name="Dark List Accent 2"/><w:LsdException Locked="false" Priority="71" SemiHidden="false"
+										 UnhideWhenUsed="false" Name="Colorful Shading Accent 2"/><w:LsdException Locked="false" Priority="72" SemiHidden="false"
+										 UnhideWhenUsed="false" Name="Colorful List Accent 2"/><w:LsdException Locked="false" Priority="73" SemiHidden="false"
+										 UnhideWhenUsed="false" Name="Colorful Grid Accent 2"/><w:LsdException Locked="false" Priority="60" SemiHidden="false"
+										 UnhideWhenUsed="false" Name="Light Shading Accent 3"/><w:LsdException Locked="false" Priority="61" SemiHidden="false"
+										 UnhideWhenUsed="false" Name="Light List Accent 3"/><w:LsdException Locked="false" Priority="62" SemiHidden="false"
+										 UnhideWhenUsed="false" Name="Light Grid Accent 3"/><w:LsdException Locked="false" Priority="63" SemiHidden="false"
+										 UnhideWhenUsed="false" Name="Medium Shading 1 Accent 3"/><w:LsdException Locked="false" Priority="64" SemiHidden="false"
+										 UnhideWhenUsed="false" Name="Medium Shading 2 Accent 3"/><w:LsdException Locked="false" Priority="65" SemiHidden="false"
+										 UnhideWhenUsed="false" Name="Medium List 1 Accent 3"/><w:LsdException Locked="false" Priority="66" SemiHidden="false"
+										 UnhideWhenUsed="false" Name="Medium List 2 Accent 3"/><w:LsdException Locked="false" Priority="67" SemiHidden="false"
+										 UnhideWhenUsed="false" Name="Medium Grid 1 Accent 3"/><w:LsdException Locked="false" Priority="68" SemiHidden="false"
+										 UnhideWhenUsed="false" Name="Medium Grid 2 Accent 3"/><w:LsdException Locked="false" Priority="69" SemiHidden="false"
+										 UnhideWhenUsed="false" Name="Medium Grid 3 Accent 3"/><w:LsdException Locked="false" Priority="70" SemiHidden="false"
+										 UnhideWhenUsed="false" Name="Dark List Accent 3"/><w:LsdException Locked="false" Priority="71" SemiHidden="false"
+										 UnhideWhenUsed="false" Name="Colorful Shading Accent 3"/><w:LsdException Locked="false" Priority="72" SemiHidden="false"
+										 UnhideWhenUsed="false" Name="Colorful List Accent 3"/><w:LsdException Locked="false" Priority="73" SemiHidden="false"
+										 UnhideWhenUsed="false" Name="Colorful Grid Accent 3"/><w:LsdException Locked="false" Priority="60" SemiHidden="false"
+										 UnhideWhenUsed="false" Name="Light Shading Accent 4"/><w:LsdException Locked="false" Priority="61" SemiHidden="false"
+										 UnhideWhenUsed="false" Name="Light List Accent 4"/><w:LsdException Locked="false" Priority="62" SemiHidden="false"
+										 UnhideWhenUsed="false" Name="Light Grid Accent 4"/><w:LsdException Locked="false" Priority="63" SemiHidden="false"
+										 UnhideWhenUsed="false" Name="Medium Shading 1 Accent 4"/><w:LsdException Locked="false" Priority="64" SemiHidden="false"
+										 UnhideWhenUsed="false" Name="Medium Shading 2 Accent 4"/><w:LsdException Locked="false" Priority="65" SemiHidden="false"
+										 UnhideWhenUsed="false" Name="Medium List 1 Accent 4"/><w:LsdException Locked="false" Priority="66" SemiHidden="false"
+										 UnhideWhenUsed="false" Name="Medium List 2 Accent 4"/><w:LsdException Locked="false" Priority="67" SemiHidden="false"
+										 UnhideWhenUsed="false" Name="Medium Grid 1 Accent 4"/><w:LsdException Locked="false" Priority="68" SemiHidden="false"
+										 UnhideWhenUsed="false" Name="Medium Grid 2 Accent 4"/><w:LsdException Locked="false" Priority="69" SemiHidden="false"
+										 UnhideWhenUsed="false" Name="Medium Grid 3 Accent 4"/><w:LsdException Locked="false" Priority="70" SemiHidden="false"
+										 UnhideWhenUsed="false" Name="Dark List Accent 4"/><w:LsdException Locked="false" Priority="71" SemiHidden="false"
+										 UnhideWhenUsed="false" Name="Colorful Shading Accent 4"/><w:LsdException Locked="false" Priority="72" SemiHidden="false"
+										 UnhideWhenUsed="false" Name="Colorful List Accent 4"/><w:LsdException Locked="false" Priority="73" SemiHidden="false"
+										 UnhideWhenUsed="false" Name="Colorful Grid Accent 4"/><w:LsdException Locked="false" Priority="60" SemiHidden="false"
+										 UnhideWhenUsed="false" Name="Light Shading Accent 5"/><w:LsdException Locked="false" Priority="61" SemiHidden="false"
+										 UnhideWhenUsed="false" Name="Light List Accent 5"/><w:LsdException Locked="false" Priority="62" SemiHidden="false"
+										 UnhideWhenUsed="false" Name="Light Grid Accent 5"/><w:LsdException Locked="false" Priority="63" SemiHidden="false"
+										 UnhideWhenUsed="false" Name="Medium Shading 1 Accent 5"/><w:LsdException Locked="false" Priority="64" SemiHidden="false"
+										 UnhideWhenUsed="false" Name="Medium Shading 2 Accent 5"/><w:LsdException Locked="false" Priority="65" SemiHidden="false"
+										 UnhideWhenUsed="false" Name="Medium List 1 Accent 5"/><w:LsdException Locked="false" Priority="66" SemiHidden="false"
+										 UnhideWhenUsed="false" Name="Medium List 2 Accent 5"/><w:LsdException Locked="false" Priority="67" SemiHidden="false"
+										 UnhideWhenUsed="false" Name="Medium Grid 1 Accent 5"/><w:LsdException Locked="false" Priority="68" SemiHidden="false"
+										 UnhideWhenUsed="false" Name="Medium Grid 2 Accent 5"/><w:LsdException Locked="false" Priority="69" SemiHidden="false"
+										 UnhideWhenUsed="false" Name="Medium Grid 3 Accent 5"/><w:LsdException Locked="false" Priority="70" SemiHidden="false"
+										 UnhideWhenUsed="false" Name="Dark List Accent 5"/><w:LsdException Locked="false" Priority="71" SemiHidden="false"
+										 UnhideWhenUsed="false" Name="Colorful Shading Accent 5"/><w:LsdException Locked="false" Priority="72" SemiHidden="false"
+										 UnhideWhenUsed="false" Name="Colorful List Accent 5"/><w:LsdException Locked="false" Priority="73" SemiHidden="false"
+										 UnhideWhenUsed="false" Name="Colorful Grid Accent 5"/><w:LsdException Locked="false" Priority="60" SemiHidden="false"
+										 UnhideWhenUsed="false" Name="Light Shading Accent 6"/><w:LsdException Locked="false" Priority="61" SemiHidden="false"
+										 UnhideWhenUsed="false" Name="Light List Accent 6"/><w:LsdException Locked="false" Priority="62" SemiHidden="false"
+										 UnhideWhenUsed="false" Name="Light Grid Accent 6"/><w:LsdException Locked="false" Priority="63" SemiHidden="false"
+										 UnhideWhenUsed="false" Name="Medium Shading 1 Accent 6"/><w:LsdException Locked="false" Priority="64" SemiHidden="false"
+										 UnhideWhenUsed="false" Name="Medium Shading 2 Accent 6"/><w:LsdException Locked="false" Priority="65" SemiHidden="false"
+										 UnhideWhenUsed="false" Name="Medium List 1 Accent 6"/><w:LsdException Locked="false" Priority="66" SemiHidden="false"
+										 UnhideWhenUsed="false" Name="Medium List 2 Accent 6"/><w:LsdException Locked="false" Priority="67" SemiHidden="false"
+										 UnhideWhenUsed="false" Name="Medium Grid 1 Accent 6"/><w:LsdException Locked="false" Priority="68" SemiHidden="false"
+										 UnhideWhenUsed="false" Name="Medium Grid 2 Accent 6"/><w:LsdException Locked="false" Priority="69" SemiHidden="false"
+										 UnhideWhenUsed="false" Name="Medium Grid 3 Accent 6"/><w:LsdException Locked="false" Priority="70" SemiHidden="false"
+										 UnhideWhenUsed="false" Name="Dark List Accent 6"/><w:LsdException Locked="false" Priority="71" SemiHidden="false"
+										 UnhideWhenUsed="false" Name="Colorful Shading Accent 6"/><w:LsdException Locked="false" Priority="72" SemiHidden="false"
+										 UnhideWhenUsed="false" Name="Colorful List Accent 6"/><w:LsdException Locked="false" Priority="73" SemiHidden="false"
+										 UnhideWhenUsed="false" Name="Colorful Grid Accent 6"/><w:LsdException Locked="false" Priority="19" SemiHidden="false"
+										 UnhideWhenUsed="false" QFormat="true" Name="Subtle Emphasis"/><w:LsdException Locked="false" Priority="21" SemiHidden="false"
+										 UnhideWhenUsed="false" QFormat="true" Name="Intense Emphasis"/><w:LsdException Locked="false" Priority="31" SemiHidden="false"
+										 UnhideWhenUsed="false" QFormat="true" Name="Subtle Reference"/><w:LsdException Locked="false" Priority="32" SemiHidden="false"
+										 UnhideWhenUsed="false" QFormat="true" Name="Intense Reference"/><w:LsdException Locked="false" Priority="33" SemiHidden="false"
+										 UnhideWhenUsed="false" QFormat="true" Name="Book Title"/><w:LsdException Locked="false" Priority="37" Name="Bibliography"/><w:LsdException Locked="false" Priority="39" QFormat="true" Name="TOC Heading"/></w:LatentStyles></xml><![endif]-->
+										<!-- [if gte mso 10]><style>
+										 /* Style Definitions */
+										 table.MsoNormalTable
+											{mso-style-name:Standaardtabel;
+											mso-tstyle-rowband-size:0;
+											mso-tstyle-colband-size:0;
+											mso-style-noshow:yes;
+											mso-style-priority:99;
+											mso-style-parent:"";
+											mso-padding-alt:0cm 5.4pt 0cm 5.4pt;
+											mso-para-margin:0cm;
+											mso-para-margin-bottom:.0001pt;
+											mso-pagination:widow-orphan;
+											font-size:10.0pt;
+											font-family:"Times New Roman","serif";}
+										</style><![endif]-->
+									</p>
+								</div><div class="online">
+									<span class="u-inline-block  u-margin--b2  u-size--6  u-weight--600  u-grey--charcoal  u-lh--3">Online op dit moment</span><div class="userinfo story bhicmember">
+										<div class="linkcontainer">
+											<article class="u-flex  u-margin--b4  u-ff--pt-sans" data-component="card--author">
+												<div class="u-flex">
+													<span class="u-block  u-flex--shrink--0  _width--50px  u-margin--r4"><figure class="u-no-flex"><img class="u-block  u-fit--cover  u-bw--3  u-bs--solid  u-box-shadow--2  u-size--7  u-lh--1  u-bc--blue--deep-sky " src="https://www.bhic.nl/media/cache/avatar/media/user/avatar/anschat.jpg" alt="Ans Holman"></figure></span><div class="u-flex--auto">
+														<h5 class="u-margin--b1  u-size--7  u-lh--3  u-weight--400">
+															Ans Holman
+															<span class="u-padding--x2  u-white  u-size--7    u-br--2  u-bg--blue--deep-sky  _white-space--chat">RA Tilburg</span>
+														</h5><span class="">
+															<a class="o-button  u-size--7  u-bw--0  u-trans--all  u-ff--pt-sans  u-box-shadow--1  u-bg--blue--cobalt  u-white  v-hover--brighten  u-padding--x4  u-padding--y2  u-size--6@lg    " href="/chat/open?url=http://www.bhic.nl/memorix/genealogy/search/deeds/09634674-52e0-4449-6355-3613d1bbafed?person=f31815d2-462c-11e3-a747-d206bceb4d38" data-component="button" target="_blank" rel="noreferrer  noopener">
+																<span class="u-flex  u-flex--items--center u-flex--justify--center  u-bc--grey--gainsboro">
+																	<span class="u-margin--r3  u-padding--r3  u-bw--r1  u-bs--r-solid  u-bc--white--40">
+																		Stel je vraag
+																	</span><!--?xml version="1.0"?--><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" height="12px" width="12px" preserveAspectRatio="xMidYMid meet" class="u-block" aria-hidden="true" role="img"><g fill="currentColor"><path d="M22.5,15.1C22.5,15.1,22.4,15.1,22.5,15.1C22.4,15,22.4,15,22.5,15.1L11.9,2.5c-0.5-0.6-1.5-0.7-2.2-0.2    C9.1,2.9,9.1,3.9,9.6,4.5L19.2,16L9.6,27.5c-0.5,0.6-0.5,1.6,0.2,2.2c0.6,0.5,1.6,0.5,2.2-0.2l10.4-12.4    C22.8,16.5,22.9,15.7,22.5,15.1z"></path></g></svg>
+																</span>
+															</a>
+														</span>
+													</div>
+												</div>
+											</article>
+										</div>
+									</div>
+								</div>
+							</div><div class="c-chatwindow-container  u-hidden">
+								<div class="c-chatwindow  u-padding--x4">
+									<h2 class="u-margin--t3  u-margin--b4  u-size--5  u-grey--charcoal  u-lh--2">Stel je vraag</h2><div class="bhicmember">
+										<article class="u-flex  u-margin--b4  u-ff--pt-sans" data-component="card--author">
+											<div class="u-flex">
+												<span class="u-block  u-flex--shrink--0  _width--50px  u-margin--r4"><figure class="u-no-flex"><img class="u-block  u-fit--cover  u-bw--3  u-bs--solid  u-box-shadow--2  u-size--7  u-lh--1  u-bc--blue--deep-sky " src="https://www.bhic.nl/media/cache/avatar/media/user/avatar/anschat.jpg" alt="Ans Holman"></figure></span><div class="u-flex--auto">
+													<h5 class="u-margin--b1  u-size--7  u-lh--3  u-weight--400">
+														Ans Holman
+														<span class="u-padding--x2  u-white  u-size--7    u-br--2  u-bg--blue--deep-sky  _white-space--chat">RA Tilburg</span>
+													</h5>
+												</div>
+											</div>
+										</article>
+									</div><iframe data-src="https://eu.libraryh3lp.com/chat/bhic@chat.eu.libraryh3lp.com?skin=9999" frameborder="0" style="border: none; width: 600px; height: 300px;" src="https://eu.libraryh3lp.com/chat/bhic@chat.eu.libraryh3lp.com?skin=9999"></iframe>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="u-block">
+
+						<nav class="u-flex@lg  u-flex--justify--end@lg  u-bg--blue--hawkes  u-bg--blue--cobalt@lg  u-ff--pt-sans  u-padding--t4  u-padding--b5  u-padding--y0@lg" data-component="navigation--main">
+							<ol class="o-list-reset">
+								<li class="o-list-reset__item  u-padding--y2  u-padding--0@lg  u-block  u-inline-block@lg" data-component="navigation--main-item">
+									<a href="/het-geheugen-van-brabant" class="u-block  u-relative  u-padding--x5  u-padding--0@lg  u-margin--x5@lg  u-margin--x4@lg  u-margin--b2  u-margin--b0@lg  u-padding--y4@lg  u-size--5  u-weight--700  u-grey--charcoal  u-white@lg  u-pointer  u-trans--bg  u-no-decoration  v-accent" data-toggle-id="mainitem-" data-toggle-group-name="mainitem">
+										Home
+									</a>
+								</li>
+								<li class="o-list-reset__item  u-padding--y2  u-padding--0@lg  u-block  u-inline-block@lg" data-component="navigation--main-item">
+									<a href="/ontdekken/mijn-plaats" class="u-block  u-relative  u-padding--x5  u-padding--0@lg  u-margin--x5@lg  u-margin--x4@lg  u-margin--b2  u-margin--b0@lg  u-padding--y4@lg  u-size--5  u-weight--700  u-grey--charcoal  u-white@lg  u-pointer  u-trans--bg  u-no-decoration  v-accent" data-toggle-id="mainitem-" data-toggle-group-name="mainitem">
+										Ontdekken
+									</a>
+								</li>
+								<li class="o-list-reset__item  u-padding--y2  u-padding--0@lg  u-block  u-inline-block@lg" data-component="navigation--main-item">
+									<a href="/onderzoeken/stamboom" class="u-block  u-relative  u-padding--x5  u-padding--0@lg  u-margin--x5@lg  u-margin--x4@lg  u-margin--b2  u-margin--b0@lg  u-padding--y4@lg  u-size--5  u-weight--700  u-grey--charcoal  u-white@lg  u-pointer  u-trans--bg  u-no-decoration  v-accent  v-accent--active" data-toggle-id="mainitem-" data-toggle-group-name="mainitem">
+										Onderzoeken
+									</a><div class="u-padding--b6">
+										<ul class="o-list-reset  u-relative  u-absolute@lg  u-width--100@lg  u-left--0@lg  u-bg--blue--hawkes@lg  u-text--right@lg  js-subnavigation-toggle__target" data-component="navigation--sub">
+											<li class="o-list-reset__item  u-inline-block@lg" data-component="navigation--sub-item">
+												<a class="u-block  u-inline-block@lg  u-padding--y1  u-padding--x5  u-padding--x3@lg  u-size--6  u-weight--700  u-lh--3  u-no-decoration  u-trans--all  u-blue--cobalt  v-menuitem--active--mobile  u-bg--blue--spindle@lg" href="/onderzoeken/stamboom">
+													Stamboom
+												</a>
+											</li>
+											<li class="o-list-reset__item  u-inline-block@lg" data-component="navigation--sub-item">
+												<a class="u-block  u-inline-block@lg  u-padding--y1  u-padding--x5  u-padding--x3@lg  u-size--6  u-weight--700  u-lh--3  u-no-decoration  u-trans--all  u-blue--cobalt  u-bg-hover--blue--spindle@lg" href="/memorix/images/search/">
+													Foto's
+												</a>
+											</li>
+											<li class="o-list-reset__item  u-inline-block@lg" data-component="navigation--sub-item">
+												<a class="u-block  u-inline-block@lg  u-padding--y1  u-padding--x5  u-padding--x3@lg  u-size--6  u-weight--700  u-lh--3  u-no-decoration  u-trans--all  u-blue--cobalt  u-bg-hover--blue--spindle@lg" href="/onderzoeken/archieven">
+													Archieven
+												</a>
+											</li>
+											<li class="o-list-reset__item  u-inline-block@lg" data-component="navigation--sub-item">
+												<a class="u-block  u-inline-block@lg  u-padding--y1  u-padding--x5  u-padding--x3@lg  u-size--6  u-weight--700  u-lh--3  u-no-decoration  u-trans--all  u-blue--cobalt  u-bg-hover--blue--spindle@lg" href="/onderzoeken/hulp-bij-onderzoek/scannen-op-verzoek">
+													Scannen op verzoek
+												</a>
+											</li>
+											<li class="o-list-reset__item  u-inline-block@lg" data-component="navigation--sub-item">
+												<a class="u-block  u-inline-block@lg  u-padding--y1  u-padding--x5  u-padding--x3@lg  u-size--6  u-weight--700  u-lh--3  u-no-decoration  u-trans--all  u-blue--cobalt  u-bg-hover--blue--spindle@lg" href="/onderzoeken/hulp-bij-onderzoek">
+													Hulp bij onderzoek
+												</a>
+											</li>
+											<li class="o-list-reset__item  u-inline-block@lg" data-component="navigation--sub-item">
+												<a class="u-block  u-inline-block@lg  u-padding--y1  u-padding--x5  u-padding--x3@lg  u-size--6  u-weight--700  u-lh--3  u-no-decoration  u-trans--all  u-blue--cobalt  u-bg-hover--blue--spindle@lg" href="/onderzoeken/forum">
+													Forum
+												</a>
+											</li>
+										</ul>
+									</div>
+								</li>
+								<li class="o-list-reset__item  u-padding--y2  u-padding--0@lg  u-block  u-inline-block@lg" data-component="navigation--main-item">
+									<a href="/mijn-bhic" class="u-block  u-relative  u-padding--x5  u-padding--0@lg  u-margin--x5@lg  u-margin--x4@lg  u-margin--b2  u-margin--b0@lg  u-padding--y4@lg  u-size--5  u-weight--700  u-grey--charcoal  u-white@lg  u-pointer  u-trans--bg  u-no-decoration  v-accent" data-toggle-id="mainitem-" data-toggle-group-name="mainitem">
+										Mijn BHIC
+									</a>
+								</li>
+							</ol>
+						</nav>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</header>
+
+
+
+
+
+
+	<div class="u-relative  c-navigation--offset--default">
+
+		<div class="c-section-memorix--genealogy">
+			<!-- uiView: --><div id="pic-genealogy" ui-view="" data-api-key="24c66d08-da4a-4d60-917f-5942681dcaa1" data-url="https://webservices.picturae.com/genealogy/" data-pagination-rows="25" data-recordsperpage="true" data-language="nl_NL" data-form-help-persons="/raw-content/onderzoeken/hulp-bij-onderzoek/zoeken-naar-personen" data-form-help-registers="/raw-content/[static_reference: help_registers]" data-button-request="true" class="ng-scope"><!-- uiView: --><div id="picturae-genealogy-container" class="picturae-genealogy-container ng-scope" ui-view=""><div class="tablerecord active ng-scope"><!-- ngIf: loading && (!register || !persons) --><!-- ngIf: !loading || (register && persons) --><section class="row ng-scope" data-ng-if="!loading || (register &amp;&amp; persons)"><!-- ngIf: 'root.deed' | isState --><div class="back ng-scope" data-ng-if="'root.deed' | isState"><a tabindex="0" ng-click="$back()" href="#"><i class="pic-icon-left-open-mini"></i> <span data-translate="">Terug naar zoekresultaat</span></a></div><!-- end ngIf: 'root.deed' | isState --><header class="small-12 medium-12 columns"><h1 class="ng-binding">Huwelijksregister Boxtel 1812</h1></header><div class="small-12 medium-9 columns"><!-- ngIf: register.metadata.diversen --><ul class="registration-info-list"><li class="ng-binding"><strong data-translate="">Bron:</strong> burgerlijke stand</li><li class="ng-binding"><strong data-translate="">Soort registratie:</strong> BS huwelijksakte</li><!-- ngIf: deed.metadata.datum --><li ng-if="deed.metadata.datum" class="ng-binding ng-scope"><strong data-translate="">(Akte)datum:</strong> 02-02-1812</li><!-- end ngIf: deed.metadata.datum --><!-- ngIf: deed.metadata.plaats --><li ng-if="deed.metadata.plaats" class="ng-binding ng-scope"><strong data-translate="">Plaats:</strong> Boxtel</li><!-- end ngIf: deed.metadata.plaats --><!-- ngIf: deed.metadata.subtype --></ul><!-- ngIf: deed.metadata.diversen --><deed data-persons="persons.person" data-deed="deed" data-selected-person-id="selectedPerson.id" class="ng-isolate-scope"><deed-bs_h data-deed="deed" data-persons="persons" data-selected-person-id="selectedPersonId" class="ng-scope ng-isolate-scope"><ol><!-- ngIf: parentsGroom --><li class="parents-groom ng-scope" data-ng-if="parentsGroom"><a data-ng-click="simpleSearchPerson(fatherGroom, motherGroom)" class="record-searchplus" title="Zoeken naar alle personen met deze naam/namen"><i class="pic-icon-search-circle"></i></a><ol><!-- ngIf: fatherGroom --><li class="male ng-scope" data-ng-if="fatherGroom"><i class="pic-icon-male-1"></i><h2 data-translate="">Vader van de bruidegom</h2><person-data data-person="fatherGroom" data-template="bs_h" data-header="false" data-icon="false" data-url="'deeds/'+deed.id+'?person='+fatherGroom.id" class="ng-isolate-scope"><!-- ngIf: !isSpecial() --><div data-ng-if="!isSpecial()" class="ng-binding ng-scope"> <a tabindex="0" href="#" data-ng-click="simpleSearchPerson(person)" class="person ng-binding"><!-- ngIf: hasGender() && icon != 'false' --> Martinus van Summeren <!-- ngIf: person.metadata.meisjesnaam --> <!-- ngIf: person.metadata.beroep --></a><div class="person-permalink"><a tabindex="0" href="#" data-ng-click="showPermalinkBox()" class="person-permalink-button"><span class="pic-icon-link"></span></a><!-- ngIf: isPermalinkOpen --></div><!-- ngIf: person.metadata.leeftijd --> <!-- ngIf: person.metadata.subtype --> <!-- ngIf: person.metadata.datum_geboorte || person.metadata.plaats_geboorte --> <!-- ngIf: person.metadata.datum_doop || person.metadata.plaats_doop --> <!-- ngIf: person.metadata.plaats_wonen --> <!-- ngIf: person.metadata.type_of --> <!-- ngIf: person.metadata.datum_overlijden || person.metadata.plaats_overlijden --><!-- ngIf: person.metadata.diversen --></div><!-- end ngIf: !isSpecial() --><!-- ngIf: template === 'id_a' --></person-data></li><!-- end ngIf: fatherGroom --><!-- ngIf: motherGroom --><li class="female ng-scope" data-ng-if="motherGroom"><i class="pic-icon-female-1"></i><h2 data-translate="">Moeder van de bruidegom</h2><person-data data-person="motherGroom" data-template="bs_h" data-header="false" data-icon="false" data-url="'deeds/'+deed.id+'?person='+motherGroom.id" class="ng-isolate-scope"><!-- ngIf: !isSpecial() --><div data-ng-if="!isSpecial()" class="ng-binding ng-scope"> <a tabindex="0" href="#" data-ng-click="simpleSearchPerson(person)" class="person ng-binding"><!-- ngIf: hasGender() && icon != 'false' --> Johanna van Dinther <!-- ngIf: person.metadata.meisjesnaam --> <!-- ngIf: person.metadata.beroep --></a><div class="person-permalink"><a tabindex="0" href="#" data-ng-click="showPermalinkBox()" class="person-permalink-button"><span class="pic-icon-link"></span></a><!-- ngIf: isPermalinkOpen --></div><!-- ngIf: person.metadata.leeftijd --> <!-- ngIf: person.metadata.subtype --> <!-- ngIf: person.metadata.datum_geboorte || person.metadata.plaats_geboorte --> <!-- ngIf: person.metadata.datum_doop || person.metadata.plaats_doop --> <!-- ngIf: person.metadata.plaats_wonen --> <!-- ngIf: person.metadata.type_of --> <!-- ngIf: person.metadata.datum_overlijden || person.metadata.plaats_overlijden --><!-- ngIf: person.metadata.diversen --></div><!-- end ngIf: !isSpecial() --><!-- ngIf: template === 'id_a' --></person-data></li><!-- end ngIf: motherGroom --></ol></li><!-- end ngIf: parentsGroom --><li class="groom-bride"><a data-ng-click="simpleSearchPerson(bride, groom)" class="record-searchplus" title="Zoeken naar alle personen met deze naam/namen"><i class="pic-icon-search-circle"></i></a><ol><!-- ngIf: groom --><li class="male ng-scope" data-ng-if="groom"><i class="pic-icon-male-1"></i><h2 data-translate="">Bruidegom</h2><person-data data-person="groom" data-template="bs_h" data-header="false" data-icon="false" data-url="'deeds/'+deed.id+'?person='+groom.id" class="ng-isolate-scope"><!-- ngIf: !isSpecial() --><div data-ng-if="!isSpecial()" class="ng-binding ng-scope"> <a tabindex="0" href="#" data-ng-click="simpleSearchPerson(person)" class="person ng-binding"><!-- ngIf: hasGender() && icon != 'false' --> Johannes van Summeren <!-- ngIf: person.metadata.meisjesnaam --> <!-- ngIf: person.metadata.beroep --></a><div class="person-permalink"><a tabindex="0" href="#" data-ng-click="showPermalinkBox()" class="person-permalink-button"><span class="pic-icon-link"></span></a><!-- ngIf: isPermalinkOpen --></div><!-- ngIf: person.metadata.leeftijd --> <!-- ngIf: person.metadata.subtype --> <!-- ngIf: person.metadata.datum_geboorte || person.metadata.plaats_geboorte --><span ng-if="person.metadata.datum_geboorte || person.metadata.plaats_geboorte" class="ng-scope"><span data-translate="">geboren</span><!-- ngIf: person.metadata.datum_geboorte --><!-- ngIf: person.metadata.plaats_geboorte --><span ng-if="person.metadata.plaats_geboorte" class="ng-binding ng-scope"><span></span> <span data-translate="">te</span> Boxtel</span><!-- end ngIf: person.metadata.plaats_geboorte --><!-- ngIf: person.metadata.datum_doop || person.metadata.plaats_doop || person.metadata.datum_overlijden || person.metadata.plaats_overlijden || person.metadata.plaats_wonen || person.metadata.type_of --></span><!-- end ngIf: person.metadata.datum_geboorte || person.metadata.plaats_geboorte --> <!-- ngIf: person.metadata.datum_doop || person.metadata.plaats_doop --> <!-- ngIf: person.metadata.plaats_wonen --> <!-- ngIf: person.metadata.type_of --> <!-- ngIf: person.metadata.datum_overlijden || person.metadata.plaats_overlijden --><!-- ngIf: person.metadata.diversen --></div><!-- end ngIf: !isSpecial() --><!-- ngIf: template === 'id_a' --></person-data><ol class="relations"><!-- ngRepeat: relatie in relationsGroom --></ol></li><!-- end ngIf: groom --><!-- ngIf: bride --><li class="female ng-scope" data-ng-if="bride"><i class="pic-icon-female-1"></i><h2 data-translate="">Bruid</h2><person-data data-person="bride" data-template="bs_h" data-header="false" data-icon="false" data-url="'deeds/'+deed.id+'?person='+bride.id" class="ng-isolate-scope"><!-- ngIf: !isSpecial() --><div data-ng-if="!isSpecial()" class="ng-binding ng-scope"> <a tabindex="0" href="#" data-ng-click="simpleSearchPerson(person)" class="person ng-binding"><!-- ngIf: hasGender() && icon != 'false' --> Maria Hendrica van de Loo <!-- ngIf: person.metadata.meisjesnaam --> <!-- ngIf: person.metadata.beroep --></a><div class="person-permalink"><a tabindex="0" href="#" data-ng-click="showPermalinkBox()" class="person-permalink-button"><span class="pic-icon-link"></span></a><!-- ngIf: isPermalinkOpen --></div><!-- ngIf: person.metadata.leeftijd --> <!-- ngIf: person.metadata.subtype --> <!-- ngIf: person.metadata.datum_geboorte || person.metadata.plaats_geboorte --><span ng-if="person.metadata.datum_geboorte || person.metadata.plaats_geboorte" class="ng-scope"><span data-translate="">geboren</span><!-- ngIf: person.metadata.datum_geboorte --><!-- ngIf: person.metadata.plaats_geboorte --><span ng-if="person.metadata.plaats_geboorte" class="ng-binding ng-scope"><span></span> <span data-translate="">te</span> Boxtel</span><!-- end ngIf: person.metadata.plaats_geboorte --><!-- ngIf: person.metadata.datum_doop || person.metadata.plaats_doop || person.metadata.datum_overlijden || person.metadata.plaats_overlijden || person.metadata.plaats_wonen || person.metadata.type_of --></span><!-- end ngIf: person.metadata.datum_geboorte || person.metadata.plaats_geboorte --> <!-- ngIf: person.metadata.datum_doop || person.metadata.plaats_doop --> <!-- ngIf: person.metadata.plaats_wonen --> <!-- ngIf: person.metadata.type_of --> <!-- ngIf: person.metadata.datum_overlijden || person.metadata.plaats_overlijden --><!-- ngIf: person.metadata.diversen --></div><!-- end ngIf: !isSpecial() --><!-- ngIf: template === 'id_a' --></person-data><ol class="relations"><!-- ngRepeat: relatie in relationsBride --></ol></li><!-- end ngIf: bride --></ol></li><!-- ngIf: parentsBride --><li class="parents-bride ng-scope" data-ng-if="parentsBride"><a data-ng-click="simpleSearchPerson(fatherBride, motherBride)" class="record-searchplus" title="Zoeken naar alle personen met deze naam/namen"><i class="pic-icon-search-circle"></i></a><ol><!-- ngIf: fatherBride --><li class="male ng-scope" data-ng-if="fatherBride"><i class="pic-icon-male-1"></i><h2 data-translate="">Vader van de bruid</h2><person-data data-person="fatherBride" data-template="bs_h" data-header="false" data-icon="false" data-url="'deeds/'+deed.id+'?person='+fatherBride.id" class="ng-isolate-scope"><!-- ngIf: !isSpecial() --><div data-ng-if="!isSpecial()" class="ng-binding ng-scope"> <a tabindex="0" href="#" data-ng-click="simpleSearchPerson(person)" class="person ng-binding"><!-- ngIf: hasGender() && icon != 'false' --> Hendricus van de Loo <!-- ngIf: person.metadata.meisjesnaam --> <!-- ngIf: person.metadata.beroep --></a><div class="person-permalink"><a tabindex="0" href="#" data-ng-click="showPermalinkBox()" class="person-permalink-button"><span class="pic-icon-link"></span></a><!-- ngIf: isPermalinkOpen --></div><!-- ngIf: person.metadata.leeftijd --> <!-- ngIf: person.metadata.subtype --> <!-- ngIf: person.metadata.datum_geboorte || person.metadata.plaats_geboorte --> <!-- ngIf: person.metadata.datum_doop || person.metadata.plaats_doop --> <!-- ngIf: person.metadata.plaats_wonen --> <!-- ngIf: person.metadata.type_of --> <!-- ngIf: person.metadata.datum_overlijden || person.metadata.plaats_overlijden --><!-- ngIf: person.metadata.diversen --></div><!-- end ngIf: !isSpecial() --><!-- ngIf: template === 'id_a' --></person-data></li><!-- end ngIf: fatherBride --><!-- ngIf: motherBride --><li class="female ng-scope" data-ng-if="motherBride"><i class="pic-icon-female-1"></i><h2 data-translate="">Moeder van de bruid</h2><person-data data-person="motherBride" data-template="bs_h" data-header="false" data-icon="false" data-url="'deeds/'+deed.id+'?person='+motherBride.id" class="ng-isolate-scope"><!-- ngIf: !isSpecial() --><div data-ng-if="!isSpecial()" class="ng-binding ng-scope"> <a tabindex="0" href="#" data-ng-click="simpleSearchPerson(person)" class="person ng-binding"><!-- ngIf: hasGender() && icon != 'false' --> Megchelina Schellen <!-- ngIf: person.metadata.meisjesnaam --> <!-- ngIf: person.metadata.beroep --></a><div class="person-permalink"><a tabindex="0" href="#" data-ng-click="showPermalinkBox()" class="person-permalink-button"><span class="pic-icon-link"></span></a><!-- ngIf: isPermalinkOpen --></div><!-- ngIf: person.metadata.leeftijd --> <!-- ngIf: person.metadata.subtype --> <!-- ngIf: person.metadata.datum_geboorte || person.metadata.plaats_geboorte --> <!-- ngIf: person.metadata.datum_doop || person.metadata.plaats_doop --> <!-- ngIf: person.metadata.plaats_wonen --> <!-- ngIf: person.metadata.type_of --> <!-- ngIf: person.metadata.datum_overlijden || person.metadata.plaats_overlijden --><!-- ngIf: person.metadata.diversen --></div><!-- end ngIf: !isSpecial() --><!-- ngIf: template === 'id_a' --></person-data></li><!-- end ngIf: motherBride --></ol></li><!-- end ngIf: parentsBride --></ol><section class="registration person"><!-- ngRepeat: (role, people) in others --></section></deed-bs_h></deed><div class="more ng-hide" ng-hide="'root.deed' | isState" aria-hidden="true"><a tabindex="0" data-ui-sref="root.deed({ id: deed.id, person: selectedPerson.id })" href="/memorix/genealogy/search/deeds/09634674-52e0-4449-6355-3613d1bbafed?person=f31815d2-462c-11e3-a747-d206bceb4d38"><i class="pic-icon-right-open-mini"></i> <span data-translate="">Paginaweergave</span></a></div><!-- ngIf: deed.id --><mmx-report-warning data-ng-if="deed.id" data-subject="09634674-52e0-4449-6355-3613d1bbafed" class="ng-scope ng-isolate-scope"><!-- ngIf: warning.showWarning --><div class="mmx-report-warning ng-scope" data-ng-if="warning.showWarning"><!-- ngIf: warning.hasReports --></div><!-- end ngIf: warning.showWarning --></mmx-report-warning><!-- end ngIf: deed.id --></div><div class="small-12 medium-3 columns"><aside class="record-scource"><header><h3 data-translate="">Bronvermelding</h3></header><div class="header"><!-- ngIf: register.metadata.naam --><span data-ng-if="register.metadata.naam" class="ng-binding ng-scope">Huwelijksregister Boxtel 1812</span><!-- end ngIf: register.metadata.naam --><!-- ngIf: register.metadata.archiefnummer --><span data-ng-if="register.metadata.archiefnummer" class="ng-binding ng-scope">, <span data-translate="">archiefnummer</span> 50</span><!-- end ngIf: register.metadata.archiefnummer --><!-- ngIf: register.metadata.archiefnaam --><!-- ngIf: register.metadata.inventarisnummer --><span data-ng-if="register.metadata.inventarisnummer" class="ng-binding ng-scope">, <span data-translate="">inventarisnummer</span> 1084</span><!-- end ngIf: register.metadata.inventarisnummer --><!-- ngIf: deed.metadata.pagina --><!-- ngIf: deed.metadata.nummer --><span data-ng-if="deed.metadata.nummer" class="ng-binding ng-scope">, <span data-translate="">aktenummer</span> 22</span><!-- end ngIf: deed.metadata.nummer --></div><!-- ngIf: register.metadata.gemeente --><div data-ng-if="register.metadata.gemeente" class="ng-binding ng-scope"><span class="title" data-translate="">Gemeente</span>: Boxtel</div><!-- end ngIf: register.metadata.gemeente --><!-- ngIf: register.metadata.periode --><div data-ng-if="register.metadata.periode" class="ng-binding ng-scope"><span class="title" data-translate="">Periode</span>: 1812</div><!-- end ngIf: register.metadata.periode --><!-- ngIf: register.metadata.religie --></aside><aside class="record-actions"><!-- ngIf: deed.asset && deed.asset.length --><!-- ngIf: selectedPerson && selectedPerson.metadata.has_assets === 'register' || deed.metadata.has_assets === 'register' --><ul data-ng-if="selectedPerson &amp;&amp; selectedPerson.metadata.has_assets === 'register' || deed.metadata.has_assets === 'register'" class="ng-scope"><li class="view-source"><a href="#" tabindex="0" data-ng-click="showScans(deed, null, deed.id, register.metadata, asset.dc_title, selectedPerson)"><i class="pic-icon-book-open"></i> <span data-translate="">Bladeren door bron</span></a></li></ul><!-- end ngIf: selectedPerson && selectedPerson.metadata.has_assets === 'register' || deed.metadata.has_assets === 'register' --><!-- ngIf: deed.asset.length > 1 --></aside><!-- ngIf: deed.id --><mmx-report-button data-ng-if="deed.id" data-subject="09634674-52e0-4449-6355-3613d1bbafed" data-deed="deed" data-memorixurl="https://maior.memorix.nl/collectiebeheer/entiteit/index/entiteit/b56dfbf7-7ce1-4f73-86c1-23f73089e53a/uuid/09634674-52e0-4449-6355-3613d1bbafed" data-url="deeds/09634674-52e0-4449-6355-3613d1bbafed?person=f31815d2-462c-11e3-a747-d206bceb4d38" class="ng-scope ng-isolate-scope"><div data-ng-show="button.showButton" aria-hidden="false" class=""><a tabindex="0" href="#" class="mmx-report-button" data-ng-click="button.showForm('error')"><i class="pic-icon-error"></i> <span data-translate="">Fout melden</span></a> <!-- ngIf: request --><a data-ng-if="request" tabindex="1" href="#" class="mmx-report-button ng-scope" data-ng-click="button.showForm('request')"><i class="pic-icon-error"></i> <span data-translate="">Vraag stellen</span></a><!-- end ngIf: request --></div></mmx-report-button><!-- end ngIf: deed.id --><mmx-social-share data-handle="" data-url="deeds/09634674-52e0-4449-6355-3613d1bbafed" data-title="Huwelijksregister Boxtel 1812 " data-image="" data-memorixentityuuid="b56dfbf7-7ce1-4f73-86c1-23f73089e53a" data-memorixrecorduuid="09634674-52e0-4449-6355-3613d1bbafed" class="ng-isolate-scope"><div class="social-media-share"><ul><!-- ngIf: socialshare.showFacebook --><li class="facebook ng-scope" data-ng-if="socialshare.showFacebook"><a data-ng-href="https://www.facebook.com/sharer/sharer.php?u=https://www.bhic.nl/memorix/genealogy/search/deeds/09634674-52e0-4449-6355-3613d1bbafed" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.bhic.nl/memorix/genealogy/search/deeds/09634674-52e0-4449-6355-3613d1bbafed"><span class="pic-hidden-linktext">Facebook</span></a></li><!-- end ngIf: socialshare.showFacebook --><!-- ngIf: socialshare.showTwitter --><li class="twitter ng-scope" data-ng-if="socialshare.showTwitter"><a tabindex="0" href="#" class="twitter-share-button" data-ng-click="socialshare.twitterShare()"><span class="pic-hidden-linktext">Twitter</span></a></li><!-- end ngIf: socialshare.showTwitter --><!-- ngIf: socialshare.showPinterest --><li class="pinterest ng-scope" data-ng-if="socialshare.showPinterest"><div pintrest="" data-href="https://www.bhic.nl/memorix/genealogy/search/deeds/09634674-52e0-4449-6355-3613d1bbafed" data-description="Huwelijksregister Boxtel 1812 " data-img="" data-pin-do="buttonPin" data-pin-config="beside"><a href="//www.pinterest.com/pin/create/button/?url=https%3A%2F%2Fwww.bhic.nl%2Fmemorix%2Fgenealogy%2Fsearch%2Fdeeds%2F09634674-52e0-4449-6355-3613d1bbafed&amp;media=&amp;description=Huwelijksregister%20Boxtel%201812%20" pindo="buttonPin" pinconfig="beside"></a></div></li><!-- end ngIf: socialshare.showPinterest --><!-- ngIf: socialshare.showMailto --><li class="mailto ng-scope" data-ng-if="socialshare.showMailto"><a tabindex="0" ng-href="mailto:?subject=Huwelijksregister%20Boxtel%201812%20&amp;body=Huwelijksregister%20Boxtel%201812%20%20%0Ahttps%3A%2F%2Fwww.bhic.nl%2Fmemorix%2Fgenealogy%2Fsearch%2Fdeeds%2F09634674-52e0-4449-6355-3613d1bbafed" href="mailto:?subject=Huwelijksregister%20Boxtel%201812%20&amp;body=Huwelijksregister%20Boxtel%201812%20%20%0Ahttps%3A%2F%2Fwww.bhic.nl%2Fmemorix%2Fgenealogy%2Fsearch%2Fdeeds%2F09634674-52e0-4449-6355-3613d1bbafed"><span data-translate="">E-mail</span></a></li><!-- end ngIf: socialshare.showMailto --><!-- ngIf: socialshare.showPermalink --><li class="pic-permalink ng-scope" data-ng-if="socialshare.showPermalink"><a tabindex="0" href="#" class="pic-permalink-button" data-ng-click="socialshare.showPermalinkBox()"><i class="pic-icon-link"></i> <span data-translate="">Permalink</span></a><!-- ngIf: socialshare.isPermalinkOpen --></li><!-- end ngIf: socialshare.showPermalink --><!-- ngIf: socialshare.showGooglePlus --><!-- ngIf: socialshare.showMemorixUrl --></ul></div></mmx-social-share></div></section><!-- end ngIf: !loading || (register && persons) --></div></div>
+			<script type="text/ng-template" id="custom/header" class="ng-scope">
+				<tr> <th ng-controller="ngTableSorterRowController" ng-repeat="$column in $columns" ng-class="{ 'sortable': parse($column.sortable(this)), 'sort-asc': params.sorting()[$column.sortable(this)]=='asc', 'sort-desc': params.sorting()[$column.sortable(this)]=='desc' }" ng-click="params.sorting()[$column.sortable(this)]=='desc' ? params.resetSorting(params) : sortBy($column, $event)" ng-show="$column.show(this)" ng-init="template = $column.headerTemplateURL(this)" class="header sortable {{$column.class(this)}}"> <div ng-if="!template" ng-show="!template" class="ng-table-header" ng-class="{'sort-indicator': params.settings().sortingIndicator == 'div'}" ng-bind="$column.title(this) | translate"> </div> <div ng-if="template" ng-show="template"><div ng-include="template"></div></div> </th> </tr>
+			</script></div>
+		</div>
+	</div>
+
+
+
+	<footer class="u-bg--beige--white  u-width--100  u-bottom--0">
+		<div class="o-grid  o-grid--fixed">
+			<div class="o-grid__row  u-padding--4@xl">
+				<div class="o-grid__col  o-grid__col--12@xs  o-grid__col--3@lg">
+					<div class="u-text--center@sm  u-text--left@xl  u-padding--4  u-padding--b2  u-flex@xl">
+						<p class="u-weight--800">Volgen?</p>
+						<div class="u-padding--l2@xl"><a href="https://twitter.com/bhicarchief" target="_blank" title="Twitter" class="u-no-decoration" rel="noopener"> <img src="/media/icon-twitter.png" alt="Twitter" width="24" height="24"> </a> <a href="https://www.facebook.com/bhicarchief" target="_blank" title="Facebook" class="u-no-decoration" rel="noopener"> <img src="/media/icon-facebook.png" alt="Twitter" width="24" height="24"> </a> <a href="https://www.instagram.com/bhicarchief/" target="_blank" title="Instagram" class="u-no-decoration" rel="noopener"> <img src="/media/icon-instagram.png" alt="Twitter" width="24" height="24"> </a> <a href="/over-ons/rss" title="RSS" class="u-no-decoration"> <img src="/media/icon-feed.png" alt="Twitter" width="24" height="24"> </a></div>
+					</div>
+				</div>
+				<div class="o-grid__col o-grid__col--12@xs  o-grid__col--9@lg">
+					<div class="u-weight--800  u-padding--4  u-flex@xl">
+						<p class="u-text--center@sm">Vragen?</p>
+						<div class="u-no-decoration  u-weight--100  u-flex  u-flex--justify--center@sm   u-margin--t2n@sm">
+							<ul class="o-list-reset  u-valign--middle  u-size--7@lg">
+								<li class="u-inline-block@sm  u-margin--b2  u-padding--2@sm"><img class="u-valign--middle" src="/media/icon-phone.png" alt="Telefoon" width="24" height="24"> Telefoon: <a href="tel:0031736818500">073-6818500</a></li>
+								<li class="u-inline-block@sm  u-margin--b2  u-padding--2@sm"><img class="u-valign--middle" src="/media/icon-mail.png" alt="E-mail" width="24" height="24"> E-mail: <a href="mailto:vragen@bhic.nl"> vragen@bhic.nl </a></li>
+								<li class="u-inline-block@sm  u-margin--b2  u-padding--2@sm"><img class="u-valign--middle" src="/media/icon-whatsapp.png" alt="WhatsApp" width="24" height="24"> Whatsapp: 06-12887717</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</footer>
+
+
+
+	<script defer="" src="/assets/main.min.js?7-1-7"></script>
+
+	<script type="text/javascript" src="/js/vendors.min.js?7-1-7"></script>
+
+	<script type="text/javascript" src="/bundles/zichtbhiccore/javascript/3rd-party/tinymce/jscripts/tiny_mce/tiny_mce.js?7-1-7"></script>
+
+	<script type="text/javascript" src="/js/site.min.js?7-1-7"></script>
+
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjVgQdT3xoueYmk4WOOTSWgPgbbcRrqMM&amp;callback=initMap&amp;libraries=&amp;v=weekly" async=""></script>
+
+
+	<!-- Genealogy JS -->
+	<script src="https://webservices.picturae.com/genealogy/dist/js/deps.min.js"></script>
+	<script src="https://webservices.picturae.com/genealogy/dist/js/partials/partials.min.js"></script>
+	<script src="https://webservices.picturae.com/genealogy/dist/js/app.js"></script>
+
+	<!--[if lte IE 9]>
+	<script type="text/javascript" src="https://webservices.picturae.com/genealogy/js/xdomain/xdomain.min.js"></script>
+	<script>
+		xdomain.slaves({ 'https://webservices.picturae.com': '/genealogy/proxy.html' });
+	</script>
+	<![endif]-->
+
+
+	<script type="text/javascript" defer="">
+		(function () {
+			var x = document.createElement("script"); x.type = "text/javascript"; x.async = true;
+			x.src = (document.location.protocol === "https:" ? "https://" : "http://") + "eu.libraryh3lp.com/js/libraryh3lp.js?multi";
+			var y = document.getElementsByTagName("script")[0]; y.parentNode.insertBefore(x, y);
+		})();
+	</script>
+
+
+
+
+	<script src="https://eu.libraryh3lp.com/presence/jid/bhic/chat.eu.libraryh3lp.com/js?cb=lh3cb1630661811584"></script>
+</body>
+<grammarly-desktop-integration data-grammarly-shadow-root="true"></grammarly-desktop-integration>
+</html>

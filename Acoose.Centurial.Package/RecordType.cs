@@ -107,7 +107,7 @@ namespace Acoose.Centurial.Package
                     break;
                 case ChurchRecord c1:
                     c1.Church = record.Organization;
-                    c1.Place = record.RecordPlace ?? record.EventPlace;
+                    c1.Place = record.EventPlace ?? record.RecordPlace;
                     c1.Title = record.Title.ToGenericTitle(true);
                     c1.Items = record.GenerateRecordScriptFormat();
                     break;
