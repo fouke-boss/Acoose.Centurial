@@ -1,0 +1,442 @@
+<html class="windows desktop landscape ng-scope mti-inactive" lang="nl" ng-app="picturaeGenealogy">
+<head>
+	<style type="text/css">
+		@charset "UTF-8";
+
+		[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak, .ng-hide:not(.ng-hide-animate) {
+			display: none !important;
+		}
+
+		ng\:form {
+			display: block;
+		}
+
+		.ng-animate-shim {
+			visibility: hidden;
+		}
+
+		.ng-anchor {
+			position: absolute;
+		}
+	</style>
+	<script type="text/javascript" async="" src="https://www.google-analytics.com/analytics.js"></script>
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+	<base href="https://archief.amsterdam/indexen/">
+	<meta http-equiv="content-type" content="text/html; charset=utf-8">
+	<meta name="generator" content="Joomla! - Open Source Content Management">
+	<title>Indexen</title>
+	<link href="/templates/ams/favicon.ico" rel="shortcut icon" type="image/vnd.microsoft.icon">
+	<link href="https://webservices.picturae.com/genealogy/dist/css/genealogy.css" rel="stylesheet" type="text/css">
+	<link href="//cdnjs.cloudflare.com/ajax/libs/ng-dialog/0.3.0/css/ngDialog.min.css" rel="stylesheet" type="text/css">
+	<link href="//cdnjs.cloudflare.com/ajax/libs/ng-dialog/0.3.0/css/ngDialog-theme-plain.min.css" rel="stylesheet" type="text/css">
+	<link href="/plugins/system/gdpr/assets/css/cookieconsent.min.css" rel="stylesheet" type="text/css">
+	<style type="text/css">
+		div.cc-window, span.cc-cookie-settings-toggler {
+			font-size: 16px
+		}
+
+		div.cc-revoke {
+			font-size: 16px
+		}
+
+		div.cc-settings-label, span.cc-cookie-settings-toggle {
+			font-size: 14px
+		}
+
+		div.cc-window.cc-banner {
+			padding: 1em 1.8em
+		}
+
+		div.cc-window.cc-floating {
+			padding: 2em 1.8em
+		}
+	</style>
+	<script src="//images.memorix.nl/topviewer/1.0/src/topviewer.compressed.js?v=1.0" type="text/javascript"></script>
+	<script src="https://webservices.picturae.com/genealogy/dist/js/deps.min.js" type="text/javascript"></script>
+	<script src="https://webservices.picturae.com/genealogy/dist/js/partials/partials.min.js" type="text/javascript"></script>
+	<script src="https://webservices.picturae.com/genealogy/dist/js/i18n/nl.js" type="text/javascript"></script>
+	<script src="https://webservices.picturae.com/genealogy/dist/js/app.js" type="text/javascript"></script>
+	<script src="/media/jui/js/jquery.min.js?a2ef12b961751099ef1da406169244dc" type="text/javascript"></script>
+	<script src="/media/jui/js/jquery-noconflict.js?a2ef12b961751099ef1da406169244dc" type="text/javascript"></script>
+	<script src="/media/jui/js/jquery-migrate.min.js?a2ef12b961751099ef1da406169244dc" type="text/javascript"></script>
+	<script src="/plugins/system/gdpr/assets/js/cookieconsent.min.js" type="text/javascript" defer="defer"></script>
+	<script src="/plugins/system/gdpr/assets/js/init.js" type="text/javascript" defer="defer"></script>
+	<script type="text/javascript">
+		var gdprConfigurationOptions = {
+			complianceType: 'opt-in',
+			disableFirstReload: 0,
+			blockJoomlaSessionCookie: 1,
+			blockExternalCookiesDomains: 0,
+			allowedCookies: '',
+			blockCookieDefine: 1,
+			autoAcceptOnNextPage: 0,
+			revokable: 0,
+			lawByCountry: 0,
+			checkboxLawByCountry: 0,
+			cacheGeolocationCountry: 1,
+			countryAcceptReloadTimeout: 1000,
+			usaCCPARegions: null,
+			dismissOnScroll: 0,
+			dismissOnTimeout: 0,
+			containerSelector: 'body',
+			hideOnMobileDevices: 0,
+			defaultClosedToolbar: 0,
+			toolbarLayout: 'basic',
+			toolbarTheme: 'block',
+			revocableToolbarTheme: 'basic',
+			toolbarPosition: 'bottom',
+			revokePosition: 'revoke-top',
+			toolbarPositionmentType: 1,
+			popupBackground: '#000000',
+			popupText: '#ffffff',
+			popupLink: '#ffffff',
+			buttonBackground: '#ffffff',
+			buttonBorder: '#ffffff',
+			buttonText: '#000000',
+			highlightOpacity: '100',
+			highlightBackground: '#333333',
+			highlightBorder: '#ffffff',
+			highlightText: '#ffffff',
+			highlightDismissBackground: '#000000',
+			highlightDismissBorder: '#000000',
+			highlightDismissText: '#000000',
+			hideRevokableButton: 0,
+			hideRevokableButtonOnscroll: 0,
+			customRevokableButton: 0,
+			headerText: 'Cookies used on the website!',
+			messageText: 'Gegevens over mogelijk nog levende personen mogen alleen worden gebruikt voor historisch (waaronder genealogisch), wetenschappelijk of statistisch onderzoek.<br />Lees meer in het <a href=\"images/uitleg-persoonsgegevens/BeleidPersoonsgegevens2018.pdf\" target=\"_blank\" rel=\"noopener\">Beleid Persoonsgegevens</a>.',
+			denyMessageEnabled: 0,
+			denyMessage: 'You have declined cookies, to ensure the best experience on this website please consent the cookie usage.',
+			placeholderBlockedResources: 0,
+			placeholderBlockedResourcesText: 'You must accept cookies and reload the page to view this content',
+			placeholderBlockedResourcesAction: '',
+			dismissText: ' ',
+			allowText: 'Accepteren',
+			denyText: 'Weigeren',
+			cookiePolicyLinkText: '',
+			cookiePolicyLink: 'javascript:void(0)',
+			cookiePolicyRevocableTabText: 'Reglement',
+			privacyPolicyLinkText: '',
+			privacyPolicyLink: 'javascript:void(0)',
+			toggleCookieSettings: 0,
+			toggleCookieSettingsText: '<span class="cc-cookie-settings-toggle">Settings <span class="cc-cookie-settings-toggler">&#x25EE;</span></span>',
+			showLinks: 1,
+			blankLinks: '_blank',
+			autoOpenPrivacyPolicy: 0,
+			openAlwaysDeclined: 1,
+			cookieSettingsLabel: 'Cookie settings:',
+			cookieSettingsDesc: 'Choose which kind of cookies you want to disable by clicking on the checkboxes. Click on a category name for more informations about used cookies.',
+			cookieCategory1Enable: 0,
+			cookieCategory1Name: 'Necessary',
+			cookieCategory1Locked: 0,
+			cookieCategory2Enable: 0,
+			cookieCategory2Name: 'Preferences',
+			cookieCategory2Locked: 0,
+			cookieCategory3Enable: 0,
+			cookieCategory3Name: 'Statistics',
+			cookieCategory3Locked: 0,
+			cookieCategory4Enable: 0,
+			cookieCategory4Name: 'Marketing',
+			cookieCategory4Locked: 0,
+			alwaysReloadAfterCategoriesChange: 0,
+			preserveLockedCategories: 0,
+			reloadOnfirstDeclineall: 0,
+			trackExistingCheckboxSelectors: '',
+			trackExistingCheckboxConsentLogsFormfields: 'name,email,subject,message',
+			debugMode: 0
+		};
+		var gdpr_ajax_livesite = 'https://archief.amsterdam/';
+		var gdpr_enable_log_cookie_consent = 1;
+	</script>
+
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="application-name" content="Stadsarchief Amsterdam">
+	<!-- <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet"> -->
+	<script type="text/javascript" src="//fast.fonts.net/jsapi/89c47392-d3a9-4e63-b83e-7506f939d3fd.js"></script>
+	<script type="text/javascript" src="https://fast.fonts.net/jsapi/core/mt.js"></script>
+	<script src="//code.tidio.co/ucsom66ddjjjgz2vamyg9ksft8zw7jaf.js" async=""></script>
+	<link type="text/css" rel="stylesheet" href="//fast.fonts.net/cssapi/89c47392-d3a9-4e63-b83e-7506f939d3fd.css">
+	<link rel="apple-touch-icon" href="/templates/ams/apple-touch-icon.png">
+	<link rel="stylesheet" href="/templates/ams/dist/main.dfc9b3501c373ccf7f61.css">
+
+	<script type="application/ld+json">
+		{
+		  "@context": "http://schema.org",
+		  "@graph":
+			[
+			  {
+				"@type": "Organization",
+				"url": "https://archief.amsterdam/",
+				"name": "Stadsarchief Amsterdam",
+				"logo": "https://archief.amsterdam/templates/ams/img/gemeente-amsterdam-stadsarchief.png",
+				"address": {
+				  "@type": "PostalAddress",
+				  "streetAddress": "",
+				  "addressLocality": "",
+				  "postalCode": "",
+				  "addressCountry": "NL"
+				},
+				"contactPoint": [
+				  { "@type": "ContactPoint",
+				  "telephone": "",
+				  "email": "contact@picturae.com",
+				  "contactType": "customer service"
+				}
+			  ],
+			  "sameAs": [
+				"https://www.facebook.com/"
+			  ]
+			},
+			{
+			  "@context": "http://schema.org",
+			  "@type": "WebSite",
+			  "name": "",
+			  "url": "",
+			  "potentialAction": {
+				"@type": "SearchAction",
+				"target": "alles-zoeken?trefwoord={search_term_string}",
+				"query-input": "required name=search_term_string"
+			  }
+			}
+		  ]
+		}
+	</script>
+
+
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-6532219-54"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag() { dataLayer.push(arguments); }
+		gtag('js', new Date());
+		gtag('config', 'UA-6532219-54');
+	</script>
+	<meta class="foundation-mq">
+	<style type="text/css" id="mti_fontface_89c47392-d3a9-4e63-b83e-7506f939d3fd">
+		@font-face {
+			font-family: "Avenir Next W01";
+			font-style: normal;
+			font-weight: 700;
+			src: url("https://fast.fonts.net/dv2/14/3519cb0f-02a0-41b8-b6d5-5e404cb57afb.woff2?d44f19a684109620e484167eae90e81887da62a49a710a81599a3c42d7777e7bf85c9eaae17de5acc70bbfd66cd7a91f83a4a31d5aeca1abc550cc037e093752f8359e7d5690d605e0aafc209d50d6561bb8acc5b2665dace5b20a6d61acea96df7f2f44c4cbd888ca22146b4868304a7684a3a01d869b7bce4aebfa6f1fa9aea443282929523b009e4c3ce9485f43844e41eb31c8205d010e327f42c56c60c7cf16e77cea0dbf8b6a628d333163344b94af76766cac175d19325facec00c309d0024a028d22d22e8ce7ec9711d71400cd4ff86587256c223b891667b5f75d70b52d160e610fa01c4f631c16b1c9530945402bc1e948f06734b1c824543cdd0844fd10848b4075717a2654e6bbb2d413a730fe1e8a0898&projectId=89c47392-d3a9-4e63-b83e-7506f939d3fd") format('woff2');
+		}
+
+		@font-face {
+			font-family: "Avenir Next W01";
+			font-style: italic;
+			font-weight: 700;
+			src: url("https://fast.fonts.net/dv2/14/0047ae74-7a07-485d-b6af-12c38e7845e5.woff2?d44f19a684109620e484167eae90e81887da62a49a710a81599a3c42d7777e7bf85c9eaae17de5acc70bbfd66cd7a91f83a4a31d5aeca1abc550cc037e093752f8359e7d5690d605e0aafc209d50d6561bb8acc5b2665dace5b20a6d61acea96df7f2f44c4cbd888ca22146b4868304a7684a3a01d869b7bce4aebfa6f1fa9aea443282929523b009e4c3ce9485f43844e41eb31c8205d010e327f42c56c60c7cf16e77cea0dbf8b6a628d333163344b94af76766cac175d19325facec00c309d0024a028d22d22e8ce7ec9711d71400cd4ff86587256c223b891667b5f75d70b52d160e610fa01c4f631c16b1c9530945402bc1e948f06734b1c824543cdd0844fd10848b4075717a2654e6bbb2d413a730fe1e8a0898&projectId=89c47392-d3a9-4e63-b83e-7506f939d3fd") format('woff2');
+		}
+
+		@font-face {
+			font-family: "Avenir Next W01";
+			font-style: italic;
+			font-weight: 400;
+			src: url("https://fast.fonts.net/dv2/14/6313d5bd-7fe9-48e0-aa23-56a9b46495d3.woff2?d44f19a684109620e484167eae90e81887da62a49a710a81599a3c42d7777e7bf85c9eaae17de5acc70bbfd66cd7a91f83a4a31d5aeca1abc550cc037e093752f8359e7d5690d605e0aafc209d50d6561bb8acc5b2665dace5b20a6d61acea96df7f2f44c4cbd888ca22146b4868304a7684a3a01d869b7bce4aebfa6f1fa9aea443282929523b009e4c3ce9485f43844e41eb31c8205d010e327f42c56c60c7cf16e77cea0dbf8b6a628d333163344b94af76766cac175d19325facec00c309d0024a028d22d22e8ce7ec9711d71400cd4ff86587256c223b891667b5f75d70b52d160e610fa01c4f631c16b1c9530945402bc1e948f06734b1c824543cdd0844fd10848b4075717a2654e6bbb2d413a730fe1e8a0898&projectId=89c47392-d3a9-4e63-b83e-7506f939d3fd") format('woff2');
+		}
+
+		@font-face {
+			font-family: "Avenir Next W01";
+			font-style: normal;
+			font-weight: 400;
+			src: url("https://fast.fonts.net/dv2/14/d1d43d8e-e792-4a3d-aebe-2afeafdffbee.woff2?d44f19a684109620e484167eae90e81887da62a49a710a81599a3c42d7777e7bf85c9eaae17de5acc70bbfd66cd7a91f83a4a31d5aeca1abc550cc037e093752f8359e7d5690d605e0aafc209d50d6561bb8acc5b2665dace5b20a6d61acea96df7f2f44c4cbd888ca22146b4868304a7684a3a01d869b7bce4aebfa6f1fa9aea443282929523b009e4c3ce9485f43844e41eb31c8205d010e327f42c56c60c7cf16e77cea0dbf8b6a628d333163344b94af76766cac175d19325facec00c309d0024a028d22d22e8ce7ec9711d71400cd4ff86587256c223b891667b5f75d70b52d160e610fa01c4f631c16b1c9530945402bc1e948f06734b1c824543cdd0844fd10848b4075717a2654e6bbb2d413a730fe1e8a0898&projectId=89c47392-d3a9-4e63-b83e-7506f939d3fd") format('woff2');
+		}
+	</style>
+	<style></style>
+	<link id="MonoTypeFontApiFontTracker" type="text/css" rel="stylesheet" href="https://fast.fonts.net/t/1.css?apiType=js&amp;projectid=89c47392-d3a9-4e63-b83e-7506f939d3fd">
+</head>
+<body class="sub-pages com_genealogy" data-new-gr-c-s-check-loaded="14.1027.0" data-gr-ext-installed="">
+	<div role="dialog" aria-live="polite" aria-label="cookieconsent" aria-describedby="cookieconsent:desc" class="cc-window cc-banner cc-type-opt-in cc-theme-block cc-opacity-100 cc-bottom cc-color-override--1805245267 " style=""><!--googleoff: all--><span id="cookieconsent:desc" class="cc-message"><span class="cc-message-text">Gegevens over mogelijk nog levende personen mogen alleen worden gebruikt voor historisch (waaronder genealogisch), wetenschappelijk of statistisch onderzoek.<br>Lees meer in het <a href="images/uitleg-persoonsgegevens/BeleidPersoonsgegevens2018.pdf" target="_blank" rel="noopener">Beleid Persoonsgegevens</a>.</span> <a aria-label="cookie policy" role="button" tabindex="0" class="cc-link cc-cookie" href="javascript:void(0)" rel="noopener noreferrer noindex nofollow" target="_blank"></a> <a aria-label="privacy policy" role="button" tabindex="0" class="cc-link cc-privacy" href="javascript:void(0)" rel="noopener noreferrer noindex nofollow" target="_blank"></a></span><div class="cc-compliance cc-highlight"><a aria-label="dismiss cookie message" role="button" tabindex="0" class="cc-btn cc-dismiss"> </a><a aria-label="allow cookies" role="button" tabindex="0" class="cc-btn cc-allow">Accepteren</a></div><!--googleon: all--></div>
+	<!-- HEADER -->
+	<header class="pic-mainheader mainheader">
+		<div class="grid-container">
+			<div class="grid-x">
+				<div class="small-12 cell">
+					<h1 class="pic-logo"><a href="https://www.amsterdam.nl/stadsarchief" target="blank" class="pic-logo--name" title="Gemeente Amsterdam Stadsarchief - home">Website title and logo</a></h1>
+					<nav class="pic-mainmenu">
+						<div id="nav-button" class="hamburger-menu" data-responsive-toggle="mainmenu" data-hide-for="medium" data-t="e6wff7-t" style="display: none;">
+							<button class="menu-icon" type="button" data-toggle="">
+								<span></span>
+								<span></span>
+								<span></span>
+								<span></span>
+							</button>
+						</div>
+						<div class="pic-mainmenu__menu dropdown" id="mainmenu" data-responsive-menu="accordion medium-dropdown" data-disable-hover="true" data-click-open="true" role="menubar" data-t="fsa9bd-t" data-mutate="05d61d-responsive-menu">
+							<ul class="nav menu mod-list" id="main-menu">
+								<li class="item-101 default" role="menuitem"><a href="/">Home</a></li>
+								<li class="item-314" role="menuitem"><a href="/inventarissen">Inventarissen</a></li>
+								<li class="item-157 current active" role="menuitem"><a href="/indexen">Indexen</a></li>
+								<li class="item-348" role="menuitem"><a href="/beeldbank" title="Beeldbank">Beeldbank</a></li>
+								<li class="item-3739" role="menuitem"><a href="/bouwdossiers">Bouwdossiers</a></li>
+								<li class="item-1457 parent" role="menuitem"><a href="/uitleg">Uitleg</a></li>
+							</ul>
+
+						</div>
+
+						<!--user login-->
+					</nav>
+
+					<!-- position for other modules (chat, search, social)-->
+					<div class="pic-mainheader__headerposition"></div>
+				</div>
+			</div>
+		</div>
+	</header>
+	<!-- HOMEPAGE TEASER - jumbotron! -->
+	<!-- CONTENT --->
+	<div class="pic-content">
+		<div class="pic-teaser">
+			<div class="pic-teaser__teaserposition">
+				<!-- FULL ARTICLE IMAGE -->
+				<div class="random-image" style="background-image: url(/images/indexen-header/indexen-header.jpg);">
+					&nbsp;
+				</div>
+
+			</div>
+		</div>
+		<div class="grid-container">
+			<div class="grid-x grid-margin-x">
+				<div class="small-12 cell">
+					<div class="breadcrumb">
+						<div aria-label="breadcrumbs" role="navigation">
+							<ul itemscope="" itemtype="https://schema.org/BreadcrumbList" class="breadcrumb">
+								<li class="active">
+									<span class="divider icon-location"></span>
+								</li>
+
+								<li itemprop="itemListElement" itemscope="" itemtype="https://schema.org/ListItem" class="active">
+									<span itemprop="name">
+										Indexen
+									</span>
+									<meta itemprop="position" content="1">
+								</li>
+							</ul>
+						</div>
+
+					</div>
+				</div>
+				<!-- THE LINE BELOW IS A TOGGLE, IF THE PAGE IS AN ARTICLE WITH A SIDEBAR MAX WITH IS 10 IF ITS NOT ITS 12 -->
+				<div class="small-12 large-12 cell">
+					<div class="pic-content__component">
+
+						<!--[if lte IE 9]>
+						<script src="https://webservices.picturae.com/genealogy/js/xdomain/xdomain.min.js"></script>
+						<script>
+							xdomain.slaves({
+								"https://webservices.picturae.com": "/genealogy/proxy.html"
+							});
+						</script>
+						<script>
+						(function () {
+							var baseHref = document.querySelector('head base').getAttribute('href');
+							if (!history.pushState && window.location.href.indexOf('#') === -1) {
+								window.location.replace(baseHref + '#/' + window.location.hash);
+							}
+						}());
+						</script>
+						<![endif]-->
+						<!-- uiView: --><div id="pic-genealogy" data-ui-view="" data-url="https://webservices.picturae.com/genealogy/" data-api-key="eb37e65a-eb47-11e9-b95c-60f81db16c0e" data-pagination-rows="25" data-recordsperpage="true" data-language="nl_NL" data-button-request="true" data-smoothscroll="true" data-date-format="dd-MM-yyyy" data-default-view="persons" data-facet-sort="count" data-form-settings="{&quot;error&quot;: {&quot;defaults&quot;: {&quot;subject&quot;: &quot;&quot;}},&quot;request&quot;: {&quot;defaults&quot;: {&quot;subject&quot;: &quot;&quot;}}}" data-highlight="false" data-heatmap="false" data-form-help-persons="/slim-zoeken-indexen-hulp?tmpl=raw" class="ng-scope">
+							<!-- uiView: --><div id="picturae-genealogy-container" class="picturae-genealogy-container ng-scope" ui-view="">
+								<div class="tablerecord active ng-scope">
+									<!-- ngIf: loading && (!register || !persons) --><!-- ngIf: !loading || (register && persons) --><section class="row ng-scope" data-ng-if="!loading || (register &amp;&amp; persons)">
+										<!-- ngIf: 'root.deed' | isState --><div class="back ng-scope" data-ng-if="'root.deed' | isState"><a tabindex="0" ng-click="$back()" href="#"><i class="pic-icon-left-open-mini"></i> <span data-translate="">Terug naar zoekresultaat</span></a></div><!-- end ngIf: 'root.deed' | isState --><header class="small-12 medium-12 columns"><h1 class="ng-binding">DTB Begraven</h1></header><div class="small-12 medium-9 columns">
+											<!-- ngIf: register.metadata.diversen --><ul class="registration-info-list"><li class="ng-binding"><strong data-translate="">Bron:</strong> DTB Begraven</li><li class="ng-binding"><strong data-translate="">Soort registratie:</strong> Begraven</li><!-- ngIf: deed.metadata.datum --><li ng-if="deed.metadata.datum" class="ng-binding ng-scope"><strong data-translate="">(Akte)datum:</strong> 30-07-1665</li><!-- end ngIf: deed.metadata.datum --><!-- ngIf: deed.metadata.plaats --><li ng-if="deed.metadata.plaats" class="ng-binding ng-scope"><strong data-translate="">Plaats:</strong> Amsterdam</li><!-- end ngIf: deed.metadata.plaats --><!-- ngIf: deed.metadata.subtype --><li ng-if="deed.metadata.subtype" class="ng-binding ng-scope"><strong data-translate="">Soort akte:</strong> Begraven</li><!-- end ngIf: deed.metadata.subtype --></ul><!-- ngIf: deed.metadata.diversen --><p ng-if="deed.metadata.diversen" class="pic-diversen ng-scope">
+												<strong data-translate="">Bijzonderheden:</strong><br><span class="pic-newlines ng-binding" data-ng-bind-html="deed.metadata.diversen | picRawHtml">
+													Begraafplaats: St. Anthonis Kerkhof
+													<a href="https://archief.amsterdam/archief/5001/1194" target="_blank" title="https://archief.amsterdam/archief/5001/1194">https://archief.amsterdam/archief/5001/1194</a>
+												</span>
+											</p><!-- end ngIf: deed.metadata.diversen --><deed data-persons="persons.person" data-deed="deed" data-selected-person-id="selectedPerson.id" class="ng-isolate-scope"><deed-default data-deed="deed" data-persons="persons" data-selected-person-id="selectedPersonId" class="ng-scope ng-isolate-scope"><!-- ngIf: !selectedPerson --><section class="registration deed ng-scope" data-ng-if="!selectedPerson"><div class="other-registered-persons"><ul><!-- ngRepeat: person in persons --><li ng-repeat="person in persons" class="ng-scope"><div data-ng-class="{'registered-person': person.id === selectedPersonId}" class="registered-person"><strong class="ng-binding">Geregistreerde&nbsp;</strong><person-data data-person="person" data-template="ams_deed" data-header="false" data-url="'deeds/'+deed.id+'?person='+person.id" class="ng-isolate-scope"><!-- ngIf: !isSpecial() --><div data-ng-if="!isSpecial()" class="ng-binding ng-scope"> <a tabindex="0" href="#" data-ng-click="simpleSearchPerson(person)" class="person ng-binding"><!-- ngIf: hasGender() && icon != 'false' --> Haermen Jansen <!-- ngIf: person.metadata.meisjesnaam --> <!-- ngIf: person.metadata.beroep --></a><div class="person-permalink"><a tabindex="0" href="#" data-ng-click="showPermalinkBox()" class="person-permalink-button"><span class="pic-icon-link"></span></a><!-- ngIf: isPermalinkOpen --></div><!-- ngIf: person.metadata.leeftijd --> <!-- ngIf: person.metadata.subtype --> <!-- ngIf: person.metadata.datum_geboorte || person.metadata.plaats_geboorte --> <!-- ngIf: person.metadata.datum_doop || person.metadata.plaats_doop --> <!-- ngIf: person.metadata.plaats_wonen --> <!-- ngIf: person.metadata.type_of --> <!-- ngIf: person.metadata.datum_overlijden || person.metadata.plaats_overlijden --><!-- ngIf: person.metadata.diversen --></div><!-- end ngIf: !isSpecial() --><!-- ngIf: template === 'id_a' --></person-data></div></li><!-- end ngRepeat: person in persons --></ul></div></section><!-- end ngIf: !selectedPerson --></deed-default></deed><div class="more ng-hide" ng-hide="'root.deed' | isState" aria-hidden="true"><a tabindex="0" data-ui-sref="root.deed({ id: deed.id, person: selectedPerson.id })" href="/indexen/deeds/ac03544a-218b-4508-be41-0aa32eba1e22?person=99e87e17-1aeb-2bb2-e053-b784100a6a2e"><i class="pic-icon-right-open-mini"></i> <span data-translate="">Paginaweergave</span></a></div><!-- ngIf: deed.id --><mmx-report-warning data-ng-if="deed.id" data-subject="ac03544a-218b-4508-be41-0aa32eba1e22" class="ng-scope ng-isolate-scope"><!-- ngIf: warning.showWarning --><div class="mmx-report-warning ng-scope" data-ng-if="warning.showWarning"><!-- ngIf: warning.hasReports --></div><!-- end ngIf: warning.showWarning --></mmx-report-warning><!-- end ngIf: deed.id -->
+										</div><div class="small-12 medium-3 columns"><aside class="record-scource"><header><h3 data-translate="">Bronvermelding</h3></header><div class="header"><!-- ngIf: register.metadata.naam --><span data-ng-if="register.metadata.naam" class="ng-binding ng-scope">DTB Begraven</span><!-- end ngIf: register.metadata.naam --><!-- ngIf: register.metadata.archiefnummer --><span data-ng-if="register.metadata.archiefnummer" class="ng-binding ng-scope">, <span data-translate="">archiefnummer</span> 5001</span><!-- end ngIf: register.metadata.archiefnummer --><!-- ngIf: register.metadata.archiefnaam --><!-- ngIf: register.metadata.inventarisnummer --><span data-ng-if="register.metadata.inventarisnummer" class="ng-binding ng-scope">, <span data-translate="">inventarisnummer</span> 1194</span><!-- end ngIf: register.metadata.inventarisnummer --><!-- ngIf: deed.metadata.pagina --><span data-ng-if="deed.metadata.pagina" class="ng-binding ng-scope">, <span data-translate="">blad</span> p.20 en p.21</span><!-- end ngIf: deed.metadata.pagina --><!-- ngIf: deed.metadata.nummer --><span data-ng-if="deed.metadata.nummer" class="ng-binding ng-scope">, <span data-translate="">aktenummer</span> DTB 1194</span><!-- end ngIf: deed.metadata.nummer --></div><!-- ngIf: register.metadata.gemeente --><div data-ng-if="register.metadata.gemeente" class="ng-binding ng-scope"><span class="title" data-translate="">Gemeente</span>: Amsterdam</div><!-- end ngIf: register.metadata.gemeente --><!-- ngIf: register.metadata.periode --><div data-ng-if="register.metadata.periode" class="ng-binding ng-scope"><span class="title" data-translate="">Periode</span>: 1664-1679</div><!-- end ngIf: register.metadata.periode --><!-- ngIf: register.metadata.religie --></aside><aside class="record-actions"><!-- ngIf: deed.asset && deed.asset.length --><ul data-ng-if="deed.asset &amp;&amp; deed.asset.length" class="ng-scope"><!-- ngRepeat: asset in deed.asset | startFrom:currentScan | limitTo:1 --><li class="view ng-scope" ng-repeat="asset in deed.asset | startFrom:currentScan | limitTo:1"><!-- ngIf: asset.uuid --><a data-ng-if="asset.uuid" href="#" tabindex="0" class="image ng-scope" data-ng-click="showScans(deed, null, deed.id, register.metadata, asset.dc_title, selectedPerson)"><img data-ng-src="https://images.memorix.nl/ams/thumb/250x250/4fe2f80e-6a38-d4c9-0200-b29511df40fb.jpg" alt="DTB Begraven pagina p.20 en p.21 aktenummer DTB 1194" src="https://images.memorix.nl/ams/thumb/250x250/4fe2f80e-6a38-d4c9-0200-b29511df40fb.jpg"> <span><i class="pic-icon-eye"></i> <span data-translate="">Bekijk akte</span></span></a><!-- end ngIf: asset.uuid --><!-- ngIf: !asset.uuid --> <!-- ngIf: asset.uuid --><a data-ng-if="asset.uuid" href="https://images.memorix.nl/ams/download/fullsize/4fe2f80e-6a38-d4c9-0200-b29511df40fb.jpg" tabindex="0" class="image ng-scope" ng-href="https://images.memorix.nl/ams/download/fullsize/4fe2f80e-6a38-d4c9-0200-b29511df40fb.jpg" title="Download scan"><span><i class="pic-icon-download"></i> <span data-translate="">Download scan</span></span></a><!-- end ngIf: asset.uuid --></li><!-- end ngRepeat: asset in deed.asset | startFrom:currentScan | limitTo:1 --></ul><!-- end ngIf: deed.asset && deed.asset.length --><!-- ngIf: selectedPerson && selectedPerson.metadata.has_assets === 'register' || deed.metadata.has_assets === 'register' --><!-- ngIf: deed.asset.length > 1 --></aside><!-- ngIf: deed.id --><mmx-report-button data-ng-if="deed.id" data-subject="ac03544a-218b-4508-be41-0aa32eba1e22" data-deed="deed" data-memorixurl="https://maior.memorix.nl/collectiebeheer/entiteit/index/entiteit/9823b7a8-ab79-a098-4ab0-26e799ea5659/uuid/ac03544a-218b-4508-be41-0aa32eba1e22" data-url="deeds/ac03544a-218b-4508-be41-0aa32eba1e22?person=99e87e17-1aeb-2bb2-e053-b784100a6a2e" class="ng-scope ng-isolate-scope"><div data-ng-show="button.showButton" aria-hidden="false" class=""><a tabindex="0" href="#" class="mmx-report-button" data-ng-click="button.showForm('error')"><i class="pic-icon-error"></i> <span data-translate="">Fout melden</span></a> <!-- ngIf: request --><a data-ng-if="request" tabindex="1" href="#" class="mmx-report-button ng-scope" data-ng-click="button.showForm('request')"><i class="pic-icon-error"></i> <span data-translate="">Vraag stellen</span></a><!-- end ngIf: request --></div></mmx-report-button><!-- end ngIf: deed.id --><mmx-social-share data-handle="" data-url="deeds/ac03544a-218b-4508-be41-0aa32eba1e22" data-title="DTB Begraven p.20 en p.21" data-image="https://images.memorix.nl/ams/thumb/250x250/4fe2f80e-6a38-d4c9-0200-b29511df40fb.jpg" data-memorixentityuuid="9823b7a8-ab79-a098-4ab0-26e799ea5659" data-memorixrecorduuid="ac03544a-218b-4508-be41-0aa32eba1e22" class="ng-isolate-scope"><div class="social-media-share"><ul><!-- ngIf: socialshare.showFacebook --><!-- ngIf: socialshare.showTwitter --><!-- ngIf: socialshare.showPinterest --><!-- ngIf: socialshare.showMailto --><!-- ngIf: socialshare.showPermalink --><li class="pic-permalink ng-scope" data-ng-if="socialshare.showPermalink"><a tabindex="0" href="#" class="pic-permalink-button" data-ng-click="socialshare.showPermalinkBox()"><i class="pic-icon-link"></i> <span data-translate="">Permalink</span></a><!-- ngIf: socialshare.isPermalinkOpen --></li><!-- end ngIf: socialshare.showPermalink --><!-- ngIf: socialshare.showGooglePlus --><!-- ngIf: socialshare.showMemorixUrl --></ul></div></mmx-social-share></div>
+									</section><!-- end ngIf: !loading || (register && persons) -->
+								</div>
+							</div>
+							<script type="text/ng-template" id="custom/header" class="ng-scope">
+								<tr> <th ng-controller="ngTableSorterRowController" ng-repeat="$column in $columns" ng-class="{ 'sortable': parse($column.sortable(this)), 'sort-asc': params.sorting()[$column.sortable(this)]=='asc', 'sort-desc': params.sorting()[$column.sortable(this)]=='desc' }" ng-click="params.sorting()[$column.sortable(this)]=='desc' ? params.resetSorting(params) : sortBy($column, $event)" ng-show="$column.show(this)" ng-init="template = $column.headerTemplateURL(this)" class="header sortable {{$column.class(this)}}"> <div ng-if="!template" ng-show="!template" class="ng-table-header" ng-class="{'sort-indicator': params.settings().sortingIndicator == 'div'}" ng-bind="$column.title(this) | translate"> </div> <div ng-if="template" ng-show="template"><div ng-include="template"></div></div> </th> </tr>
+							</script>
+						</div>
+
+					</div>
+				</div>
+				<!-- THE LINE BELOW IS A TOGGLE  WHEN SHOULD THERE BE A SIDEBAR MENU, AND WHEN NOT. IN THIS CASE ONLY ON ARTICLE PAGES -->
+			</div>
+		</div>
+	</div>
+	<footer id="footer" class="pic-mainfooter">
+		<div class="grid-container">
+			<div class="grid-x">
+				<div class="small-12 medium-4 cell pic-mainfooter__content">
+					<div class="moduletable">
+
+						<h2>Stadsarchief</h2>
+
+
+
+						<div class="custom">
+							<p>Het Stadsarchief Amsterdam is het historisch documentatie- centrum van de stad Amsterdam met 50 kilometer archieven, een historisch- topografische collectie met miljoenen kaarten, tekeningen, en prenten, een bibliotheek en omvangrijke geluids-, film- en fotoarchieven.</p>
+							<p><a href="https://www.amsterdam.nl/stadsarchief" target="blank">www.amsterdam.nl/stadsarchief</a></p>
+							<p>Heeft u een korte vraag? Chat met ons! Maandag t/m vrijdag van 13-17 uur</p>
+							<p>Heeft u een langere vraag? Stuur ons een e-mail op <a href="mailto:stadsarchief@amsterdam.nl">stadsarchief@amsterdam.nl</a></p>
+						</div>
+
+					</div>
+
+				</div>
+				<div class="small-12 medium-4 cell">
+					<div class="moduletable">
+
+						<h2>Meer informatie</h2>
+
+						<ul class="nav menu footer-menu mod-list">
+							<li class="item-125"><a href="/disclaimer">disclaimer</a></li>
+							<li class="item-3129"><a href="/nieuwsbrief">nieuwsbrief</a></li>
+							<li class="item-3248"><a href="/blog">blog</a></li>
+							<li class="item-3603"><a href="/steun-ons">steun ons</a></li>
+						</ul>
+
+					</div>
+
+				</div>
+				<div class="small-12 medium-4 cell">
+					<div class="moduletable pic-social">
+
+						<h2>Social</h2>
+
+						<ul class="nav menu pic-social__menu mod-list">
+							<li class="item-126"><a href="https://www.facebook.com/Stadsarchief" class="pic-social__menu--facebook" target="_blank" rel="noopener noreferrer">facebook</a></li>
+							<li class="item-127"><a href="https://twitter.com/stadsarchief" class="pic-social__menu--twitter" target="_blank" rel="noopener noreferrer">twitter</a></li>
+							<li class="item-129"><a href="https://www.instagram.com/stadsarchief/?hl=nl" class="pic-social__menu--instagram" target="_blank" rel="noopener noreferrer">instagram</a></li>
+							<li class="item-131"><a href="https://www.youtube.com/channel/UC8yXCStt4F-7iiv2CeOfwPg" class="pic-social__menu--youtube" target="_blank" rel="noopener noreferrer">youtube</a></li>
+						</ul>
+
+					</div>
+
+				</div>
+			</div>
+		</div>
+		<div class="pic-mainfooter__bottom">
+			<div class="grid-container">
+				<div class="grid-x">
+					<div class="small-12 cell pic-mainfooter__bottom--content">
+						<div class="moduletable">
+
+
+							<ul class="nav menu mod-list">
+								<li class="item-2422"><a href="http://amsterdam.archiefweb.eu/?subsite=stadsarchief#archive" target="_blank" rel="noopener noreferrer">Webarchief</a></li>
+							</ul>
+
+						</div>
+
+
+						<span class="picturae-link">Realisatie: <a href="https://picturae.com/nl/" target="blank">Picturae</a></span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</footer>
+	<script src="/templates/ams/dist/main.dfc9b3501c373ccf7f61.js"></script>
+
+
+	<iframe id="tidio-chat-code" title="Tidio Chat code" style="display: none;"></iframe><div id="tidio-chat"></div>
+</body>
+<grammarly-desktop-integration data-grammarly-shadow-root="true"></grammarly-desktop-integration>
+</html>

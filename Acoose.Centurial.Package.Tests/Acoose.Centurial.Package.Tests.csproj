@@ -56,6 +56,7 @@
   <ItemGroup>
     <Compile Include="com\Ancestry.cs" />
     <Compile Include="com\FindAGrave.cs" />
+    <Compile Include="nl\StadsarchiefAmsterdam.cs" />
     <Compile Include="UtilityTest.cs" />
     <Compile Include="nl\Graftombe.cs" />
     <Compile Include="nl\OnlineBegraafplaatsen.cs" />
@@ -215,6 +216,12 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="com\Ancestry\DiscoveryUI_Alma_SchulzConrad_DE.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="nl\StadsarchiefAmsterdam\DTP_Doop.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="nl\StadsarchiefAmsterdam\DTP_Begraven.html" />
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

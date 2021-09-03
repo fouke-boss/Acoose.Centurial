@@ -11,10 +11,12 @@ namespace Acoose.Centurial.Package
     {
         public static readonly RecordType BurgerlijkeStand = new RecordType<VitalRecord>(x => x.Title = x.Title ?? "Burgerlijke stand".ToGenericTitle(false));
         public static readonly RecordType DoopTrouwBegraaf = new RecordType<ChurchRecord>(x => x.Church = x.Church ?? "Kerk");
-        public static readonly RecordType Bevolkingsregister = new RecordType<Census>(x => x.CensusId = "Bevolkingsregister");
+        public static readonly RecordType Bevolkingsregister = new RecordType<VitalRecord>(x => x.Title = x.Title ?? "Bevolkingsregister".ToGenericTitle(false));
+        public static readonly RecordType Volkstelling = new RecordType<Census>(x => x.CensusId = "Volkstelling");
         public static readonly RecordType Standesämter = new RecordType<VitalRecord>(x => x.Title = x.Title ?? "Standesämter".ToGenericTitle(false));
         public static readonly RecordType ChurchParish = new RecordType<ChurchRecord>(x => x.Church = x.Church ?? "Church Parish");
         public static readonly RecordType Kirchenbuch = new RecordType<ChurchRecord>(x => x.Church = x.Church ?? "Kirche");
+        public static readonly RecordType Cemetery = new RecordType<CemeteryRecord>(null);
 
         public static RecordType TryParse(string value)
         {
@@ -40,23 +42,31 @@ namespace Acoose.Centurial.Package
             {
                 return RecordType.Bevolkingsregister;
             }
+            else if (value.Contains("volkstelling"))
+            {
+                return RecordType.Volkstelling;
+            }
             else if (value.StartsWith("dtb ") ||
                 (value.Contains("doop") && value.Contains("trouw") && value.Contains("begra"))
             )
             {
                 return RecordType.DoopTrouwBegraaf;
             }
-            if (value.Contains("church") || 
-                value.Contains("parish") || 
-                value.Contains("presbyt") || 
-                value.Contains("lutheran") || 
+            else if (value.Contains("church") ||
+                value.Contains("parish") ||
+                value.Contains("presbyt") ||
+                value.Contains("lutheran") ||
                 value.Contains("catholic"))
             {
                 return RecordType.ChurchParish;
             }
-            if (value.Contains("kirch"))
+            else if (value.Contains("kirch"))
             {
                 return RecordType.Kirchenbuch;
+            }
+            else if (value.Contains("begraafplaats") || value.Contains("cemetery"))
+            {
+                return RecordType.Cemetery;
             }
             else
             {
@@ -106,6 +116,12 @@ namespace Acoose.Centurial.Package
                     c2.Title = record.Title;
                     c2.Items = record.GenerateCensusScriptFormt();
                     break;
+                case CemeteryRecord c3:
+                    c3.Cemetery = record.Organization;
+                    c3.Place = record.ArchivePlace;
+                    c3.Title = record.Title.ToGenericTitle(true);
+                    c3.Items = record.GenerateRecordScriptFormat();
+                    break;
                 default:
                     throw new NotImplementedException();
             }
@@ -125,6 +141,9 @@ namespace Acoose.Centurial.Package
                     break;
                 case Census c2:
                     isComplete = (!string.IsNullOrWhiteSpace(c2.Jurisdiction) && !string.IsNullOrWhiteSpace(c2.CensusId));
+                    break;
+                case CemeteryRecord c3:
+                    isComplete = (!string.IsNullOrWhiteSpace(c3.Cemetery) && !string.IsNullOrWhiteSpace(c3.Place));
                     break;
                 default:
                     throw new NotImplementedException();

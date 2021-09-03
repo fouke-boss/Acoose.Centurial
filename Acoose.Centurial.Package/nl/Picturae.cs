@@ -36,7 +36,7 @@ namespace Acoose.Centurial.Package.nl
             this.RecordPlace = fields.Get("register.metadata.gemeente");
             this.EventPlace = fields.Get("deed.metadata.plaats") ?? fields.Get("register.metadata.gemeente");
             this.Number = fields.Get("deed.metadata.nummer");
-            this.Page = fields.Get("deed.metadata.pagina");
+            this.Page = Utility.TryParsePageNumber(fields.Get("deed.metadata.pagina"));
             this.Label = fields.Get("register.metadata.naam");
 
             // event and record type
@@ -53,10 +53,18 @@ namespace Acoose.Centurial.Package.nl
                 .Descendants("person-data")
                 .Select(p =>
                 {
+                    // role
+                    var role = Utility.TryParseEventRole(p.Attribute("data-person"));
+                    if (role == null && p.ParentNode.Element("strong") is HtmlNode h)
+                    {
+                        // find 
+                        role = Utility.TryParseEventRole(h.GetInnerText());
+                    }
+
                     // init
                     var result = new Person()
                     {
-                        Role = Utility.TryParseEventRole(p.Attribute("data-person")) ?? EventRole.Attendee,
+                        Role = role ?? EventRole.Attendee,
                         Name = p
                             .Descendants("a").WithClass("person")
                             .First() // the 2nd and further will be partners
@@ -94,9 +102,9 @@ namespace Acoose.Centurial.Package.nl
             //    .ToArray();
 
             // customize
-            this.Customize(fields);
+            this.Customize(container, fields);
         }
-        protected abstract void Customize(Dictionary<string, string> fields);
+        protected abstract void Customize(HtmlNode container, Dictionary<string, string> fields);
         private string GetProperty(HtmlNode node, string name)
         {
             // init

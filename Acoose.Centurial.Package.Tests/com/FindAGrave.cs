@@ -22,7 +22,7 @@ namespace Acoose.Centurial.Package.Tests.com
             // provenance
             result.FindProvenance<UnknownRepository>(1)
                 .AssertChild<Photograph>()
-                .AssertCondition(x => x.Creator is PersonalName p && p.FamilyName == "S." && p.GivenNames == "Susan M.")
+                .AssertCondition(x => x.Creator is PersonalName p && p.FamilyName == null && p.GivenNames == "Susan M.S.")
                 .AssertCondition(x => x.Date.Equals(Date.TryParse("21-07-2021")));
             result.FindProvenance<UnknownRepository>(2)
                 .AssertChild<Cemetery>()

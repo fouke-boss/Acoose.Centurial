@@ -238,7 +238,7 @@ namespace Acoose.Centurial.Package.com
             this.Organization = string.Join(", ", organization).NullIfWhitespace();
 
             // page
-            this.Page = recordData[PropertyName.PageNumber[this.Language]].GetInnerText()?.Split(';', '-', '/').Join("-");
+            this.Page = Utility.TryParsePageNumber(recordData[PropertyName.PageNumber[this.Language]].GetInnerText());
         }
         private string GetOnlineCollectionName(HtmlNode citationPanel)
         {

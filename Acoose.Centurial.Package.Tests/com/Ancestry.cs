@@ -189,7 +189,7 @@ namespace Acoose.Centurial.Package.Tests.com
                         .AssertDatabaseEntry("Hugo Dreher");
                     result.FindProvenance<UnknownRepository>(1)
                         .AssertChurchRecord("Vogelbach", "Vogelbach, Baden, Preußen")
-                        .AssertRecordScriptFormat(null, "62-63", null, "Hugo Dreher", "1930-04-12");
+                        .AssertRecordScriptFormat(null, "62, 63", null, "Hugo Dreher", "1930-04-12");
 
                     // persons
                     var person1 = result.FindPerson("Hugo Dreher")

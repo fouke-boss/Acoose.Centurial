@@ -396,6 +396,13 @@ namespace Acoose.Centurial.Package.Tests
                 .AssertCondition(x => Equals(x.Identifier, identifier));
         }
 
+        public static Collection AssertCollection(this Representation wrapper, string name)
+        {
+            // init
+            return wrapper
+                .AssertChild<Collection>()
+                .AssertCondition(x => Equals(x.Name, name));
+        }
         public static OnlineItem AssertOnlineCollection(this Representation wrapper, string title)
         {
             // init
@@ -421,12 +428,20 @@ namespace Acoose.Centurial.Package.Tests
                 .AssertCondition(x => Equals(x.Church, church))
                 .AssertCondition(x => Equals(x.Place, place));
         }
-        public static DatabaseEntry AssertDatabaseEntry(this Representation wrapper, string crd)
+        public static CemeteryRecord AssertCemeteryRecord(this Representation wrapper, string cemetery, string place)
+        {
+            // init
+            return wrapper
+                .AssertChild<CemeteryRecord>()
+                .AssertCondition(x => Equals(x.Cemetery, cemetery))
+                .AssertCondition(x => Equals(x.Place, place));
+        }
+        public static DatabaseEntry AssertDatabaseEntry(this Representation wrapper, string entryFor)
         {
             // init
             return wrapper
                 .AssertChild<DatabaseEntry>()
-                .AssertCondition(x => Equals(x.EntryFor, crd));
+                .AssertCondition(x => Equals(x.EntryFor, entryFor));
         }
         public static Unspecified AssertUnspecified(this Representation parent, string creditLine)
         {

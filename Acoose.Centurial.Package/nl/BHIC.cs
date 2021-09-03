@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Acoose.Genealogy.Extensibility.Data;
 using Acoose.Genealogy.Extensibility.Data.References;
 using Acoose.Genealogy.Extensibility.Web;
+using HtmlAgilityPack;
 using Newtonsoft.Json.Linq;
 
 namespace Acoose.Centurial.Package.nl
@@ -19,7 +20,7 @@ namespace Acoose.Centurial.Package.nl
         {
         }
 
-        protected override void Customize(Dictionary<string, string> fields)
+        protected override void Customize(HtmlNode container, Dictionary<string, string> fields)
         {
         }
     }

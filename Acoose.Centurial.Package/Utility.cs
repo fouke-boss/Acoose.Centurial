@@ -13,6 +13,7 @@ namespace Acoose.Centurial.Package
     public static class Utility
     {
         private static char[] TRIM_CHARS = " \n\r\t:,;.".ToArray();
+        private static readonly string[] PAGE_PREFIXES = new string[] { "page", "pagina", "p.", "nummer", "number", "nr.", "folio" };
 
         public static IEnumerable<T> NullCoalesce<T>(this IEnumerable<T> values)
         {
@@ -402,6 +403,8 @@ namespace Acoose.Centurial.Package
                 case "wife":
                 case "echtgenote":
                     return EventRole.Wife;
+                case "geregistreerde":
+                    return EventRole.Principal;
                 default:
                     return null;
             }
@@ -428,6 +431,10 @@ namespace Acoose.Centurial.Package
             {
                 return EventType.Marriage;
             }
+            else if (lower.Contains("begraven") || lower.Contains("begrafenis"))
+            {
+                return EventType.Burial;
+            }
             else
             {
                 return null;
@@ -451,6 +458,37 @@ namespace Acoose.Centurial.Package
                 default:
                     return null;
             }
+        }
+        public static string TryParsePageNumber(string value)
+        {
+            // null
+            if (string.IsNullOrWhiteSpace(value))
+            {
+                return null;
+            }
+
+            // init
+            var parts = value.Split(new char[] { '-', ',', '/', ';' }, StringSplitOptions.RemoveEmptyEntries)
+                .Select(x => x.TrimAll())
+                .Select(page =>
+                {
+                    // remove prefix
+                    var prefix = PAGE_PREFIXES
+                        .Where(x => page.StartsWith(x))
+                        .Take(1)
+                        .ToArray();
+                    if (prefix.Length == 1)
+                    {
+                        page = page.Substring(prefix.Single().Length).TrimAll();
+                    }
+
+                    // parse
+                    return page;
+                })
+                .ToArray();
+
+            // done
+            return parts.Join(", ");
         }
         public static Age TryParseAge(string age)
         {
