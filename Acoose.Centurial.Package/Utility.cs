@@ -488,7 +488,7 @@ namespace Acoose.Centurial.Package
                 .ToArray();
 
             // done
-            return parts.Join(", ");
+            return parts.Join("/");
         }
         public static Age TryParseAge(string age)
         {

@@ -161,18 +161,19 @@ namespace Acoose.Centurial.Package.Tests.com
                         .AssertOnlineCollection(extension == "de" ?
                             "Baden und Hessen, Deutschland, evangelische Kirchenbücher, 1502-1985" :
                             "Baden and Hesse Germany, Lutheran Baptisms, Marriages, and Burials, 1502-1985");
-                    //.AssertDatabaseEntry("Maria Boss");
-                    //result.AssertPublicArchive(1, "Presbyterian Historical Society", "Philadelphia, Pennsylvania")
-                    //    .AssertArchivedItem(null)
-                    //    .AssertChurchRecord("Vogelbach", "Perth Amboy, New Jersey, USA")
-                    //    .AssertRecordScriptFormat("U.S., Presbyterian Church Records, 1701-1907", null, null, "Charles W. Johnson", "1970");
+                    result.FindProvenance<UnknownRepository>(1)
+                        .AssertChild<Unspecified>()
+                        .AssertCondition(x => x.CreditLine == "Vogelbach, 62/63, Maria Boss");
 
-                    //// persons
-                    //var person1 = result.FindPerson("Charles W. Johnson")
-                    //    .AssertDate("Death", "1970-08-21")
-                    //    .AssertDate("Burial", "1970")
-                    //    .AssertPlace("Burial", "Perth Amboy, New Jersey, USA")
-                    //    .AssertGender(Gender.Male);
+                    // persons
+                    var person1 = result.FindPerson("Maria Boss")
+                        .AssertGender(Gender.Female);
+                    var person2 = result.FindPerson("Leo Dreher");
+                    var person3 = result.FindPerson("Hugo Dreher");
+
+                    // relationships
+                    result.FindPartnership(person1, person2);
+                    result.FindParentChild(person1, person3);
                 }
             );
         }
@@ -191,7 +192,7 @@ namespace Acoose.Centurial.Package.Tests.com
                         .AssertDatabaseEntry("Hugo Dreher");
                     result.FindProvenance<UnknownRepository>(1)
                         .AssertChurchRecord("Vogelbach", "Vogelbach, Baden, Preußen")
-                        .AssertRecordScriptFormat(null, "62, 63", null, "Hugo Dreher", "1930-04-12");
+                        .AssertRecordScriptFormat(null, "62/63", null, "Hugo Dreher", "1930-04-12");
 
                     // persons
                     var person1 = result.FindPerson("Hugo Dreher")

@@ -29,7 +29,7 @@ namespace Acoose.Centurial.Package.Tests.nl
                 .AssertCollection(null)
                 .AssertArchivedItem("85")
                 .AssertChurchRecord("Noorderkerk", "Amsterdam")
-                .AssertRecordScriptFormat("DTB Dopen", "45(folio 23), 12", null, "Henrika Gesina", "1789-05-31");
+                .AssertRecordScriptFormat("DTB Dopen", "45(folio 23)/12", null, "Henrika Gesina", "1789-05-31");
 
             // persons
             var person1 = result.FindPerson("Henrika Gesina")

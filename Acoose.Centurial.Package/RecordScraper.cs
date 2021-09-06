@@ -123,18 +123,46 @@ namespace Acoose.Centurial.Package
         {
             get
             {
-                return this.Persons
-                    .NullCoalesce()
-                    .SingleOrDefault(x => PRINCIPAL_ROLES.Contains(x.Role));
+                return this.Principals.SingleOrDefault();
             }
         }
         public IEnumerable<Person> Principals
         {
             get
             {
-                return this.Persons
-                    .NullCoalesce()
-                    .Where(x => PRINCIPAL_ROLES.Contains(x.Role) || x.Role == EventRole.Bride || x.Role == EventRole.Groom);
+                // init
+                var results = this.Persons
+                    .Where(x => x.Role == EventRole.Principal);
+
+                // any?
+                if (!results.Any())
+                {
+                    // per event type
+                    switch (this.EventType)
+                    {
+                        case Package.EventType.Birth:
+                        case Package.EventType.Baptism:
+                            results = this.Persons.Where(x => x.Role == EventRole.Child);
+                            break;
+                        case Package.EventType.Marriage:
+                            results = this.Persons.Where(x => x.Role == EventRole.Bride || x.Role == EventRole.Groom);
+                            break;
+                        case Package.EventType.Death:
+                        case Package.EventType.Burial:
+                            results = this.Persons.Where(x => x.Role == EventRole.Deceased);
+                            break;
+                    }
+                }
+
+                // any?
+                if (!results.Any())
+                {
+                    results = this.Persons
+                        .Where(x => PRINCIPAL_ROLES.Contains(x.Role));
+                }
+
+                // done
+                return results;
             }
         }
         public string GenerateItemOfInterest()
@@ -358,6 +386,7 @@ namespace Acoose.Centurial.Package
             // parent/child
             var parents = new IEnumerable<RelationshipInfo>[]
             {
+                this.GenerateRelationship(new EventRole[]{ EventRole.Principal }, new EventRole[]{ EventRole.Child }, ParentChild.Person1IsBiologicalParentOfPerson2, null),
                 this.GenerateRelationship(PRINCIPAL_PARENT_ROLES, PRINCIPAL_ROLES, ParentChild.Person1IsBiologicalParentOfPerson2, null),
                 this.GenerateRelationship(BRIDE_PARENT_ROLES, BRIDE_ROLES, ParentChild.Person1IsBiologicalParentOfPerson2, null),
                 this.GenerateRelationship(GROOM_PARENT_ROLES, GROOM_ROLES, ParentChild.Person1IsBiologicalParentOfPerson2, null),
