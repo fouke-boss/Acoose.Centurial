@@ -2,6 +2,8 @@
 using Acoose.Genealogy.Extensibility.Data.References;
 using Acoose.Genealogy.Extensibility.Web;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,8 +25,8 @@ namespace Acoose.Centurial.Package.Tests.com
                 {
                     // provenance
                     result.AssertWebsite(0, "Ancestry", $"https://search.ancestry.{extension}", true)
-                        .AssertOnlineCollection(extension == "de" ? 
-                            "Berlin, Deutschland, Heiratsregister, 1874-1936" : 
+                        .AssertOnlineCollection(extension == "de" ?
+                            "Berlin, Deutschland, Heiratsregister, 1874-1936" :
                             "Berlin, Germany, Marriages, 1874-1936")
                         .AssertDatabaseEntry("Paul Friedrich Gustav Vierus");
                     result.AssertPublicArchive(1, "Landesarchiv Berlin", "Berlin, Deutschland")
@@ -61,8 +63,8 @@ namespace Acoose.Centurial.Package.Tests.com
                 {
                     // provenance
                     result.AssertWebsite(0, "Ancestry", $"https://search.ancestry.{extension}", true)
-                        .AssertOnlineCollection(extension == "de" ? 
-                            "Berlin, Deutschland, Sterberegister, 1874-1955" : 
+                        .AssertOnlineCollection(extension == "de" ?
+                            "Berlin, Deutschland, Sterberegister, 1874-1955" :
                             "Berlin, Germany, Deaths, 1874-1955")
                         .AssertDatabaseEntry("Auguste Rebekka Vordenbäumen");
                     result.AssertPublicArchive(1, "Landesarchiv Berlin", "Berlin, Deutschland")
@@ -96,8 +98,8 @@ namespace Acoose.Centurial.Package.Tests.com
                 {
                     // provenance
                     result.AssertWebsite(0, "Ancestry", $"https://www.ancestry.{extension}", true)
-                        .AssertOnlineCollection(extension == "de" ? 
-                            "London, England, Heiraten und Aufgebote zur Eheschließung der Church of England, 1754-1936" : 
+                        .AssertOnlineCollection(extension == "de" ?
+                            "London, England, Heiraten und Aufgebote zur Eheschließung der Church of England, 1754-1936" :
                             "London, England, Church of England Marriages and Banns, 1754-1936")
                         .AssertDatabaseEntry("Maria Annie Avent");
                     result.AssertPublicArchive(1, "London Metropolitan Archives", "London, England")
@@ -129,8 +131,8 @@ namespace Acoose.Centurial.Package.Tests.com
                 {
                     // provenance
                     result.AssertWebsite(0, "Ancestry", $"https://search.ancestry.{extension}", true)
-                        .AssertOnlineCollection(extension == "de" ? 
-                            "USA, presbyterianische Register, 1701-1970" : 
+                        .AssertOnlineCollection(extension == "de" ?
+                            "USA, presbyterianische Register, 1701-1970" :
                             "U.S., Presbyterian Church Records, 1701-1970")
                         .AssertDatabaseEntry("Charles W. Johnson");
                     result.AssertPublicArchive(1, "Presbyterian Historical Society", "Philadelphia, Pennsylvania")
