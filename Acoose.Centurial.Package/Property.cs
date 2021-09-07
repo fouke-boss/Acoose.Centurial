@@ -7,27 +7,32 @@ using System.Threading.Tasks;
 
 namespace Acoose.Centurial.Package
 {
-    public class Property
+    public class Property<T>
     {
-        internal Property(string key, HtmlNode html)
+        internal Property(string key, T value)
         {
             // init
             this.Key = key;
-            this.Html = html;
+            this.Value = value;
         }
 
         public string Key
         {
             get;
         }
-        public HtmlNode Html
+        public T Value
         {
             get;
         }
 
+        public bool IsMatch(string key)
+        {
+            return string.Compare(key, this.Key, true) == 0;
+        }
+
         public override string ToString()
         {
-            return $"{this.Key}={this.Html.GetInnerText()}";
+            return $"{this.Key}={this.Value}";
         }
     }
 }

@@ -12,7 +12,7 @@ namespace Acoose.Centurial.Package
         public static readonly RecordType BurgerlijkeStand = new RecordType<VitalRecord>(x => x.Title = x.Title ?? "Burgerlijke stand".ToGenericTitle(false));
         public static readonly RecordType DoopTrouwBegraaf = new RecordType<ChurchRecord>(x => x.Church = x.Church ?? "Kerk");
         public static readonly RecordType Bevolkingsregister = new RecordType<VitalRecord>(x => x.Title = x.Title ?? "Bevolkingsregister".ToGenericTitle(false));
-        public static readonly RecordType Volkstelling = new RecordType<Census>(x => x.CensusId = "Volkstelling");
+        public static readonly RecordType Census = new RecordType<Census>(null);
         public static readonly RecordType Standesämter = new RecordType<VitalRecord>(x => x.Title = x.Title ?? "Standesämter".ToGenericTitle(false));
         public static readonly RecordType ChurchParish = new RecordType<ChurchRecord>(x => x.Church = x.Church ?? "Church Parish");
         public static readonly RecordType Kirchenbuch = new RecordType<ChurchRecord>(x => x.Church = x.Church ?? "Kirche");
@@ -42,9 +42,9 @@ namespace Acoose.Centurial.Package
             {
                 return RecordType.Bevolkingsregister;
             }
-            else if (value.Contains("volkstelling"))
+            else if (value.Contains("volkstelling") || value.Contains("census") || value.Contains("volkszählung"))
             {
-                return RecordType.Volkstelling;
+                return RecordType.Census;
             }
             else if (value.StartsWith("dtb ") ||
                 (value.Contains("doop") && value.Contains("trouw") && value.Contains("begra"))
@@ -113,6 +113,7 @@ namespace Acoose.Centurial.Package
                     break;
                 case Census c2:
                     c2.Jurisdiction = record.RecordPlace;
+                    c2.CensusId = record.CensusID;
                     c2.Title = record.Title;
                     c2.Items = record.GenerateCensusScriptFormt();
                     break;

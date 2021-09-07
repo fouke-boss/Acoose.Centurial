@@ -336,20 +336,20 @@ namespace Acoose.Centurial.Package
                 .Where(n => selector(n).Any());
         }
 
-        public static PropertyBag ToPropertyBag(this IEnumerable<HtmlNode> tables, Func<HtmlNode, string> keySelector)
+        public static PropertyBag<HtmlNode> ToPropertyBag(this IEnumerable<HtmlNode> tables, Func<HtmlNode, string> keySelector)
         {
-            return PropertyBag.LoadFromTable(tables, keySelector);
+            return PropertyBag<HtmlNode>.LoadFromTable(tables, keySelector);
         }
-        public static PropertyBag ToPropertyBag2(this IEnumerable<HtmlNode> nodes, Func<HtmlNode, string> keySelector)
+        public static PropertyBag<HtmlNode> ToPropertyBag2(this IEnumerable<HtmlNode> nodes, Func<HtmlNode, string> keySelector)
         {
             // init
             var properties = nodes
-                .Select(x => new Property(keySelector(x), x))
+                .Select(x => new Property<HtmlNode>(keySelector(x), x))
                 .Where(x => !string.IsNullOrWhiteSpace(x.Key))
                 .ToArray();
 
             // done
-            return new PropertyBag(properties);
+            return new PropertyBag<HtmlNode>(properties);
         }
 
         public static EventRole? TryParseEventRole(string role)

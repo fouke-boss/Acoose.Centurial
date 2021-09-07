@@ -115,6 +115,22 @@ namespace Acoose.Centurial.Package
             get; protected set;
         }
 
+        public string CensusID
+        {
+            get;
+            protected set;
+        }
+        public string CivilDivision
+        {
+            get;
+            protected set;
+        }
+        public string HouseholdId
+        {
+            get;
+            protected set;
+        }
+
         public Person[] Persons
         {
             get; protected set;
@@ -350,9 +366,11 @@ namespace Acoose.Centurial.Package
             {
                 new CensusScriptFormat()
                 {
-                    Date = this.RecordDate,
+                    CivilDivision = this.CivilDivision,
                     Page = this.Page,
-                    ItemOfInterest = this.GenerateItemOfInterest()
+                    HouseholdId = this.HouseholdId,
+                    ItemOfInterest = this.GenerateItemOfInterest(),
+                    Date = this.RecordDate
                 }
             };
         }

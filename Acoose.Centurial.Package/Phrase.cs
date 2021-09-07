@@ -84,6 +84,15 @@ namespace Acoose.Centurial.Package
             // done
             return (preferred.Any() ? this.Format(preferred) : this.Format(this));
         }
+        public string PreferFirstWithinBrackets()
+        {
+            // init
+            var preferred = this
+                .Where(x => x.OpeningBracket.HasValue);
+
+            // done
+            return (preferred.Any() ? this.Format(preferred.Take(1)) : this.Format(this));
+        }
         public string PreferWithoutBrackets()
         {
             // init

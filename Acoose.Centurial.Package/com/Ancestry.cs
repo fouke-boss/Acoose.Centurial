@@ -30,11 +30,12 @@ namespace Acoose.Centurial.Package.com
     [Scraper("https://www.ancestrylibraryedition.co.uk/discoveryui-content/view/*")]
     public partial class Ancestry : RecordScraper
     {
-        private const string SOURCE_INFORMATION_PREFIX = "Ancestry.com.";
+        private const string SOURCE_INFORMATION_PREFIX = "Ancestry.com";
         private const string SOURCE_INFORMATION_SUFFIX = "[database on-line]";
         private static readonly string[] QUERY_PARAMETERS = new string[] { "db", "dbid", "h", "indiv" };
         private static readonly string[] MALE_PREFIXES = new string[] { "mr" };
         private static readonly string[] FEMALE_PREFIXES = new string[] { "mrs", "miss", "ms" };
+        private string[] _SourceCitation;
 
         public Ancestry()
             : base("Ancestry")
@@ -57,29 +58,34 @@ namespace Acoose.Centurial.Package.com
             var citationPanel = page
                 .Descendants("section").WithId("sourceCitation")
                 .Single();
-            var tmp = page.Descendants("div").WithId("recordData").Elements("table").Descendants("tr").Select(x => x.OuterHtml).ToArray();
 
             // language
             this.Language = this.GetLanguage(context);
 
             // source citation
-            var sourceCitation = citationPanel
+            this._SourceCitation = (citationPanel
                 .Descendants("div")
-                .Where(x => string.Compare(x.Element("h4")?.GetInnerText(), PropertyName.SourceCitation[this.Language], true) == 0)
-                .SelectMany(x => x.Descendants("p"))
-                .SingleOrDefault();
-            if (sourceCitation is HtmlNode)
-            {
-                // split
-                var parts = sourceCitation.GetInnerText().Split(';')
-                    .Select(x => x.TrimAll())
-                    .ToArray();
-                if (parts.Length >= 3 && parts.Take(3).All(p => !p.Contains(":")))
+                .Where(n =>
                 {
-                    this.ArchiveName = parts[0];
-                    this.ArchivePlace = parts[1];
-                    this.Label = parts[2];
-                }
+                    // init
+                    var h4 = n.Element("h4")?.GetInnerText();
+
+                    // done
+                    return PropertyName.SourceCitation.Any(x => string.Compare(x, h4, true) == 0);
+                })
+                .SelectMany(x => x.Descendants("p"))
+                .SingleOrDefault().GetInnerText()?
+                .Split(new char[] { ';' }, StringSplitOptions.RemoveEmptyEntries))
+                .NullCoalesce()
+                .Select(x => x.TrimAll())
+                .ToArray();
+
+            // split?
+            if (this._SourceCitation.Length >= 3 && this._SourceCitation.Take(3).All(p => !p.Contains(":")))
+            {
+                this.ArchiveName = this._SourceCitation[0];
+                this.ArchivePlace = this._SourceCitation[1];
+                this.Label = this._SourceCitation[2];
             }
 
             // online
@@ -88,11 +94,11 @@ namespace Acoose.Centurial.Package.com
 
             // person
             var person = this.GetPrincipal(recordData);
-            var others = new PropertyName[] { PropertyName.Father, PropertyName.Mother, PropertyName.Spouse, PropertyName.Child }
+            var others = new string[][] { PropertyName.Father, PropertyName.Mother, PropertyName.Spouse, PropertyName.Child }
                 .Select(property =>
                 {
                     // init
-                    var name = recordData[property[this.Language]].GetInnerText();
+                    var name = recordData[property].GetInnerText();
                     var result = default(Person);
 
                     // any?
@@ -102,7 +108,7 @@ namespace Acoose.Centurial.Package.com
                         result = new Person()
                         {
                             Name = name,
-                            Role = Utility.TryParseEventRole(property.English).Value
+                            Role = Utility.TryParseEventRole(property.First()).Value
                         };
                     }
 
@@ -130,6 +136,7 @@ namespace Acoose.Centurial.Package.com
         {
             get; private set;
         }
+
         private Language GetLanguage(Context context)
         {
             // init
@@ -148,13 +155,13 @@ namespace Acoose.Centurial.Package.com
             }
         }
 
-        private Person GetPrincipal(PropertyBag recordData)
+        private Person GetPrincipal(PropertyBag<HtmlNode> recordData)
         {
             // init
             var result = new Person();
 
             // name
-            var name = recordData[PropertyName.Name[this.Language]].ToPhrase().PreferWithBrackets().Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+            var name = recordData[PropertyName.Name].ToPhrase().PreferFirstWithinBrackets().Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
             var index = 0;
             if (MALE_PREFIXES.Any(x => string.Compare(x, name.FirstOrDefault(), true) == 0))
             {
@@ -175,11 +182,12 @@ namespace Acoose.Centurial.Package.com
 
             // properties
             result.Name = string.Join(" ", name.Skip(index));
-            result.Age = Utility.TryParseAge(recordData.First(PropertyName.Age[this.Language], PropertyName.MarriageAge[this.Language], PropertyName.DeathAge[this.Language]).GetInnerText());
-            result.Gender = result.Gender ?? Utility.TryParseGender(recordData[PropertyName.Gender[this.Language]].ToPhrase().PreferWithoutBrackets());
+            result.Age = Utility.TryParseAge(recordData.Contains(PropertyName.Age).FirstOrDefault().GetInnerText());
+            result.Gender = result.Gender ?? Utility.TryParseGender(recordData[PropertyName.Gender].ToPhrase().PreferWithoutBrackets());
+            result.Occupation = recordData[PropertyName.Occupation].GetInnerText();
 
             // maiden name
-            if (recordData[PropertyName.MaidenName[this.Language]].GetInnerText() is string maidenName && !string.IsNullOrWhiteSpace(maidenName))
+            if (recordData[PropertyName.MaidenName].GetInnerText() is string maidenName && !string.IsNullOrWhiteSpace(maidenName))
             {
                 result.FamilyName = maidenName;
             }
@@ -187,11 +195,11 @@ namespace Acoose.Centurial.Package.com
             // done
             return result;
         }
-        private void AddEvent(Package.EventType eventType, PropertyBag recordData, PropertyName date, PropertyName place)
+        private void AddEvent(Package.EventType eventType, PropertyBag<HtmlNode> recordData, string[] date, string[] place)
         {
             // init
-            var dateValue = recordData[date[this.Language]].GetInnerText();
-            var placeValue = recordData[place[this.Language]].ToPhrase().PreferWithoutBrackets();
+            var dateValue = recordData[date].GetInnerText();
+            var placeValue = recordData[place].ToPhrase().PreferWithoutBrackets();
 
             // any?
             if (!string.IsNullOrWhiteSpace(dateValue) || !string.IsNullOrWhiteSpace(placeValue))
@@ -202,28 +210,93 @@ namespace Acoose.Centurial.Package.com
                 result.Place = placeValue.NullIfWhitespace();
             }
         }
-        private void FixRecordType(PropertyBag recordData)
+        private void FixRecordType(PropertyBag<HtmlNode> recordData)
         {
             // init
-            var mainEvent = this.Events
-                .OrderByDescending(x => x.Type)
-                .FirstOrDefault();
-            if (mainEvent != null && !string.IsNullOrEmpty(mainEvent.Place))
+            var properties = PropertyBag<string>.Load(
+                this._SourceCitation
+                    .NullCoalesce()
+                    .Select(x => x.Split(':'))
+                    .Where(x => x.Skip(1).Any()),
+                x => x.First().TrimAll(), // key
+                x => string.Join(":", x.Skip(1)).TrimAll() // value
+            );
+
+            // record type
+            if (recordData.ContainsKey(PropertyName.ResidenceDate))
             {
-                // set
-                this.RecordDate = mainEvent.Date;
-                this.RecordPlace = mainEvent.Place;
-
+                this.RecordType = RecordType.Census;
+            }
+            else
+            {
                 // type
-                this.RecordType = RecordType.TryParse(this.Label) ?? RecordType.TryParse(this.OnlineCollectionName);
+                this.RecordType = RecordType.TryParse(this.Label) ?? RecordType.TryParse(this.OnlineCollectionName) ?? RecordType.TryParse(string.Join("|", this._SourceCitation));
+            }
 
-                // details
-                this.Number = recordData[PropertyName.CertificateNumber[this.Language]].GetInnerText();
+
+            // init
+            if (this.RecordType is RecordType<Census>)
+            {
+                // census id
+                this.CensusID = properties[PropertyName.NaraSeriesTitle] ??
+                    recordData[PropertyName.Database].GetInnerText() ??
+                    this.OnlineCollectionName;
+
+                // record place
+                this.RecordPlace = this.RecordPlace ?? properties[PropertyName.CensusPlace] ?? recordData[PropertyName.ResidencePlace].GetInnerText();
+                if (this.RecordPlace == null)
+                {
+                    // county and state
+                    this.RecordPlace = new string[]
+                    {
+                        recordData[PropertyName.County].ToPhrase().PreferWithoutBrackets(),
+                        recordData[PropertyName.State].ToPhrase().PreferWithoutBrackets()
+                    }.Join(", ");
+                }
+
+                // record date
+                this.RecordDate = Date.TryParse(recordData[PropertyName.ResidenceDate].GetInnerText()) ??
+                    Date.TryParse(properties[PropertyName.Year]);
+
+                // from census name
+                if (this.RecordDate == null)
+                {
+                    // from census id
+                    var years = (this.CensusID ?? "")
+                        .Split(new char[] { ' ', ',', '-' }, StringSplitOptions.RemoveEmptyEntries)
+                        .Select(x => int.TryParse(x, out var year) ? year : -1)
+                        .Where(x => x != -1)
+                        .ToArray();
+                    if (years.Count() == 1)
+                    {
+                        this.RecordDate = Date.Exact(Calendar.Gregorian, years.Single());
+                    }
+                }
+
+                // miscellaneous
+                this.CivilDivision = recordData[PropertyName.CivilDivision].GetInnerText();
+                this.HouseholdId = recordData[PropertyName.FamilyNumber].GetInnerText();
+            }
+            else
+            {
+                // determine main event
+                var mainEvent = this.Events
+                    .OrderByDescending(x => x.Type)
+                    .FirstOrDefault();
+                if (mainEvent != null && !string.IsNullOrEmpty(mainEvent.Place))
+                {
+                    // set
+                    this.RecordDate = mainEvent.Date;
+                    this.RecordPlace = mainEvent.Place;
+
+                    // details
+                    this.Number = recordData[PropertyName.CertificateNumber].GetInnerText();
+                }
             }
 
             // label
-            var label = new PropertyName[] { PropertyName.CivilRegistrationOffice }
-                .Select(x => recordData[x[this.Language]])
+            var label = new string[][] { PropertyName.CivilRegistrationOffice }
+                .Select(x => recordData[x])
                 .Select(x => x.GetInnerText())
                 .Prepend(this.Label)
                 .Where(x => !string.IsNullOrWhiteSpace(x))
@@ -231,22 +304,22 @@ namespace Acoose.Centurial.Package.com
             this.Label = string.Join(", ", label).NullIfWhitespace();
 
             // organization
-            var organization = new PropertyName[] { PropertyName.Church, PropertyName.ParishAsItAppears }
-                .Select(x => recordData[x[this.Language]].GetInnerText())
+            var organization = new string[][] { PropertyName.Church, PropertyName.ParishAsItAppears }
+                .Select(x => recordData[x].GetInnerText())
                 .Prepend(this.Organization)
                 .Where(x => !string.IsNullOrWhiteSpace(x))
                 .Select(x => x.Trim());
             this.Organization = string.Join(", ", organization).NullIfWhitespace();
 
             // page
-            this.Page = Utility.TryParsePageNumber(recordData[PropertyName.PageNumber[this.Language]].GetInnerText());
+            this.Page = Utility.TryParsePageNumber(recordData[PropertyName.PageNumber].GetInnerText() ?? properties[PropertyName.PageNumber]);
         }
         private string GetOnlineCollectionName(HtmlNode citationPanel)
         {
             // init
             var result = default(string);
-            var names = new PropertyName[] { PropertyName.SourceInformationInSearch, PropertyName.SourceInformationInDiscoveryUI }
-                .Select(x => x[this.Language])
+            var names = new string[][] { PropertyName.SourceInformationInSearch, PropertyName.SourceInformationInDiscoveryUI }
+                .SelectMany(x => x)
                 .ToArray();
 
             // source information
@@ -259,10 +332,14 @@ namespace Acoose.Centurial.Package.com
             {
                 // init
                 var info = sourceInformation.GetInnerText();
-                var index = info.IndexOf(SOURCE_INFORMATION_SUFFIX);
-                if (info.StartsWith(SOURCE_INFORMATION_PREFIX) && index > 0)
+                var end = info.IndexOf(SOURCE_INFORMATION_SUFFIX);
+                if (info.StartsWith(SOURCE_INFORMATION_PREFIX) && end > 0)
                 {
-                    result = info.Substring(SOURCE_INFORMATION_PREFIX.Length, index - SOURCE_INFORMATION_PREFIX.Length).TrimAll();
+                    // find . after prefix
+                    var start = info.IndexOf('.', SOURCE_INFORMATION_PREFIX.Length);
+
+                    // done
+                    result = info.Substring(start, end - start).TrimAll();
                 }
             }
 
@@ -297,6 +374,7 @@ namespace Acoose.Centurial.Package.com
         {
             get;
         }
+
         private Event GetEvent(EventType type)
         {
             // init
@@ -338,8 +416,8 @@ namespace Acoose.Centurial.Package.com
                     {
                         // relationship
                         target = results
-                        .OfType<RelationshipInfo>()
-                        .Single(r => r.IsPartnership.NullCoalesce().Any(x => x));
+                            .OfType<RelationshipInfo>()
+                            .Single(r => r.IsPartnership.NullCoalesce().Any(x => x));
 
                         // type of marriage
                         eventType = (this.RecordType is RecordType<ChurchRecord> ? "ChurchMarriage" : "CivilMarriage");
@@ -348,18 +426,30 @@ namespace Acoose.Centurial.Package.com
                     {
                         // principal
                         target = results
-                        .OfType<PersonInfo>()
-                        .Single(p => p.Id == this.Principal.Id.ToString());
+                            .OfType<PersonInfo>()
+                            .Single(p => p.Id == this.Principal.Id.ToString());
                     }
 
                     // import
                     target.ImportEvent(
-                    eventType,
-                    e.Date,
-                    e.Place,
-                    EnsureMode.AddIfNonePresent
-                );
+                        eventType,
+                        e.Date,
+                        e.Place,
+                        EnsureMode.AddIfNonePresent
+                    );
                 });
+
+            // census
+            if (this.RecordType is RecordType<Census>)
+            {
+                // set residence
+                results
+                    .OfType<PersonInfo>()
+                    .ForEach(person =>
+                    {
+                        person.Residence = person.Residence.Ensure(new Status<string>() { Date = this.RecordDate, Value = this.RecordPlace });
+                    });
+            }
 
             // done
             return results;

@@ -1,5 +1,8 @@
 
 
+
+
+
 Algemeen
 - issue met layers
 - Mais/Flexis
@@ -10,8 +13,11 @@ Picturae/WieWasWie
 - tests voor stadsarchief amsterdam en BHIC
 
 Ancestry
-- kind
-- support for census (George Johnson)
+- support for census
+	- George Johnson
+	- NARA Series Title
+	- residence place/date
+
 
 
 Mais/Flexis

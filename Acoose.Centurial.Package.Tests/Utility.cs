@@ -92,40 +92,6 @@ namespace Acoose.Centurial.Package.Tests
                 throw new NotSupportedException();
             }
         }
-        //public static T AssertChild<T>(this IContainer container)
-        //    where T : Representation
-        //{
-        //    // init
-        //    var items = container.Items
-        //        .NullCoalesce()
-        //        .ToList();
-
-        //    // fail?
-        //    if (items.Count == 1 && items.Single() is T result)
-        //    {
-        //        return result;
-        //    }
-        //    else
-        //    {
-        //        throw new NotSupportedException();
-        //    }
-        //}
-        //public static T AssertChild<T>(this IWrapper wrapper)
-        //    where T : Representation
-        //{
-        //    // init
-        //    var item = wrapper.Item;
-
-        //    // fail?
-        //    if (item is T result)
-        //    {
-        //        return result;
-        //    }
-        //    else
-        //    {
-        //        throw new NotSupportedException();
-        //    }
-        //}
 
         public static PersonInfo FindPerson(this ScraperTest test, string name)
         {
@@ -343,6 +309,40 @@ namespace Acoose.Centurial.Package.Tests
             // done
             return info;
         }
+        public static PersonInfo AssertOccupation(this PersonInfo info, string occupation, string date)
+        {
+            // init
+            var value = info.Occupation.NullCoalesce().SingleOrDefault();
+
+            // check
+            var valid = (value != null && Equals(value.Date, Date.TryParse(date)) && Equals(occupation, value.Value));
+
+            // done
+            if (!valid)
+            {
+                Assert.Fail($"Occupation for person '{info.Name()}' was not valid.");
+            }
+
+            // done
+            return info;
+        }
+        public static PersonInfo AssertResidence(this PersonInfo info, string place, string date)
+        {
+            // init
+            var value = info.Residence.NullCoalesce().SingleOrDefault();
+
+            // check
+            var valid = (value != null && Equals(value.Date, Date.TryParse(date)) && Equals(place, value.Value));
+
+            // done
+            if (!valid)
+            {
+                Assert.Fail($"Residence for person '{info.Name()}' was not valid.");
+            }
+
+            // done
+            return info;
+        }
 
         public static T AssertCondition<T>(this T representation, Func<T, bool> condition)
             where T : Representation
@@ -436,6 +436,14 @@ namespace Acoose.Centurial.Package.Tests
                 .AssertCondition(x => Equals(x.Cemetery, cemetery))
                 .AssertCondition(x => Equals(x.Place, place));
         }
+        public static Census AssertCensus(this Representation wrapper, string jurisdiction, string censusId)
+        {
+            // init
+            return wrapper
+                .AssertChild<Census>()
+                .AssertCondition(x => Equals(x.Jurisdiction, jurisdiction))
+                .AssertCondition(x => Equals(x.CensusId, censusId));
+        }
         public static DatabaseEntry AssertDatabaseEntry(this Representation wrapper, string entryFor)
         {
             // init
@@ -459,6 +467,17 @@ namespace Acoose.Centurial.Package.Tests
                 .AssertCondition(x => Equals(x.Label, label))
                 .AssertCondition(x => Equals(x.Page, page))
                 .AssertCondition(x => Equals(x.Number, number))
+                .AssertCondition(x => Equals(x.ItemOfInterest, itemOfInterest))
+                .AssertCondition(x => Equals(x.Date, Date.TryParse(date)));
+        }
+        public static CensusScriptFormat AssertCensusScriptFormat(this Representation container, string civilDivision, string page, string householdId, string itemOfInterest, string date)
+        {
+            // init
+            return container
+                .AssertChild<CensusScriptFormat>()
+                .AssertCondition(x => Equals(x.CivilDivision, civilDivision))
+                .AssertCondition(x => Equals(x.Page, page))
+                .AssertCondition(x => Equals(x.HouseholdId, householdId))
                 .AssertCondition(x => Equals(x.ItemOfInterest, itemOfInterest))
                 .AssertCondition(x => Equals(x.Date, Date.TryParse(date)));
         }

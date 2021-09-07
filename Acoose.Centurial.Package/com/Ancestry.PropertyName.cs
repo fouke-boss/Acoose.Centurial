@@ -10,64 +10,43 @@ namespace Acoose.Centurial.Package.com
     {
         private class PropertyName
         {
-            public static readonly PropertyName Age = new PropertyName("age", "alter");
-            public static readonly PropertyName BaptismDate = new PropertyName("baptism date", "taufdatum");
-            public static readonly PropertyName BaptismPlace = new PropertyName("baptism place", "taufort");
-            public static readonly PropertyName BirthDate = new PropertyName("birth date", "geburtsdatum");
-            public static readonly PropertyName BirthPlace = new PropertyName("birth place", "geburtsort");
-            public static readonly PropertyName BurialDate = new PropertyName("burial date", "bestattungsdatum");
-            public static readonly PropertyName BurialPlace = new PropertyName("burial place", "bestattungsort");
-            public static readonly PropertyName CertificateNumber = new PropertyName("certificate number", "urkunde nummer");
-            public static readonly PropertyName Child = new PropertyName("child", "kind");
-            public static readonly PropertyName Church = new PropertyName("church", "kirche");
-            public static readonly PropertyName CivilRegistrationOffice = new PropertyName("civil registration office", "standesamt");
-            public static readonly PropertyName DeathAge = new PropertyName("death age", "sterbealter");
-            public static readonly PropertyName DeathDate = new PropertyName("death date", "sterbedatum");
-            public static readonly PropertyName DeathPlace = new PropertyName("death place", "Sterbeort");
-            public static readonly PropertyName Father = new PropertyName("father", "vater");
-            public static readonly PropertyName Gender = new PropertyName("gender", "geschlecht");
-            public static readonly PropertyName MaidenName = new PropertyName("maiden name", "mädchenname");
-            public static readonly PropertyName MarriageAge = new PropertyName("marriage age", "alter zur zeit der heirat");
-            public static readonly PropertyName MarriageDate = new PropertyName("marriage date", "heiratsdatum");
-            public static readonly PropertyName MarriagePlace = new PropertyName("marriage place", "heiratsort");
-            public static readonly PropertyName Mother = new PropertyName("mother", "mutter");
-            public static readonly PropertyName Name = new PropertyName("name", "name");
-            public static readonly PropertyName PageNumber = new PropertyName("page number", "seitennummer");
-            public static readonly PropertyName ParishAsItAppears = new PropertyName("parish as it appears", "kirchgemeinde wie angezeigt");
-            public static readonly PropertyName SourceCitation = new PropertyName("source citation", "quellenangabe");
-            public static readonly PropertyName SourceInformationInSearch = new PropertyName("source information", "quelleninformationen");
-            public static readonly PropertyName SourceInformationInDiscoveryUI = new PropertyName("source information", "angaben zur quelle");
-            public static readonly PropertyName Spouse = new PropertyName("spouse", "ehepartner");
-
-            private PropertyName(string english, string deutsch)
-            {
-                // init
-                this.English = english;
-                this.Deutsch = deutsch;
-            }
-
-            public string English
-            {
-                get;
-            }
-            public string Deutsch
-            {
-                get;
-            }
-
-            public string this[Language language]
-            {
-                get
-                {
-                    switch (language)
-                    {
-                        case Language.Deutsch:
-                            return this.Deutsch;
-                        default:
-                            return this.English;
-                    }
-                }
-            }
+            public static readonly string[] Age = new string[] { "age", "alter" };
+            public static readonly string[] BaptismDate = new string[] { "baptism date", "taufdatum" };
+            public static readonly string[] BaptismPlace = new string[] { "baptism place", "taufort" };
+            public static readonly string[] BirthDate = new string[] { "birth date", "geburtsdatum" };
+            public static readonly string[] BirthPlace = new string[] { "birth place", "birthplace", "geburtsort" };
+            public static readonly string[] BurialDate = new string[] { "burial date", "bestattungsdatum" };
+            public static readonly string[] BurialPlace = new string[] { "burial place", "bestattungsort" };
+            public static readonly string[] CensusPlace = new string[] { "census place", "gebiet der volkszählung" };
+            public static readonly string[] CertificateNumber = new string[] { "certificate number", "urkunde nummer" };
+            public static readonly string[] Child = new string[] { "child", "kind" };
+            public static readonly string[] Church = new string[] { "church", "kirche" };
+            public static readonly string[] CivilDivision = new string[] { "township", "stadtbezirk" };
+            public static readonly string[] CivilRegistrationOffice = new string[] { "civil registration office", "standesamt" };
+            public static readonly string[] County = new string[] { "county", "bezirk" };
+            public static readonly string[] Database = new string[] { "database", "datenbank" };
+            public static readonly string[] DeathDate = new string[] { "death date", "sterbedatum" };
+            public static readonly string[] DeathPlace = new string[] { "death place", "Sterbeort" };
+            public static readonly string[] FamilyNumber = new string[] { "family number", "familiennummer" };
+            public static readonly string[] Father = new string[] { "father", "vater" };
+            public static readonly string[] Gender = new string[] { "gender", "geschlecht" };
+            public static readonly string[] MaidenName = new string[] { "maiden name", "mädchenname" };
+            public static readonly string[] MarriageDate = new string[] { "marriage date", "heiratsdatum" };
+            public static readonly string[] MarriagePlace = new string[] { "marriage place", "heiratsort" };
+            public static readonly string[] Mother = new string[] { "mother", "mutter" };
+            public static readonly string[] Name = new string[] { "name" };
+            public static readonly string[] NaraSeriesTitle = new string[] { "nara series title", "titel der nara-serie" };
+            public static readonly string[] Occupation = new string[] { "occupation", "beruf" };
+            public static readonly string[] PageNumber = new string[] { "page", "page number", "seite", "seitennummer" };
+            public static readonly string[] ParishAsItAppears = new string[] { "parish as it appears", "kirchgemeinde wie angezeigt" };
+            public static readonly string[] ResidenceDate = new string[] { "residence year", "jahr des wohnortes", "wohnort - datum", "year" };
+            public static readonly string[] ResidencePlace = new string[] { "residence place", "wohnort" };
+            public static readonly string[] SourceCitation = new string[] { "source citation", "quellenangabe" };
+            public static readonly string[] SourceInformationInSearch = new string[] { "source information", "quelleninformationen" };
+            public static readonly string[] SourceInformationInDiscoveryUI = new string[] { "source information", "angaben zur quelle" };
+            public static readonly string[] Spouse = new string[] { "spouse", "ehepartner" };
+            public static readonly string[] State = new string[] { "state", "bundesstaat" };
+            public static readonly string[] Year = new string[] { "year", "jahr" };
         }
     }
 }

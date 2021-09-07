@@ -213,11 +213,131 @@ namespace Acoose.Centurial.Package.Tests.com
                 }
             );
         }
+
         [TestMethod]
-        public void DiscoveryUI_George_Johnson()
+        public void Search_Pat_Linden_1860()
         {
             // execute
-            var result = Utility.ExecuteTest<Package.com.Ancestry>("https://www.ancestry.com/discoveryui-content/view/36407081:61596");
+            this.Execute("https://search.ancestry.de/cgi-bin/sse.dll?dbid=3564&h=21582789&indiv=1",
+                (extension, result) =>
+                {
+                    // provenance
+                    result.AssertWebsite(0, "Ancestry", $"https://www.ancestry.{extension}", true)
+                        .AssertOnlineCollection(extension == "de" ?
+                            "New York, USA, kompilierter Index für Volkszählungen und Volkszählungsersätze, 1790-1890" :
+                            "New York, U.S., Compiled Census and Census Substitutes Index, 1790-1890")
+                        .AssertDatabaseEntry("Pat Linden");
+                    result.FindProvenance<UnknownRepository>(1)
+                        .AssertCensus("New York County, NY", "NY 1860 Federal Census Index")
+                        .AssertCensusScriptFormat("12 W. Nyc District 1", "829", null, "Pat Linden", "1860");
+
+                    // persons
+                    var person1 = result.FindPerson("Pat Linden")
+                        .AssertResidence("New York County, NY", "1860");
+                }
+            );
+        }
+        [TestMethod]
+        public void DiscoveryUI_Richard_Linden_1883()
+        {
+            // execute
+            this.Execute("https://www.ancestry.com/discoveryui-content/view/223553:8810",
+                (extension, result) =>
+                {
+                    // provenance
+                    result.AssertWebsite(0, "Ancestry", $"https://www.ancestry.{extension}", true)
+                        .AssertOnlineCollection(extension == "de" ?
+                            "Oklahoma und indianisches Territorium, USA, Volkszählungen und Listen der Indianer, 1851-1959" :
+                            "Oklahoma and Indian Territory, U.S., Indian Censuses and Rolls, 1851-1959")
+                        .AssertDatabaseEntry("Richard Linden");
+                    result.FindProvenance<UnknownRepository>(1)
+                        .AssertCensus("Cooweeskoowee", "Cherokee Census, 1883")
+                        .AssertCensusScriptFormat(null, null, null, "Richard Linden", "1883");
+
+                    // persons
+                    var person1 = result.FindPerson("Richard Linden")
+                        .AssertAge(8, "1883")
+                        .AssertResidence("Cooweeskoowee", "1883");
+                }
+            );
+        }
+        [TestMethod]
+        public void DiscoveryUI_John_Toell_1880()
+        {
+            // execute
+            this.Execute("https://www.ancestry.com/discoveryui-content/view/48958297:6742",
+                (extension, result) =>
+                {
+                    // provenance
+                    result.AssertWebsite(0, "Ancestry", $"https://www.ancestry.{extension}", true)
+                        .AssertOnlineCollection(extension == "de" ?
+                            "US-Volkszählung 1880" :
+                            "1880 United States Federal Census")
+                        .AssertDatabaseEntry("John Toell");
+                    result.FindProvenance<UnknownRepository>(1)
+                        .AssertCensus("Five Creeks, Clay, Kansas", extension == "de" ? "US-Volkszählung 1880" : "1880 United States Federal Census")
+                        .AssertCensusScriptFormat(null, "68A", null, "John Toell", "1880");
+
+                    // persons
+                    var person1 = result.FindPerson("John Toell")
+                        .AssertAge(4, "1880")
+                        .AssertGender(Gender.Male)
+                        .AssertResidence("Five Creeks, Clay, Kansas", "1880");
+                }
+            );
+        }
+        [TestMethod]
+        public void DiscoveryUI_John_Toelle_1930()
+        {
+            // execute
+            this.Execute("https://www.ancestry.com/discoveryui-content/view/109940063:6224",
+                (extension, result) =>
+                {
+                    // provenance
+                    result.AssertWebsite(0, "Ancestry", $"https://www.ancestry.{extension}", true)
+                        .AssertOnlineCollection(extension == "de" ?
+                            "US-Volkszählung 1930" :
+                            "1930 United States Federal Census")
+                        .AssertDatabaseEntry("John C. Toelle");
+                    result.FindProvenance<UnknownRepository>(1)
+                        .AssertCensus("Hillsboro, Washington, Oregon", extension == "de" ? "US-Volkszählung 1930" : "1930 United States Federal Census")
+                        .AssertCensusScriptFormat(null, "11A", "275", "John C. Toelle", "1930");
+
+                    // persons
+                    var person1 = result.FindPerson("John C. Toelle")
+                        .AssertAge(53, "1930")
+                        .AssertGender(Gender.Male)
+                        .AssertOccupation("Carpenter", "1930")
+                        .AssertResidence("Hillsboro, Washington, Oregon", "1930");
+                }
+            );
+        }
+        [TestMethod]
+        public void DiscoveryUI_George_Johnson_1939()
+        {
+            // execute
+            this.Execute("https://www.ancestry.com/discoveryui-content/view/36407081:61596",
+                (extension, result) =>
+                {
+                    // provenance
+                    result.AssertWebsite(0, "Ancestry", $"https://www.ancestry.{extension}", true)
+                        .AssertOnlineCollection(extension == "de" ?
+                            "1939, Register für England und Wales" :
+                            "1939 England and Wales Register")
+                        .AssertDatabaseEntry("George R. Johnson");
+                    result.AssertPublicArchive(1, "The National Archives", "Kew, London, England")
+                        .AssertArchivedItem(null)
+                        .AssertCensus("Leicester, Leicestershire, England", extension == "de" ? "1939, Register für England und Wales" : "1939 England and Wales Register")
+                        .AssertCensusScriptFormat(null, null, null, "George R. Johnson", "1939");
+
+                    // persons
+                    var person1 = result.FindPerson("George R. Johnson")
+                        .AssertDate("Birth", "1911-10-20")
+                        .AssertGender(Gender.Male)
+                        .AssertOccupation("Departmental Manager-Wholesale Outfitter", "1939")
+                        .AssertResidence("Leicester, Leicestershire, England", "1939");
+                }
+            );
         }
 
         private void Execute(string url, Action<string, ScraperTest> test, [CallerMemberName] string caseName = null)
