@@ -1,6 +1,7 @@
 ﻿using Acoose.Genealogy.Extensibility.Data;
 using Acoose.Genealogy.Extensibility.Data.References;
 using Acoose.Genealogy.Extensibility.Web;
+using HtmlAgilityPack;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,14 +28,12 @@ namespace Acoose.Centurial.Package.com
             var rows = bio
                 .Descendants("table").WithClass("mem-events")
                 .Descendants("tr");
-            var birth = rows
-                .WithAny(n => n.Descendants().WithId("birthLabel"))
-                .Descendants("td")
-                .Single();
-            var death = rows
-                .WithAny(n => n.Descendants().WithId("deathLabel"))
-                .Descendants("td")
-                .SingleOrDefault();
+            var data = PropertyBag<string>.Load(
+                    rows.Descendants().WithAttribute("itemProp"), 
+                    x => x.Attribute("itemProp"), x => x.ToPhrase().IgnoreBrackets()
+                );
+
+            // cemetery
             var cemetery = rows
                 .WithAttribute("itemtype", "https://schema.org/Cemetery")
                 .Descendants("td")
@@ -45,6 +44,14 @@ namespace Acoose.Centurial.Package.com
                 .Select(x => x.GetInnerText())
                 .Where(x => !string.IsNullOrWhiteSpace(x))
                 .ToArray();
+            this.CemeteryName = cemetery
+                .Descendants("a")
+                .Descendants().WithAttribute("itemprop", "name")
+                .SingleOrDefault().GetInnerText();
+            this.CemeteryPlace = string.Join(", ", cemeteryPlace);
+
+
+            // photograph
             var photograph = context.Body()
                 .Descendants("div").WithClass("section-transfer")
                 .Descendants("ul").WithId("source")
@@ -52,32 +59,54 @@ namespace Acoose.Centurial.Package.com
             var photographedAt = photograph
                 .WithAny(n => n.Elements("input").WithId("addedDate"))
                 .SingleOrDefault().GetInnerText()?.Split(':')?.Skip(1)?.FirstOrDefault();
-
-            // photograph
-            this.PhotographedBy = photograph
-                .WithAny(n => n.Elements("input").WithId("createdBy"))
-                .Elements("a")
-                .SingleOrDefault().GetInnerText();
             this.PhotographedAt = Date.TryParse(photographedAt);
+            this.PhotographedBy = new string[] { "createdBy", "maintainedBy" }
+                .Select(id =>
+                {
+                    return photograph
+                        .WithAny(n => n.Elements("input").WithId(id))
+                        .Elements("a")
+                        .SingleOrDefault().GetInnerText();
+                })
+                .Where(x => !string.IsNullOrWhiteSpace(x))
+                .FirstOrDefault();
 
-            // done
-            this.CemeteryName = cemetery
-                .Descendants("a")
-                .Descendants().WithAttribute("itemprop", "name")
-                .Single().GetInnerText();
-            this.CemeteryPlace = string.Join(", ", cemeteryPlace);
+            // person
+            var person = new Person()
+            {
+                Name = bio.Descendants("h1").WithId("bio-name").Single().GetChildText(),
+                BirthDate = Date.TryParse(data["birthDate"]),
+                BirthPlace = data["birthPlace"],
+                DeathDate = Date.TryParse(data["deathDate"]),
+                DeathPlace = data["deathPlace"],
+                Role = EventRole.Deceased
+            };
+
+            // name
+            var nameNode = bio.Descendants("h1").WithId("bio-name").Single();
+            if (nameNode.Elements("i").Any())
+            {
+                // <i> contains maiden name, all before <i> are the given names
+                person.GivenNames = nameNode.ChildNodes
+                    .Cast<HtmlNode>()
+                    .TakeWhile(x => x is HtmlTextNode)
+                    .Select(x => x.InnerText)
+                    .Join("").TrimAll();
+
+                // maiden name
+                person.FamilyName = nameNode.Elements("i")
+                    .Select(x => x.GetInnerText())
+                    .Join("");
+            }
+            else
+            {
+                // parse full name
+                person.Name = nameNode.GetInnerText();
+            }
 
             // persons
             this.Persons = new Person[] {
-                new Person()
-                {
-                    Name = bio.Descendants("h1").WithId("bio-name").Single().GetInnerText(),
-                    BirthDate = Date.TryParse(birth.Elements().WithAttribute("itemprop", "birthDate").SingleOrDefault()?.GetInnerText()),
-                    BirthPlace = birth.Elements().WithAttribute("itemprop", "birthPlace").SingleOrDefault()?.GetInnerText(),
-                    DeathDate = Date.TryParse(death.Elements().WithAttribute("itemprop", "deathDate").SingleOrDefault()?.GetInnerText()?.Split('(')?.First()),
-                    DeathPlace = birth.Elements().WithAttribute("itemprop", "deathPlace").SingleOrDefault()?.GetInnerText(),
-                    Role = EventRole.Deceased
-                }
+                person
             };
 
             // images

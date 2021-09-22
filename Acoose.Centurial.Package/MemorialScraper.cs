@@ -91,7 +91,28 @@ namespace Acoose.Centurial.Package
         protected override IEnumerable<Repository> GetProvenance(Context context)
         {
             // init
-            var web = (this.Images.NullCoalesce().Any() ? (Acoose.Genealogy.Extensibility.Data.References.Source)new DigitalImage() : new DatabaseEntry() { EntryFor = this.Persons.First().Name });
+            var isCemetery = !string.IsNullOrWhiteSpace(this.CemeteryName);
+
+            // web source
+            var web = default(Acoose.Genealogy.Extensibility.Data.References.Source);
+            if (isCemetery)
+            {
+                if (this.Images.NullCoalesce().Any())
+                {
+                    web = new DigitalImage();
+                }
+                else
+                {
+                    web = new DatabaseEntry() { EntryFor = this.Persons.First().Name };
+                }
+            }
+            else
+            {
+                web = new WebPage()
+                {
+                    Title = context.GetPageTitle().ToGenericTitle(true)
+                };
+            }
 
             // layer 1: website
             yield return new Website()
@@ -110,17 +131,20 @@ namespace Acoose.Centurial.Package
                }
             };
 
-            // layer 2: photograph
-            if (!string.IsNullOrEmpty(this.PhotographedBy))
+            // cemetery?
+            if (isCemetery)
             {
-                // parse
-                Acoose.Genealogy.Extensibility.ParsingUtility.ParseName(this.PhotographedBy, out var familyName, out var givenNames, out var particles);
-
-                // done
-                yield return new UnknownRepository()
+                // layer 2: photograph
+                if (!string.IsNullOrEmpty(this.PhotographedBy))
                 {
-                    Items = new Genealogy.Extensibility.Data.References.Source[]
+                    // parse
+                    Acoose.Genealogy.Extensibility.ParsingUtility.ParseName(this.PhotographedBy, out var familyName, out var givenNames, out var particles);
+
+                    // done
+                    yield return new UnknownRepository()
                     {
+                        Items = new Genealogy.Extensibility.Data.References.Source[]
+                        {
                         new Photograph()
                         {
                             Creator = new PersonalName()
@@ -131,30 +155,31 @@ namespace Acoose.Centurial.Package
                             },
                             Date = this.PhotographedAt
                         }
-                    }
-                };
-            }
+                        }
+                    };
+                }
 
-            // layer 3: cemetery
-            yield return new UnknownRepository()
-            {
-                Items = new Genealogy.Extensibility.Data.References.Source[]
+                // layer 3: cemetery
+                yield return new UnknownRepository()
                 {
-                    new Cemetery()
+                    Items = new Genealogy.Extensibility.Data.References.Source[]
                     {
-                        CemeteryName = this.CemeteryName,
-                        Place = this.CemeteryPlace,
-                        AccessData = this.CemeteryAccess,
-                        Items = new CemeteryItem[]
+                        new Cemetery()
                         {
-                            new Gravestone()
+                            CemeteryName = this.CemeteryName,
+                            Place = this.CemeteryPlace,
+                            AccessData = this.CemeteryAccess,
+                            Items = new CemeteryItem[]
                             {
-                                Person = string.Join(" & ", this.Persons.Select(x => x.Name))
+                                new Gravestone()
+                                {
+                                    Person = string.Join(" & ", this.Persons.Select(x => x.Name))
+                                }
                             }
                         }
                     }
-                }
-            };
+                };
+            }
         }
         protected override IEnumerable<Info> GetInfo(Context context)
         {

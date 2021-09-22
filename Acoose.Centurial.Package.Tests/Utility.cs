@@ -451,6 +451,13 @@ namespace Acoose.Centurial.Package.Tests
                 .AssertChild<DatabaseEntry>()
                 .AssertCondition(x => Equals(x.EntryFor, entryFor));
         }
+        public static WebPage AssertWebPage(this Representation wrapper, string title)
+        {
+            // init
+            return wrapper
+                .AssertChild<WebPage>()
+                .AssertCondition(x => Equals(x.Title?.Value, title));
+        }
         public static Unspecified AssertUnspecified(this Representation parent, string creditLine)
         {
             // init

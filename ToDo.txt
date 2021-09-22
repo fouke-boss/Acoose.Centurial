@@ -12,11 +12,7 @@ Picturae/WieWasWie
 - bij geïmporteerde age/occupation is de datum niet gesyncd met de brondatum.
 - tests voor stadsarchief amsterdam en BHIC
 
-Ancestry
-- support for census
-	- George Johnson
-	- NARA Series Title
-	- residence place/date
+
 
 
 
