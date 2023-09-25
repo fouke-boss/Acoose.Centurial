@@ -1,18 +1,18 @@
 
 
-OpenArch.nl
-- Geboorte				https://www.openarch.nl/rhl:0c407a29-76a9-06aa-6b82-f8b29d8064ea
-- Militieregister		https://www.openarch.nl/elo:b10de781-8841-4253-af1f-a881e52e1453
-- Huwelijk				https://www.openarch.nl/rhl:8b171211-c5d9-1775-ff70-7162ba387cb1
-- Death					https://www.openarch.nl/elo:5a6cdcdf-f7a6-f541-44c4-e9bf11ca2d68
-- Loting				https://www.openarch.nl/nha:006e4454-06c5-4ed7-b566-020728027fca
-- Dopen					https://www.openarch.nl/gld:99736541-F428-4E04-ABEE-33EF1BA9C819
-- Trouwen				https://www.openarch.nl/gld:32D8B842-1D91-4D84-9CAF-C08A8D79179E
-- Registratie			https://www.openarch.nl/svp:5148C8E9-7F6F-6E85-E053-CA00A8C0A581
-- ondertrouw			https://www.openarch.nl/saa:3e264352-3071-c7e9-5b13-4ac7733a377a
-- Notariële akte		https://www.openarch.nl/wba:3c23f5a3-d887-f626-00b2-c9fff15a7d3c
-- VOC					https://www.openarch.nl/ghn:cd537c10-8f4f-4b8e-8a46-f88688648264
-- Gevangenis			https://www.openarch.nl/bhi:5fe2ca3e-996f-85b7-82a2-66339d1c8198
+OpenArchieven.nl
+- Geboorte				https://www.openarchieven.nl/rhl:0c407a29-76a9-06aa-6b82-f8b29d8064ea
+- Militieregister		https://www.openarchieven.nl/elo:b10de781-8841-4253-af1f-a881e52e1453
+- Huwelijk				https://www.openarchieven.nl/rhl:8b171211-c5d9-1775-ff70-7162ba387cb1
+- Death					https://www.openarchieven.nl/elo:5a6cdcdf-f7a6-f541-44c4-e9bf11ca2d68
+- Loting				https://www.openarchieven.nl/nha:006e4454-06c5-4ed7-b566-020728027fca
+- Dopen					https://www.openarchieven.nl/gld:99736541-F428-4E04-ABEE-33EF1BA9C819
+- Trouwen				https://www.openarchieven.nl/gld:32D8B842-1D91-4D84-9CAF-C08A8D79179E
+- Registratie			https://www.openarchieven.nl/svp:5148C8E9-7F6F-6E85-E053-CA00A8C0A581
+- ondertrouw			https://www.openarchieven.nl/saa:3e264352-3071-c7e9-5b13-4ac7733a377a
+- NotariÃ«le akte		https://wwopenarchieven.nlnl/wba:3c23f5a3-d887-f626-00b2-c9fff15a7d3c
+- VOC					https://www.openarchieven.nl/ghn:cd537c10-8f4f-4b8e-8a46-f88688648264
+- Gevangenis			https://www.openarchieven.nl/bhi:5fe2ca3e-996f-85b7-82a2-66339d1c8198
 
 GenealogieOnline.nl
 https://www.genealogieonline.nl/stamboom-baas-vanheeswijck/I60092.php
