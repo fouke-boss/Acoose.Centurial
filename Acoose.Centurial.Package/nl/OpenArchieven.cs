@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Acoose.Centurial.Package.nl
 {
-    [Scraper("https://www.openarch.nl/*")]
+    [Scraper("https://www.openarchieven.nl/*")]
     public class OpenArchieven : Scraper.Default
     {
         public Akte Akte
@@ -50,7 +50,7 @@ namespace Acoose.Centurial.Package.nl
             if (this.Akte?.Source?.AvailableScans is Scan[] scans)
             {
                 // image path?
-                var imageScan = scans.FirstOrDefault(x => !string.IsNullOrWhiteSpace(x.Uri) && x.Uri.StartsWith("https://www.openarch.nl/proxy/"));
+                var imageScan = scans.FirstOrDefault(x => !string.IsNullOrWhiteSpace(x.Uri) && x.Uri.StartsWith("https://www.openarchieven.nl/proxy/"));
 
                 // any?
                 if (imageScan != null)
